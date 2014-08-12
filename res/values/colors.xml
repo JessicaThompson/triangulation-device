@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+ <color name="actionbar_dark_blue">#FF00183E</color>
+ 
+ <color name="text_white">#FFFFFFFF</color>
+ 
+ <color name="waveform_light_grey_bg">#FFEAEAEA</color>
+ <color name="waveform_mine">#FF00183E</color>
+ <color name="waveform_theirs">#FF4289FF</color>
+ 
+ <color name="my_device_grey_bg">#FF333333</color>
+ <color name="divider_white">#FFFFFFFF</color>
+ 
+ <color name="status_grey_bg">#FF1A1A1A</color>
+ 
+ <color name="radar_light_grey_bg">#FFCECECE</color>
+ 
+ <color name="start_initial_blue">#FF00183E</color>
+ <color name="start_pressed_blue">#FF000B1C</color>
+ <color name="stop_initial_red">#FFCC2C23</color>
+ <color name="stop_pressed_red">#FFAC251E</color>
+ 
+</resources>

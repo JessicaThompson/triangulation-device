@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Triangulation Device</string>
+    <string name="app_name_caps">TRIANGULATION DEVICE</string>
+    
+    <string name="my_device">MY DEVICE</string>
+    <string name="longitude">LONGITUDE:</string>
+    <string name="latitude">LATITUDE:</string>
+    
+    <string name="status">STATUS:</string>
+    <string name="not_connected">Not Connected</string>
+    <string name="connected">Connected</string>
+    <string name="find_nearby_devices">Find Nearby Devices</string>
+    <string name="nearby_devices">Nearby Devices</string>
+    <string name="paired_with_x">Paired with %s</string>
+    
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="cancel">Cancel</string>
+    <string name="disconnect">Disconnect</string>
+    
+    <string name="divider_description">REALLY, ANDROID?? REALLY?? YOU NEED A DESCRIPTION FOR A FUCKING DIVIDER??</string>
+
+</resources>

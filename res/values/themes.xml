@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- the theme applied to the application or activity -->
+    <style name="TriangulationDeviceTheme"
+           parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/TriangulationDeviceActionBar</item>
+    </style>
+
+    <!-- ActionBar styles -->
+    <style name="TriangulationDeviceActionBar"
+           parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:icon">@drawable/ab_logo</item>
+        <item name="android:background">@color/actionbar_dark_blue</item>
+    </style>
+</resources>
