@@ -63,6 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
+        android:padding="8dp"
         android:src="@drawable/radar"
         android:background="@color/radar_light_grey_bg" />
     <Button android:id="@+id/start_button"
