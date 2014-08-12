@@ -5,6 +5,7 @@
     <string name="app_name_caps">TRIANGULATION DEVICE</string>
     
     <string name="my_device">MY DEVICE</string>
+    <string name="paired_device">PAIRED DEVICE</string>
     <string name="longitude">LONGITUDE:</string>
     <string name="latitude">LATITUDE:</string>
     

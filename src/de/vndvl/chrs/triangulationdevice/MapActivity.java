@@ -31,14 +31,8 @@ import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 
-public class MapActivity extends FragmentActivity implements
-		GooglePlayServicesClient.ConnectionCallbacks,
-		GooglePlayServicesClient.OnConnectionFailedListener, LocationListener {
+public class MapActivity extends FragmentActivity implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener, LocationListener {
 
-	/*
-	 * Define a request code to send to Google Play services This code is
-	 * returned in Activity.onActivityResult
-	 */
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 	private final static int REQUEST_ENABLE_BLUETOOTH = 9000;
 	
@@ -58,8 +52,9 @@ public class MapActivity extends FragmentActivity implements
 	private ArrayAdapter<String> bluetoothNames;
 	private BluetoothDevice chosenDevice;
 
-	private TextView myLongitudeView;
-	private TextView myLatitudeView;
+	private WaveformView myWaveform;
+	private WaveformView theirWaveform;
+	
 	private TextView myConnectionStatus;
 	private Button startStopButton;
 	private Button findNearbyButton;
@@ -83,32 +78,24 @@ public class MapActivity extends FragmentActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Typefaces.loadTypefaces(this);
 		setContentView(R.layout.map_activity);
-		
 		resources = getResources();
-
-		myLongitudeView = (TextView) findViewById(R.id.my_device_long_value);
-		myLatitudeView = (TextView) findViewById(R.id.my_device_lat_value);
-		myConnectionStatus = (TextView) findViewById(R.id.my_device_status_value);
+		
+		myWaveform = (WaveformView) findViewById(R.id.my_waveform);
+		theirWaveform = (WaveformView) findViewById(R.id.their_waveform);
+		theirWaveform.setDeviceName(resources.getString(R.string.paired_device));
+		
 		startStopButton = (Button) findViewById(R.id.start_button);
 		findNearbyButton = (Button) findViewById(R.id.find_nearby_button);
+		myConnectionStatus = (TextView) findViewById(R.id.my_device_status_value);
 		
 		// Set our fancy, custom fonts.
-		Typeface raleway = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Regular.otf");
-		Typeface ralewaySemiBold = Typeface.createFromAsset(getAssets(), "fonts/Raleway-SemiBold.otf");
-		Typeface ralewayBold = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Bold.otf");
-		Typeface ralewayLight = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Light.otf");
-		myLongitudeView.setTypeface(raleway);
-		myLatitudeView.setTypeface(raleway);
-		startStopButton.setTypeface(raleway);
-		((TextView) findViewById(R.id.my_device_label)).setTypeface(raleway);
-		((TextView) findViewById(R.id.my_device_long_title)).setTypeface(ralewaySemiBold);
-		((TextView) findViewById(R.id.my_device_long_value)).setTypeface(ralewayLight);
-		((TextView) findViewById(R.id.my_device_lat_title)).setTypeface(ralewaySemiBold);
-		((TextView) findViewById(R.id.my_device_lat_value)).setTypeface(ralewayLight);
-		((TextView) findViewById(R.id.my_device_status_title)).setTypeface(ralewaySemiBold);
-		((TextView) findViewById(R.id.my_device_status_value)).setTypeface(raleway);
-		((TextView) findViewById(R.id.find_nearby_button)).setTypeface(raleway);
+		findNearbyButton.setTypeface(Typefaces.raleway);
+		startStopButton.setTypeface(Typefaces.raleway);
+		myConnectionStatus.setTypeface(Typefaces.raleway);
+		TextView myDeviceStatusTitle = (TextView) findViewById(R.id.my_device_status_title);
+		myDeviceStatusTitle.setTypeface(Typefaces.ralewaySemiBold);
 
 		// Open the shared preferences to save the fact that we want updates.
 		prefs = getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE);
@@ -143,9 +130,7 @@ public class MapActivity extends FragmentActivity implements
 
 	@Override
 	public void onLocationChanged(Location location) {
-		// Report to the UI that the location was updated
-		myLongitudeView.setText(String.format("%.6f", location.getLongitude()));
-		myLatitudeView.setText(String.format("%.6f", location.getLatitude()));
+		myWaveform.setLocation(location);
 	}
 
 	@Override
@@ -214,7 +199,7 @@ public class MapActivity extends FragmentActivity implements
 			public void onClick(DialogInterface dialog, int item) {
 				unregisterReceiver(mReceiver);
 				bluetoothAdapter.cancelDiscovery();
-				dialog.dismiss();
+				dialog.cancel();
 			}
 		});
 		
@@ -227,6 +212,7 @@ public class MapActivity extends FragmentActivity implements
 		chosenDevice = device;
 		String statusText = resources.getString(R.string.paired_with_x, chosenDevice.getName());
 		myConnectionStatus.setText(statusText);
+		theirWaveform.setVisibility(View.VISIBLE);
 		
 		// Clear the "Find Nearby Devices" button.
 		findNearbyButton.setText(resources.getString(R.string.disconnect));
@@ -242,10 +228,17 @@ public class MapActivity extends FragmentActivity implements
 	private void disconnectDevice(View buttonView) {
 		chosenDevice = null;
 		myConnectionStatus.setText(resources.getString(R.string.not_connected));
+		theirWaveform.setVisibility(View.GONE);
 		
 		// Reset the "Find Nearby Devices" button.
 		findNearbyButton.setText(resources.getString(R.string.find_nearby_devices));
 		findNearbyButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_location_found, 0, 0, 0);
+		findNearbyButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				findNearby(v);
+			}
+		});
 	}
 
 	private boolean servicesConnected() {
