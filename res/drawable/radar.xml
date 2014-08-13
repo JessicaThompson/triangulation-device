@@ -1,38 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:top="0dp" android:left="0dp" android:bottom="0dp" android:right="0dp">
-        <shape android:shape="oval">
-            <size android:width="210dp" android:height="210dp"/>
-            <solid android:color="@color/waveform_light_grey_bg"/>
-        </shape>
-    </item>
-    <item android:top="52.5dp" android:left="52.5dp" android:bottom="52.5dp" android:right="52.5dp">
-        <shape android:shape="oval">
-            <size android:width="156.5dp" android:height="156.5dp"/>
-            <solid android:color="@color/waveform_light_grey_bg"/>
-            <stroke android:width="1dp" android:color="@color/radar_light_grey_bg"/>
-        </shape>
-    </item>
-    <item android:top="105dp" android:left="105dp" android:bottom="105dp" android:right="105dp">
-        <shape android:shape="oval">
-            <size android:width="104dp" android:height="104dp"/>
-            <solid android:color="@color/waveform_light_grey_bg"/>
-            <stroke android:width="1dp" android:color="@color/radar_light_grey_bg"/>
-        </shape>
-    </item>
-    <item android:top="104dp" android:left="0dp" android:bottom="104dp" android:right="0dp">
-        <shape android:shape="line">
-            <size android:width="209dp" android:height="1dp" />
-            <stroke android:width="1dp" android:color="@color/radar_light_grey_bg" />
-        </shape>
-    </item>
-    <item android:top="104dp" android:left="0dp" android:bottom="104dp" android:right="0dp">
-		<rotate
-			android:fromDegrees="90"
-			android:toDegrees="90">
+		<shape android:shape="rectangle">
+			<solid android:color="@color/radar_light_grey_bg" />
+		</shape>
+	</item>
+	<item android:top="0dp" android:left="0dp" android:bottom="0dp" android:right="0dp">
+		<shape android:shape="oval">
+			<size android:width="210dp" android:height="210dp"/>
+			<solid android:color="@color/waveform_light_grey_bg"/>
+		</shape>
+	</item>
+	<item android:top="52.5dp" android:left="52.5dp" android:bottom="52.5dp" android:right="52.5dp">
+		<shape android:shape="oval">
+			<size android:width="156.5dp" android:height="156.5dp"/>
+			<solid android:color="@color/waveform_light_grey_bg"/>
+			<stroke android:width="1dp" android:color="@color/radar_light_grey_bg"/>
+		</shape>
+	</item>
+	<item android:top="105dp" android:left="105dp" android:bottom="105dp" android:right="105dp">
+		<shape android:shape="oval">
+			<size android:width="104dp" android:height="104dp"/>
+			<solid android:color="@color/waveform_light_grey_bg"/>
+			<stroke android:width="1dp" android:color="@color/radar_light_grey_bg"/>
+		</shape>
+	</item>
+	<item android:top="104dp" android:left="0dp" android:bottom="104dp" android:right="0dp">
+		<shape android:shape="line">
+			<size android:width="209dp" android:height="1dp" />
+			<stroke android:width="1dp" android:color="@color/radar_light_grey_bg" />
+		</shape>
+	</item>
+	<item android:top="104dp" android:left="0dp" android:bottom="104dp" android:right="0dp">
+		<rotate android:fromDegrees="90" android:toDegrees="90">
 			<shape android:shape="line">
-                <size android:width="209dp" android:height="1dp" />
-			    <stroke android:width="1dp" android:color="@color/radar_light_grey_bg" />
+				<size android:width="209dp" android:height="1dp" />
+				<stroke android:width="1dp" android:color="@color/radar_light_grey_bg" />
 			</shape>
 		</rotate>
 	</item>

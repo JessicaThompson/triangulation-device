@@ -14,6 +14,9 @@
  <color name="status_grey_bg">#FF1A1A1A</color>
  
  <color name="radar_light_grey_bg">#FFCECECE</color>
+ <color name="radar_red">#FF880000</color>
+ <color name="radar_green">#FF008800</color>
+ <color name="radar_clear">#00000000</color>
  
  <color name="start_initial_blue">#FF00183E</color>
  <color name="start_pressed_blue">#FF000B1C</color>

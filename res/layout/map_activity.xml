@@ -59,13 +59,18 @@
             android:background="@drawable/find_nearby_button"
             android:onClick="findNearby" />
     </LinearLayout>
-    <ImageView android:id="@+id/devices_map"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
+        android:gravity="center"
         android:padding="8dp"
-        android:src="@drawable/radar"
-        android:background="@color/radar_light_grey_bg" />
+        android:background="@color/radar_light_grey_bg">
+	    <de.vndvl.chrs.triangulationdevice.RadarView
+	        android:id="@+id/devices_map"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent" />
+    </LinearLayout>
     <Button android:id="@+id/start_button"
         android:layout_width="match_parent"
         android:layout_height="53dp"
