@@ -1,11 +1,17 @@
 package de.vndvl.chrs.triangulationdevice;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothServerSocket;
+import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,6 +22,8 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -32,6 +40,13 @@ import com.google.android.gms.location.LocationRequest;
 
 public class MapActivity extends FragmentActivity implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener, LocationListener {
 
+	private final static String NAME = "Triangulation Device";
+	private final static UUID MY_UUID = UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a28");
+	
+	private final static int SOCKET_CONNECTED = 1;
+	private final static int DATA_RECEIVED = 2;
+	private final static int MESSAGE_READ = 3;
+	
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 	private final static int REQUEST_ENABLE_BLUETOOTH = 9000;
 	
@@ -50,6 +65,36 @@ public class MapActivity extends FragmentActivity implements GooglePlayServicesC
 	private ArrayList<BluetoothDevice> bluetoothDevices;
 	private ArrayAdapter<String> bluetoothNames;
 	private BluetoothDevice chosenDevice;
+	
+	private boolean serverMode = false;
+	private AcceptThread acceptThread;
+	private ConnectThread connectThread;
+	private ConnectedThread bluetoothConnection;
+	private Handler bluetoothHandler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+				case SOCKET_CONNECTED: {
+					bluetoothConnection = (ConnectedThread) msg.obj;
+					
+					if (!serverMode) {
+						bluetoothConnection.write("this is a message".getBytes());
+					}
+					break;
+				}
+				case DATA_RECEIVED: {
+					String data = (String) msg.obj;
+					
+					if (serverMode)
+						bluetoothConnection.write(data.getBytes());
+					}
+					break;
+				case MESSAGE_READ:
+					// your code goes here
+					break;
+			}
+		}
+	};
 
 	private WaveformView myWaveform;
 	private WaveformView theirWaveform;
@@ -116,6 +161,8 @@ public class MapActivity extends FragmentActivity implements GooglePlayServicesC
 		    if (!bluetoothAdapter.isEnabled()) {
 			    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
 			    startActivityForResult(enableBtIntent, REQUEST_ENABLE_BLUETOOTH);
+			} else {
+				acceptThread = new AcceptThread();
 			}
 		}
 	}
@@ -156,12 +203,22 @@ public class MapActivity extends FragmentActivity implements GooglePlayServicesC
 		if (!servicesConnected()) {
 			Toast.makeText(this, "Location services aren't connected - is your location visible?", Toast.LENGTH_LONG).show();
 		}
+		
+		// Start the accepting-connections listener.
+		if (acceptThread == null) {
+			acceptThread = new AcceptThread();
+			acceptThread.start();
+		}
 	}
 
 	@Override
 	protected void onPause() {
 		editor.putBoolean("KEY_UPDATES_ON", updatesRequested);
 		editor.commit();
+		
+		// Stop the accepting-connections listener.
+		acceptThread.cancel();
+		acceptThread = null;
 		super.onPause();
 	}
 	
@@ -206,6 +263,10 @@ public class MapActivity extends FragmentActivity implements GooglePlayServicesC
 		myConnectionStatus.setText(statusText);
 		theirWaveform.setVisibility(View.VISIBLE);
 		
+		// Set up the connection thread and start it.
+		connectThread = new ConnectThread(chosenDevice);
+		connectThread.start();
+		
 		// Set radar to connected state.
 		radar.connected(true);
 		
@@ -225,6 +286,16 @@ public class MapActivity extends FragmentActivity implements GooglePlayServicesC
 		chosenDevice = null;
 		myConnectionStatus.setText(resources.getString(R.string.not_connected));
 		theirWaveform.setVisibility(View.GONE);
+		
+		// Stop connection thread if it's active
+		if (connectThread != null) {
+			connectThread.cancel();
+			connectThread = null;
+		}
+		if (bluetoothConnection != null) {
+			bluetoothConnection.cancel();
+			bluetoothConnection = null;
+		}
 		
 		// Set radar to disconnected state.
 		radar.connected(false);
@@ -325,5 +396,156 @@ public class MapActivity extends FragmentActivity implements GooglePlayServicesC
 			GooglePlayServicesUtil.getErrorDialog(connectionResult.getErrorCode(), this, 0).show();
 		}
 	}
+	
+	private void manageConnectedSocket(BluetoothSocket socket) {
+		bluetoothConnection = new ConnectedThread(socket);
+		bluetoothConnection.start();
 
+        // Send the name of the connected device back to the UI Activity
+//        Message msg = bluetoothHandler.obtainMessage();
+//        Bundle bundle = new Bundle();
+//        bundle.putString(BluetoothChat.DEVICE_NAME, device.getName());
+//        msg.setData(bundle);
+//        bluetoothHandler.sendMessage(msg);
+	}
+
+	public class AcceptThread extends Thread {
+	    private final BluetoothServerSocket mmServerSocket;
+	 
+	    public AcceptThread() {
+	        // Use a temporary object that is later assigned to mmServerSocket,
+	        // because mmServerSocket is final
+	        BluetoothServerSocket tmp = null;
+	        try {
+	            // MY_UUID is the app's UUID string, also used by the client code
+	            tmp = bluetoothAdapter.listenUsingRfcommWithServiceRecord(NAME, MY_UUID);
+	        } catch (IOException e) { }
+	        mmServerSocket = tmp;
+	    }
+	 
+	    public void run() {
+	        BluetoothSocket socket = null;
+	        // Keep listening until exception occurs or a socket is returned
+	        while (true) {
+	            try {
+	                socket = mmServerSocket.accept();
+		            // If a connection was accepted
+		            if (socket != null) {
+		                // Do work to manage the connection (in a separate thread)
+		                manageConnectedSocket(socket);
+		                mmServerSocket.close();
+		                break;
+		            }
+	            } catch (IOException e) {
+	                break;
+	            }
+	        }
+	    }
+	 
+	    /** Will cancel the listening socket, and cause the thread to finish */
+	    public void cancel() {
+	        try {
+	            mmServerSocket.close();
+	        } catch (IOException e) { }
+	    }
+	}
+	
+	private class ConnectThread extends Thread {
+	    private final BluetoothSocket mmSocket;
+	    private final BluetoothDevice mmDevice;
+	 
+	    public ConnectThread(BluetoothDevice device) {
+	        // Use a temporary object that is later assigned to mmSocket,
+	        // because mmSocket is final
+	        BluetoothSocket tmp = null;
+	        mmDevice = device;
+	 
+	        // Get a BluetoothSocket to connect with the given BluetoothDevice
+	        try {
+	            // MY_UUID is the app's UUID string, also used by the server code
+	            tmp = device.createRfcommSocketToServiceRecord(MY_UUID);
+	        } catch (IOException e) { }
+	        mmSocket = tmp;
+	    }
+	 
+	    public void run() {
+	        // Cancel discovery because it will slow down the connection
+	        bluetoothAdapter.cancelDiscovery();
+	 
+	        try {
+	            // Connect the device through the socket. This will block
+	            // until it succeeds or throws an exception
+	            mmSocket.connect();
+	        } catch (IOException connectException) {
+	            // Unable to connect; close the socket and get out
+	            try {
+	                mmSocket.close();
+	            } catch (IOException closeException) { }
+	            return;
+	        }
+	 
+	        // Do work to manage the connection (in a separate thread)
+	        manageConnectedSocket(mmSocket);
+	    }
+	 
+	    /** Will cancel an in-progress connection, and close the socket */
+	    public void cancel() {
+	        try {
+	            mmSocket.close();
+	        } catch (IOException e) { }
+	    }
+	}
+	
+	private class ConnectedThread extends Thread {
+	    private final BluetoothSocket mmSocket;
+	    private final InputStream mmInStream;
+	    private final OutputStream mmOutStream;
+	 
+	    public ConnectedThread(BluetoothSocket socket) {
+	        mmSocket = socket;
+	        InputStream tmpIn = null;
+	        OutputStream tmpOut = null;
+	 
+	        // Get the input and output streams, using temp objects because
+	        // member streams are final
+	        try {
+	            tmpIn = socket.getInputStream();
+	            tmpOut = socket.getOutputStream();
+	        } catch (IOException e) { }
+	 
+	        mmInStream = tmpIn;
+	        mmOutStream = tmpOut;
+	    }
+	 
+	    public void run() {
+	        byte[] buffer = new byte[1024];  // buffer store for the stream
+	        int bytes; // bytes returned from read()
+	 
+	        // Keep listening to the InputStream until an exception occurs
+	        while (true) {
+	            try {
+	                // Read from the InputStream
+	                bytes = mmInStream.read(buffer);
+	                // Send the obtained bytes to the UI activity
+	                bluetoothHandler.obtainMessage(MESSAGE_READ, bytes, -1, buffer).sendToTarget();
+	            } catch (IOException e) {
+	                break;
+	            }
+	        }
+	    }
+	 
+	    /* Call this from the main activity to send data to the remote device */
+	    public void write(byte[] bytes) {
+	        try {
+	            mmOutStream.write(bytes);
+	        } catch (IOException e) { }
+	    }
+	 
+	    /* Call this from the main activity to shutdown the connection */
+	    public void cancel() {
+	        try {
+	            mmSocket.close();
+	        } catch (IOException e) { }
+	    }
+	}
 }
