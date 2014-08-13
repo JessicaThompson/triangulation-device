@@ -38,6 +38,7 @@ public class RadarView extends ImageView {
 	
 	public void connected(boolean connected) {
 		this.connected = connected;
+		this.invalidate();
 	}
 	
 	@SuppressWarnings("deprecation") // setBackgroundDrawable is deprecated, but backwards compatibility.
@@ -72,6 +73,9 @@ public class RadarView extends ImageView {
         
         LinearGradient disconnectedGradient = new LinearGradient(getWidth() / 2, getHeight() / 2, getWidth() / 2, 0, getResources().getColor(R.color.radar_red), getResources().getColor(R.color.radar_clear), Shader.TileMode.CLAMP);
 		disconnectedPaint.setShader(disconnectedGradient);
+		
+		LinearGradient connectedGradient = new LinearGradient(getWidth() / 2, getHeight() / 2, getWidth() / 2, 0, getResources().getColor(R.color.radar_green), getResources().getColor(R.color.radar_clear), Shader.TileMode.CLAMP);
+		connectedPaint.setShader(connectedGradient);
 
         super.onMeasure(MeasureSpec.makeMeasureSpec(finalWidth + getPaddingLeft() + getPaddingRight(), MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(finalHeight + getPaddingTop() + getPaddingBottom(), MeasureSpec.EXACTLY));
     }
@@ -81,6 +85,6 @@ public class RadarView extends ImageView {
 		
 		Paint arcPaint = connected? connectedPaint : disconnectedPaint;
 		boundsRect.set(getPaddingLeft(), getPaddingTop(), getWidth() - getPaddingRight(), getHeight() - getPaddingBottom());
-		canvas.drawArc(boundsRect, 240f, 60f, true, arcPaint);
+		canvas.drawArc(boundsRect, 245f, 50f, true, arcPaint);
 	}
 }

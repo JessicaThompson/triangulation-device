@@ -14,7 +14,6 @@ import android.content.IntentFilter;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -54,6 +53,7 @@ public class MapActivity extends FragmentActivity implements GooglePlayServicesC
 
 	private WaveformView myWaveform;
 	private WaveformView theirWaveform;
+	private RadarView radar;
 	
 	private TextView myConnectionStatus;
 	private Button startStopButton;
@@ -85,6 +85,8 @@ public class MapActivity extends FragmentActivity implements GooglePlayServicesC
 		myWaveform = (WaveformView) findViewById(R.id.my_waveform);
 		theirWaveform = (WaveformView) findViewById(R.id.their_waveform);
 		theirWaveform.setDeviceName(resources.getString(R.string.paired_device));
+		
+		radar = (RadarView) findViewById(R.id.devices_map);
 		
 		startStopButton = (Button) findViewById(R.id.start_button);
 		findNearbyButton = (Button) findViewById(R.id.find_nearby_button);
@@ -118,16 +120,6 @@ public class MapActivity extends FragmentActivity implements GooglePlayServicesC
 		}
 	}
 	
-	private void setStartButton() {
-		startStopButton.setText(resources.getString(R.string.start));
-		startStopButton.setBackgroundDrawable(resources.getDrawable(R.drawable.start_button));
-	}
-	
-	private void setStopButton() {
-		startStopButton.setText(resources.getString(R.string.stop));
-		startStopButton.setBackgroundDrawable(resources.getDrawable(R.drawable.stop_button));
-	}
-
 	@Override
 	public void onLocationChanged(Location location) {
 		myWaveform.setLocation(location);
@@ -214,6 +206,9 @@ public class MapActivity extends FragmentActivity implements GooglePlayServicesC
 		myConnectionStatus.setText(statusText);
 		theirWaveform.setVisibility(View.VISIBLE);
 		
+		// Set radar to connected state.
+		radar.connected(true);
+		
 		// Clear the "Find Nearby Devices" button.
 		findNearbyButton.setText(resources.getString(R.string.disconnect));
 		findNearbyButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
@@ -226,9 +221,13 @@ public class MapActivity extends FragmentActivity implements GooglePlayServicesC
 	}
 	
 	private void disconnectDevice(View buttonView) {
+		// Clear chosen device.
 		chosenDevice = null;
 		myConnectionStatus.setText(resources.getString(R.string.not_connected));
 		theirWaveform.setVisibility(View.GONE);
+		
+		// Set radar to disconnected state.
+		radar.connected(false);
 		
 		// Reset the "Find Nearby Devices" button.
 		findNearbyButton.setText(resources.getString(R.string.find_nearby_devices));
@@ -237,6 +236,30 @@ public class MapActivity extends FragmentActivity implements GooglePlayServicesC
 			@Override
 			public void onClick(View v) {
 				findNearby(v);
+			}
+		});
+	}
+	
+	public void start(View buttonView) {
+		startStopButton.setText(resources.getString(R.string.stop));
+		startStopButton.setBackgroundResource(R.drawable.stop_button);
+		startStopButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				stop(v);
+				// TODO: Useful stuff with this method.
+			}
+		});
+	}
+	
+	public void stop(View buttonView) {
+		startStopButton.setText(resources.getString(R.string.start));
+		startStopButton.setBackgroundResource(R.drawable.start_button);
+		startStopButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				start(v);
+				// TODO: Useful stuff with this method.
 			}
 		});
 	}
