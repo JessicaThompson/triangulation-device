@@ -318,7 +318,7 @@ public class MapActivity extends FragmentActivity implements GooglePlayServicesC
 			@Override
 			public void onClick(View v) {
 				stop(v);
-				// TODO: Useful stuff with this method.
+				// TODO: Useful stuff with this method. Start some audio or something.
 			}
 		});
 	}
@@ -330,7 +330,7 @@ public class MapActivity extends FragmentActivity implements GooglePlayServicesC
 			@Override
 			public void onClick(View v) {
 				start(v);
-				// TODO: Useful stuff with this method.
+				// TODO: Useful stuff with this method. Stop some audio or something.
 			}
 		});
 	}
