@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
@@ -54,6 +55,10 @@ public class MapActivity extends LocationActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Typefaces.loadTypefaces(this);
+		
+		// Request a progress bar.
+        this.requestWindowFeature(Window.FEATURE_PROGRESS);
+		
 		setContentView(R.layout.map_activity);
 		resources = getResources();
 		
@@ -174,15 +179,15 @@ public class MapActivity extends LocationActivity {
 	
 	private void connectTo(BluetoothDevice device) {
 		// Set device as our chosen device.
-	    Log.i(TAG, "Setting the device, connectTo() " + device);
+	    setProgressBarIndeterminateVisibility(true);
 		connectedDevice = device;
 		bluetoothIPC.connect(device);
 	}
 	
 	private void successfulConnect() {
+	    setProgressBarIndeterminateVisibility(false);
 	    bluetoothIPC.write(getLocation());
 	    
-	    Log.i(TAG, connectedDevice == null ? "ConnectedDevice is the problem" : "no problem");
 	    String statusText = resources.getString(R.string.paired_with_x, connectedDevice.getName());
         myConnectionStatus.setText(statusText);
         theirWaveform.setVisibility(View.VISIBLE);
@@ -203,10 +208,12 @@ public class MapActivity extends LocationActivity {
 	
 	private void disconnectDevice(View buttonView) {
 		// Clear chosen device.
-	    Log.i(TAG, "disconnectDevice(), clearing");
+	    setProgressBarIndeterminateVisibility(false);
 		connectedDevice = null;
 		myConnectionStatus.setText(resources.getString(R.string.not_connected));
 		theirWaveform.setVisibility(View.GONE);
+		
+		bluetoothIPC.disconnect();
 		
 		// Set radar to disconnected state.
 		radar.connected(false);
@@ -251,20 +258,26 @@ public class MapActivity extends LocationActivity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case BluetoothIPCService.NEW_DEVICE:
-                    Log.i(TAG, "Received new device connection");
                     receiveConnection((BluetoothDevice) msg.obj);
                 case BluetoothIPCService.MESSAGE_STATE_CHANGE:
                     switch (msg.arg1) {
                         case BluetoothIPCService.STATE_CONNECTED:
-                            Log.i(TAG, "Connected to IPC service.");
-                            Toast.makeText(MapActivity.this, "Connected to IPC service.", Toast.LENGTH_SHORT).show();
                             successfulConnect();
                             break;
                         case BluetoothIPCService.STATE_CONNECTING:
-                            Toast.makeText(MapActivity.this, "Connecting to IPC service.", Toast.LENGTH_SHORT).show();
+                            // Connecting state gets set once we choose a device
+                            // so we'll ignore this.
                             break;
                         case BluetoothIPCService.STATE_LISTEN:
+                            // We're disconnected and listening to things.
+                            if (connectedDevice != null) {
+                                disconnectDevice(null);
+                            }
+                            break;
                         case BluetoothIPCService.STATE_NONE:
+                            // This is only when it's being set up and not
+                            // listening yet, or stopped and in the process of
+                            // shutting down.
                             break;
                     }
                     break;
@@ -273,7 +286,7 @@ public class MapActivity extends LocationActivity {
                     theirLocationChanged(theirLocation);
                     break;
                 case BluetoothIPCService.MESSAGE_INFO:
-                    Toast.makeText(MapActivity.this, msg.getData().getString(BluetoothIPCService.INFO), Toast.LENGTH_SHORT).show();
+                    Log.i(TAG, msg.getData().getString(BluetoothIPCService.INFO));
                     break;
             }
         }

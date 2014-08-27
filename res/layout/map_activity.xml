@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
+            android:visibility="gone"
              />
     </de.vndvl.chrs.triangulationdevice.views.DraggableWeightView>
     <LinearLayout android:id="@+id/connection_status"

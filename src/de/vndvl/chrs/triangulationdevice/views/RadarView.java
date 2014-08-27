@@ -54,6 +54,11 @@ public class RadarView extends ImageView {
 	
 	public void connected(boolean connected) {
 		this.connected = connected;
+		
+		if (connected == false) {
+		    this.otherLocation = null;
+		}
+		
 		this.invalidate();
 	}
 	
@@ -125,18 +130,16 @@ public class RadarView extends ImageView {
 		float topArrow = centerY - (arrow.getHeight() / 2);
 		canvas.drawBitmap(arrow, leftArrow, topArrow, arrowPaint);
 		
-		if (otherLocation != null) {
+		if (connected && otherLocation != null) {
 			Bitmap markerBitmap = otherMarker.getBitmap();
 			float distance = myLocation.distanceTo(otherLocation); // in metres
 			if (distance < 100.0f) {
 				// This is an absolute bearing, relative to perfect north.
 				float bearing = myLocation.bearingTo(otherLocation);
-				Log.i("RadarView", String.format("%.2fm at %.2f degrees.", distance, bearing));
 				
 				double cosine = Math.cos(Math.toRadians(bearing));
 				double sine = Math.sin(Math.toRadians(bearing));
 				double drawDistance = centerX * (1 - Math.exp(-(SCALING * distance)));
-				Log.i("RadarView", String.format("Distance: %.2fm (%.2fm exponentially)", distance, drawDistance));
 				double expx = centerX + drawDistance * cosine - (markerBitmap.getWidth() / 2);
 				double expy = centerY + drawDistance * sine - (markerBitmap.getHeight() / 2);
 				canvas.drawBitmap(otherMarker.getBitmap(), (float) expx, (float) expy, arrowPaint);

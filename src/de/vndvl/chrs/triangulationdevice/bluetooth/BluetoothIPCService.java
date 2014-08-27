@@ -56,6 +56,7 @@ public class BluetoothIPCService {
     public static final int STATE_LISTEN = 1;     // now listening for incoming connections
     public static final int STATE_CONNECTING = 2; // now initiating an outgoing connection
     public static final int STATE_CONNECTED = 3;  // now connected to a remote device
+    public static final int STATE_DISCONNECTING = 4; // now closing an outgoing connection
 
     /**
      * Constructor. Prepares a new BluetoothIPC session.
@@ -159,6 +160,16 @@ public class BluetoothIPCService {
         handler.sendMessage(msg);
 
         setState(STATE_CONNECTED);
+    }
+    
+    /**
+     * Disconnect from another device, reset to listening.
+     */
+    public synchronized void disconnect() {
+        Log.d(TAG, "disconnect()");
+        setState(STATE_DISCONNECTING);
+        this.start();
+        setState(STATE_LISTEN);
     }
 
     /**
@@ -414,7 +425,9 @@ public class BluetoothIPCService {
                     // Send the obtained bytes to the UI Activity
                     handler.obtainMessage(BluetoothIPCService.MESSAGE_READ, thing).sendToTarget();
                 } catch (IOException e) {
-                    connectionLost();
+                    if (BluetoothIPCService.this.state == STATE_CONNECTED) {
+                        connectionLost();
+                    }
                     // Start the service over to restart listening mode
                     BluetoothIPCService.this.start();
                     break;
