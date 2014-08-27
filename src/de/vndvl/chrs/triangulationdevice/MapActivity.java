@@ -83,21 +83,10 @@ public class MapActivity extends LocationActivity {
 		deviceService = new BluetoothDeviceService(this);
 		deviceService.setListener(new BluetoothDeviceService.Listener() {
             @Override
-            public void pairedDevices(Set<BluetoothDevice> pairedDevices) {
-                bluetoothDevices.addAll(pairedDevices);
-                for (BluetoothDevice device : pairedDevices) {
-                    bluetoothNames.add(device.getName());
-                }
-            }
-
-            @Override
             public void deviceFound(BluetoothDevice device) {
                 bluetoothDevices.add(device);
                 bluetoothNames.add(device.getName());
             }
-
-            @Override
-            public void discoveryDone() {}
 		});
 		
 		// Set up the IPC service.

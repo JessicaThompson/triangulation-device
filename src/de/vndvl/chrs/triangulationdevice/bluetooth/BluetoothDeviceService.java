@@ -105,9 +105,9 @@ public class BluetoothDeviceService {
         }
     };
 
-    public interface Listener {
-        public void pairedDevices(Set<BluetoothDevice> pairedDevices);
-        public void deviceFound(BluetoothDevice device);
-        public void discoveryDone();
+    public static class Listener {
+        public void pairedDevices(Set<BluetoothDevice> pairedDevices) {}
+        public void deviceFound(BluetoothDevice device) {}
+        public void discoveryDone() {}
     }
 }
