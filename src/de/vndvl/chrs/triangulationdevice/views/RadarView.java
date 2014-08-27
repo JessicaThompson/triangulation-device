@@ -1,7 +1,8 @@
-package de.vndvl.chrs.triangulationdevice;
+package de.vndvl.chrs.triangulationdevice.views;
 
-import java.util.Set;
-
+import de.vndvl.chrs.triangulationdevice.R;
+import de.vndvl.chrs.triangulationdevice.R.color;
+import de.vndvl.chrs.triangulationdevice.R.drawable;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -16,9 +17,12 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.location.Location;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.ImageView;
 
 public class RadarView extends ImageView {
+	
+	private static final float SCALING = 0.02f;
 	
 	private boolean connected = false;
 	private Paint connectedPaint;
@@ -55,10 +59,12 @@ public class RadarView extends ImageView {
 	
 	public void setLocation(Location location) {
 		this.myLocation = location;
+		this.invalidate();
 	}
 	
 	public void setOtherLocation(Location location) {
 		this.otherLocation = location;
+		this.invalidate();
 	}
 	
 	@SuppressWarnings("deprecation") // setBackgroundDrawable is deprecated, but backwards compatibility.
@@ -113,16 +119,27 @@ public class RadarView extends ImageView {
 		canvas.drawArc(boundsRect, 245f, 50f, true, arcPaint);
 		
 		Bitmap arrow = (connected? arrowGreen : arrowBlack).getBitmap();
-		float leftArrow = (getPaddingLeft() + getWidth()) / 2 - (arrow.getWidth() / 2);
-		float topArrow = (getPaddingTop() + getHeight()) / 2 - (arrow.getHeight() / 2);
+		float centerX = (getPaddingLeft() + getWidth()) / 2;
+		float centerY = (getPaddingTop() + getHeight()) / 2;
+		float leftArrow = centerX - (arrow.getWidth() / 2);
+		float topArrow = centerY - (arrow.getHeight() / 2);
 		canvas.drawBitmap(arrow, leftArrow, topArrow, arrowPaint);
 		
 		if (otherLocation != null) {
-			int canvasWidth = getWidth() - getPaddingLeft() - getPaddingRight();
-			float x = (float) (otherLocation.getLongitude() - myLocation.getLongitude()) * canvasWidth;
-			float y = (float) (otherLocation.getLatitude() - myLocation.getLatitude()) * canvasWidth;
-			if (otherLocation.distanceTo(myLocation) < 1.0f) {
-				canvas.drawBitmap(otherMarker.getBitmap(), x, y, arrowPaint);
+			Bitmap markerBitmap = otherMarker.getBitmap();
+			float distance = myLocation.distanceTo(otherLocation); // in metres
+			if (distance < 100.0f) {
+				// This is an absolute bearing, relative to perfect north.
+				float bearing = myLocation.bearingTo(otherLocation);
+				Log.i("RadarView", String.format("%.2fm at %.2f degrees.", distance, bearing));
+				
+				double cosine = Math.cos(Math.toRadians(bearing));
+				double sine = Math.sin(Math.toRadians(bearing));
+				double drawDistance = centerX * (1 - Math.exp(-(SCALING * distance)));
+				Log.i("RadarView", String.format("Distance: %.2fm (%.2fm exponentially)", distance, drawDistance));
+				double expx = centerX + drawDistance * cosine - (markerBitmap.getWidth() / 2);
+				double expy = centerY + drawDistance * sine - (markerBitmap.getHeight() / 2);
+				canvas.drawBitmap(otherMarker.getBitmap(), (float) expx, (float) expy, arrowPaint);
 			}
 		}
 	}

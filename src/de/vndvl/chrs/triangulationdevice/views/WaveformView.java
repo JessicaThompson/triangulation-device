@@ -1,5 +1,9 @@
-package de.vndvl.chrs.triangulationdevice;
+package de.vndvl.chrs.triangulationdevice.views;
 
+import de.vndvl.chrs.triangulationdevice.R;
+import de.vndvl.chrs.triangulationdevice.Typefaces;
+import de.vndvl.chrs.triangulationdevice.R.id;
+import de.vndvl.chrs.triangulationdevice.R.layout;
 import android.content.Context;
 import android.location.Location;
 import android.util.AttributeSet;
