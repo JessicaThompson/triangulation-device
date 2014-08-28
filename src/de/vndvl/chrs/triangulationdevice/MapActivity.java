@@ -1,6 +1,7 @@
 package de.vndvl.chrs.triangulationdevice;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Set;
 
 import android.app.AlertDialog;
@@ -15,6 +16,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
@@ -22,6 +24,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import de.vndvl.chrs.triangulationdevice.bluetooth.BluetoothDeviceService;
 import de.vndvl.chrs.triangulationdevice.bluetooth.BluetoothIPCService;
+import de.vndvl.chrs.triangulationdevice.storage.PathStorage;
 import de.vndvl.chrs.triangulationdevice.util.Typefaces;
 import de.vndvl.chrs.triangulationdevice.views.DraggableWeightView;
 import de.vndvl.chrs.triangulationdevice.views.RadarView;
@@ -42,6 +45,10 @@ public class MapActivity extends LocationActivity {
 	private ArrayList<BluetoothDevice> bluetoothDevices;
     private ArrayAdapter<String> bluetoothNames;
 
+    private boolean recording = false;
+    private PathStorage myPath = new PathStorage();
+    private PathStorage theirPath = new PathStorage();
+    
 	private WaveformView myWaveform;
 	private WaveformView theirWaveform;
 	private RadarView radar;
@@ -136,6 +143,10 @@ public class MapActivity extends LocationActivity {
 		myWaveform.setLocation(location);
 		radar.setLocation(location);
 		bluetoothIPC.write(location);
+		
+		if (recording) {
+            myPath.add(location);
+        }
 	}
 	
 	@Override
@@ -146,6 +157,10 @@ public class MapActivity extends LocationActivity {
 	public void theirLocationChanged(Location location) {
 	    theirWaveform.setLocation(location);
         radar.setOtherLocation(location);
+        
+        if (recording) {
+            theirPath.add(location);
+        }
 	}
 
 	@Override
@@ -252,6 +267,7 @@ public class MapActivity extends LocationActivity {
 	}
 	
 	public void start(View buttonView) {
+	    this.recording = true;
 		startStopButton.setText(resources.getString(R.string.stop));
 		startStopButton.setBackgroundResource(R.drawable.stop_button);
 		startStopButton.setOnClickListener(new View.OnClickListener() {
@@ -264,6 +280,11 @@ public class MapActivity extends LocationActivity {
 	}
 	
 	public void stop(View buttonView) {
+	    this.recording = false;
+//	    ArrayList<Pair<Location, Date>> myPath = this.myPath.end();
+//	    ArrayList<Pair<Location, Date>> theirPath = this.theirPath.end();
+	    // TODO: Something with the finished paths.
+	    
 		startStopButton.setText(resources.getString(R.string.start));
 		startStopButton.setBackgroundResource(R.drawable.start_button);
 		startStopButton.setOnClickListener(new View.OnClickListener() {
