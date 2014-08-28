@@ -1,8 +1,6 @@
 package de.vndvl.chrs.triangulationdevice.views;
 
-import de.vndvl.chrs.triangulationdevice.R;
-import de.vndvl.chrs.triangulationdevice.R.color;
-import de.vndvl.chrs.triangulationdevice.R.drawable;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -17,8 +15,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.location.Location;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.ImageView;
+import de.vndvl.chrs.triangulationdevice.R;
 
 public class RadarView extends ImageView {
 	
@@ -93,7 +91,7 @@ public class RadarView extends ImageView {
 		boundsRect = new RectF(0, 0, 0, 0);
 	}
 	
-	@Override
+	@SuppressLint("DrawAllocation") @Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int originalWidth = MeasureSpec.getSize(widthMeasureSpec) - getPaddingLeft() - getPaddingRight();
         int originalHeight = MeasureSpec.getSize(heightMeasureSpec) - getPaddingTop() - getPaddingBottom();

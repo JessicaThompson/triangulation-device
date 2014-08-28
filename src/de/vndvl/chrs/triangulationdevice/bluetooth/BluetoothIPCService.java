@@ -410,13 +410,12 @@ public class BluetoothIPCService {
         public void run() {
             Log.i(TAG, "BEGIN mConnectedThread");
             byte[] buffer = new byte[1024];
-            int bytes;
 
             // Keep listening to the InputStream while connected
             while (true) {
                 try {
                     // Read from the InputStream
-                    bytes = inStream.read(buffer);
+                    inStream.read(buffer);
                     Location thing = unpack(buffer, Location.CREATOR);
                     
                     // TODO: What if we get huge objects? Keep reading until we

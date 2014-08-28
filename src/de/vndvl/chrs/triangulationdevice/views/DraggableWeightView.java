@@ -1,8 +1,8 @@
 package de.vndvl.chrs.triangulationdevice.views;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import de.vndvl.chrs.triangulationdevice.R;
 
 public class DraggableWeightView extends LinearLayout {
-    private final static String TAG = "DraggableWeightView";
+    @SuppressWarnings("unused") private final static String TAG = "DraggableWeightView";
 	
 	private View topChild = null;
 	private View bottomChild = null;
@@ -65,7 +65,8 @@ public class DraggableWeightView extends LinearLayout {
 		this.active = false;
 	}
 	
-	private void init() {
+	@SuppressLint("ClickableViewAccessibility")
+    private void init() {
 		this.setOnTouchListener(new OnTouchListener() {
 			private float lastY;
 			private int lastHeight;

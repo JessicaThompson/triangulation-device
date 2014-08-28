@@ -50,7 +50,7 @@ public class MapActivity extends LocationActivity {
 	private Button findNearbyButton;
 	
 	// The Handler that gets information back from the BluetoothIPCService
-    private final Handler bluetoothHandler = new MapActivityHandler();
+    private final Handler bluetoothHandler = new Handler(new MapActivityHandler());
 
     private DraggableWeightView waveforms;
 	
@@ -263,9 +263,9 @@ public class MapActivity extends LocationActivity {
 		});
 	}
 	
-	private class MapActivityHandler extends Handler {
+	private class MapActivityHandler implements Handler.Callback {
         @Override
-        public void handleMessage(Message msg) {
+        public boolean handleMessage(Message msg) {
             switch (msg.what) {
                 case BluetoothIPCService.NEW_DEVICE:
                     receiveConnection((BluetoothDevice) msg.obj);
@@ -301,6 +301,7 @@ public class MapActivity extends LocationActivity {
                     Log.i(TAG, msg.getData().getString(BluetoothIPCService.INFO));
                     break;
             }
+            return true;
         }
     };
 }

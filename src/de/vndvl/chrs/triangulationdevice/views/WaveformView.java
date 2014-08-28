@@ -3,7 +3,6 @@ package de.vndvl.chrs.triangulationdevice.views;
 import android.content.Context;
 import android.location.Location;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -12,7 +11,7 @@ import de.vndvl.chrs.triangulationdevice.util.Typefaces;
 
 public class WaveformView extends FrameLayout {
 	
-	private View waveform;
+//	private View waveform;
 	private TextView deviceLabel;
 	private TextView longitudeValue;
 	private TextView latitudeValue;
@@ -38,7 +37,7 @@ public class WaveformView extends FrameLayout {
         Typefaces.loadTypefaces(getContext());
         
         label = (LinearLayout) findViewById(R.id.label);
-        waveform = findViewById(R.id.waveform);
+//        waveform = findViewById(R.id.waveform);
         deviceLabel = (TextView) findViewById(R.id.device_label);
         longitudeValue = (TextView) findViewById(R.id.device_long_value);
         latitudeValue = (TextView) findViewById(R.id.device_lat_value);
