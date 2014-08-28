@@ -17,7 +17,8 @@ public abstract class CompassActivity extends Activity implements SensorEventLis
     
     /**
      * Called when our orientation is updated.
-     * @param The azimuth in radians between our orientation and north
+     * @param The azimuth in radians between our orientation and north,
+     * positive being in the counter-clockwise direction.
      */
     protected abstract void onCompassChanged(float azimuth);
 
