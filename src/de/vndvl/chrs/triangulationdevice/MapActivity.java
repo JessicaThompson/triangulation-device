@@ -82,7 +82,6 @@ public class MapActivity extends LocationActivity {
             @Override
             public void onChanged(double topBottomRatio) {
                 // TODO something to do with the new ratio (update the PD).
-                Log.i(TAG, "DraggableWeightView height: " + topBottomRatio);
             }
 		});
 		
