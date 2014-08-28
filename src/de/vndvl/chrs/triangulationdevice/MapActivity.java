@@ -5,6 +5,7 @@ import java.util.Set;
 
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -96,15 +97,21 @@ public class MapActivity extends LocationActivity {
 		deviceService.setListener(new BluetoothDeviceService.Listener() {
             @Override
             public void unpairedDeviceFound(BluetoothDevice device) {
-                bluetoothDevices.add(device);
-                bluetoothNames.add(device.getName());
+                int bluetoothClass = device.getBluetoothClass().getDeviceClass();
+                if (bluetoothClass == BluetoothClass.Device.PHONE_SMART || bluetoothClass == BluetoothClass.Device.COMPUTER_LAPTOP) {
+                    bluetoothDevices.add(device);
+                    bluetoothNames.add(device.getName());
+                }
             }
             
             @Override
             public void pairedDevices(Set<BluetoothDevice> pairedDevices) {
-                bluetoothDevices.addAll(pairedDevices);
                 for (BluetoothDevice device : pairedDevices) {
-                    bluetoothNames.add(device.getName());
+                    int bluetoothClass = device.getBluetoothClass().getDeviceClass();
+                    if (bluetoothClass == BluetoothClass.Device.PHONE_SMART || bluetoothClass == BluetoothClass.Device.COMPUTER_LAPTOP) {
+                        bluetoothDevices.add(device);
+                        bluetoothNames.add(device.getName());
+                    }
                 }
             }
 		});
