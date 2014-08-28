@@ -138,10 +138,9 @@ public class RadarView extends ImageView {
 			float distance = myLocation.distanceTo(otherLocation); // in metres
 			if (distance < 100.0f) {
 				// This is an absolute bearing, relative to perfect north.
-				float bearing = myLocation.bearingTo(otherLocation);
-				
-				double cosine = Math.cos(Math.toRadians(bearing) + azimuth);
-				double sine = Math.sin(Math.toRadians(bearing) + azimuth);
+				double bearing = Math.toRadians(myLocation.bearingTo(otherLocation));
+				double cosine = Math.cos(bearing + azimuth);
+				double sine = Math.sin(bearing + azimuth);
 				double drawDistance = centerX * (1 - Math.exp(-(SCALING * distance)));
 				double expx = centerX + drawDistance * cosine - (markerBitmap.getWidth() / 2);
 				double expy = centerY + drawDistance * sine - (markerBitmap.getHeight() / 2);
