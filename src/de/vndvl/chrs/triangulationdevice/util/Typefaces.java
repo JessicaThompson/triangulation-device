@@ -1,4 +1,4 @@
-package de.vndvl.chrs.triangulationdevice;
+package de.vndvl.chrs.triangulationdevice.util;
 
 import android.content.Context;
 import android.graphics.Typeface;

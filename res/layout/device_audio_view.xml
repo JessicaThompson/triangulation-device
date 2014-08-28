@@ -9,7 +9,7 @@
 	    android:layout_height="0dp"
 	    android:layout_weight="1"
 	    android:background="@color/waveform_light_grey_bg" />
-	<LinearLayout
+	<LinearLayout android:id="@+id/label"
 	    android:layout_width="match_parent"
 	    android:layout_height="28dp"
 	    android:orientation="horizontal"

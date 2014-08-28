@@ -19,9 +19,10 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 import de.vndvl.chrs.triangulationdevice.bluetooth.BluetoothDeviceService;
 import de.vndvl.chrs.triangulationdevice.bluetooth.BluetoothIPCService;
+import de.vndvl.chrs.triangulationdevice.util.Typefaces;
+import de.vndvl.chrs.triangulationdevice.views.DraggableWeightView;
 import de.vndvl.chrs.triangulationdevice.views.RadarView;
 import de.vndvl.chrs.triangulationdevice.views.WaveformView;
 
@@ -50,6 +51,8 @@ public class MapActivity extends LocationActivity {
 	
 	// The Handler that gets information back from the BluetoothIPCService
     private final Handler bluetoothHandler = new MapActivityHandler();
+
+    private DraggableWeightView waveforms;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,15 @@ public class MapActivity extends LocationActivity {
 		myWaveform = (WaveformView) findViewById(R.id.my_waveform);
 		theirWaveform = (WaveformView) findViewById(R.id.their_waveform);
 		theirWaveform.setDeviceName(resources.getString(R.string.paired_device));
+		
+		waveforms = (DraggableWeightView) findViewById(R.id.waveform);
+		waveforms.setListener(new DraggableWeightView.Listener() {
+            @Override
+            public void onChanged(double topBottomRatio) {
+                // TODO something to do with the new ratio (update the PD).
+                Log.i(TAG, "DraggableWeightView height: " + topBottomRatio);
+            }
+		});
 		
 		radar = (RadarView) findViewById(R.id.devices_map);
 		
@@ -83,9 +95,17 @@ public class MapActivity extends LocationActivity {
 		deviceService = new BluetoothDeviceService(this);
 		deviceService.setListener(new BluetoothDeviceService.Listener() {
             @Override
-            public void deviceFound(BluetoothDevice device) {
+            public void unpairedDeviceFound(BluetoothDevice device) {
                 bluetoothDevices.add(device);
                 bluetoothNames.add(device.getName());
+            }
+            
+            @Override
+            public void pairedDevices(Set<BluetoothDevice> pairedDevices) {
+                bluetoothDevices.addAll(pairedDevices);
+                for (BluetoothDevice device : pairedDevices) {
+                    bluetoothNames.add(device.getName());
+                }
             }
 		});
 		
@@ -176,6 +196,7 @@ public class MapActivity extends LocationActivity {
 	private void successfulConnect() {
 	    setProgressBarIndeterminateVisibility(false);
 	    bluetoothIPC.write(getLocation());
+	    waveforms.activate();
 	    
 	    String statusText = resources.getString(R.string.paired_with_x, connectedDevice.getName());
         myConnectionStatus.setText(statusText);
@@ -251,6 +272,8 @@ public class MapActivity extends LocationActivity {
                 case BluetoothIPCService.MESSAGE_STATE_CHANGE:
                     switch (msg.arg1) {
                         case BluetoothIPCService.STATE_CONNECTED:
+                            // We're finally connected, so change the UI to
+                            // reflect that.
                             successfulConnect();
                             break;
                         case BluetoothIPCService.STATE_CONNECTING:

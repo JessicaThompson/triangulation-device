@@ -96,7 +96,7 @@ public class BluetoothDeviceService {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 // If it's already paired, skip it, because it's been listed already
                 if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
-                    BluetoothDeviceService.this.listener.deviceFound(device);
+                    BluetoothDeviceService.this.listener.unpairedDeviceFound(device);
                 }
             // When discovery is finished, change the Activity title
             } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
@@ -107,7 +107,7 @@ public class BluetoothDeviceService {
 
     public static class Listener {
         public void pairedDevices(Set<BluetoothDevice> pairedDevices) {}
-        public void deviceFound(BluetoothDevice device) {}
+        public void unpairedDeviceFound(BluetoothDevice device) {}
         public void discoveryDone() {}
     }
 }
