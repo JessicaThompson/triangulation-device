@@ -22,6 +22,7 @@ public class RadarView extends ImageView {
 	
 	private static final float SCALING = 0.02f;
 	
+	private float azimuth = 0;
 	private boolean connected = false;
 	private Paint connectedPaint;
 	private Paint disconnectedPaint;
@@ -58,6 +59,10 @@ public class RadarView extends ImageView {
 		}
 		
 		this.invalidate();
+	}
+	
+	public void setAzimuth(float azimuth) {
+	    this.azimuth = azimuth;
 	}
 	
 	public void setLocation(Location location) {
@@ -135,8 +140,8 @@ public class RadarView extends ImageView {
 				// This is an absolute bearing, relative to perfect north.
 				float bearing = myLocation.bearingTo(otherLocation);
 				
-				double cosine = Math.cos(Math.toRadians(bearing));
-				double sine = Math.sin(Math.toRadians(bearing));
+				double cosine = Math.cos(Math.toRadians(bearing) + azimuth);
+				double sine = Math.sin(Math.toRadians(bearing) + azimuth);
 				double drawDistance = centerX * (1 - Math.exp(-(SCALING * distance)));
 				double expx = centerX + drawDistance * cosine - (markerBitmap.getWidth() / 2);
 				double expy = centerY + drawDistance * sine - (markerBitmap.getHeight() / 2);

@@ -17,7 +17,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-public abstract class LocationActivity extends Activity implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener, LocationListener {
+public abstract class LocationActivity extends CompassActivity implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener, LocationListener {
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private final static int FASTEST_INTERVAL = 1000;
     private final static int INTERVAL = 5 * FASTEST_INTERVAL;

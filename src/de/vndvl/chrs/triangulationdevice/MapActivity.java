@@ -138,6 +138,11 @@ public class MapActivity extends LocationActivity {
 		bluetoothIPC.write(location);
 	}
 	
+	@Override
+	public void onCompassChanged(float azimuth) {
+	    radar.setAzimuth(azimuth);
+	}
+	
 	public void theirLocationChanged(Location location) {
 	    theirWaveform.setLocation(location);
         radar.setOtherLocation(location);
