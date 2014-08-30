@@ -46,6 +46,7 @@
     <!-- ActionBar menu -->
     <string name="archive">Archive</string>
     <string name="settings">Settings</string>
+    <string name="player">Player</string>
     
     <!-- Player -->
     <string name="player_longitude">LONGITUDE</string>

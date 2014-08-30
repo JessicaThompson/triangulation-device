@@ -22,6 +22,7 @@ public abstract class TriangulationListActivity extends ListActivity {
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.menu_about:

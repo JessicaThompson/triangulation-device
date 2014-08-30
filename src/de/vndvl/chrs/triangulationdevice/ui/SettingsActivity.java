@@ -14,7 +14,8 @@ public class SettingsActivity extends TriangulationPreferenceActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        boolean displayed = super.onCreateOptionsMenu(menu);
         menu.findItem(R.id.menu_settings).setVisible(false);
-        return super.onCreateOptionsMenu(menu);
+        return displayed;
     }
 }

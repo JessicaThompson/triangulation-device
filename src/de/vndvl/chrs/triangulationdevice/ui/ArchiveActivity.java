@@ -4,11 +4,11 @@ import java.text.DateFormat;
 import java.util.List;
 
 import android.app.ActionBar;
-import android.app.ListActivity;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -19,8 +19,9 @@ import android.widget.TextView;
 import de.vndvl.chrs.triangulationdevice.R;
 import de.vndvl.chrs.triangulationdevice.storage.PathStorage;
 import de.vndvl.chrs.triangulationdevice.storage.PathStorage.Session;
+import de.vndvl.chrs.triangulationdevice.ui.partial.TriangulationListActivity;
 
-public class ArchiveActivity extends ListActivity {
+public class ArchiveActivity extends TriangulationListActivity {
     private PathStorage storage = new PathStorage(this);
 
     @Override
@@ -64,8 +65,14 @@ public class ArchiveActivity extends ListActivity {
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        
+        for (int i = 0; i < menu.size(); i++) {
+            Log.i(getClass().toString(), menu.getItem(i).getTitle().toString());
+        }
+        
         menu.findItem(R.id.menu_archive).setVisible(false);
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
     
     public class SessionAdapter extends ArrayAdapter<Session> {

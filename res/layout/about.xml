@@ -2,19 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp" >
+    android:orientation="vertical" >
 
-    <TextView android:id="@id/android:empty"
+    <TextView android:id="@+id/description"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="24dp"
+        android:paddingBottom="18dp"
         android:textSize="16sp"
-        android:text="@string/app_description" />
+        android:text="@string/app_description"
+        android:lineSpacingMultiplier="2"
+        android:background="@color/radar_light_grey_bg" />
     
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
-        android:layout_height="0dp" />
+        android:layout_height="wrap_content"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp" />
 </LinearLayout>

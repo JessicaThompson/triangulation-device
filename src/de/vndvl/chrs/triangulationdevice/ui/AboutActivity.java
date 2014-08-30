@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -58,7 +59,14 @@ public class AboutActivity extends TriangulationListActivity {
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        boolean displayed = super.onCreateOptionsMenu(menu); 
         menu.findItem(R.id.menu_about).setVisible(false);
-        return super.onCreateOptionsMenu(menu);
+        return displayed;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return super.onOptionsItemSelected(item);
     }
 }
