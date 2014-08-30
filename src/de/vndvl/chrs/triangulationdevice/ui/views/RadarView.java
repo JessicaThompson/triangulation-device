@@ -1,4 +1,4 @@
-package de.vndvl.chrs.triangulationdevice.views;
+package de.vndvl.chrs.triangulationdevice.ui.views;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

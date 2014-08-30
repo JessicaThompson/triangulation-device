@@ -1,7 +1,6 @@
-package de.vndvl.chrs.triangulationdevice;
+package de.vndvl.chrs.triangulationdevice.ui;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Set;
 
 import android.app.AlertDialog;
@@ -16,19 +15,20 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.util.Pair;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import de.vndvl.chrs.triangulationdevice.R;
 import de.vndvl.chrs.triangulationdevice.bluetooth.BluetoothDeviceService;
 import de.vndvl.chrs.triangulationdevice.bluetooth.BluetoothIPCService;
 import de.vndvl.chrs.triangulationdevice.storage.PathStorage;
+import de.vndvl.chrs.triangulationdevice.ui.partial.LocationActivity;
+import de.vndvl.chrs.triangulationdevice.ui.views.DraggableWeightView;
+import de.vndvl.chrs.triangulationdevice.ui.views.RadarView;
+import de.vndvl.chrs.triangulationdevice.ui.views.WaveformView;
 import de.vndvl.chrs.triangulationdevice.util.Typefaces;
-import de.vndvl.chrs.triangulationdevice.views.DraggableWeightView;
-import de.vndvl.chrs.triangulationdevice.views.RadarView;
-import de.vndvl.chrs.triangulationdevice.views.WaveformView;
 
 public class MapActivity extends LocationActivity {
     private final static String TAG = "MapActivity";
@@ -46,8 +46,7 @@ public class MapActivity extends LocationActivity {
     private ArrayAdapter<String> bluetoothNames;
 
     private boolean recording = false;
-    private PathStorage myPath = new PathStorage();
-    private PathStorage theirPath = new PathStorage();
+    private PathStorage path = new PathStorage(this);
     
 	private WaveformView myWaveform;
 	private WaveformView theirWaveform;
@@ -57,7 +56,6 @@ public class MapActivity extends LocationActivity {
 	private Button startStopButton;
 	private Button findNearbyButton;
 	
-	// The Handler that gets information back from the BluetoothIPCService
     private final Handler bluetoothHandler = new Handler(new MapActivityHandler());
 
     private DraggableWeightView waveforms;
@@ -144,7 +142,7 @@ public class MapActivity extends LocationActivity {
 		bluetoothIPC.write(location);
 		
 		if (recording) {
-            myPath.add(location);
+            path.addMine(location);
         }
 	}
 	
@@ -158,7 +156,7 @@ public class MapActivity extends LocationActivity {
         radar.setOtherLocation(location);
         
         if (recording) {
-            theirPath.add(location);
+            path.addTheirs(location);
         }
 	}
 
@@ -280,9 +278,10 @@ public class MapActivity extends LocationActivity {
 	
 	public void stop(View buttonView) {
 	    this.recording = false;
-//	    ArrayList<Pair<Location, Date>> myPath = this.myPath.end();
-//	    ArrayList<Pair<Location, Date>> theirPath = this.theirPath.end();
-	    // TODO: Something with the finished paths.
+	    
+	    // TODO: Prompt for a title.
+	    String title = "";
+	    path.finish(title);
 	    
 		startStopButton.setText(resources.getString(R.string.start));
 		startStopButton.setBackgroundResource(R.drawable.start_button);

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:orientation="vertical">
+
+     <TextView android:id="@+id/title"
+         android:textSize="16sp"
+         android:textStyle="bold"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"/>
+
+     <ImageView android:id="@+id/left_divider"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/divider_description"
+            android:src="@color/divider_white" />
+     
+     <TextView android:id="@+id/absolute_time"
+         android:textSize="16sp"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"/>
+     
+     <ImageView android:id="@+id/right_divider"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/divider_description"
+            android:src="@color/divider_white" />
+     
+     <TextView android:id="@+id/relative_time"
+         android:textSize="16sp"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"/>
+     
+ </LinearLayout>

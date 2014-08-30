@@ -14,12 +14,42 @@
     <string name="connected">Connected</string>
     <string name="find_nearby_devices">Find Nearby Devices</string>
     <string name="nearby_devices">Nearby Devices</string>
-    <string name="paired_with_x">Paired with %s</string>
+    <string name="paired_with_x" formatted="false">Paired with %s</string>
     
     <string name="start">Start</string>
     <string name="stop">Stop</string>
     <string name="cancel">Cancel</string>
     <string name="disconnect">Disconnect</string>
+    
+    <!-- About page -->
+    <string name="about">About</string>
+    <string name="app_description">Triangulation Device is an interactive sound artwork that generates improvised soundscapes between two people.\n\nVersion: 1.0</string>
+    <string name="website">http://website.com</string>
+	<string name="rate_review">Rate and Review</string>
+	<string name="privacy">Privacy Policy</string>
+	<string name="credits">Credits</string>
+    <string-array name="about_sections">
+	    <item>@string/website</item>
+	    <item>@string/rate_review</item>
+	    <item>@string/privacy</item>
+	    <item>@string/credits</item>
+    </string-array>
+    
+    <!-- Archive items -->
+    <plurals name="n_sessions">
+        <item quantity="zero">No Sessions</item>
+        <item quantity="one" formatted="false">%d Session</item>
+        <item quantity="other" formatted="false">%d Sessions</item>
+    </plurals>
+    <string name="no_results">No Sessions</string>
+    
+    <!-- ActionBar menu -->
+    <string name="archive">Archive</string>
+    <string name="settings">Settings</string>
+    
+    <!-- Player -->
+    <string name="player_longitude">LONGITUDE</string>
+    <string name="player_latitude">LATITUDE</string>
     
     <string name="divider_description">REALLY, ANDROID?? REALLY?? YOU NEED A DESCRIPTION FOR A FUCKING DIVIDER??</string>
 

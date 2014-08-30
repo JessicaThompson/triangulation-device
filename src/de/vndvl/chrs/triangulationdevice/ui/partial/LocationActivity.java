@@ -1,4 +1,4 @@
-package de.vndvl.chrs.triangulationdevice;
+package de.vndvl.chrs.triangulationdevice.ui.partial;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
