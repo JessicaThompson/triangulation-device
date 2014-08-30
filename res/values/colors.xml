@@ -10,6 +10,7 @@
  
  <color name="my_device_grey_bg">#FF333333</color>
  <color name="divider_white">#FFFFFFFF</color>
+ <color name="divider_black">#FF000000</color>
  
  <color name="status_grey_bg">#FF1A1A1A</color>
  

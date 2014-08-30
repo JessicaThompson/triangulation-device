@@ -2,34 +2,45 @@
  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
      android:layout_width="match_parent"
      android:layout_height="wrap_content"
-     android:orientation="vertical">
+     android:padding="12dp"
+     android:orientation="horizontal"
+     android:gravity="center" >
 
      <TextView android:id="@+id/title"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:layout_weight="1"
          android:textSize="16sp"
-         android:textStyle="bold"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"/>
+         android:paddingLeft="16dp"
+         android:paddingRight="16dp"
+         android:text="@string/no_title" />
 
      <ImageView android:id="@+id/left_divider"
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:contentDescription="@string/divider_description"
-            android:src="@color/divider_white" />
+            android:src="@color/divider_black" />
      
      <TextView android:id="@+id/absolute_time"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:layout_weight="1"
          android:textSize="16sp"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"/>
+         android:paddingLeft="16dp"
+         android:paddingRight="16dp" />
      
      <ImageView android:id="@+id/right_divider"
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:contentDescription="@string/divider_description"
-            android:src="@color/divider_white" />
+            android:src="@color/divider_black" />
      
      <TextView android:id="@+id/relative_time"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:layout_weight="1"
          android:textSize="16sp"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"/>
+         android:paddingLeft="16dp"
+         android:paddingRight="16dp" />
      
  </LinearLayout>

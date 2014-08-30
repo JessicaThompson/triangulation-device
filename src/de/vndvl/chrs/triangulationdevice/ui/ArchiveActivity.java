@@ -65,18 +65,13 @@ public class ArchiveActivity extends TriangulationListActivity {
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        
-        for (int i = 0; i < menu.size(); i++) {
-            Log.i(getClass().toString(), menu.getItem(i).getTitle().toString());
-        }
-        
+        boolean displayed = super.onCreateOptionsMenu(menu);
         menu.findItem(R.id.menu_archive).setVisible(false);
-        return true;
+        return displayed;
     }
     
     public class SessionAdapter extends ArrayAdapter<Session> {
-        private DateFormat timeFormat = DateFormat.getTimeInstance();
+        private DateFormat timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
         
         public SessionAdapter(Context context, List<Session> users) {
            super(context, R.layout.archive_row, users);
@@ -97,7 +92,11 @@ public class ArchiveActivity extends TriangulationListActivity {
            TextView timeDiffView = (TextView) convertView.findViewById(R.id.relative_time);
            
            // Populate the data into the template view using the data object
-           titleView.setText(session.title);
+           if (session.title != null && !session.title.equals("")) {
+               titleView.setText(session.title);
+           } else {
+               titleView.setText(getResources().getString(R.string.no_title));
+           }
            timeView.setText(timeFormat.format(session.saved));
            timeDiffView.setText(DateUtils.getRelativeTimeSpanString(session.saved.getTime()));
            

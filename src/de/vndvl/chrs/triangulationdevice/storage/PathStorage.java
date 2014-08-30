@@ -141,19 +141,21 @@ public class PathStorage {
         ContentValues sessionValues = new ContentValues();
         sessionValues.put(PathSQLiteHelper.COLUMN_SESSION_TITLE, title);
         sessionValues.put(PathSQLiteHelper.COLUMN_SESSION_TIME_SAVED, df.format(new Date()));
-        return database.insert(PathSQLiteHelper.TABLE_SESSIONS, null, sessionValues);
+        long id = database.insert(PathSQLiteHelper.TABLE_SESSIONS, null, sessionValues);
+        Log.i(getClass().toString(), "New ID: " + id);
+        return id;
     }
     
     private long savePath(int type, long sessionId) {
         ContentValues pathValues = new ContentValues();
-        pathValues.put(PathSQLiteHelper.COLUMN_SESSION_ID, sessionId);
+        pathValues.put(PathSQLiteHelper.COLUMN_PATH_SESSION_ID, sessionId);
         pathValues.put(PathSQLiteHelper.COLUMN_PATH_TYPE, type);
         return database.insert(PathSQLiteHelper.TABLE_PATHS, null, pathValues);
     }
     
     private long saveLocation(Location point, long pathId) {
         ContentValues locationValues = new ContentValues();
-        locationValues.put(PathSQLiteHelper.COLUMN_PATH_ID, pathId);
+        locationValues.put(PathSQLiteHelper.COLUMN_LOCATION_PATH_ID, pathId);
         locationValues.put(PathSQLiteHelper.COLUMN_LOCATION_LATITUDE, point.getLatitude());
         locationValues.put(PathSQLiteHelper.COLUMN_LOCATION_LONGITUDE, point.getLongitude());
         locationValues.put(PathSQLiteHelper.COLUMN_LOCATION_TIME, df.format(new Date(point.getTime())));
