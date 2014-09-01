@@ -77,7 +77,7 @@ public class PDDriver {
     public void start() {
         startPdAudio();
         myLocationChanged(this.myLocation);
-        pdChangeXfade(0f);
+        pdChangeXfade(0.5f);
         PdBase.sendBang("trigger");
     }
 
