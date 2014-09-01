@@ -56,6 +56,8 @@ public abstract class BluetoothIPCActivity<T extends Parcelable> extends Locatio
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.resources = getResources();
+
         // Request a progress bar.
         this.requestWindowFeature(Window.FEATURE_PROGRESS);
 
