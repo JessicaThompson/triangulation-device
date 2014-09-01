@@ -5,10 +5,10 @@ import java.util.List;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -23,6 +23,7 @@ import de.vndvl.chrs.triangulationdevice.ui.partial.TriangulationListActivity;
 
 public class ArchiveActivity extends TriangulationListActivity {
     private PathStorage storage = new PathStorage(this);
+    private List<Session> sessions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -31,7 +32,7 @@ public class ArchiveActivity extends TriangulationListActivity {
 
         // Load our archives from storage.
         storage.open();
-        final List<Session> sessions = storage.loadSessions();
+        sessions = storage.loadSessions();
         final SessionAdapter adapter = new SessionAdapter(this, sessions);
         setListAdapter(adapter);
         
@@ -39,18 +40,22 @@ public class ArchiveActivity extends TriangulationListActivity {
         adapter.registerDataSetObserver(new DataSetObserver() {
             @Override
             public void onChanged() {
-                if (sessions.size() > 0) {
-                    getActionBar().setTitle(getResources().getQuantityString(R.plurals.n_sessions, sessions.size()));
-                } else {
-                    getActionBar().setTitle(getResources().getString(R.string.archive));
-                }
+                updateTitle(sessions);
             }
         });
-        adapter.notifyDataSetInvalidated();
+        updateTitle(sessions);
 
         // Set the up action.
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+    
+    private void updateTitle(List<Session> sessions) {
+        if (sessions.size() > 0) {
+            getActionBar().setTitle(getResources().getQuantityString(R.plurals.n_sessions, sessions.size()));
+        } else {
+            getActionBar().setTitle(getResources().getString(R.string.archive));
+        }
     }
     
     protected void onDestroy() {
@@ -60,7 +65,10 @@ public class ArchiveActivity extends TriangulationListActivity {
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        // TODO: Launch the player on click.
+        Intent playerIntent = new Intent(this, PlayerActivity.class);
+        playerIntent.setAction(Intent.ACTION_VIEW);
+        playerIntent.putExtra(PlayerActivity.SESSION_EXTRA, position);
+        startActivity(playerIntent);
     }
     
     @Override

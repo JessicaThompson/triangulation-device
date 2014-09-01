@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
+
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
@@ -21,8 +22,8 @@ import android.util.Log;
 public class PathStorage {
     
     // Storage locations in the list, extendable juuuuuust in case.
-    private static final int MINE = 0;
-    private static final int THEIRS = 1;
+    public static final int MINE = 0;
+    public static final int THEIRS = 1;
     
     private static final int PATH_TOTAL = 2; // Number of total paths (mine + theirs = 2 for now);
     
