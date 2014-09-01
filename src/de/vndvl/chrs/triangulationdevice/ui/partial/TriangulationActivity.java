@@ -1,14 +1,14 @@
 package de.vndvl.chrs.triangulationdevice.ui.partial;
 
-import de.vndvl.chrs.triangulationdevice.R;
-import de.vndvl.chrs.triangulationdevice.ui.AboutActivity;
-import de.vndvl.chrs.triangulationdevice.ui.ArchiveActivity;
-import de.vndvl.chrs.triangulationdevice.ui.SettingsActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import de.vndvl.chrs.triangulationdevice.R;
+import de.vndvl.chrs.triangulationdevice.ui.AboutActivity;
+import de.vndvl.chrs.triangulationdevice.ui.ArchiveActivity;
+import de.vndvl.chrs.triangulationdevice.ui.SettingsActivity;
 
 public abstract class TriangulationActivity extends Activity {
     

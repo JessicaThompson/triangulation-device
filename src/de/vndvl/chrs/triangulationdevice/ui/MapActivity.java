@@ -2,9 +2,7 @@ package de.vndvl.chrs.triangulationdevice.ui;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 
 import org.puredata.android.io.AudioParameters;
 import org.puredata.android.service.PdService;
@@ -13,9 +11,6 @@ import org.puredata.core.PdBase;
 import org.puredata.core.utils.IoUtils;
 
 import android.app.AlertDialog;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothClass;
-import android.bluetooth.BluetoothDevice;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,45 +19,28 @@ import android.content.ServiceConnection;
 import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Message;
+import android.os.Parcelable.Creator;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import de.vndvl.chrs.triangulationdevice.R;
-import de.vndvl.chrs.triangulationdevice.bluetooth.BluetoothDeviceService;
-import de.vndvl.chrs.triangulationdevice.bluetooth.BluetoothIPCService;
 import de.vndvl.chrs.triangulationdevice.storage.PathStorage;
-import de.vndvl.chrs.triangulationdevice.ui.partial.LocationActivity;
+import de.vndvl.chrs.triangulationdevice.ui.partial.BluetoothIPCActivity;
 import de.vndvl.chrs.triangulationdevice.ui.views.DraggableWeightView;
 import de.vndvl.chrs.triangulationdevice.ui.views.RadarView;
 import de.vndvl.chrs.triangulationdevice.ui.views.WaveformView;
 import de.vndvl.chrs.triangulationdevice.util.Typefaces;
 
-public class MapActivity extends LocationActivity {
-    private final static String TAG = "MapActivity";
-
-    private final static int DISCOVERABILITY_DURATION = 5 * 1000;
-    private final static String TRIANGULATION_DEVICE_UUID = "04364090-2bca-11e4-8c21-0800200c9a66";
-
+public class MapActivity extends BluetoothIPCActivity<Location> {
     private Resources resources;
 
-    private BluetoothIPCService bluetoothIPC;
-    private BluetoothDeviceService deviceService;
-    private BluetoothDevice connectedDevice;
-
-    private ArrayList<BluetoothDevice> bluetoothDevices;
-    private ArrayAdapter<String> bluetoothNames;
-
     private boolean recording = false;
-    private PathStorage path = new PathStorage(this);
+    private final PathStorage path = new PathStorage(this);
 
     private WaveformView myWaveform;
     private WaveformView theirWaveform;
@@ -71,8 +49,6 @@ public class MapActivity extends LocationActivity {
     private TextView myConnectionStatus;
     private Button startStopButton;
     private Button findNearbyButton;
-
-    private final Handler bluetoothHandler = new Handler(new MapActivityHandler());
 
     private DraggableWeightView waveforms;
 
@@ -86,13 +62,13 @@ public class MapActivity extends LocationActivity {
     private final ServiceConnection pdConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            pdService = ((PdService.PdBinder)service).getService();
+            MapActivity.this.pdService = ((PdService.PdBinder) service).getService();
             try {
                 // Initialize PD, load patch
                 initPd();
                 loadPatch();
             } catch (IOException e) {
-                Log.e(TAG, e.toString());
+                Log.e(getClass().toString(), e.toString());
                 finish();
             }
         }
@@ -105,17 +81,17 @@ public class MapActivity extends LocationActivity {
 
     private void initPd() throws IOException {
         int sampleRate = AudioParameters.suggestSampleRate();
-        pdService.initAudio(sampleRate, 0, 2, 10.0f);
-            // sampleRate, inChannels, outChannels, bufferSize [ms]
-        dispatcher = new PdUiDispatcher();
-        PdBase.setReceiver(dispatcher);
+        this.pdService.initAudio(sampleRate, 0, 2, 10.0f);
+        // sampleRate, inChannels, outChannels, bufferSize [ms]
+        this.dispatcher = new PdUiDispatcher();
+        PdBase.setReceiver(this.dispatcher);
         /* TODO: Listeners go here (if necessary) */
     }
 
     private void startPdAudio() {
-        if (!pdService.isRunning()) {
+        if (!this.pdService.isRunning()) {
             Intent intent = new Intent(MapActivity.this, MapActivity.class);
-            pdService.startAudio(intent, R.drawable.icon, "Triangulation Device", "Return to Triangulation Device");
+            this.pdService.startAudio(intent, R.drawable.ab_logo, "Triangulation Device", "Return to Triangulation Device");
             // Starts audio and creates a notification pointing to this activity
             // To start audio with no notification, give startAudio() 0 args
         }
@@ -126,14 +102,15 @@ public class MapActivity extends LocationActivity {
         telephonyManager.listen(new PhoneStateListener() {
             @Override
             public void onCallStateChanged(int state, String incomingNumber) {
-                if (pdService == null) return;
+                if (MapActivity.this.pdService == null)
+                    return;
                 if (state == TelephonyManager.CALL_STATE_IDLE) {
                     startPdAudio();
                     // TODO: Handle possible edge case
                     // Person has app open, sound off, receives call
                     // (undesired sound starts when call ends?)
                 } else {
-                    pdService.stopAudio();
+                    MapActivity.this.pdService.stopAudio();
                 }
             }
         }, PhoneStateListener.LISTEN_CALL_STATE);
@@ -147,19 +124,24 @@ public class MapActivity extends LocationActivity {
     }
 
     public void pdChangeMyLocation(Location location) {
-        // I know you can convert to HMS format, but using that requires String conversion & manipulation...
+        // I know you can convert to HMS format, but using that requires String
+        // conversion & manipulation...
         // TODO: Use formatted strings to extract HMS rather than tons of math
         // TODO: Split extractHMS to lat OR long rather than lat AND long?
+        Log.i(getClass().toString(), "pdChangeMyLocation " + location.toString());
         HashMap<String, Float> gpsNamesToVals = extractHMS(location);
         for (HashMap.Entry<String, Float> entry : gpsNamesToVals.entrySet()) {
             PdBase.sendFloat(entry.getKey(), entry.getValue());
         }
-        if (theirLocation != null) {
-            pdChangeProximity(location, theirLocation);
+
+        if (this.theirLocation != null) {
+            pdChangeProximity(location, this.theirLocation);
         }
     }
 
     public void pdChangeProximity(Location myLocation, Location theirLocation) {
+        Log.i(getClass().toString(), "pdChangeProximity " + myLocation.toString());
+        Log.i(getClass().toString(), "pdChangeProximity " + theirLocation.toString());
         HashMap<String, Float> myHMS = extractHMS(myLocation);
         HashMap<String, Float> theirHMS = extractHMS(theirLocation);
 
@@ -209,23 +191,20 @@ public class MapActivity extends LocationActivity {
         super.onCreate(savedInstanceState);
 
         // Bind & init PdService
-        bindService(new Intent(this, PdService.class), pdConnection, BIND_AUTO_CREATE);
+        bindService(new Intent(this, PdService.class), this.pdConnection, BIND_AUTO_CREATE);
         initSystemServices();
 
         Typefaces.loadTypefaces(this);
 
-        // Request a progress bar.
-        this.requestWindowFeature(Window.FEATURE_PROGRESS);
-
         setContentView(R.layout.map_activity);
-        resources = getResources();
+        this.resources = getResources();
 
-        myWaveform = (WaveformView) findViewById(R.id.my_waveform);
-        theirWaveform = (WaveformView) findViewById(R.id.their_waveform);
-        theirWaveform.setDeviceName(resources.getString(R.string.paired_device));
+        this.myWaveform = (WaveformView) findViewById(R.id.my_waveform);
+        this.theirWaveform = (WaveformView) findViewById(R.id.their_waveform);
+        this.theirWaveform.setDeviceName(this.resources.getString(R.string.paired_device));
 
-        waveforms = (DraggableWeightView) findViewById(R.id.waveform);
-        waveforms.setListener(new DraggableWeightView.Listener() {
+        this.waveforms = (DraggableWeightView) findViewById(R.id.waveform);
+        this.waveforms.setListener(new DraggableWeightView.Listener() {
             @Override
             public void onChanged(double topBottomRatio) {
                 double xfade = 1d - topBottomRatio;
@@ -233,68 +212,33 @@ public class MapActivity extends LocationActivity {
             }
         });
 
-        radar = (RadarView) findViewById(R.id.devices_map);
+        this.radar = (RadarView) findViewById(R.id.devices_map);
 
-        startStopButton = (Button) findViewById(R.id.start_button);
-        findNearbyButton = (Button) findViewById(R.id.find_nearby_button);
-        myConnectionStatus = (TextView) findViewById(R.id.my_device_status_value);
+        this.startStopButton = (Button) findViewById(R.id.start_button);
+        this.findNearbyButton = (Button) findViewById(R.id.find_nearby_button);
+        this.myConnectionStatus = (TextView) findViewById(R.id.my_device_status_value);
 
         // Set our fancy, custom fonts.
-        findNearbyButton.setTypeface(Typefaces.raleway);
-        startStopButton.setTypeface(Typefaces.raleway);
-        myConnectionStatus.setTypeface(Typefaces.raleway);
+        this.findNearbyButton.setTypeface(Typefaces.raleway);
+        this.startStopButton.setTypeface(Typefaces.raleway);
+        this.myConnectionStatus.setTypeface(Typefaces.raleway);
         TextView myDeviceStatusTitle = (TextView) findViewById(R.id.my_device_status_title);
         myDeviceStatusTitle.setTypeface(Typefaces.ralewaySemiBold);
-
-        // Set up the Bluetooth device discovery, react to its listener methods.
-        deviceService = new BluetoothDeviceService(this);
-        deviceService.setListener(new BluetoothDeviceService.Listener() {
-            @Override
-            public void unpairedDeviceFound(BluetoothDevice device) {
-                int bluetoothClass = device.getBluetoothClass().getDeviceClass();
-                if (bluetoothClass == BluetoothClass.Device.PHONE_SMART || bluetoothClass == BluetoothClass.Device.COMPUTER_LAPTOP) {
-                    bluetoothDevices.add(device);
-                    bluetoothNames.add(device.getName());
-                }
-            }
-
-            @Override
-            public void pairedDevices(Set<BluetoothDevice> pairedDevices) {
-                for (BluetoothDevice device : pairedDevices) {
-                    int bluetoothClass = device.getBluetoothClass().getDeviceClass();
-                    if (bluetoothClass == BluetoothClass.Device.PHONE_SMART || bluetoothClass == BluetoothClass.Device.COMPUTER_LAPTOP) {
-                        bluetoothDevices.add(device);
-                        bluetoothNames.add(device.getName());
-                    }
-                }
-            }
-        });
-
-        // Set up the IPC service.
-        bluetoothIPC = new BluetoothIPCService(TRIANGULATION_DEVICE_UUID, bluetoothHandler);
-
-        // Set us up for discoverability
-        Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-        discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, DISCOVERABILITY_DURATION);
-        startActivity(discoverableIntent);
     }
 
     @Override
     protected void onDestroy() {
-        deviceService.destroy();
         super.onDestroy();
-        // Unbind PdService
-        unbindService(pdConnection);
+        unbindService(this.pdConnection);
     }
 
     @Override
     public void onLocationChanged(Location location) {
-        myWaveform.setLocation(location);
-        radar.setLocation(location);
-        bluetoothIPC.write(location);
+        this.myWaveform.setLocation(location);
+        this.radar.setLocation(location);
 
-        if (recording) {
-            path.addMine(location);
+        if (this.recording) {
+            this.path.addMine(location);
         }
 
         pdChangeMyLocation(location);
@@ -302,97 +246,48 @@ public class MapActivity extends LocationActivity {
 
     @Override
     public void onCompassChanged(float azimuth) {
-        radar.setAzimuth(azimuth);
+        this.radar.setAzimuth(azimuth);
     }
 
     public void theirLocationChanged(Location location) {
-        theirWaveform.setLocation(location);
-        radar.setOtherLocation(location);
+        this.theirWaveform.setLocation(location);
+        this.radar.setOtherLocation(location);
 
-        if (recording) {
-            path.addTheirs(location);
+        if (this.recording) {
+            this.path.addTheirs(location);
         }
 
-        pdChangeProximity(getLocation(), theirLocation);
+        pdChangeProximity(getLocation(), this.theirLocation);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        path.open();
-        if (connectedDevice != null) {
-            bluetoothIPC.start();
-        }
+        this.path.open();
     }
 
     @Override
     protected void onPause() {
-        path.close();
-        if (connectedDevice != null) {
-            bluetoothIPC.stop();
-        }
-
+        this.path.close();
         super.onPause();
     }
 
-    public void findNearby(View tappedView) {
-        bluetoothDevices = new ArrayList<BluetoothDevice>();
-        bluetoothNames = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
-        deviceService.start();
-        bluetoothIPC.start();
+    @Override
+    protected void successfulConnect() {
+        super.successfulConnect();
+        this.waveforms.activate();
 
-        // Create the dialog that shows new devices.
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(resources.getString(R.string.nearby_devices));
-        builder.setAdapter(bluetoothNames, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int item) {
-                deviceService.stop();
-                connectTo(bluetoothDevices.get(item));
-            }
-        });
-        builder.setNegativeButton(resources.getString(R.string.cancel), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int item) {
-                deviceService.stop();
-                dialog.cancel();
-            }
-        });
-
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-    private void receiveConnection(BluetoothDevice device) {
-        // Set device as our chosen device.
-        Log.i(TAG, "Setting the device, receiveConnection() " + device);
-        connectedDevice = device;
-    }
-
-    private void connectTo(BluetoothDevice device) {
-        // Set device as our chosen device.
-        setProgressBarIndeterminateVisibility(true);
-        connectedDevice = device;
-        bluetoothIPC.connect(device);
-    }
-
-    private void successfulConnect() {
-        setProgressBarIndeterminateVisibility(false);
-        bluetoothIPC.write(getLocation());
-        waveforms.activate();
-
-        String statusText = resources.getString(R.string.paired_with_x, connectedDevice.getName());
-        myConnectionStatus.setText(statusText);
-        theirWaveform.setVisibility(View.VISIBLE);
+        String statusText = this.resources.getString(R.string.paired_with_x, getConnectedDevice().getName());
+        this.myConnectionStatus.setText(statusText);
+        this.theirWaveform.setVisibility(View.VISIBLE);
 
         // Set radar to connected state.
-        radar.connected(true);
+        this.radar.connected(true);
 
         // Clear the "Find Nearby Devices" button.
-        findNearbyButton.setText(resources.getString(R.string.disconnect));
-        findNearbyButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-        findNearbyButton.setOnClickListener(new View.OnClickListener() {
+        this.findNearbyButton.setText(this.resources.getString(R.string.disconnect));
+        this.findNearbyButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        this.findNearbyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 disconnectDevice(v);
@@ -400,22 +295,19 @@ public class MapActivity extends LocationActivity {
         });
     }
 
-    private void disconnectDevice(View buttonView) {
-        // Clear chosen device.
-        setProgressBarIndeterminateVisibility(false);
-        connectedDevice = null;
-        myConnectionStatus.setText(resources.getString(R.string.not_connected));
-        theirWaveform.setVisibility(View.GONE);
-
-        bluetoothIPC.disconnect();
+    @Override
+    protected void disconnectDevice(View buttonView) {
+        super.disconnectDevice(buttonView);
+        this.myConnectionStatus.setText(this.resources.getString(R.string.not_connected));
+        this.theirWaveform.setVisibility(View.GONE);
 
         // Set radar to disconnected state.
-        radar.connected(false);
+        this.radar.connected(false);
 
         // Reset the "Find Nearby Devices" button.
-        findNearbyButton.setText(resources.getString(R.string.find_nearby_devices));
-        findNearbyButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_location_found, 0, 0, 0);
-        findNearbyButton.setOnClickListener(new View.OnClickListener() {
+        this.findNearbyButton.setText(this.resources.getString(R.string.find_nearby_devices));
+        this.findNearbyButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_location_found, 0, 0, 0);
+        this.findNearbyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 findNearby(v);
@@ -425,12 +317,12 @@ public class MapActivity extends LocationActivity {
 
     public void start(View buttonView) {
         this.recording = true;
-        startStopButton.setText(resources.getString(R.string.stop));
-        startStopButton.setBackgroundResource(R.drawable.stop_button);
-        startStopButton.setOnClickListener(new View.OnClickListener() {
+        this.startStopButton.setText(this.resources.getString(R.string.stop));
+        this.startStopButton.setBackgroundResource(R.drawable.stop_button);
+        this.startStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startPdAudio();     // start Pd patch
+                startPdAudio(); // start Pd patch
                 pdChangeMyLocation(getLocation());
                 pdChangeXfade(0f);
                 PdBase.sendBang("trigger");
@@ -466,56 +358,29 @@ public class MapActivity extends LocationActivity {
         });
         alert.show();
 
-        startStopButton.setText(resources.getString(R.string.start));
-        startStopButton.setBackgroundResource(R.drawable.start_button);
-        startStopButton.setOnClickListener(new View.OnClickListener() {
+        this.startStopButton.setText(this.resources.getString(R.string.start));
+        this.startStopButton.setBackgroundResource(R.drawable.start_button);
+        this.startStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pdService.stopAudio();    // stop Pd patch
+                MapActivity.this.pdService.stopAudio(); // stop Pd patch
                 start(v);
             }
         });
     }
 
-    private class MapActivityHandler implements Handler.Callback {
-        @Override
-        public boolean handleMessage(Message msg) {
-            switch (msg.what) {
-            case BluetoothIPCService.NEW_DEVICE:
-                receiveConnection((BluetoothDevice) msg.obj);
-            case BluetoothIPCService.MESSAGE_STATE_CHANGE:
-                switch (msg.arg1) {
-                case BluetoothIPCService.STATE_CONNECTED:
-                    // We're finally connected, so change the UI to
-                    // reflect that.
-                    successfulConnect();
-                    break;
-                case BluetoothIPCService.STATE_CONNECTING:
-                    // Connecting state gets set once we choose a device
-                    // so we'll ignore this.
-                    break;
-                case BluetoothIPCService.STATE_LISTEN:
-                    // We're disconnected and listening to things.
-                    if (connectedDevice != null) {
-                        disconnectDevice(null);
-                    }
-                    break;
-                case BluetoothIPCService.STATE_NONE:
-                    // This is only when it's being set up and not
-                    // listening yet, or stopped and in the process of
-                    // shutting down.
-                    break;
-                }
-                break;
-            case BluetoothIPCService.MESSAGE_READ:
-                theirLocation = (Location) msg.obj;
-                theirLocationChanged(theirLocation);
-                break;
-            case BluetoothIPCService.MESSAGE_INFO:
-                Log.i(TAG, msg.getData().getString(BluetoothIPCService.INFO));
-                break;
-            }
-            return true;
-        }
-    };
+    @Override
+    protected void onMessageReceived(Location message) {
+        theirLocationChanged(message);
+    }
+
+    @Override
+    protected Location getDefault() {
+        return getLocation();
+    }
+
+    @Override
+    protected Creator<Location> getCreator() {
+        return Location.CREATOR;
+    }
 }
