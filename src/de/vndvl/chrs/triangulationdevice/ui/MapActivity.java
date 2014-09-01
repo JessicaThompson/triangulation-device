@@ -226,7 +226,8 @@ public class MapActivity extends LocationActivity {
         waveforms.setListener(new DraggableWeightView.Listener() {
             @Override
             public void onChanged(double topBottomRatio) {
-                // TODO something to do with the new ratio (update the PD).
+                double xfade = 1d - topBottomRatio;
+                pdChangeXfade((float) xfade);
             }
         });
 
@@ -429,6 +430,7 @@ public class MapActivity extends LocationActivity {
             public void onClick(View v) {
                 startPdAudio();     // start Pd patch
                 pdChangeMyLocation(getLocation());
+                pdChangeXfade(0f);
                 PdBase.sendBang("trigger");
                 stop(v);
             }
@@ -469,8 +471,6 @@ public class MapActivity extends LocationActivity {
             public void onClick(View v) {
                 pdService.stopAudio();    // stop Pd patch
                 start(v);
-                // TODO: Useful stuff with this method. Stop some audio or
-                // something.
             }
         });
     }
