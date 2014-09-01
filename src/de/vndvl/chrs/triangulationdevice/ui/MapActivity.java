@@ -229,6 +229,7 @@ public class MapActivity extends LocationActivity {
 
     @Override
     public void onLocationChanged(Location location) {
+        sendFloat();
         myWaveform.setLocation(location);
         radar.setLocation(location);
         bluetoothIPC.write(location);
@@ -358,13 +359,13 @@ public class MapActivity extends LocationActivity {
     }
 
     public void start(View buttonView) {
-        startPdAudio();     // start Pd patch
         this.recording = true;
         startStopButton.setText(resources.getString(R.string.stop));
         startStopButton.setBackgroundResource(R.drawable.stop_button);
         startStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startPdAudio();     // start Pd patch
                 stop(v);
                 // TODO: Useful stuff with this method. Start some audio or
                 // something.
@@ -373,7 +374,6 @@ public class MapActivity extends LocationActivity {
     }
 
     public void stop(View buttonView) {
-        pdService.stopAudio();    // stop Pd patch
         this.recording = false;
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -403,6 +403,7 @@ public class MapActivity extends LocationActivity {
         startStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pdService.stopAudio();    // stop Pd patch
                 start(v);
                 // TODO: Useful stuff with this method. Stop some audio or
                 // something.
