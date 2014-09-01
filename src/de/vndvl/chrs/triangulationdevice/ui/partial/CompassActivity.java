@@ -1,5 +1,6 @@
 package de.vndvl.chrs.triangulationdevice.ui.partial;
 
+import android.app.Activity;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -7,49 +8,70 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 
+/**
+ * An {@link Activity} which updates subclasses with the compass direction that
+ * the current user is pointed to (the "azimuth"). Subclasses must implement
+ * {@link #onCompassChanged()} and deal with new direction values as they come
+ * in.
+ */
 public abstract class CompassActivity extends TriangulationActivity implements SensorEventListener {
     private SensorManager sensorManager;
     private Sensor accelerometer;
     private Sensor magnetometer;
     private float[] gravity;
     private float[] geomagnetic;
-    
+
     /**
      * Called when our orientation is updated.
-     * @param The azimuth in radians between our orientation and north,
-     * positive being in the counter-clockwise direction.
+     * 
+     * @param azimuth
+     *            The azimuth in radians between our orientation and north,
+     *            positive being in the counter-clockwise direction.
      */
     protected abstract void onCompassChanged(float azimuth);
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        Sensor maybeAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        Sensor maybeMagnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        this.sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        Sensor maybeAccelerometer = this.sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        Sensor maybeMagnetometer = this.sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         if (maybeAccelerometer != null && maybeMagnetometer != null) {
-            accelerometer = maybeAccelerometer;
-            magnetometer = maybeMagnetometer;
+            this.accelerometer = maybeAccelerometer;
+            this.magnetometer = maybeMagnetometer;
         }
     }
-    
-    @Override
-    public final void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
+    /**
+     * Called when the accuracy has changed. I don't really give much of a shit
+     * about this method's values, but you can subclass it if you care.
+     * 
+     * @param sensor
+     *            The {@link Sensor} whose accuracy has changed.
+     * @param accuracy
+     *            The new accuracy value.
+     */
+    @Override
+    public final void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
+
+    @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            gravity = event.values;
+            this.gravity = event.values;
         } else if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
-            geomagnetic = event.values;
+            this.geomagnetic = event.values;
         }
-      
-        if (gravity != null && geomagnetic != null) {
+
+        if (this.gravity != null && this.geomagnetic != null) {
             float R[] = new float[9];
             float I[] = new float[9];
-            boolean success = SensorManager.getRotationMatrix(R, I, gravity, geomagnetic);
+            boolean success = SensorManager.getRotationMatrix(R, I, this.gravity, this.geomagnetic);
             if (success) {
                 float orientation[] = new float[3];
                 SensorManager.getOrientation(R, orientation);
-                this.onCompassChanged(orientation[0]); // orientation contains: azimut, pitch and roll
+                this.onCompassChanged(orientation[0]); // orientation contains:
+                                                       // azimut, pitch and roll
             }
         }
     }
@@ -57,14 +79,14 @@ public abstract class CompassActivity extends TriangulationActivity implements S
     @Override
     protected void onResume() {
         super.onResume();
-        sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_UI);
-        sensorManager.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_UI);
+        this.sensorManager.registerListener(this, this.accelerometer, SensorManager.SENSOR_DELAY_UI);
+        this.sensorManager.registerListener(this, this.magnetometer, SensorManager.SENSOR_DELAY_UI);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        sensorManager.unregisterListener(this);
+        this.sensorManager.unregisterListener(this);
     }
 
 }

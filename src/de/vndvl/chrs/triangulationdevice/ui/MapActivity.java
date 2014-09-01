@@ -1,6 +1,8 @@
 package de.vndvl.chrs.triangulationdevice.ui;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.bluetooth.BluetoothDevice;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.location.Location;
@@ -16,9 +18,13 @@ import de.vndvl.chrs.triangulationdevice.storage.PathStorage;
 import de.vndvl.chrs.triangulationdevice.ui.partial.BluetoothIPCActivity;
 import de.vndvl.chrs.triangulationdevice.ui.views.DraggableWeightView;
 import de.vndvl.chrs.triangulationdevice.ui.views.RadarView;
-import de.vndvl.chrs.triangulationdevice.ui.views.WaveformView;
+import de.vndvl.chrs.triangulationdevice.ui.views.WaveformLabelView;
 import de.vndvl.chrs.triangulationdevice.util.Typefaces;
 
+/**
+ * An {@link Activity} which lets the user create sessions, connect with other
+ * devices, and see the current status of the other connected user.
+ */
 public class MapActivity extends BluetoothIPCActivity<Location> {
     private Resources resources;
 
@@ -26,8 +32,8 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     private final PathStorage path = new PathStorage(this);
     private final PDDriver pd = new PDDriver(this);
 
-    private WaveformView myWaveform;
-    private WaveformView theirWaveform;
+    private WaveformLabelView myWaveform;
+    private WaveformLabelView theirWaveform;
     private RadarView radar;
 
     private TextView myConnectionStatus;
@@ -45,8 +51,8 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
 
         this.pd.initServices();
 
-        this.myWaveform = (WaveformView) findViewById(R.id.my_waveform);
-        this.theirWaveform = (WaveformView) findViewById(R.id.their_waveform);
+        this.myWaveform = (WaveformLabelView) findViewById(R.id.my_waveform);
+        this.theirWaveform = (WaveformLabelView) findViewById(R.id.their_waveform);
         this.theirWaveform.setDeviceName(this.resources.getString(R.string.paired_device));
 
         this.waveforms = (DraggableWeightView) findViewById(R.id.waveform);
@@ -89,11 +95,23 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
         this.pd.myLocationChanged(location);
     }
 
+    /**
+     * Called when the direction the phone is facing changes. The azimuth value
+     * is in radians between our orientation and north, positive being in the
+     * counter-clockwise direction.
+     */
     @Override
     public void onCompassChanged(float azimuth) {
         this.radar.setAzimuth(azimuth);
     }
 
+    /**
+     * Called when the connected {@link BluetoothDevice} sends us a new Location
+     * value.
+     * 
+     * @param location
+     *            The new value for the connected other device's location.
+     */
     public void theirLocationChanged(Location location) {
         this.theirWaveform.setLocation(location);
         this.radar.setOtherLocation(location);
@@ -161,6 +179,17 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
         });
     }
 
+    /**
+     * Starts the audio processing from our current location. Also starts to
+     * record the individual values for later retrieval.
+     * 
+     * Also updates the UI, changing the "Start" button (which calls this
+     * method) to a "Stop" button (which calls {@link #stop(View)}).
+     * 
+     * @param buttonView
+     *            A {@link View}, in case this method is called from an XML
+     *            layout.
+     */
     public void start(View buttonView) {
         this.recording = true;
         this.pd.start();
@@ -175,6 +204,17 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
         });
     }
 
+    /**
+     * Stops the audio processing from our current location. Also stops the
+     * recording and prompts the user to name it in case they want to save.
+     * 
+     * Also updates the UI, changing the "Stop" button (which calls this method)
+     * to a "Start" button (which calls {@link #start(View)}).
+     * 
+     * @param buttonView
+     *            A {@link View}, in case this method is called from an XML
+     *            layout.
+     */
     public void stop(View buttonView) {
         this.recording = false;
         this.pd.stop();
