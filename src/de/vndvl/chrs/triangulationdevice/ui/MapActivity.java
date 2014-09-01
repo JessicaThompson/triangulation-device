@@ -196,7 +196,7 @@ public class MapActivity extends LocationActivity {
         // 1 = 100% user2 (them/their)
         if (0 <= level && level <= 1) {
             // THE LEVEL HAS TO BE IN THE RANGE OF (0,1)
-            PdBase.sendFloat("", level);
+            PdBase.sendFloat("xfade", level);
         }
     }
 
