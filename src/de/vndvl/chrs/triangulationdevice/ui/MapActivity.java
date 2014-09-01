@@ -317,15 +317,18 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
 
     public void start(View buttonView) {
         this.recording = true;
+
+        // start Pd patch
+        startPdAudio();
+        pdChangeMyLocation(getLocation());
+        pdChangeXfade(0f);
+        PdBase.sendBang("trigger");
+
         this.startStopButton.setText(this.resources.getString(R.string.stop));
         this.startStopButton.setBackgroundResource(R.drawable.stop_button);
         this.startStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startPdAudio(); // start Pd patch
-                pdChangeMyLocation(getLocation());
-                pdChangeXfade(0f);
-                PdBase.sendBang("trigger");
                 stop(v);
             }
         });
@@ -333,6 +336,9 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
 
     public void stop(View buttonView) {
         this.recording = false;
+
+        // stop Pd patch
+        MapActivity.this.pdService.stopAudio();
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Save Session");
@@ -363,7 +369,6 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
         this.startStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MapActivity.this.pdService.stopAudio(); // stop Pd patch
                 start(v);
             }
         });
