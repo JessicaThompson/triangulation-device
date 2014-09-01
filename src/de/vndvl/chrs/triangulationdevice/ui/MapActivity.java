@@ -1,19 +1,33 @@
 package de.vndvl.chrs.triangulationdevice.ui;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Set;
+
+import org.puredata.android.io.AudioParameters;
+import org.puredata.android.service.PdService;
+import org.puredata.android.utils.PdUiDispatcher;
+import org.puredata.core.PdBase;
+import org.puredata.core.utils.IoUtils;
 
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -61,9 +75,84 @@ public class MapActivity extends LocationActivity {
 
     private DraggableWeightView waveforms;
 
+    /* Pd code begins here */
+
+    private PdUiDispatcher dispatcher;
+    private PdService pdService = null;
+
+    private final ServiceConnection pdConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            pdService = ((PdService.PdBinder)service).getService();
+            try {
+                // Initialize PD, load patch
+                initPd();
+                loadPatch();
+            } catch (IOException e) {
+                Log.e(TAG, e.toString());
+                finish();
+            }
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            // Apparently this method will never be called?
+        }
+    };
+
+    private void initPd() throws IOException {
+        int sampleRate = AudioParameters.suggestSampleRate();
+        pdService.initAudio(sampleRate, 0, 2, 10.0f);
+            // sampleRate, inChannels, outChannels, bufferSize [ms]
+        dispatcher = new PdUiDispatcher();
+        PdBase.setReceiver(dispatcher);
+        /* TODO: Listeners go here */
+    }
+
+    private void startPdAudio() {
+        if (!pdService.isRunning()) {
+            Intent intent = new Intent(MapActivity.this, MapActivity.class);
+            pdService.startAudio(intent, R.drawable.icon, "Triangulation Device", "Return to Triangulation Device");
+            // Starts audio with notification pointing to this activity
+            // Provide 0 args to start audio with no notification
+        }
+    }
+
+    private void initSystemServices() {
+        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        telephonyManager.listen(new PhoneStateListener() {
+            @Override
+            public void onCallStateChanged(int state, String incomingNumber) {
+                if (pdService == null) return;
+                if (state == TelephonyManager.CALL_STATE_IDLE) {
+                    startPdAudio();
+                    // TODO: Handle possible edge case
+                    // Person has app open, sound off, receives call
+                    // (undesired sound starts when call ends?)
+                } else {
+                    pdService.stopAudio();
+                }
+            }
+        }, PhoneStateListener.LISTEN_CALL_STATE);
+    }
+
+    private void loadPatch() throws IOException {
+        File dir = getFilesDir();
+        IoUtils.extractZipResource(getResources().openRawResource(R.raw.triangulationdevice_comp), dir, true);
+        File patchFile = new File(dir, "triangulationdevice_comp.pd");
+        PdBase.openPatch(patchFile.getAbsolutePath());
+    }
+
+    /* Pd code ends here (for the most part) */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Bind & init PdService
+        bindService(new Intent(this, PdService.class), pdConnection, BIND_AUTO_CREATE);
+        initSystemServices();
+
         Typefaces.loadTypefaces(this);
 
         // Request a progress bar.
@@ -134,6 +223,8 @@ public class MapActivity extends LocationActivity {
     protected void onDestroy() {
         deviceService.destroy();
         super.onDestroy();
+        // Unbind PdService
+        unbindService(pdConnection);
     }
 
     @Override
