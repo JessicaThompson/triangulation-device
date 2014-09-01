@@ -15,103 +15,144 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.location.Location;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.ImageView;
 import de.vndvl.chrs.triangulationdevice.R;
+import de.vndvl.chrs.triangulationdevice.ui.partial.CompassActivity;
 
+/**
+ * A {@link View} that, when "connected" to another device, shows a
+ * radar-inspired display of two locations.
+ */
 public class RadarView extends ImageView {
 
-	private static final float SCALING = 0.02f;
+    private static final float SCALING = 0.02f;
 
-	private float azimuth = 0;
-	private boolean connected = false;
-	private Paint connectedPaint;
-	private Paint disconnectedPaint;
-	private Paint arrowPaint;
-	private BitmapDrawable arrowBlack;
-	private BitmapDrawable arrowGreen;
-	private BitmapDrawable otherMarker;
+    private float azimuth = 0;
+    private boolean connected = false;
+    private Paint connectedPaint;
+    private Paint disconnectedPaint;
+    private Paint arrowPaint;
+    private BitmapDrawable arrowBlack;
+    private BitmapDrawable arrowGreen;
+    private BitmapDrawable otherMarker;
 
-	private RectF boundsRect;
+    private RectF boundsRect;
 
-	private Location myLocation;
-	private Location otherLocation;
+    private Location myLocation;
+    private Location otherLocation;
 
-	public RadarView(Context context) {
-		super(context);
-		init();
-	}
+    public RadarView(Context context) {
+        super(context);
+        init();
+    }
 
-	public RadarView(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		init();
-	}
+    public RadarView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init();
+    }
 
-	public RadarView(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-		init();
-	}
+    public RadarView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        init();
+    }
 
-	public void connected(boolean connected) {
-		this.connected = connected;
+    /**
+     * Update the connected state to reflect that in the UI.
+     * 
+     * @param connected
+     *            Whether it's connected or not.
+     */
+    public void connected(boolean connected) {
+        this.connected = connected;
 
-		if (connected == false) {
-		    this.otherLocation = null;
-		}
+        if (connected == false) {
+            this.otherLocation = null;
+        }
 
-		this.invalidate();
-	}
+        this.invalidate();
+    }
 
-	public void setAzimuth(float azimuth) {
-	    this.azimuth = azimuth;
-	}
+    /**
+     * Update the azimuth of the current user. All {@link Location} calculates
+     * their bearing in absolute terms, so this can be used as an offset to
+     * simulate the user's phone turning.
+     * 
+     * @param azimuth
+     *            The new azimuth value, with direction and units as per
+     *            {@link CompassActivity}.
+     */
+    public void setAzimuth(float azimuth) {
+        this.azimuth = azimuth;
+    }
 
-	public void setLocation(Location location) {
-		this.myLocation = location;
-		this.invalidate();
-	}
+    /**
+     * Set our location value.
+     * 
+     * @param location
+     *            The {@link Location} to use for us.
+     */
+    public void setLocation(Location location) {
+        this.myLocation = location;
+        this.invalidate();
+    }
 
-	public void setOtherLocation(Location location) {
-		this.otherLocation = location;
-		this.invalidate();
-	}
+    /**
+     * Set the other person's location value.
+     * 
+     * @param location
+     *            The {@link Location} to use for "them."
+     */
+    public void setOtherLocation(Location location) {
+        this.otherLocation = location;
+        this.invalidate();
+    }
 
-	public Location getMyLocation() {
-	    return this.myLocation;
-	}
+    /**
+     * @return my location.
+     */
+    public Location getMyLocation() {
+        return this.myLocation;
+    }
 
-	public Location getOtherLocation() {
-	    return this.otherLocation;
-	}
+    /**
+     * @return their location.
+     */
+    public Location getOtherLocation() {
+        return this.otherLocation;
+    }
 
-	@SuppressWarnings("deprecation") // setBackgroundDrawable is deprecated, but backwards compatibility.
-	private void init() {
-		Resources res = getResources();
-		LayerDrawable radarBackground = (LayerDrawable) res.getDrawable(R.drawable.radar);
-		arrowBlack = (BitmapDrawable) res.getDrawable(R.drawable.arrow_black);
-		arrowGreen = (BitmapDrawable) res.getDrawable(R.drawable.arrow_green);
-		otherMarker = (BitmapDrawable) res.getDrawable(R.drawable.paired_device);
-		this.setBackgroundDrawable(radarBackground);
+    @SuppressWarnings("deprecation")
+    // setBackgroundDrawable is deprecated, but backwards compatibility.
+    private void init() {
+        Resources res = getResources();
+        LayerDrawable radarBackground = (LayerDrawable) res.getDrawable(R.drawable.radar);
+        this.arrowBlack = (BitmapDrawable) res.getDrawable(R.drawable.arrow_black);
+        this.arrowGreen = (BitmapDrawable) res.getDrawable(R.drawable.arrow_green);
+        this.otherMarker = (BitmapDrawable) res.getDrawable(R.drawable.paired_device);
+        this.setBackgroundDrawable(radarBackground);
 
-		connectedPaint = new Paint();
-		connectedPaint.setStrokeWidth(10f);
-		connectedPaint.setColor(Color.GREEN);
-		connectedPaint.setStyle(Style.FILL_AND_STROKE);
+        this.connectedPaint = new Paint();
+        this.connectedPaint.setStrokeWidth(10f);
+        this.connectedPaint.setColor(Color.GREEN);
+        this.connectedPaint.setStyle(Style.FILL_AND_STROKE);
 
-		disconnectedPaint = new Paint(connectedPaint);
+        this.disconnectedPaint = new Paint(this.connectedPaint);
 
-		arrowPaint = new Paint();
+        this.arrowPaint = new Paint();
 
-		boundsRect = new RectF(0, 0, 0, 0);
-	}
+        this.boundsRect = new RectF(0, 0, 0, 0);
+    }
 
-	@SuppressLint("DrawAllocation") @Override
-	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    @SuppressLint("DrawAllocation")
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int originalWidth = MeasureSpec.getSize(widthMeasureSpec) - getPaddingLeft() - getPaddingRight();
         int originalHeight = MeasureSpec.getSize(heightMeasureSpec) - getPaddingTop() - getPaddingBottom();
         int calculatedHeight = originalWidth;
         int finalWidth, finalHeight;
         if (calculatedHeight > originalHeight) {
-            finalWidth = originalHeight; 
+            finalWidth = originalHeight;
             finalHeight = originalHeight;
         } else {
             finalWidth = originalWidth;
@@ -119,41 +160,43 @@ public class RadarView extends ImageView {
         }
 
         LinearGradient disconnectedGradient = new LinearGradient(getWidth() / 2, getHeight() / 2, getWidth() / 2, 0, getResources().getColor(R.color.radar_red), getResources().getColor(R.color.radar_clear), Shader.TileMode.CLAMP);
-		disconnectedPaint.setShader(disconnectedGradient);
+        this.disconnectedPaint.setShader(disconnectedGradient);
 
-		LinearGradient connectedGradient = new LinearGradient(getWidth() / 2, getHeight() / 2, getWidth() / 2, 0, getResources().getColor(R.color.radar_green), getResources().getColor(R.color.radar_clear), Shader.TileMode.CLAMP);
-		connectedPaint.setShader(connectedGradient);
+        LinearGradient connectedGradient = new LinearGradient(getWidth() / 2, getHeight() / 2, getWidth() / 2, 0, getResources().getColor(R.color.radar_green), getResources().getColor(R.color.radar_clear), Shader.TileMode.CLAMP);
+        this.connectedPaint.setShader(connectedGradient);
 
         super.onMeasure(MeasureSpec.makeMeasureSpec(finalWidth + getPaddingLeft() + getPaddingRight(), MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(finalHeight + getPaddingTop() + getPaddingBottom(), MeasureSpec.EXACTLY));
     }
 
-	protected void onDraw(Canvas canvas) {
-		super.onDraw(canvas);
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
 
-		Paint arcPaint = connected? connectedPaint : disconnectedPaint;
-		boundsRect.set(getPaddingLeft(), getPaddingTop(), getWidth() - getPaddingRight(), getHeight() - getPaddingBottom());
-		canvas.drawArc(boundsRect, 245f, 50f, true, arcPaint);
+        Paint arcPaint = this.connected ? this.connectedPaint : this.disconnectedPaint;
+        this.boundsRect.set(getPaddingLeft(), getPaddingTop(), getWidth() - getPaddingRight(), getHeight() - getPaddingBottom());
+        canvas.drawArc(this.boundsRect, 245f, 50f, true, arcPaint);
 
-		Bitmap arrow = (connected? arrowGreen : arrowBlack).getBitmap();
-		float centerX = (getPaddingLeft() + getWidth()) / 2;
-		float centerY = (getPaddingTop() + getHeight()) / 2;
-		float leftArrow = centerX - (arrow.getWidth() / 2);
-		float topArrow = centerY - (arrow.getHeight() / 2);
-		canvas.drawBitmap(arrow, leftArrow, topArrow, arrowPaint);
+        Bitmap arrow = (this.connected ? this.arrowGreen : this.arrowBlack).getBitmap();
+        float centerX = (getPaddingLeft() + getWidth()) / 2;
+        float centerY = (getPaddingTop() + getHeight()) / 2;
+        float leftArrow = centerX - (arrow.getWidth() / 2);
+        float topArrow = centerY - (arrow.getHeight() / 2);
+        canvas.drawBitmap(arrow, leftArrow, topArrow, this.arrowPaint);
 
-		if (connected && otherLocation != null) {
-			Bitmap markerBitmap = otherMarker.getBitmap();
-			float distance = myLocation.distanceTo(otherLocation); // in metres
-			if (distance < 100.0f) {
-				// This is an absolute bearing, relative to perfect north.
-				double bearing = Math.toRadians(myLocation.bearingTo(otherLocation));
-				double cosine = Math.cos(bearing + azimuth);
-				double sine = Math.sin(bearing + azimuth);
-				double drawDistance = centerX * (1 - Math.exp(-(SCALING * distance)));
-				double expx = centerX + drawDistance * cosine - (markerBitmap.getWidth() / 2);
-				double expy = centerY + drawDistance * sine - (markerBitmap.getHeight() / 2);
-				canvas.drawBitmap(otherMarker.getBitmap(), (float) expx, (float) expy, arrowPaint);
-			}
-		}
-	}
+        if (this.connected && this.otherLocation != null) {
+            Bitmap markerBitmap = this.otherMarker.getBitmap();
+            float distance = this.myLocation.distanceTo(this.otherLocation); // in
+                                                                             // metres
+            if (distance < 100.0f) {
+                // This is an absolute bearing, relative to perfect north.
+                double bearing = Math.toRadians(this.myLocation.bearingTo(this.otherLocation));
+                double cosine = Math.cos(bearing + this.azimuth);
+                double sine = Math.sin(bearing + this.azimuth);
+                double drawDistance = centerX * (1 - Math.exp(-(SCALING * distance)));
+                double expx = centerX + drawDistance * cosine - (markerBitmap.getWidth() / 2);
+                double expy = centerY + drawDistance * sine - (markerBitmap.getHeight() / 2);
+                canvas.drawBitmap(this.otherMarker.getBitmap(), (float) expx, (float) expy, this.arrowPaint);
+            }
+        }
+    }
 }

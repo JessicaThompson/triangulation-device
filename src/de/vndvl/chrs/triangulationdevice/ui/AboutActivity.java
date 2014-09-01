@@ -11,28 +11,31 @@ import android.widget.ListView;
 import de.vndvl.chrs.triangulationdevice.R;
 import de.vndvl.chrs.triangulationdevice.ui.partial.TriangulationListActivity;
 
+/**
+ * An activity which shows an "About this App" screen to the user.
+ */
 public class AboutActivity extends TriangulationListActivity {
-    
+
     // Wish I could get this from the app..
     private final static int WEBSITE = 0;
     private final static int RATE_REVIEW = 1;
     private final static int PRIVACY = 2;
     private final static int CREDITS = 3;
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about);
-        
+
         // Set our ListView.
         String[] aboutMenu = getResources().getStringArray(R.array.about_sections);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, aboutMenu);
         setListAdapter(adapter);
     }
-    
+
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        switch(position) {
+        switch (position) {
         case WEBSITE:
             Uri webpage = Uri.parse(getResources().getString(R.string.website));
             Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
@@ -56,14 +59,14 @@ public class AboutActivity extends TriangulationListActivity {
             break;
         }
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        boolean displayed = super.onCreateOptionsMenu(menu); 
+        boolean displayed = super.onCreateOptionsMenu(menu);
         menu.findItem(R.id.menu_about).setVisible(false);
         return displayed;
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         finish();

@@ -505,6 +505,13 @@ public class BluetoothIPCService<T extends Parcelable> {
         }
     }
 
+    /**
+     * Packs a parcelable object into a byte array.
+     * 
+     * @param parcelable
+     *            A {@link Parcelable} object
+     * @return A byte array representing the object.
+     */
     public byte[] pack(T parcelable) {
         Parcel parcel = Parcel.obtain();
         parcelable.writeToParcel(parcel, 0);
@@ -513,6 +520,15 @@ public class BluetoothIPCService<T extends Parcelable> {
         return bytes;
     }
 
+    /**
+     * Unpacks a parcelable object from its byte array.
+     * 
+     * @param bytes
+     *            The array of bytes which contains the object.
+     * @param creator
+     *            A Parcelable helper object to unpack.
+     * @return The object passed over the wire.
+     */
     public T unpack(byte[] bytes, Parcelable.Creator<T> creator) {
         Parcel parcel = Parcel.obtain();
         parcel.unmarshall(bytes, 0, bytes.length);
