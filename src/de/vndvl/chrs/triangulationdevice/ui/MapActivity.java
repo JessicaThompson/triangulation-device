@@ -3,6 +3,7 @@ package de.vndvl.chrs.triangulationdevice.ui;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 
 import org.puredata.android.io.AudioParameters;
@@ -143,6 +144,50 @@ public class MapActivity extends LocationActivity {
         PdBase.openPatch(patchFile.getAbsolutePath());
     }
 
+    public void pdChangeMyLocation(Location location) {
+        // I know you can convert to HMS format, but using that requires String conversion & manipulation...
+        // TODO: Use formatted strings to extract HMS rather than tons of math
+        // TODO: Split extractHMS to lat OR long rather than lat AND long?
+        HashMap<String, Float> gpsNamesToVals = extractHMS(location);
+        for (HashMap.Entry<String, Float> entry : gpsNamesToVals.entrySet()) {
+            PdBase.sendFloat(entry.getKey(), entry.getValue());
+        }
+        pdChangeProximity(location, radar.getOtherLocation());
+    }
+
+    public void pdChangeProximity(Location myLocation, Location theirLocation) {
+        HashMap<String, Float> myHMS = extractHMS(myLocation);
+        HashMap<String, Float> theirHMS = extractHMS(theirLocation);
+
+        float proxlat = Math.abs(myHMS.get("lats") - theirHMS.get("lats"));
+        float proxlong = Math.abs(myHMS.get("longs") - theirHMS.get("longs"));
+
+        PdBase.sendFloat("proxlat", proxlat);
+        PdBase.sendFloat("proxlong", proxlong);
+    }
+
+    public HashMap<String, Float> extractHMS(Location location) {
+        // Returns a HashMap of H, M, S doubles (values)
+        // mapped to their Pd variable names (keys)
+        HashMap<String, Float> result = new HashMap<String, Float>();
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
+        double lath = Math.floor(latitude);
+        double longh = Math.floor(longitude);
+        double latm = Math.floor(60d * (latitude - lath));
+        double longm = Math.floor(60d * (longitude - longh));
+        double lats = Math.floor(3600d * (latitude - lath - latm / 60d));
+        double longs = Math.floor(3600d * (longitude - longh - longm / 60d));
+
+        result.put("lath", (float) lath);
+        result.put("longh", (float) longh);
+        result.put("latm", (float) latm);
+        result.put("longm", (float) longm);
+        result.put("lats", (float) lats);
+        result.put("longs", (float) longs);
+        return result;
+    }
+
     /* Pd code ends here (for the most part) */
 
     @Override
@@ -229,7 +274,6 @@ public class MapActivity extends LocationActivity {
 
     @Override
     public void onLocationChanged(Location location) {
-        sendFloat();
         myWaveform.setLocation(location);
         radar.setLocation(location);
         bluetoothIPC.write(location);
@@ -237,6 +281,8 @@ public class MapActivity extends LocationActivity {
         if (recording) {
             path.addMine(location);
         }
+
+        pdChangeMyLocation(location);
     }
 
     @Override
@@ -251,6 +297,8 @@ public class MapActivity extends LocationActivity {
         if (recording) {
             path.addTheirs(location);
         }
+
+        pdChangeProximity(radar.getMyLocation(), radar.getOtherLocation());
     }
 
     @Override
