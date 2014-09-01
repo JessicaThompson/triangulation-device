@@ -76,6 +76,8 @@ public class MapActivity extends LocationActivity {
 
     private DraggableWeightView waveforms;
 
+    private Location theirLocation;
+
     /* Pd code begins here */
 
     private PdUiDispatcher dispatcher;
@@ -152,7 +154,7 @@ public class MapActivity extends LocationActivity {
         for (HashMap.Entry<String, Float> entry : gpsNamesToVals.entrySet()) {
             PdBase.sendFloat(entry.getKey(), entry.getValue());
         }
-        pdChangeProximity(location, radar.getOtherLocation());
+        pdChangeProximity(location, theirLocation);
     }
 
     public void pdChangeProximity(Location myLocation, Location theirLocation) {
@@ -298,7 +300,7 @@ public class MapActivity extends LocationActivity {
             path.addTheirs(location);
         }
 
-        pdChangeProximity(radar.getMyLocation(), radar.getOtherLocation());
+        pdChangeProximity(getLocation(), theirLocation);
     }
 
     @Override
@@ -490,7 +492,7 @@ public class MapActivity extends LocationActivity {
                 }
                 break;
             case BluetoothIPCService.MESSAGE_READ:
-                Location theirLocation = (Location) msg.obj;
+                theirLocation = (Location) msg.obj;
                 theirLocationChanged(theirLocation);
                 break;
             case BluetoothIPCService.MESSAGE_INFO:
