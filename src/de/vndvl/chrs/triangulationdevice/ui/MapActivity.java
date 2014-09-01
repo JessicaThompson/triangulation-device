@@ -190,6 +190,16 @@ public class MapActivity extends LocationActivity {
         return result;
     }
 
+    public void pdChangeXfade(float level) {
+        // Change the xFade between the two users
+        // 0 = 100% user1 (me/my)
+        // 1 = 100% user2 (them/their)
+        if (0 <= level && level <= 1) {
+            // THE LEVEL HAS TO BE IN THE RANGE OF (0,1)
+            PdBase.sendFloat("", level);
+        }
+    }
+
     /* Pd code ends here (for the most part) */
 
     @Override
@@ -333,12 +343,14 @@ public class MapActivity extends LocationActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(resources.getString(R.string.nearby_devices));
         builder.setAdapter(bluetoothNames, new DialogInterface.OnClickListener() {
+            @Override
             public void onClick(DialogInterface dialog, int item) {
                 deviceService.stop();
                 connectTo(bluetoothDevices.get(item));
             }
         });
         builder.setNegativeButton(resources.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
             public void onClick(DialogInterface dialog, int item) {
                 deviceService.stop();
                 dialog.cancel();
@@ -416,9 +428,9 @@ public class MapActivity extends LocationActivity {
             @Override
             public void onClick(View v) {
                 startPdAudio();     // start Pd patch
+                pdChangeMyLocation(getLocation());
+                PdBase.sendBang("trigger");
                 stop(v);
-                // TODO: Useful stuff with this method. Start some audio or
-                // something.
             }
         });
     }
@@ -435,6 +447,7 @@ public class MapActivity extends LocationActivity {
         alert.setView(input);
 
         alert.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+            @Override
             public void onClick(DialogInterface dialog, int whichButton) {
                 String title = input.getText().toString();
                 MapActivity.this.path.finish(title);
@@ -442,6 +455,7 @@ public class MapActivity extends LocationActivity {
         });
 
         alert.setNegativeButton("Discard", new DialogInterface.OnClickListener() {
+            @Override
             public void onClick(DialogInterface dialog, int whichButton) {
                 MapActivity.this.path.finish(null);
             }
