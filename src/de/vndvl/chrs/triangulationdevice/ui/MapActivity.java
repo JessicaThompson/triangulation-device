@@ -106,15 +106,15 @@ public class MapActivity extends LocationActivity {
             // sampleRate, inChannels, outChannels, bufferSize [ms]
         dispatcher = new PdUiDispatcher();
         PdBase.setReceiver(dispatcher);
-        /* TODO: Listeners go here */
+        /* TODO: Listeners go here (if necessary) */
     }
 
     private void startPdAudio() {
         if (!pdService.isRunning()) {
             Intent intent = new Intent(MapActivity.this, MapActivity.class);
             pdService.startAudio(intent, R.drawable.icon, "Triangulation Device", "Return to Triangulation Device");
-            // Starts audio with notification pointing to this activity
-            // Provide 0 args to start audio with no notification
+            // Starts audio and creates a notification pointing to this activity
+            // To start audio with no notification, give startAudio() 0 args
         }
     }
 
@@ -358,6 +358,7 @@ public class MapActivity extends LocationActivity {
     }
 
     public void start(View buttonView) {
+        startPdAudio();     // start Pd patch
         this.recording = true;
         startStopButton.setText(resources.getString(R.string.stop));
         startStopButton.setBackgroundResource(R.drawable.stop_button);
@@ -372,6 +373,7 @@ public class MapActivity extends LocationActivity {
     }
 
     public void stop(View buttonView) {
+        pdService.stopAudio();    // stop Pd patch
         this.recording = false;
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
