@@ -19,9 +19,9 @@ import android.widget.ImageView;
 import de.vndvl.chrs.triangulationdevice.R;
 
 public class RadarView extends ImageView {
-	
+
 	private static final float SCALING = 0.02f;
-	
+
 	private float azimuth = 0;
 	private boolean connected = false;
 	private Paint connectedPaint;
@@ -30,51 +30,59 @@ public class RadarView extends ImageView {
 	private BitmapDrawable arrowBlack;
 	private BitmapDrawable arrowGreen;
 	private BitmapDrawable otherMarker;
-	
+
 	private RectF boundsRect;
-	
+
 	private Location myLocation;
 	private Location otherLocation;
-	
+
 	public RadarView(Context context) {
 		super(context);
 		init();
 	}
-	
+
 	public RadarView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		init();
 	}
-	
+
 	public RadarView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		init();
 	}
-	
+
 	public void connected(boolean connected) {
 		this.connected = connected;
-		
+
 		if (connected == false) {
 		    this.otherLocation = null;
 		}
-		
+
 		this.invalidate();
 	}
-	
+
 	public void setAzimuth(float azimuth) {
 	    this.azimuth = azimuth;
 	}
-	
+
 	public void setLocation(Location location) {
 		this.myLocation = location;
 		this.invalidate();
 	}
-	
+
 	public void setOtherLocation(Location location) {
 		this.otherLocation = location;
 		this.invalidate();
 	}
-	
+
+	public Location getMyLocation() {
+	    return this.myLocation;
+	}
+
+	public Location getOtherLocation() {
+	    return this.otherLocation;
+	}
+
 	@SuppressWarnings("deprecation") // setBackgroundDrawable is deprecated, but backwards compatibility.
 	private void init() {
 		Resources res = getResources();
@@ -92,10 +100,10 @@ public class RadarView extends ImageView {
 		disconnectedPaint = new Paint(connectedPaint);
 
 		arrowPaint = new Paint();
-		
+
 		boundsRect = new RectF(0, 0, 0, 0);
 	}
-	
+
 	@SuppressLint("DrawAllocation") @Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int originalWidth = MeasureSpec.getSize(widthMeasureSpec) - getPaddingLeft() - getPaddingRight();
@@ -109,30 +117,30 @@ public class RadarView extends ImageView {
             finalWidth = originalWidth;
             finalHeight = calculatedHeight;
         }
-        
+
         LinearGradient disconnectedGradient = new LinearGradient(getWidth() / 2, getHeight() / 2, getWidth() / 2, 0, getResources().getColor(R.color.radar_red), getResources().getColor(R.color.radar_clear), Shader.TileMode.CLAMP);
 		disconnectedPaint.setShader(disconnectedGradient);
-		
+
 		LinearGradient connectedGradient = new LinearGradient(getWidth() / 2, getHeight() / 2, getWidth() / 2, 0, getResources().getColor(R.color.radar_green), getResources().getColor(R.color.radar_clear), Shader.TileMode.CLAMP);
 		connectedPaint.setShader(connectedGradient);
 
         super.onMeasure(MeasureSpec.makeMeasureSpec(finalWidth + getPaddingLeft() + getPaddingRight(), MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(finalHeight + getPaddingTop() + getPaddingBottom(), MeasureSpec.EXACTLY));
     }
-	
+
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-		
+
 		Paint arcPaint = connected? connectedPaint : disconnectedPaint;
 		boundsRect.set(getPaddingLeft(), getPaddingTop(), getWidth() - getPaddingRight(), getHeight() - getPaddingBottom());
 		canvas.drawArc(boundsRect, 245f, 50f, true, arcPaint);
-		
+
 		Bitmap arrow = (connected? arrowGreen : arrowBlack).getBitmap();
 		float centerX = (getPaddingLeft() + getWidth()) / 2;
 		float centerY = (getPaddingTop() + getHeight()) / 2;
 		float leftArrow = centerX - (arrow.getWidth() / 2);
 		float topArrow = centerY - (arrow.getHeight() / 2);
 		canvas.drawBitmap(arrow, leftArrow, topArrow, arrowPaint);
-		
+
 		if (connected && otherLocation != null) {
 			Bitmap markerBitmap = otherMarker.getBitmap();
 			float distance = myLocation.distanceTo(otherLocation); // in metres

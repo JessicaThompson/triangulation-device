@@ -1,19 +1,34 @@
 package de.vndvl.chrs.triangulationdevice.ui;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
+
+import org.puredata.android.io.AudioParameters;
+import org.puredata.android.service.PdService;
+import org.puredata.android.utils.PdUiDispatcher;
+import org.puredata.core.PdBase;
+import org.puredata.core.utils.IoUtils;
 
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -61,9 +76,130 @@ public class MapActivity extends LocationActivity {
 
     private DraggableWeightView waveforms;
 
+    private Location theirLocation;
+
+    /* Pd code begins here */
+
+    private PdUiDispatcher dispatcher;
+    private PdService pdService = null;
+
+    private final ServiceConnection pdConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            pdService = ((PdService.PdBinder)service).getService();
+            try {
+                // Initialize PD, load patch
+                initPd();
+                loadPatch();
+            } catch (IOException e) {
+                Log.e(TAG, e.toString());
+                finish();
+            }
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            // Apparently this method will never be called?
+        }
+    };
+
+    private void initPd() throws IOException {
+        int sampleRate = AudioParameters.suggestSampleRate();
+        pdService.initAudio(sampleRate, 0, 2, 10.0f);
+            // sampleRate, inChannels, outChannels, bufferSize [ms]
+        dispatcher = new PdUiDispatcher();
+        PdBase.setReceiver(dispatcher);
+        /* TODO: Listeners go here (if necessary) */
+    }
+
+    private void startPdAudio() {
+        if (!pdService.isRunning()) {
+            Intent intent = new Intent(MapActivity.this, MapActivity.class);
+            pdService.startAudio(intent, R.drawable.icon, "Triangulation Device", "Return to Triangulation Device");
+            // Starts audio and creates a notification pointing to this activity
+            // To start audio with no notification, give startAudio() 0 args
+        }
+    }
+
+    private void initSystemServices() {
+        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        telephonyManager.listen(new PhoneStateListener() {
+            @Override
+            public void onCallStateChanged(int state, String incomingNumber) {
+                if (pdService == null) return;
+                if (state == TelephonyManager.CALL_STATE_IDLE) {
+                    startPdAudio();
+                    // TODO: Handle possible edge case
+                    // Person has app open, sound off, receives call
+                    // (undesired sound starts when call ends?)
+                } else {
+                    pdService.stopAudio();
+                }
+            }
+        }, PhoneStateListener.LISTEN_CALL_STATE);
+    }
+
+    private void loadPatch() throws IOException {
+        File dir = getFilesDir();
+        IoUtils.extractZipResource(getResources().openRawResource(R.raw.triangulationdevice_comp), dir, true);
+        File patchFile = new File(dir, "triangulationdevice_comp.pd");
+        PdBase.openPatch(patchFile.getAbsolutePath());
+    }
+
+    public void pdChangeMyLocation(Location location) {
+        // I know you can convert to HMS format, but using that requires String conversion & manipulation...
+        // TODO: Use formatted strings to extract HMS rather than tons of math
+        // TODO: Split extractHMS to lat OR long rather than lat AND long?
+        HashMap<String, Float> gpsNamesToVals = extractHMS(location);
+        for (HashMap.Entry<String, Float> entry : gpsNamesToVals.entrySet()) {
+            PdBase.sendFloat(entry.getKey(), entry.getValue());
+        }
+        pdChangeProximity(location, theirLocation);
+    }
+
+    public void pdChangeProximity(Location myLocation, Location theirLocation) {
+        HashMap<String, Float> myHMS = extractHMS(myLocation);
+        HashMap<String, Float> theirHMS = extractHMS(theirLocation);
+
+        float proxlat = Math.abs(myHMS.get("lats") - theirHMS.get("lats"));
+        float proxlong = Math.abs(myHMS.get("longs") - theirHMS.get("longs"));
+
+        PdBase.sendFloat("proxlat", proxlat);
+        PdBase.sendFloat("proxlong", proxlong);
+    }
+
+    public HashMap<String, Float> extractHMS(Location location) {
+        // Returns a HashMap of H, M, S doubles (values)
+        // mapped to their Pd variable names (keys)
+        HashMap<String, Float> result = new HashMap<String, Float>();
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
+        double lath = Math.floor(latitude);
+        double longh = Math.floor(longitude);
+        double latm = Math.floor(60d * (latitude - lath));
+        double longm = Math.floor(60d * (longitude - longh));
+        double lats = Math.floor(3600d * (latitude - lath - latm / 60d));
+        double longs = Math.floor(3600d * (longitude - longh - longm / 60d));
+
+        result.put("lath", (float) lath);
+        result.put("longh", (float) longh);
+        result.put("latm", (float) latm);
+        result.put("longm", (float) longm);
+        result.put("lats", (float) lats);
+        result.put("longs", (float) longs);
+        return result;
+    }
+
+    /* Pd code ends here (for the most part) */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Bind & init PdService
+        bindService(new Intent(this, PdService.class), pdConnection, BIND_AUTO_CREATE);
+        initSystemServices();
+
         Typefaces.loadTypefaces(this);
 
         // Request a progress bar.
@@ -134,6 +270,8 @@ public class MapActivity extends LocationActivity {
     protected void onDestroy() {
         deviceService.destroy();
         super.onDestroy();
+        // Unbind PdService
+        unbindService(pdConnection);
     }
 
     @Override
@@ -145,6 +283,8 @@ public class MapActivity extends LocationActivity {
         if (recording) {
             path.addMine(location);
         }
+
+        pdChangeMyLocation(location);
     }
 
     @Override
@@ -159,6 +299,8 @@ public class MapActivity extends LocationActivity {
         if (recording) {
             path.addTheirs(location);
         }
+
+        pdChangeProximity(getLocation(), theirLocation);
     }
 
     @Override
@@ -273,6 +415,7 @@ public class MapActivity extends LocationActivity {
         startStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startPdAudio();     // start Pd patch
                 stop(v);
                 // TODO: Useful stuff with this method. Start some audio or
                 // something.
@@ -310,6 +453,7 @@ public class MapActivity extends LocationActivity {
         startStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pdService.stopAudio();    // stop Pd patch
                 start(v);
                 // TODO: Useful stuff with this method. Stop some audio or
                 // something.
@@ -348,7 +492,7 @@ public class MapActivity extends LocationActivity {
                 }
                 break;
             case BluetoothIPCService.MESSAGE_READ:
-                Location theirLocation = (Location) msg.obj;
+                theirLocation = (Location) msg.obj;
                 theirLocationChanged(theirLocation);
                 break;
             case BluetoothIPCService.MESSAGE_INFO:
