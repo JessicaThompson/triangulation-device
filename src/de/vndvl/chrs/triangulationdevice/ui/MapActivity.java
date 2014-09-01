@@ -154,7 +154,9 @@ public class MapActivity extends LocationActivity {
         for (HashMap.Entry<String, Float> entry : gpsNamesToVals.entrySet()) {
             PdBase.sendFloat(entry.getKey(), entry.getValue());
         }
-        pdChangeProximity(location, theirLocation);
+        if (theirLocation != null) {
+            pdChangeProximity(location, theirLocation);
+        }
     }
 
     public void pdChangeProximity(Location myLocation, Location theirLocation) {
