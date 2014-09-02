@@ -123,8 +123,10 @@ public class BluetoothDeviceService {
                 // If it's already paired, skip it, because it's been listed
                 // already
                 if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
-                    BluetoothDeviceService.this.listener.unpairedDeviceFound(device);
+                    int rssi = intent.getShortExtra(BluetoothDevice.EXTRA_RSSI, Short.MIN_VALUE);
+                    BluetoothDeviceService.this.listener.unpairedDeviceFound(device, rssi);
                 }
+
                 // When discovery is finished, change the Activity title
             } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
                 BluetoothDeviceService.this.listener.discoveryDone();
@@ -153,7 +155,7 @@ public class BluetoothDeviceService {
          * @param device
          *            A newly discovered, unpaired bluetooth device.
          */
-        public void unpairedDeviceFound(BluetoothDevice device) {
+        public void unpairedDeviceFound(BluetoothDevice device, int rssi) {
         }
 
         /**
