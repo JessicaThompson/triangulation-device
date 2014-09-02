@@ -183,6 +183,7 @@ public class PDDriver {
     public HashMap<String, Float> getHMS(Location location) {
         /* Same thing as extractHMS but using strings */
         // TODO: Use regexes (rather than substrings) if they're faster
+
         HashMap<String, Float> result = new HashMap<String, Float>();
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();
