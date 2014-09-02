@@ -30,6 +30,9 @@ public class PDDriver {
     private Location myLocation;
     private Location theirLocation;
 
+    private HashMap<String, Float> myHMS;
+    private HashMap<String, Float> theirHMS;
+
     private final ServiceConnection pdConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -123,14 +126,14 @@ public class PDDriver {
     }
 
     public void myLocationChanged(Location location) {
-        this.myLocation = location;
-
-        // I know you can convert to HMS format, but using that requires String
-        // conversion & manipulation...
-        // TODO: Use formatted strings to extract HMS rather than tons of math
         // TODO: Split extractHMS to lat OR long rather than lat AND long?
-        HashMap<String, Float> gpsNamesToVals = extractHMS(location);
-        for (HashMap.Entry<String, Float> entry : gpsNamesToVals.entrySet()) {
+        // TODO: Storing HMS as ints could make things more efficient
+
+        this.myLocation = location;
+        myHMS = getHMS(myLocation);
+        for (HashMap.Entry<String, Float> entry : myHMS.entrySet()) {
+            System.out.println(entry.getKey());
+            System.out.println(entry.getValue());
             PdBase.sendFloat(entry.getKey(), entry.getValue());
         }
 
@@ -140,8 +143,8 @@ public class PDDriver {
     }
 
     public void pdChangeProximity(Location myLocation, Location theirLocation) {
-        HashMap<String, Float> myHMS = extractHMS(myLocation);
-        HashMap<String, Float> theirHMS = extractHMS(theirLocation);
+        myHMS = getHMS(myLocation);
+        theirHMS = getHMS(theirLocation);
 
         float proxlat = Math.abs(myHMS.get("lats") - theirHMS.get("lats"));
         float proxlong = Math.abs(myHMS.get("longs") - theirHMS.get("longs"));
@@ -156,12 +159,16 @@ public class PDDriver {
         HashMap<String, Float> result = new HashMap<String, Float>();
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();
-        double lath = Math.floor(latitude);
-        double longh = Math.floor(longitude);
-        double latm = Math.floor(60d * (latitude - lath));
-        double longm = Math.floor(60d * (longitude - longh));
-        double lats = Math.floor(3600d * (latitude - lath - latm / 60d));
-        double longs = Math.floor(3600d * (longitude - longh - longm / 60d));
+
+        // This int cast will/should always work properly
+        int lath = (int) latitude;
+        int longh = (int) longitude;
+
+        double latm = Math.floor(60d * (Math.abs(latitude) - Math.abs(lath)));
+        double longm = Math.floor(60d * (Math.abs(longitude) - Math.abs(longh)));
+
+        double lats = Math.floor(3600d * (Math.abs(latitude) - Math.abs(lath) - latm / 60d));
+        double longs = Math.floor(3600d * (Math.abs(longitude) - Math.abs(longh) - longm / 60d));
 
         result.put("lath", (float) lath);
         result.put("longh", (float) longh);
@@ -169,6 +176,35 @@ public class PDDriver {
         result.put("longm", (float) longm);
         result.put("lats", (float) lats);
         result.put("longs", (float) longs);
+        return result;
+    }
+
+    public HashMap<String, Float> getHMS(Location location) {
+        /* Same thing as extractHMS but using strings */
+        // TODO: Use regexes if they're faster
+        HashMap<String, Float> result = new HashMap<String, Float>();
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
+
+        // This int cast will/should always work properly
+        int lath = (int) latitude;
+        int longh = (int) longitude;
+
+        String latStr = Location.convert(latitude, Location.FORMAT_SECONDS);
+        String longStr = Location.convert(longitude, Location.FORMAT_SECONDS);
+
+        float latm = Float.parseFloat(latStr.substring(latStr.indexOf(':') + 1, latStr.lastIndexOf(':')));
+        float longm = Float.parseFloat(longStr.substring(longStr.indexOf(':') + 1, longStr.lastIndexOf(':')));
+
+        float lats = Float.parseFloat(latStr.substring(latStr.lastIndexOf(':') + 1, latStr.indexOf('.')));
+        float longs = Float.parseFloat(longStr.substring(longStr.lastIndexOf(':') + 1, longStr.indexOf('.')));
+
+        result.put("lath", (float) lath);
+        result.put("longh", (float) longh);
+        result.put("latm", latm);
+        result.put("longm", longm);
+        result.put("lats", lats);
+        result.put("longs", longs);
         return result;
     }
 
