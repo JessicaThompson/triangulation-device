@@ -21,6 +21,9 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import de.vndvl.chrs.triangulationdevice.R;
 
+/**
+ * An encapsulation of our PD stuff.
+ */
 public class PDDriver {
 
     private final Context context;
@@ -51,10 +54,21 @@ public class PDDriver {
         }
     };
 
+    /**
+     * It's a constructor! Ain't it cute?
+     *
+     * @param context
+     *            A context from which to get access to strings and start
+     *            {@link Service}s.
+     */
     public PDDriver(Context context) {
         this.context = context;
     }
 
+    /**
+     * Initializes our background PureData service and sets a manager to listen
+     * for phone calls and shut us up if needed.
+     */
     public void initServices() {
         Intent pdIntent = new Intent(this.context, PdService.class);
         this.context.bindService(pdIntent, this.pdConnection, Context.BIND_AUTO_CREATE);
@@ -77,6 +91,9 @@ public class PDDriver {
         }, PhoneStateListener.LISTEN_CALL_STATE);
     }
 
+    /**
+     * Start the audio!
+     */
     public void start() {
         startPdAudio();
         myLocationChanged(this.myLocation);
@@ -84,12 +101,18 @@ public class PDDriver {
         PdBase.sendBang("trigger");
     }
 
+    /**
+     * Stop the audio. Awwww.
+     */
     public void stop() {
         if (this.pdService != null) {
             this.pdService.stopAudio();
         }
     }
 
+    /**
+     * Unbinds our background service and closes everything.
+     */
     public void close() {
         this.context.unbindService(this.pdConnection);
     }
@@ -120,11 +143,23 @@ public class PDDriver {
         PdBase.openPatch(patchFile.getAbsolutePath());
     }
 
+    /**
+     * Updates the "other" location, sending it to our PD patch.
+     *
+     * @param location
+     *            A new {@link Location} to use for the other person.
+     */
     public void theirLocationChanged(Location location) {
         this.theirLocation = location;
         pdChangeProximity(location, this.theirLocation);
     }
 
+    /**
+     * Updates "our" location, sending it to our PD patch.
+     *
+     * @param location
+     *            A new {@link Location} to use for us.
+     */
     public void myLocationChanged(Location location) {
         // TODO: Split extractHMS to lat OR long rather than lat AND long?
         // TODO: Storing HMS as ints could make things more efficient
@@ -154,7 +189,7 @@ public class PDDriver {
         PdBase.sendFloat("proxlong", proxlong);
     }
 
-    public HashMap<String, Float> extractHMS(Location location) {
+    private HashMap<String, Float> extractHMS(Location location) {
         // Returns a HashMap of H, M, S doubles (values)
         // mapped to their Pd variable names (keys)
         HashMap<String, Float> result = new HashMap<String, Float>();
@@ -210,6 +245,11 @@ public class PDDriver {
         return result;
     }
 
+    /**
+     * Updates our PD patch with the cross-fader value from our UI.
+     *
+     * @param level
+     */
     public void pdChangeXfade(float level) {
         // Change the xFade between the two users
         // 0 = 100% user1 (me/my)

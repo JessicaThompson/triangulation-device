@@ -17,11 +17,28 @@ import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import de.vndvl.chrs.triangulationdevice.R;
 import de.vndvl.chrs.triangulationdevice.bluetooth.BluetoothDeviceService;
 import de.vndvl.chrs.triangulationdevice.bluetooth.BluetoothIPCService;
 
+/**
+ * BluetoothIPCActivity is a convenience class that has everything setup for you
+ * to find devices and send messages between them over Bluetooth. Subclassing
+ * this and implementing {@link #onMessageReceived}, {@link #getDefault}, and
+ * {@link #getCreator()} will allow your Activity to communicate with other
+ * Activities with the same UUID and sending the same type of message.
+ * 
+ * Messages must implement {@link Parcelable} and have a
+ * {@link Parcelable.Creator} given which will be used to instantiate the
+ * objects as they come in off the wire. Wireless. Whatever.
+ * 
+ * @param <T>
+ *            The type of object you'll be sending over the IPC. Probably a
+ *            message or event of some kind.
+ */
 public abstract class BluetoothIPCActivity<T extends Parcelable> extends LocationActivity {
     private final static String TAG = "BluetoothActivity";
 
@@ -34,23 +51,52 @@ public abstract class BluetoothIPCActivity<T extends Parcelable> extends Locatio
     private BluetoothDeviceService deviceService;
     private BluetoothDevice connectedDevice;
 
+    private ArrayList<BluetoothDevice> bluetoothDevices;
+    private ArrayAdapter<String> bluetoothNames;
+
+    private final Handler bluetoothHandler = new Handler(new MapActivityHandler());
+
+    /**
+     * @return The connected {@link BluetoothDevice}, or null if not connected
+     *         to anything (duh).
+     */
     public BluetoothDevice getConnectedDevice() {
         return this.connectedDevice;
     }
 
-    private ArrayList<BluetoothDevice> bluetoothDevices;
-    private ArrayAdapter<String> bluetoothNames;
-
+    /**
+     * @return An {@link Adapter} suitable for adding to a {@link ListView}.
+     */
     public ArrayAdapter<String> getBluetoothAdapter() {
         return this.bluetoothNames;
     }
 
-    private final Handler bluetoothHandler = new Handler(new MapActivityHandler());
-
+    /**
+     * Called when a new message is received from the other
+     * {@link BluetoothIPCActivity}. Implement to respond to a new message being
+     * received.
+     * 
+     * @param message
+     *            The message received from the other activity.
+     */
     protected abstract void onMessageReceived(T message);
 
+    /**
+     * Called to obtain a value which is sent to the other
+     * {@link BluetoothIPCActivity} when the connection is first made.
+     * 
+     * @return A "default" value to send on the first connection.
+     */
     protected abstract T getDefault();
 
+    /**
+     * Called to obtain our type's {@link Parcelable.Creator}, used to
+     * instantiate new messages coming in form the other
+     * {@link BluetoothIPCActivity}. Unfortunately, due to the design of
+     * {@link Parcelable} classes, we can't infer this from the type itself.
+     * 
+     * @return
+     */
     protected abstract Parcelable.Creator<T> getCreator();
 
     @Override
@@ -106,18 +152,36 @@ public abstract class BluetoothIPCActivity<T extends Parcelable> extends Locatio
         super.onPause();
     }
 
+    /**
+     * Call to start the Bluetooth connection (including listening for new
+     * connections) manually, for whatever reason. Called by default when
+     * {@link #onResume} is called by the Android service, so feel free to
+     * ignore this.
+     */
     protected void startBluetooth() {
         if (this.connectedDevice != null) {
             this.bluetoothIPC.start();
         }
     }
 
+    /**
+     * Call to stop the Bluetooth connection (including listening for new
+     * connections) manually, for whatever reason. Called by default when
+     * {@link #onPause} is called by the Android service, feel free to ignore.
+     */
     protected void stopBluetooth() {
         if (this.connectedDevice != null) {
             this.bluetoothIPC.stop();
         }
     }
 
+    /**
+     * Begin finding nearby devices!
+     * 
+     * @param tappedView
+     *            A View to pass to the function in case you want to hook this
+     *            directly to an onClick in an XML layout. Null-safe.
+     */
     public void findNearby(View tappedView) {
         this.bluetoothDevices = new ArrayList<BluetoothDevice>();
         this.bluetoothNames = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
@@ -146,12 +210,16 @@ public abstract class BluetoothIPCActivity<T extends Parcelable> extends Locatio
         alert.show();
     }
 
+    // Sets our connected bluetooth device, doesn't do much but
+    // successfulConnect will be connected when actual data is transferred
+    // between the two devices.
     private void receiveConnection(BluetoothDevice device) {
         // Set device as our chosen device.
         Log.i(TAG, "Setting the device, receiveConnection() " + device);
         this.connectedDevice = device;
     }
 
+    // Connects to the bluetooth device and starts transferring data.
     private void connectTo(BluetoothDevice device) {
         // Set device as our chosen device.
         setProgressBarIndeterminateVisibility(true);
@@ -159,11 +227,22 @@ public abstract class BluetoothIPCActivity<T extends Parcelable> extends Locatio
         this.bluetoothIPC.connect(device);
     }
 
+    /**
+     * Called when a successful connection has been made, and sends the default
+     * value to the value specified by {@link #getDefault()}.
+     */
     protected void successfulConnect() {
         setProgressBarIndeterminateVisibility(false);
         this.bluetoothIPC.write(getDefault());
     }
 
+    /**
+     * Disconnects from our connected device.
+     * 
+     * @param buttonView
+     *            A View to pass to the function in case you want to hook this
+     *            directly to an onClick in an XML layout. Null-safe.
+     */
     protected void disconnectDevice(View buttonView) {
         // Clear chosen device.
         setProgressBarIndeterminateVisibility(false);
@@ -171,6 +250,7 @@ public abstract class BluetoothIPCActivity<T extends Parcelable> extends Locatio
         this.bluetoothIPC.disconnect();
     }
 
+    // A Handler to receive messages from another BluetoothIPCActivity.
     private class MapActivityHandler implements Handler.Callback {
         @Override
         public boolean handleMessage(Message msg) {
