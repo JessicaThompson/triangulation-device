@@ -16,6 +16,11 @@
     <string name="nearby_devices">Nearby Devices</string>
     <string name="paired_with_x" formatted="false">Paired with %s</string>
     
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="connect_prompt_title">Connection Request</string>
+    <string name="connect_prompt_message">Someone with the Triangulation Device wants to connect to you!</string>
+    
     <string name="start">Start</string>
     <string name="stop">Stop</string>
     <string name="cancel">Cancel</string>

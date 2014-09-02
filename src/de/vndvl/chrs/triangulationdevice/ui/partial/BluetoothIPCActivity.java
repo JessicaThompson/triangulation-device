@@ -227,10 +227,23 @@ public abstract class BluetoothIPCActivity<T extends Parcelable> extends Locatio
 
     // Connects to the bluetooth device and starts transferring data.
     private void connectTo(BluetoothDevice device) {
-        // Set device as our chosen device.
         setProgressBarIndeterminateVisibility(true);
         this.connectedDevice = device;
         this.bluetoothIPC.connect(device);
+    }
+
+    // Prompts the user to accept a Bluetooth connection from another device.
+    private void promptConnect(final BluetoothDevice device) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setIcon(android.R.drawable.ic_dialog_alert);
+        builder.setTitle(R.string.connect_prompt_title);
+        builder.setMessage(R.string.connect_prompt_message);
+        builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                BluetoothIPCActivity.this.bluetoothIPC.accept(device);
+            }
+        }).setNegativeButton(R.string.no, null).show();
     }
 
     /**
@@ -261,6 +274,8 @@ public abstract class BluetoothIPCActivity<T extends Parcelable> extends Locatio
         @Override
         public boolean handleMessage(Message msg) {
             switch (msg.what) {
+            case BluetoothIPCService.MESSAGE_CONNECT_PROMPT:
+                promptConnect((BluetoothDevice) msg.obj);
             case BluetoothIPCService.NEW_DEVICE:
                 receiveConnection((BluetoothDevice) msg.obj);
             case BluetoothIPCService.MESSAGE_STATE_CHANGE:

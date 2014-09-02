@@ -52,6 +52,7 @@ public class BluetoothIPCService<T extends Parcelable> {
     public static final int MESSAGE_WRITE = 3;
     public static final int NEW_DEVICE = 4;
     public static final int MESSAGE_INFO = 5;
+    public static final int MESSAGE_CONNECT_PROMPT = 6;
 
     // Constants that indicate the current connection state
     public static final int STATE_NONE = 0; // we're doing nothing
@@ -156,6 +157,10 @@ public class BluetoothIPCService<T extends Parcelable> {
         this.connectThread = new ConnectThread(device);
         this.connectThread.start();
         setState(STATE_CONNECTING);
+    }
+
+    public synchronized void accept(BluetoothDevice device) {
+        this.secureAcceptThread.accept(device);
     }
 
     /**
@@ -291,6 +296,7 @@ public class BluetoothIPCService<T extends Parcelable> {
     private class AcceptThread extends Thread {
         // The local server socket
         private final BluetoothServerSocket mmServerSocket;
+        private BluetoothDevice shouldAccept;
 
         public AcceptThread() {
             BluetoothServerSocket tmp = null;
@@ -312,7 +318,7 @@ public class BluetoothIPCService<T extends Parcelable> {
             BluetoothSocket socket = null;
 
             // Listen to the server socket if we're not connected
-            while (BluetoothIPCService.this.state != STATE_CONNECTED) {
+            while (BluetoothIPCService.this.state != STATE_CONNECTED || this.shouldAccept != socket.getRemoteDevice()) {
                 try {
                     // This is a blocking call and will only return on a
                     // successful connection or an exception
@@ -323,28 +329,39 @@ public class BluetoothIPCService<T extends Parcelable> {
 
                 // If a connection was accepted
                 if (socket != null) {
-                    synchronized (BluetoothIPCService.this) {
-                        switch (BluetoothIPCService.this.state) {
-                        case STATE_LISTEN:
-                        case STATE_CONNECTING:
-                            // Situation normal. Start the connected thread.
-                            connected(socket, socket.getRemoteDevice());
-                            break;
-                        case STATE_NONE:
-                        case STATE_CONNECTED:
-                            // Either not ready or already connected. Terminate
-                            // new socket.
-                            try {
-                                socket.close();
-                            } catch (IOException e) {
-                                Log.e(TAG, "Could not close unwanted socket", e);
+                    if (this.shouldAccept == null) {
+                        BluetoothIPCService.this.handler.obtainMessage(BluetoothIPCService.MESSAGE_CONNECT_PROMPT, socket.getRemoteDevice()).sendToTarget();
+                    } else {
+                        synchronized (BluetoothIPCService.this) {
+                            switch (BluetoothIPCService.this.state) {
+                            case STATE_LISTEN:
+                            case STATE_CONNECTING:
+                                // Situation normal. Start the connected thread.
+                                connected(socket, socket.getRemoteDevice());
+                                break;
+                            case STATE_NONE:
+                            case STATE_CONNECTED:
+                                // Either not ready or already connected.
+                                // Terminate
+                                // new socket.
+                                try {
+                                    socket.close();
+                                } catch (IOException e) {
+                                    Log.e(TAG, "Could not close unwanted socket", e);
+                                }
+                                break;
                             }
-                            break;
+
+                            this.shouldAccept = null;
                         }
                     }
                 }
             }
             Log.i(TAG, "END mAcceptThread");
+        }
+
+        public void accept(BluetoothDevice device) {
+            this.shouldAccept = device;
         }
 
         public void cancel() {
