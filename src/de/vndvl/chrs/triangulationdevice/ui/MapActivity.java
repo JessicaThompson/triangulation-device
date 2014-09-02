@@ -59,7 +59,7 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
         this.waveforms.setListener(new DraggableWeightView.Listener() {
             @Override
             public void onChanged(double topBottomRatio) {
-                MapActivity.this.pd.pdChangeXfade(1 - (float) topBottomRatio);
+                MapActivity.this.pd.pdChangeXfade((float) topBottomRatio);
             }
         });
 
@@ -108,7 +108,7 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     /**
      * Called when the connected {@link BluetoothDevice} sends us a new Location
      * value.
-     * 
+     *
      * @param location
      *            The new value for the connected other device's location.
      */
@@ -182,10 +182,10 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     /**
      * Starts the audio processing from our current location. Also starts to
      * record the individual values for later retrieval.
-     * 
+     *
      * Also updates the UI, changing the "Start" button (which calls this
      * method) to a "Stop" button (which calls {@link #stop(View)}).
-     * 
+     *
      * @param buttonView
      *            A {@link View}, in case this method is called from an XML
      *            layout.
@@ -207,10 +207,10 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     /**
      * Stops the audio processing from our current location. Also stops the
      * recording and prompts the user to name it in case they want to save.
-     * 
+     *
      * Also updates the UI, changing the "Stop" button (which calls this method)
      * to a "Start" button (which calls {@link #start(View)}).
-     * 
+     *
      * @param buttonView
      *            A {@link View}, in case this method is called from an XML
      *            layout.
