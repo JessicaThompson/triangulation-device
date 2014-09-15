@@ -1,20 +1,18 @@
 package de.vndvl.chrs.triangulationdevice.bluetooth;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.UUID;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
+import de.vndvl.chrs.triangulationdevice.bluetooth.threads.AcceptThread;
+import de.vndvl.chrs.triangulationdevice.bluetooth.threads.ConnectThread;
+import de.vndvl.chrs.triangulationdevice.bluetooth.threads.ConnectedThread;
 
 /**
  * This class does all the work for setting up and managing Bluetooth
@@ -36,15 +34,13 @@ public class BluetoothIPCService<T extends Parcelable> {
     private final UUID MY_UUID_SECURE;
 
     // Member fields
-    private final BluetoothAdapter bluetoothAdapter;
+    public final BluetoothAdapter bluetoothAdapter;
     private final Handler handler;
-    private AcceptThread secureAcceptThread;
-    private ConnectThread connectThread;
-    private ConnectedThread connectedThread;
-    private int state;
-
-    // To help with parceling.
     private final Parcelable.Creator<T> creator;
+    private AcceptThread<T> secureAcceptThread;
+    private ConnectThread<T> connectThread;
+    private ConnectedThread<T> connectedThread;
+    private int state;
 
     // Message types sent from the BluetoothIPCService Handler
     public static final int MESSAGE_STATE_CHANGE = 1;
@@ -52,7 +48,6 @@ public class BluetoothIPCService<T extends Parcelable> {
     public static final int MESSAGE_WRITE = 3;
     public static final int NEW_DEVICE = 4;
     public static final int MESSAGE_INFO = 5;
-    public static final int MESSAGE_CONNECT_PROMPT = 6;
 
     // Constants that indicate the current connection state
     public static final int STATE_NONE = 0; // we're doing nothing
@@ -102,6 +97,10 @@ public class BluetoothIPCService<T extends Parcelable> {
         return this.state;
     }
 
+    public UUID getUUID() {
+        return this.MY_UUID_SECURE;
+    }
+
     /**
      * Start the chat service. Specifically start AcceptThread to begin a
      * session in listening (server) mode. Called by the Activity onResume()
@@ -110,22 +109,16 @@ public class BluetoothIPCService<T extends Parcelable> {
         Log.d(TAG, "start");
 
         // Cancel any thread attempting to make a connection
-        if (this.connectThread != null) {
-            this.connectThread.cancel();
-            this.connectThread = null;
-        }
+        clearConnect();
 
         // Cancel any thread currently running a connection
-        if (this.connectedThread != null) {
-            this.connectedThread.cancel();
-            this.connectedThread = null;
-        }
+        clearConnected();
 
         setState(STATE_LISTEN);
 
         // Start the thread to listen on a BluetoothServerSocket
         if (this.secureAcceptThread == null) {
-            this.secureAcceptThread = new AcceptThread();
+            this.secureAcceptThread = new AcceptThread<T>(this, this.handler, this.creator);
             this.secureAcceptThread.start();
         }
     }
@@ -141,26 +134,37 @@ public class BluetoothIPCService<T extends Parcelable> {
 
         // Cancel any thread attempting to make a connection
         if (this.state == STATE_CONNECTING) {
-            if (this.connectThread != null) {
-                this.connectThread.cancel();
-                this.connectThread = null;
-            }
+            clearConnect();
         }
 
         // Cancel any thread currently running a connection
-        if (this.connectedThread != null) {
-            this.connectedThread.cancel();
-            this.connectedThread = null;
-        }
+        clearConnected();
 
         // Start the thread to connect with the given device
-        this.connectThread = new ConnectThread(device);
+        this.connectThread = new ConnectThread<T>(device, this, this.handler, this.creator);
         this.connectThread.start();
         setState(STATE_CONNECTING);
     }
 
-    public synchronized void accept(BluetoothDevice device) {
-        this.secureAcceptThread.accept(device);
+    public synchronized void clearAccept() {
+        if (this.secureAcceptThread != null) {
+            this.secureAcceptThread.cancel();
+            this.secureAcceptThread = null;
+        }
+    }
+
+    public synchronized void clearConnect() {
+        if (this.connectThread != null) {
+            this.connectThread.cancel();
+            this.connectThread = null;
+        }
+    }
+
+    public synchronized void clearConnected() {
+        if (this.connectedThread != null) {
+            this.connectedThread.cancel();
+            this.connectedThread = null;
+        }
     }
 
     /**
@@ -175,26 +179,17 @@ public class BluetoothIPCService<T extends Parcelable> {
         Log.d(TAG, "connected");
 
         // Cancel the thread that completed the connection
-        if (this.connectThread != null) {
-            this.connectThread.cancel();
-            this.connectThread = null;
-        }
+        clearConnect();
 
         // Cancel any thread currently running a connection
-        if (this.connectedThread != null) {
-            this.connectedThread.cancel();
-            this.connectedThread = null;
-        }
+        clearConnected();
 
         // Cancel the accept thread because we only want to connect to one
         // device
-        if (this.secureAcceptThread != null) {
-            this.secureAcceptThread.cancel();
-            this.secureAcceptThread = null;
-        }
+        clearAccept();
 
         // Start the thread to manage the connection and perform transmissions
-        this.connectedThread = new ConnectedThread(socket);
+        this.connectedThread = new ConnectedThread<T>(this, this.handler, this.creator, socket);
         this.connectedThread.start();
 
         // Send the name of the connected device back to the UI Activity
@@ -220,22 +215,14 @@ public class BluetoothIPCService<T extends Parcelable> {
      */
     public synchronized void stop() {
         Log.d(TAG, "stop()");
-
-        if (this.connectThread != null) {
-            this.connectThread.cancel();
-            this.connectThread = null;
-        }
-
-        if (this.connectedThread != null) {
-            this.connectedThread.cancel();
-            this.connectedThread = null;
-        }
-
-        if (this.secureAcceptThread != null) {
-            this.secureAcceptThread.cancel();
-            this.secureAcceptThread = null;
-        }
+        clearConnect();
+        clearConnected();
+        clearAccept();
         setState(STATE_NONE);
+    }
+
+    public synchronized void cancelDiscovery() {
+        this.bluetoothAdapter.cancelDiscovery();
     }
 
     /**
@@ -247,7 +234,7 @@ public class BluetoothIPCService<T extends Parcelable> {
      */
     public void write(T out) {
         // Create temporary object
-        ConnectedThread r;
+        ConnectedThread<T> r;
         // Synchronize a copy of the ConnectedThread
         synchronized (this) {
             if (this.state != STATE_CONNECTED)
@@ -261,7 +248,7 @@ public class BluetoothIPCService<T extends Parcelable> {
     /**
      * Indicate that the connection attempt failed and notify the UI Activity.
      */
-    private void connectionFailed() {
+    public void connectionFailed() {
         // Send a failure message back to the Activity
         Message msg = this.handler.obtainMessage(BluetoothIPCService.MESSAGE_INFO);
         Bundle bundle = new Bundle();
@@ -276,7 +263,7 @@ public class BluetoothIPCService<T extends Parcelable> {
     /**
      * Indicate that the connection was lost and notify the UI Activity.
      */
-    private void connectionLost() {
+    public void connectionLost() {
         // Send a failure message back to the Activity
         Message msg = this.handler.obtainMessage(BluetoothIPCService.MESSAGE_INFO);
         Bundle bundle = new Bundle();
@@ -286,270 +273,5 @@ public class BluetoothIPCService<T extends Parcelable> {
 
         // Start the service over to restart listening mode
         BluetoothIPCService.this.start();
-    }
-
-    /**
-     * This thread runs while listening for incoming connections. It behaves
-     * like a server-side client. It runs until a connection is accepted (or
-     * until cancelled).
-     */
-    private class AcceptThread extends Thread {
-        // The local server socket
-        private final BluetoothServerSocket mmServerSocket;
-        private BluetoothDevice shouldAccept;
-
-        public AcceptThread() {
-            BluetoothServerSocket tmp = null;
-
-            // Create a new listening server socket
-            try {
-                tmp = BluetoothIPCService.this.bluetoothAdapter.listenUsingRfcommWithServiceRecord(TAG, BluetoothIPCService.this.MY_UUID_SECURE);
-            } catch (IOException e) {
-                Log.e(TAG, "Secure listen() failed", e);
-            }
-            this.mmServerSocket = tmp;
-        }
-
-        @Override
-        public void run() {
-            Log.d(TAG, "BEGIN mAcceptThread" + this);
-            setName("AcceptThread");
-
-            BluetoothSocket socket = null;
-
-            // Listen to the server socket if we're not connected
-            while (BluetoothIPCService.this.state != STATE_CONNECTED || this.shouldAccept != socket.getRemoteDevice()) {
-                try {
-                    // This is a blocking call and will only return on a
-                    // successful connection or an exception
-                    socket = this.mmServerSocket.accept();
-                } catch (IOException e) {
-                    break;
-                }
-
-                // If a connection was accepted
-                if (socket != null) {
-                    if (this.shouldAccept == null) {
-                        BluetoothIPCService.this.handler.obtainMessage(BluetoothIPCService.MESSAGE_CONNECT_PROMPT, socket.getRemoteDevice()).sendToTarget();
-                    } else {
-                        synchronized (BluetoothIPCService.this) {
-                            switch (BluetoothIPCService.this.state) {
-                            case STATE_LISTEN:
-                            case STATE_CONNECTING:
-                                // Situation normal. Start the connected thread.
-                                connected(socket, socket.getRemoteDevice());
-                                break;
-                            case STATE_NONE:
-                            case STATE_CONNECTED:
-                                // Either not ready or already connected.
-                                // Terminate
-                                // new socket.
-                                try {
-                                    socket.close();
-                                } catch (IOException e) {
-                                    Log.e(TAG, "Could not close unwanted socket", e);
-                                }
-                                break;
-                            }
-
-                            this.shouldAccept = null;
-                        }
-                    }
-                }
-            }
-            Log.i(TAG, "END mAcceptThread");
-        }
-
-        public void accept(BluetoothDevice device) {
-            this.shouldAccept = device;
-        }
-
-        public void cancel() {
-            Log.d(TAG, "Secure cancel " + this);
-            try {
-                this.mmServerSocket.close();
-            } catch (IOException e) {
-                Log.e(TAG, "Secure close() of server failed", e);
-            }
-        }
-    }
-
-    /**
-     * This thread runs while attempting to make an outgoing connection with a
-     * device. It runs straight through; the connection either succeeds or
-     * fails.
-     */
-    private class ConnectThread extends Thread {
-        private final BluetoothSocket mmSocket;
-        private final BluetoothDevice mmDevice;
-
-        public ConnectThread(BluetoothDevice device) {
-            this.mmDevice = device;
-            BluetoothSocket tmp = null;
-
-            // Get a BluetoothSocket for a connection with the
-            // given BluetoothDevice
-            try {
-                tmp = device.createRfcommSocketToServiceRecord(BluetoothIPCService.this.MY_UUID_SECURE);
-            } catch (IOException e) {
-                Log.e(TAG, "Secure create() failed", e);
-            }
-            this.mmSocket = tmp;
-        }
-
-        @Override
-        public void run() {
-            Log.i(TAG, "BEGIN mConnectThread");
-            setName("ConnectThread");
-
-            // Always cancel discovery because it will slow down a connection
-            BluetoothIPCService.this.bluetoothAdapter.cancelDiscovery();
-
-            // Make a connection to the BluetoothSocket
-            try {
-                // This is a blocking call and will only return on a
-                // successful connection or an exception
-                this.mmSocket.connect();
-            } catch (IOException e) {
-                // Close the socket
-                try {
-                    this.mmSocket.close();
-                } catch (IOException e2) {
-                    Log.e(TAG, "unable to close() socket during connection failure", e2);
-                }
-                Log.e(TAG, "Connection failed because of IO Exception.", e);
-                connectionFailed();
-                return;
-            }
-
-            // Reset the ConnectThread because we're done
-            synchronized (BluetoothIPCService.this) {
-                BluetoothIPCService.this.connectThread = null;
-            }
-
-            // Start the connected thread
-            connected(this.mmSocket, this.mmDevice);
-        }
-
-        public void cancel() {
-            try {
-                this.mmSocket.close();
-            } catch (IOException e) {
-                Log.e(TAG, "close() of connect socket failed", e);
-            }
-        }
-    }
-
-    /**
-     * This thread runs during a connection with a remote device. It handles all
-     * incoming and outgoing transmissions.
-     */
-    private class ConnectedThread extends Thread {
-        private final BluetoothSocket socket;
-        private final InputStream inStream;
-        private final OutputStream outStream;
-
-        public ConnectedThread(BluetoothSocket socket) {
-            Log.d(TAG, "create ConnectedThread");
-            this.socket = socket;
-            InputStream tmpIn = null;
-            OutputStream tmpOut = null;
-
-            // Get the BluetoothSocket input and output streams
-            try {
-                tmpIn = socket.getInputStream();
-                tmpOut = socket.getOutputStream();
-            } catch (IOException e) {
-                Log.e(TAG, "temp sockets not created", e);
-            }
-
-            this.inStream = tmpIn;
-            this.outStream = tmpOut;
-        }
-
-        @Override
-        public void run() {
-            Log.i(TAG, "BEGIN mConnectedThread");
-            byte[] buffer = new byte[1024];
-
-            // Keep listening to the InputStream while connected
-            while (true) {
-                try {
-                    // Read from the InputStream
-                    this.inStream.read(buffer);
-                    T thing = unpack(buffer, BluetoothIPCService.this.creator);
-
-                    // TODO: What if we get huge objects? Keep reading until we
-                    // have the end of the object, right?
-
-                    // Send the obtained bytes to the UI Activity
-                    BluetoothIPCService.this.handler.obtainMessage(BluetoothIPCService.MESSAGE_READ, thing).sendToTarget();
-                } catch (IOException e) {
-                    if (BluetoothIPCService.this.state == STATE_CONNECTED) {
-                        connectionLost();
-                    }
-                    // Start the service over to restart listening mode
-                    BluetoothIPCService.this.start();
-                    break;
-                }
-            }
-        }
-
-        /**
-         * Write to the connected OutStream.
-         * 
-         * @param buffer
-         *            The bytes to write
-         */
-        public void write(T location) {
-            try {
-                byte[] parceledBytes = pack(location);
-                this.outStream.write(parceledBytes);
-
-                // Share the sent message back to the UI Activity
-                BluetoothIPCService.this.handler.obtainMessage(BluetoothIPCService.MESSAGE_WRITE, location).sendToTarget();
-            } catch (IOException e) {
-                Log.e(TAG, "Exception during write", e);
-            }
-        }
-
-        public void cancel() {
-            try {
-                this.socket.close();
-            } catch (IOException e) {
-                Log.e(TAG, "close() of connect socket failed", e);
-            }
-        }
-    }
-
-    /**
-     * Packs a parcelable object into a byte array.
-     * 
-     * @param parcelable
-     *            A {@link Parcelable} object
-     * @return A byte array representing the object.
-     */
-    public byte[] pack(T parcelable) {
-        Parcel parcel = Parcel.obtain();
-        parcelable.writeToParcel(parcel, 0);
-        byte[] bytes = parcel.marshall();
-        parcel.recycle();
-        return bytes;
-    }
-
-    /**
-     * Unpacks a parcelable object from its byte array.
-     * 
-     * @param bytes
-     *            The array of bytes which contains the object.
-     * @param creator
-     *            A Parcelable helper object to unpack.
-     * @return The object passed over the wire.
-     */
-    public T unpack(byte[] bytes, Parcelable.Creator<T> creator) {
-        Parcel parcel = Parcel.obtain();
-        parcel.unmarshall(bytes, 0, bytes.length);
-        parcel.setDataPosition(0);
-        return creator.createFromParcel(parcel);
     }
 }
