@@ -12,6 +12,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+
 import de.vndvl.chrs.triangulationdevice.R;
 import de.vndvl.chrs.triangulationdevice.pd.PDDriver;
 import de.vndvl.chrs.triangulationdevice.storage.PathStorage;
@@ -26,6 +34,8 @@ import de.vndvl.chrs.triangulationdevice.util.Typefaces;
  * devices, and see the current status of the other connected user.
  */
 public class MapActivity extends BluetoothIPCActivity<Location> {
+    private static final float DEFAULT_ZOOM = 19;
+
     private Resources resources;
 
     private boolean recording = false;
@@ -41,6 +51,8 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     private Button findNearbyButton;
 
     private DraggableWeightView waveforms;
+
+    private GoogleMap map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +75,15 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
             }
         });
 
-        this.radar = (RadarView) findViewById(R.id.devices_map);
+        this.radar = (RadarView) findViewById(R.id.devices_radar);
+        this.map = ((MapFragment) getFragmentManager().findFragmentById(R.id.devices_map)).getMap();
+        UiSettings mapSettings = this.map.getUiSettings();
+        mapSettings.setCompassEnabled(true);
+        mapSettings.setScrollGesturesEnabled(false);
+        mapSettings.setRotateGesturesEnabled(false);
+        mapSettings.setTiltGesturesEnabled(false);
+        mapSettings.setZoomGesturesEnabled(false);
+        mapSettings.setZoomControlsEnabled(false);
 
         this.startStopButton = (Button) findViewById(R.id.start_button);
         this.findNearbyButton = (Button) findViewById(R.id.find_nearby_button);
@@ -88,6 +108,15 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
         this.myWaveform.setLocation(location);
         this.radar.setLocation(location);
 
+        // Zoom the map to our position!
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(latLng)
+                .zoom(DEFAULT_ZOOM)
+                .bearing(location.getBearing())
+                .build();
+        this.map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
         if (this.recording) {
             this.path.addMine(location);
         }
@@ -108,7 +137,7 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     /**
      * Called when the connected {@link BluetoothDevice} sends us a new Location
      * value.
-     *
+     * 
      * @param location
      *            The new value for the connected other device's location.
      */
@@ -182,10 +211,10 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     /**
      * Starts the audio processing from our current location. Also starts to
      * record the individual values for later retrieval.
-     *
+     * 
      * Also updates the UI, changing the "Start" button (which calls this
      * method) to a "Stop" button (which calls {@link #stop(View)}).
-     *
+     * 
      * @param buttonView
      *            A {@link View}, in case this method is called from an XML
      *            layout.
@@ -207,10 +236,10 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     /**
      * Stops the audio processing from our current location. Also stops the
      * recording and prompts the user to name it in case they want to save.
-     *
+     * 
      * Also updates the UI, changing the "Stop" button (which calls this method)
      * to a "Start" button (which calls {@link #start(View)}).
-     *
+     * 
      * @param buttonView
      *            A {@link View}, in case this method is called from an XML
      *            layout.
