@@ -111,7 +111,7 @@ public abstract class BluetoothIPCActivity<T extends Parcelable> extends Locatio
         this.deviceService = new BluetoothDeviceService(this);
         this.deviceService.setListener(new BluetoothDeviceService.Listener() {
             @Override
-            public void unpairedDeviceFound(BluetoothDevice device) {
+            public void unpairedDeviceFound(BluetoothDevice device, int rssi) {
                 int bluetoothClass = device.getBluetoothClass().getDeviceClass();
                 if (bluetoothClass == BluetoothClass.Device.PHONE_SMART || bluetoothClass == BluetoothClass.Device.COMPUTER_LAPTOP) {
                     BluetoothIPCActivity.this.bluetoothDevices.add(device);
@@ -227,7 +227,6 @@ public abstract class BluetoothIPCActivity<T extends Parcelable> extends Locatio
 
     // Connects to the bluetooth device and starts transferring data.
     private void connectTo(BluetoothDevice device) {
-        // Set device as our chosen device.
         setProgressBarIndeterminateVisibility(true);
         this.connectedDevice = device;
         this.bluetoothIPC.connect(device);

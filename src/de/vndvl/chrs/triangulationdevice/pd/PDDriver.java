@@ -16,8 +16,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.location.Location;
 import android.os.IBinder;
-import android.telephony.PhoneStateListener;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import de.vndvl.chrs.triangulationdevice.R;
 
@@ -56,7 +54,7 @@ public class PDDriver {
 
     /**
      * It's a constructor! Ain't it cute?
-     *
+     * 
      * @param context
      *            A context from which to get access to strings and start
      *            {@link Service}s.
@@ -72,23 +70,6 @@ public class PDDriver {
     public void initServices() {
         Intent pdIntent = new Intent(this.context, PdService.class);
         this.context.bindService(pdIntent, this.pdConnection, Context.BIND_AUTO_CREATE);
-
-        TelephonyManager telephonyManager = (TelephonyManager) this.context.getSystemService(Context.TELEPHONY_SERVICE);
-        telephonyManager.listen(new PhoneStateListener() {
-            @Override
-            public void onCallStateChanged(int state, String incomingNumber) {
-                if (PDDriver.this.pdService == null)
-                    return;
-                if (state == TelephonyManager.CALL_STATE_IDLE) {
-                    startPdAudio();
-                    // TODO: Handle possible edge case
-                    // Person has app open, sound off, receives call
-                    // (undesired sound starts when call ends?)
-                } else {
-                    PDDriver.this.pdService.stopAudio();
-                }
-            }
-        }, PhoneStateListener.LISTEN_CALL_STATE);
     }
 
     /**
@@ -145,7 +126,7 @@ public class PDDriver {
 
     /**
      * Updates the "other" location, sending it to our PD patch.
-     *
+     * 
      * @param location
      *            A new {@link Location} to use for the other person.
      */
@@ -156,7 +137,7 @@ public class PDDriver {
 
     /**
      * Updates "our" location, sending it to our PD patch.
-     *
+     * 
      * @param location
      *            A new {@link Location} to use for us.
      */
@@ -165,9 +146,9 @@ public class PDDriver {
         // TODO: Storing HMS as ints could make things more efficient
 
         this.myLocation = location;
-        myHMS = getHMS(myLocation);
+        this.myHMS = getHMS(this.myLocation);
 
-        for (HashMap.Entry<String, Float> entry : myHMS.entrySet()) {
+        for (HashMap.Entry<String, Float> entry : this.myHMS.entrySet()) {
             System.out.println(entry.getKey());
             System.out.println(entry.getValue());
             PdBase.sendFloat(entry.getKey(), entry.getValue());
@@ -179,11 +160,11 @@ public class PDDriver {
     }
 
     public void pdChangeProximity(Location myLocation, Location theirLocation) {
-        myHMS = getHMS(myLocation);
-        theirHMS = getHMS(theirLocation);
+        this.myHMS = getHMS(myLocation);
+        this.theirHMS = getHMS(theirLocation);
 
-        float proxlat = Math.abs(myHMS.get("lats") - theirHMS.get("lats"));
-        float proxlong = Math.abs(myHMS.get("longs") - theirHMS.get("longs"));
+        float proxlat = Math.abs(this.myHMS.get("lats") - this.theirHMS.get("lats"));
+        float proxlong = Math.abs(this.myHMS.get("longs") - this.theirHMS.get("longs"));
 
         PdBase.sendFloat("proxlat", proxlat);
         PdBase.sendFloat("proxlong", proxlong);
@@ -247,7 +228,7 @@ public class PDDriver {
 
     /**
      * Updates our PD patch with the cross-fader value from our UI.
-     *
+     * 
      * @param level
      */
     public void pdChangeXfade(float level) {
