@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -77,13 +76,12 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
 
         this.radar = (RadarView) findViewById(R.id.devices_radar);
         this.map = ((MapFragment) getFragmentManager().findFragmentById(R.id.devices_map)).getMap();
-        UiSettings mapSettings = this.map.getUiSettings();
-        mapSettings.setCompassEnabled(true);
-        mapSettings.setScrollGesturesEnabled(false);
-        mapSettings.setRotateGesturesEnabled(false);
-        mapSettings.setTiltGesturesEnabled(false);
-        mapSettings.setZoomGesturesEnabled(false);
-        mapSettings.setZoomControlsEnabled(false);
+        this.map.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
+            @Override
+            public void onMyLocationChange(Location location) {
+                MapActivity.this.radar.setAzimuth(location.getBearing());
+            }
+        });
 
         this.startStopButton = (Button) findViewById(R.id.start_button);
         this.findNearbyButton = (Button) findViewById(R.id.find_nearby_button);
@@ -122,16 +120,6 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
         }
 
         this.pd.myLocationChanged(location);
-    }
-
-    /**
-     * Called when the direction the phone is facing changes. The azimuth value
-     * is in radians between our orientation and north, positive being in the
-     * counter-clockwise direction.
-     */
-    @Override
-    public void onCompassChanged(float azimuth) {
-        this.radar.setAzimuth(azimuth);
     }
 
     /**

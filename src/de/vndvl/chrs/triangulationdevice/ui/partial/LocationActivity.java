@@ -23,7 +23,7 @@ import com.google.android.gms.location.LocationRequest;
  * {@link #onLocationChanged(Location)} and deal with new location events which
  * come in.
  */
-public abstract class LocationActivity extends CompassActivity implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener, LocationListener {
+public abstract class LocationActivity extends TriangulationActivity implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener, LocationListener {
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private final static int FASTEST_INTERVAL = 1000;
     private final static int INTERVAL = 5 * FASTEST_INTERVAL;
