@@ -141,6 +141,12 @@ public abstract class BluetoothIPCActivity<T extends Parcelable> extends Locatio
     }
 
     @Override
+    protected void onDestroy() {
+        this.deviceService.destroy();
+        super.onDestroy();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         startBluetooth();
@@ -282,8 +288,7 @@ public abstract class BluetoothIPCActivity<T extends Parcelable> extends Locatio
                 }
                 break;
             case BluetoothIPCService.MESSAGE_READ:
-                @SuppressWarnings("unchecked")
-                T receivedObject = (T) msg.obj;
+                @SuppressWarnings("unchecked") T receivedObject = (T) msg.obj;
                 onMessageReceived(receivedObject);
                 break;
             case BluetoothIPCService.MESSAGE_INFO:

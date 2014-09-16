@@ -1,81 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+
     <de.vndvl.chrs.triangulationdevice.ui.views.DraggableWeightView
         android:id="@+id/waveform"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical" >
-	    <de.vndvl.chrs.triangulationdevice.ui.views.WaveformLabelView
-	        android:id="@+id/my_waveform"
-	        android:layout_width="match_parent"
-	        android:layout_height="fill_parent"
-	        android:layout_weight="1" />
-	    <de.vndvl.chrs.triangulationdevice.ui.views.WaveformLabelView
+
+        <de.vndvl.chrs.triangulationdevice.ui.views.WaveformLabelView
+            android:id="@+id/my_waveform"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" />
+
+        <de.vndvl.chrs.triangulationdevice.ui.views.WaveformLabelView
             android:id="@+id/their_waveform"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:visibility="gone"
-             />
+            android:visibility="gone" />
     </de.vndvl.chrs.triangulationdevice.ui.views.DraggableWeightView>
-    <LinearLayout android:id="@+id/connection_status"
+
+    <LinearLayout
+        android:id="@+id/connection_status"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:paddingLeft="12dp"
-        android:orientation="horizontal"
+        android:background="@color/status_grey_bg"
         android:gravity="center_vertical"
-        android:background="@color/status_grey_bg" >
-        <TextView android:id="@+id/my_device_status_title"
+        android:orientation="horizontal"
+        android:paddingLeft="12dp" >
+
+        <TextView
+            android:id="@+id/my_device_status_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="8dp"
+            android:text="@string/status"
             android:textColor="@color/text_white"
-            android:textStyle="bold"
             android:textSize="11sp"
-            android:text="@string/status" />
-        <TextView android:id="@+id/my_device_status_value"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/my_device_status_value"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="11sp"
+            android:text="@string/not_connected"
             android:textColor="@color/text_white"
-            android:text="@string/not_connected" />
-        <Button android:id="@+id/find_nearby_button"
+            android:textSize="11sp" />
+
+        <Button
+            android:id="@+id/find_nearby_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:background="@drawable/find_nearby_button"
+            android:drawableLeft="@drawable/ic_action_location_found"
+            android:onClick="findNearby"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:text="@string/find_nearby_devices"
-            android:textSize="10sp"
             android:textColor="@color/text_white"
-            android:drawableLeft="@drawable/ic_action_location_found"
-            android:background="@drawable/find_nearby_button"
-            android:onClick="findNearby" />
+            android:textSize="10sp" />
     </LinearLayout>
-    <LinearLayout
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="230dp"
-        android:gravity="center"
-        android:padding="8dp"
-        android:background="@color/radar_light_grey_bg">
-	    <de.vndvl.chrs.triangulationdevice.ui.views.RadarView
-	        android:id="@+id/devices_map"
-	        android:layout_width="match_parent"
-	        android:layout_height="match_parent" />
-    </LinearLayout>
-    <Button android:id="@+id/start_button"
+        android:gravity="center" >
+
+        <fragment
+            android:id="@+id/devices_map"
+            android:name="com.google.android.gms.maps.MapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            map:cameraZoom="13"
+            map:mapType="normal"
+            map:uiCompass="true"
+            map:uiRotateGestures="false"
+            map:uiScrollGestures="false"
+            map:uiTiltGestures="false"
+            map:uiZoomControls="false"
+            map:uiZoomGestures="false" />
+
+        <de.vndvl.chrs.triangulationdevice.ui.views.RadarView
+            android:id="@+id/devices_radar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/start_button"
         android:layout_width="match_parent"
         android:layout_height="53dp"
-        android:text="@string/start"
-        android:textColor="@color/text_white"
         android:background="@drawable/start_button"
-        android:onClick="start" />
+        android:onClick="start"
+        android:text="@string/start"
+        android:textColor="@color/text_white" />
+
 </LinearLayout>
