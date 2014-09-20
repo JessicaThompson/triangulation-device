@@ -10,6 +10,7 @@ import org.puredata.android.utils.PdUiDispatcher;
 import org.puredata.core.PdBase;
 import org.puredata.core.utils.IoUtils;
 
+import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -110,8 +111,7 @@ public class PDDriver {
 
     private void startPdAudio() {
         if (!this.pdService.isRunning()) {
-            Intent intent = new Intent(this.context, this.context.getClass());
-            this.pdService.startAudio(intent, R.drawable.ab_logo, "Triangulation Device", "Return to Triangulation Device");
+            this.pdService.startAudio();
             // Starts audio and creates a notification pointing to this activity
             // To start audio with no notification, give startAudio() 0 args
         }
@@ -168,32 +168,6 @@ public class PDDriver {
 
         PdBase.sendFloat("proxlat", proxlat);
         PdBase.sendFloat("proxlong", proxlong);
-    }
-
-    private HashMap<String, Float> extractHMS(Location location) {
-        // Returns a HashMap of H, M, S doubles (values)
-        // mapped to their Pd variable names (keys)
-        HashMap<String, Float> result = new HashMap<String, Float>();
-        double latitude = location.getLatitude();
-        double longitude = location.getLongitude();
-
-        // This int cast will/should always work properly
-        int lath = (int) latitude;
-        int longh = (int) longitude;
-
-        double latm = Math.floor(60d * (Math.abs(latitude) - Math.abs(lath)));
-        double longm = Math.floor(60d * (Math.abs(longitude) - Math.abs(longh)));
-
-        double lats = Math.floor(3600d * (Math.abs(latitude) - Math.abs(lath) - latm / 60d));
-        double longs = Math.floor(3600d * (Math.abs(longitude) - Math.abs(longh) - longm / 60d));
-
-        result.put("lath", (float) lath);
-        result.put("longh", (float) longh);
-        result.put("latm", (float) latm);
-        result.put("longm", (float) longm);
-        result.put("lats", (float) lats);
-        result.put("longs", (float) longs);
-        return result;
     }
 
     public HashMap<String, Float> getHMS(Location location) {
