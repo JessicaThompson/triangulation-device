@@ -149,7 +149,7 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     @Override
     protected void onPause() {
         this.path.close();
-        this.pd.stop();
+        this.stop(null);
         super.onPause();
     }
 
