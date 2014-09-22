@@ -155,6 +155,7 @@ public abstract class BluetoothIPCActivity<T extends Parcelable> extends Locatio
     @Override
     protected void onPause() {
         stopBluetooth();
+        this.deviceService.stop();
         super.onPause();
     }
 
