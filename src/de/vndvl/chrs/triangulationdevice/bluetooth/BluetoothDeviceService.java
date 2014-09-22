@@ -154,6 +154,8 @@ public class BluetoothDeviceService {
          * 
          * @param device
          *            A newly discovered, unpaired bluetooth device.
+         * @param rssi
+         *            A vague number that sort of describes how close it is.
          */
         public void unpairedDeviceFound(BluetoothDevice device, int rssi) {
         }
