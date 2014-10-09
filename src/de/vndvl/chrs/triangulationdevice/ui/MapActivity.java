@@ -8,9 +8,14 @@ import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Parcelable.Creator;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,7 +28,6 @@ import de.vndvl.chrs.triangulationdevice.R;
 import de.vndvl.chrs.triangulationdevice.pd.PDDriver;
 import de.vndvl.chrs.triangulationdevice.storage.PathStorage;
 import de.vndvl.chrs.triangulationdevice.ui.partial.BluetoothIPCActivity;
-import de.vndvl.chrs.triangulationdevice.ui.views.DraggableWeightView;
 import de.vndvl.chrs.triangulationdevice.ui.views.RadarView;
 import de.vndvl.chrs.triangulationdevice.ui.views.WaveformLabelView;
 import de.vndvl.chrs.triangulationdevice.util.Typefaces;
@@ -41,6 +45,7 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     private final PathStorage path = new PathStorage(this);
     private final PDDriver pd = new PDDriver(this);
 
+    private LinearLayout waveforms;
     private WaveformLabelView myWaveform;
     private WaveformLabelView theirWaveform;
     private RadarView radar;
@@ -49,9 +54,9 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     private Button startStopButton;
     private Button findNearbyButton;
 
-    private DraggableWeightView waveforms;
-
     private GoogleMap map;
+
+    private float density;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,19 +65,22 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
         setContentView(R.layout.map_activity);
         this.resources = getResources();
 
+        DisplayMetrics metrics = this.resources.getDisplayMetrics();
+        this.density = metrics.densityDpi / 160f;
+
         this.pd.initServices();
 
         this.myWaveform = (WaveformLabelView) findViewById(R.id.my_waveform);
         this.theirWaveform = (WaveformLabelView) findViewById(R.id.their_waveform);
         this.theirWaveform.setDeviceName(this.resources.getString(R.string.paired_device));
 
-        this.waveforms = (DraggableWeightView) findViewById(R.id.waveform);
-        this.waveforms.setListener(new DraggableWeightView.Listener() {
-            @Override
-            public void onChanged(double topBottomRatio) {
-                MapActivity.this.pd.pdChangeXfade((float) topBottomRatio);
-            }
-        });
+        this.waveforms = (LinearLayout) findViewById(R.id.double_waveform);
+        // this.waveforms.setListener(new DraggableWeightView.Listener() {
+        // @Override
+        // public void onChanged(double topBottomRatio) {
+        // MapActivity.this.pd.pdChangeXfade((float) topBottomRatio);
+        // }
+        // });
 
         this.radar = (RadarView) findViewById(R.id.devices_radar);
         this.map = ((MapFragment) getFragmentManager().findFragmentById(R.id.devices_map)).getMap();
@@ -93,6 +101,54 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
         this.myConnectionStatus.setTypeface(Typefaces.raleway);
         TextView myDeviceStatusTitle = (TextView) findViewById(R.id.my_device_status_title);
         myDeviceStatusTitle.setTypeface(Typefaces.ralewaySemiBold);
+
+        final LinearLayout border = (LinearLayout) this.myWaveform.findViewById(R.id.label);
+        border.setOnTouchListener(new OnTouchListener() {
+            private final float minHeight = 180;
+            private final float maxHeight = 1000;
+
+            private int offset;
+            private float lastY;
+            private float lastHeight;
+            private final boolean active = true;
+            private final View myWaveformView = MapActivity.this.myWaveform;
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int[] location = new int[2];
+                border.getLocationOnScreen(location);
+                this.offset = location[1];
+
+                if (this.active) {
+                    switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        this.lastY = event.getY();
+                        this.lastHeight = this.myWaveformView.getHeight();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        updateWeight(event.getY());
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        updateWeight(event.getY());
+                        this.lastY = 0;
+                        break;
+                    }
+                }
+                return true;
+            }
+
+            // y is relative to the top of the border View.
+            private void updateWeight(float y) {
+                float dy = (y + this.offset - this.lastY);
+                int newHeight = Math.round(Math.min(this.maxHeight, Math.max(this.lastHeight + dy, this.minHeight)));
+                Log.e("MapActivity", String.format("Touch event at %.0f, new height: %d (min: %.0f, max: %.0f, density: %.2f)", y, newHeight, this.minHeight, this.maxHeight, MapActivity.this.density));
+
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) this.myWaveformView.getLayoutParams();
+                params.height = newHeight;
+                this.myWaveformView.setLayoutParams(params);
+                MapActivity.this.waveforms.invalidate();
+            }
+        });
     }
 
     @Override
@@ -147,16 +203,16 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     }
 
     @Override
-    protected void onPause() {
+    protected void onStop() {
         this.path.close();
         this.stop(null);
-        super.onPause();
+        super.onStop();
     }
 
     @Override
     protected void successfulConnect() {
         super.successfulConnect();
-        this.waveforms.activate();
+        // this.waveforms.activate();
 
         String statusText = this.resources.getString(R.string.paired_with_x, getConnectedDevice().getName());
         this.myConnectionStatus.setText(statusText);

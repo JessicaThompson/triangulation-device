@@ -58,8 +58,8 @@ public class WaveformLabelView extends FrameLayout {
 
     @Override
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         this.setMinimumHeight(this.label.getHeight());
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
     /**
