@@ -13,6 +13,7 @@ public class ResizableWaveformsView extends LinearLayout {
     private WaveformLabelView myWaveform;
     private LinearLayout border;
     private float density;
+    private Listener listener;
 
     public ResizableWaveformsView(Context context) {
         super(context);
@@ -74,6 +75,8 @@ public class ResizableWaveformsView extends LinearLayout {
                 int newHeight = Math.round(Math.min(this.maxHeight, Math.max(this.lastHeight + dy, this.minHeight)));
                 Log.d("ResizableWaveformsView", String.format("Touch event at %.0f, new height: %d (min: %.0f, max: %.0f, density: %.2f)", y, newHeight, this.minHeight, this.maxHeight, ResizableWaveformsView.this.density));
 
+                ResizableWaveformsView.this.listener.onChanged((newHeight - this.minHeight) / (this.maxHeight - this.minHeight));
+
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) this.myWaveformView.getLayoutParams();
                 params.height = newHeight;
                 this.myWaveformView.setLayoutParams(params);
@@ -85,5 +88,13 @@ public class ResizableWaveformsView extends LinearLayout {
     private void init(Context context) {
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
         this.density = metrics.densityDpi / 160f;
+    }
+
+    public void setListener(Listener listener) {
+        this.listener = listener;
+    }
+
+    public interface Listener {
+        public void onChanged(double topbottomratio);
     }
 }
