@@ -11,6 +11,7 @@ import android.os.Parcelable.Creator;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,7 +24,6 @@ import de.vndvl.chrs.triangulationdevice.R;
 import de.vndvl.chrs.triangulationdevice.pd.PDDriver;
 import de.vndvl.chrs.triangulationdevice.storage.PathStorage;
 import de.vndvl.chrs.triangulationdevice.ui.partial.BluetoothIPCActivity;
-import de.vndvl.chrs.triangulationdevice.ui.views.DraggableWeightView;
 import de.vndvl.chrs.triangulationdevice.ui.views.RadarView;
 import de.vndvl.chrs.triangulationdevice.ui.views.WaveformLabelView;
 import de.vndvl.chrs.triangulationdevice.util.Typefaces;
@@ -41,6 +41,7 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     private final PathStorage path = new PathStorage(this);
     private final PDDriver pd = new PDDriver(this);
 
+    private LinearLayout waveforms;
     private WaveformLabelView myWaveform;
     private WaveformLabelView theirWaveform;
     private RadarView radar;
@@ -48,8 +49,6 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     private TextView myConnectionStatus;
     private Button startStopButton;
     private Button findNearbyButton;
-
-    private DraggableWeightView waveforms;
 
     private GoogleMap map;
 
@@ -66,13 +65,13 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
         this.theirWaveform = (WaveformLabelView) findViewById(R.id.their_waveform);
         this.theirWaveform.setDeviceName(this.resources.getString(R.string.paired_device));
 
-        this.waveforms = (DraggableWeightView) findViewById(R.id.waveform);
-        this.waveforms.setListener(new DraggableWeightView.Listener() {
-            @Override
-            public void onChanged(double topBottomRatio) {
-                MapActivity.this.pd.pdChangeXfade((float) topBottomRatio);
-            }
-        });
+        this.waveforms = (LinearLayout) findViewById(R.id.double_waveform);
+        // this.waveforms.setListener(new DraggableWeightView.Listener() {
+        // @Override
+        // public void onChanged(double topBottomRatio) {
+        // MapActivity.this.pd.pdChangeXfade((float) topBottomRatio);
+        // }
+        // });
 
         this.radar = (RadarView) findViewById(R.id.devices_radar);
         this.map = ((MapFragment) getFragmentManager().findFragmentById(R.id.devices_map)).getMap();
@@ -147,16 +146,16 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     }
 
     @Override
-    protected void onPause() {
+    protected void onStop() {
         this.path.close();
         this.stop(null);
-        super.onPause();
+        super.onStop();
     }
 
     @Override
     protected void successfulConnect() {
         super.successfulConnect();
-        this.waveforms.activate();
+        // this.waveforms.activate();
 
         String statusText = this.resources.getString(R.string.paired_with_x, getConnectedDevice().getName());
         this.myConnectionStatus.setText(statusText);

@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <de.vndvl.chrs.triangulationdevice.ui.views.DraggableWeightView
-        android:id="@+id/waveform"
+    <de.vndvl.chrs.triangulationdevice.ui.views.ResizableWaveformsView
+        android:id="@+id/double_waveform"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -22,9 +22,8 @@
             android:id="@+id/their_waveform"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:visibility="gone" />
-    </de.vndvl.chrs.triangulationdevice.ui.views.DraggableWeightView>
+            android:layout_weight="1" />
+    </de.vndvl.chrs.triangulationdevice.ui.views.ResizableWaveformsView>
 
     <LinearLayout
         android:id="@+id/connection_status"
