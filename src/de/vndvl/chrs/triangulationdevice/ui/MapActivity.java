@@ -155,11 +155,10 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     @Override
     protected void successfulConnect() {
         super.successfulConnect();
-        // this.waveforms.activate();
+        this.waveforms.activate();
 
         String statusText = this.resources.getString(R.string.paired_with_x, getConnectedDevice().getName());
         this.myConnectionStatus.setText(statusText);
-        this.theirWaveform.setVisibility(View.VISIBLE);
 
         // Set radar to connected state.
         this.radar.connected(true);
@@ -179,7 +178,7 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     protected void disconnectDevice(View buttonView) {
         super.disconnectDevice(buttonView);
         this.myConnectionStatus.setText(this.resources.getString(R.string.not_connected));
-        this.theirWaveform.setVisibility(View.GONE);
+        this.waveforms.deactivate();
 
         // Set radar to disconnected state.
         this.radar.connected(false);
