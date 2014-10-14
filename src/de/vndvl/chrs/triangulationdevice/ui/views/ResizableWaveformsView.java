@@ -10,10 +10,12 @@ import android.widget.LinearLayout;
 import de.vndvl.chrs.triangulationdevice.R;
 
 public class ResizableWaveformsView extends LinearLayout {
+    private WaveformLabelView theirWaveform;
     private WaveformLabelView myWaveform;
     private LinearLayout border;
     private float density;
     private Listener listener;
+    private boolean active = false;
 
     public ResizableWaveformsView(Context context) {
         super(context);
@@ -30,9 +32,20 @@ public class ResizableWaveformsView extends LinearLayout {
         init(context);
     }
 
+    public void activate() {
+        this.active = true;
+        this.theirWaveform.setVisibility(View.VISIBLE);
+    }
+
+    public void deactivate() {
+        this.active = false;
+        this.theirWaveform.setVisibility(View.GONE);
+    }
+
     @Override
     public void onFinishInflate() {
         this.myWaveform = (WaveformLabelView) this.findViewById(R.id.my_waveform);
+        this.theirWaveform = (WaveformLabelView) this.findViewById(R.id.their_waveform);
         this.border = (LinearLayout) this.myWaveform.findViewById(R.id.label);
 
         this.border.setOnTouchListener(new OnTouchListener() {
@@ -42,16 +55,15 @@ public class ResizableWaveformsView extends LinearLayout {
             private int offset;
             private float lastY;
             private float lastHeight;
-            private final boolean active = true;
             private final View myWaveformView = ResizableWaveformsView.this.myWaveform;
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                final int[] location = new int[2];
-                ResizableWaveformsView.this.border.getLocationOnScreen(location);
-                this.offset = location[1];
+                if (ResizableWaveformsView.this.active) {
+                    final int[] location = new int[2];
+                    ResizableWaveformsView.this.border.getLocationOnScreen(location);
+                    this.offset = location[1];
 
-                if (this.active) {
                     switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         this.lastY = event.getY();
