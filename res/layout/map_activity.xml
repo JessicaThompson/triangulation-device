@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <de.vndvl.chrs.triangulationdevice.ui.views.ResizableWaveformsView
         android:id="@+id/double_waveform"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1" />
-    </LinearLayout>
+    </de.vndvl.chrs.triangulationdevice.ui.views.ResizableWaveformsView>
 
     <LinearLayout
         android:id="@+id/connection_status"

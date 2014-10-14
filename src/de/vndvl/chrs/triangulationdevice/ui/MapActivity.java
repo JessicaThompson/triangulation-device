@@ -8,11 +8,7 @@ import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Parcelable.Creator;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -56,17 +52,12 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
 
     private GoogleMap map;
 
-    private float density;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Typefaces.loadTypefaces(this);
         setContentView(R.layout.map_activity);
         this.resources = getResources();
-
-        DisplayMetrics metrics = this.resources.getDisplayMetrics();
-        this.density = metrics.densityDpi / 160f;
 
         this.pd.initServices();
 
@@ -101,54 +92,6 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
         this.myConnectionStatus.setTypeface(Typefaces.raleway);
         TextView myDeviceStatusTitle = (TextView) findViewById(R.id.my_device_status_title);
         myDeviceStatusTitle.setTypeface(Typefaces.ralewaySemiBold);
-
-        final LinearLayout border = (LinearLayout) this.myWaveform.findViewById(R.id.label);
-        border.setOnTouchListener(new OnTouchListener() {
-            private final float minHeight = 180;
-            private final float maxHeight = 1000;
-
-            private int offset;
-            private float lastY;
-            private float lastHeight;
-            private final boolean active = true;
-            private final View myWaveformView = MapActivity.this.myWaveform;
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                final int[] location = new int[2];
-                border.getLocationOnScreen(location);
-                this.offset = location[1];
-
-                if (this.active) {
-                    switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        this.lastY = event.getY();
-                        this.lastHeight = this.myWaveformView.getHeight();
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        updateWeight(event.getY());
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        updateWeight(event.getY());
-                        this.lastY = 0;
-                        break;
-                    }
-                }
-                return true;
-            }
-
-            // y is relative to the top of the border View.
-            private void updateWeight(float y) {
-                float dy = (y + this.offset - this.lastY);
-                int newHeight = Math.round(Math.min(this.maxHeight, Math.max(this.lastHeight + dy, this.minHeight)));
-                Log.e("MapActivity", String.format("Touch event at %.0f, new height: %d (min: %.0f, max: %.0f, density: %.2f)", y, newHeight, this.minHeight, this.maxHeight, MapActivity.this.density));
-
-                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) this.myWaveformView.getLayoutParams();
-                params.height = newHeight;
-                this.myWaveformView.setLayoutParams(params);
-                MapActivity.this.waveforms.invalidate();
-            }
-        });
     }
 
     @Override
