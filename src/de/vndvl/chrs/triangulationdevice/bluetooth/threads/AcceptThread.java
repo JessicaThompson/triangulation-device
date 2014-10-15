@@ -26,7 +26,7 @@ public class AcceptThread<T extends Parcelable> extends BluetoothThread<T> {
 
         // Create a new listening server socket
         try {
-            tmp = this.IPCservice.bluetoothAdapter.listenUsingInsecureRfcommWithServiceRecord("BluetoothIPCService", this.IPCservice.getUUID());
+            tmp = this.IPCservice.bluetoothAdapter.listenUsingRfcommWithServiceRecord("BluetoothIPCService", this.IPCservice.getUUID());
         } catch (IOException e) {
             Log.e(TAG, "Secure listen() failed", e);
         }
