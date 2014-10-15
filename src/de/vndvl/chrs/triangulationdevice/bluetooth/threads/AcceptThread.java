@@ -63,8 +63,7 @@ public class AcceptThread<T extends Parcelable> extends BluetoothThread<T> {
                     case BluetoothIPCService.STATE_NONE:
                     case BluetoothIPCService.STATE_CONNECTED:
                         // Either not ready or already connected.
-                        // Terminate
-                        // new socket.
+                        // Terminate new socket.
                         try {
                             socket.close();
                         } catch (IOException e) {

@@ -64,7 +64,6 @@ public class ConnectedThread<T extends Parcelable> extends BluetoothThread<T> {
                 }
 
                 // Start the service over to restart listening mode
-                this.start();
                 break;
             }
         }
@@ -76,7 +75,7 @@ public class ConnectedThread<T extends Parcelable> extends BluetoothThread<T> {
      * @param buffer
      *            The bytes to write
      */
-    public void write(T location) {
+    public void send(T location) {
         try {
             byte[] parceledBytes = pack(location);
             this.outStream.write(parceledBytes);

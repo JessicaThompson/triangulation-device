@@ -239,7 +239,7 @@ public abstract class BluetoothIPCActivity<T extends Parcelable> extends Locatio
      */
     protected void successfulConnect() {
         setProgressBarIndeterminateVisibility(false);
-        this.bluetoothIPC.write(getDefault());
+        this.bluetoothIPC.send(getDefault());
     }
 
     /**

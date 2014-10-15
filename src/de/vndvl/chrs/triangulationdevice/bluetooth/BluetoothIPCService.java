@@ -31,7 +31,7 @@ public class BluetoothIPCService<T extends Parcelable> {
     public static final String INFO = "toast";
 
     // Unique UUID for this application
-    private final UUID MY_UUID_SECURE;
+    private final UUID secureUUID;
 
     // Member fields
     public final BluetoothAdapter bluetoothAdapter;
@@ -69,7 +69,7 @@ public class BluetoothIPCService<T extends Parcelable> {
      *            A Handler to send messages back to the UI Activity
      */
     public BluetoothIPCService(String uuid, Handler handler, Parcelable.Creator<T> creator) {
-        this.MY_UUID_SECURE = UUID.fromString(uuid);
+        this.secureUUID = UUID.fromString(uuid);
         this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         this.state = STATE_NONE;
         this.handler = handler;
@@ -98,7 +98,7 @@ public class BluetoothIPCService<T extends Parcelable> {
     }
 
     public UUID getUUID() {
-        return this.MY_UUID_SECURE;
+        return this.secureUUID;
     }
 
     /**
@@ -230,9 +230,9 @@ public class BluetoothIPCService<T extends Parcelable> {
      * 
      * @param out
      *            The bytes to write
-     * @see ConnectedThread#write(byte[])
+     * @see ConnectedThread#send(byte[])
      */
-    public void write(T out) {
+    public void send(T out) {
         // Create temporary object
         ConnectedThread<T> r;
         // Synchronize a copy of the ConnectedThread
@@ -242,7 +242,7 @@ public class BluetoothIPCService<T extends Parcelable> {
             r = this.connectedThread;
         }
         // Perform the write unsynchronized
-        r.write(out);
+        r.send(out);
     }
 
     /**
