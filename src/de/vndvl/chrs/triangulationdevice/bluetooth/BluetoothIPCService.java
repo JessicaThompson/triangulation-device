@@ -30,6 +30,9 @@ public class BluetoothIPCService<T extends Parcelable> {
     public static final String DEVICE_NAME = "device_name";
     public static final String INFO = "toast";
 
+    // Whether to use a secure channel or not.
+    private final static boolean SECURE = true;
+
     // Unique UUID for this application
     private final UUID secureUUID;
 
@@ -118,7 +121,7 @@ public class BluetoothIPCService<T extends Parcelable> {
 
         // Start the thread to listen on a BluetoothServerSocket
         if (this.secureAcceptThread == null) {
-            this.secureAcceptThread = new AcceptThread<T>(this, this.handler, this.creator);
+            this.secureAcceptThread = new AcceptThread<T>(this, this.handler, this.creator, SECURE);
             this.secureAcceptThread.start();
         }
     }
@@ -141,7 +144,7 @@ public class BluetoothIPCService<T extends Parcelable> {
         clearConnected();
 
         // Start the thread to connect with the given device
-        this.connectThread = new ConnectThread<T>(device, this, this.handler, this.creator);
+        this.connectThread = new ConnectThread<T>(device, this, this.handler, this.creator, SECURE);
         this.connectThread.start();
         setState(STATE_CONNECTING);
     }

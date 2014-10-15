@@ -19,14 +19,18 @@ public class ConnectThread<T extends Parcelable> extends BluetoothThread<T> {
     private final BluetoothSocket mmSocket;
     private final BluetoothDevice mmDevice;
 
-    public ConnectThread(BluetoothDevice device, BluetoothIPCService<T> service, Handler handler, Parcelable.Creator<T> creator) {
+    public ConnectThread(BluetoothDevice device, BluetoothIPCService<T> service, Handler handler, Parcelable.Creator<T> creator, boolean secure) {
         super(service, handler, creator);
         this.mmDevice = device;
         BluetoothSocket tmp = null;
 
         // Get a BluetoothSocket for a connection with the given BluetoothDevice
         try {
-            tmp = device.createRfcommSocketToServiceRecord(this.IPCservice.getUUID());
+            if (secure) {
+                tmp = device.createRfcommSocketToServiceRecord(this.IPCservice.getUUID());
+            } else {
+                tmp = device.createInsecureRfcommSocketToServiceRecord(this.IPCservice.getUUID());
+            }
         } catch (IOException e) {
             Log.e(TAG, "Secure create() failed", e);
         }

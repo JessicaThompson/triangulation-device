@@ -20,13 +20,17 @@ public class AcceptThread<T extends Parcelable> extends BluetoothThread<T> {
     // The local server socket
     private final BluetoothServerSocket mmServerSocket;
 
-    public AcceptThread(BluetoothIPCService<T> service, Handler handler, Parcelable.Creator<T> creator) {
+    public AcceptThread(BluetoothIPCService<T> service, Handler handler, Parcelable.Creator<T> creator, boolean secure) {
         super(service, handler, creator);
         BluetoothServerSocket tmp = null;
 
         // Create a new listening server socket
         try {
-            tmp = this.IPCservice.bluetoothAdapter.listenUsingRfcommWithServiceRecord("BluetoothIPCService", this.IPCservice.getUUID());
+            if (secure) {
+                tmp = this.IPCservice.bluetoothAdapter.listenUsingRfcommWithServiceRecord("BluetoothIPCService", this.IPCservice.getUUID());
+            } else {
+                tmp = this.IPCservice.bluetoothAdapter.listenUsingInsecureRfcommWithServiceRecord("BluetoothIPCService", this.IPCservice.getUUID());
+            }
         } catch (IOException e) {
             Log.e(TAG, "Secure listen() failed", e);
         }
