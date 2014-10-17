@@ -5,26 +5,26 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <de.vndvl.chrs.triangulationdevice.ui.views.ResizableWaveformsView
+    <ca.triangulationdevice.android.ui.views.ResizableWaveformsView
         android:id="@+id/double_waveform"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical" >
 
-        <de.vndvl.chrs.triangulationdevice.ui.views.WaveformLabelView
+        <ca.triangulationdevice.android.ui.views.WaveformLabelView
             android:id="@+id/my_waveform"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1" />
 
-        <de.vndvl.chrs.triangulationdevice.ui.views.WaveformLabelView
+        <ca.triangulationdevice.android.ui.views.WaveformLabelView
             android:id="@+id/their_waveform"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:visibility="gone" />
-    </de.vndvl.chrs.triangulationdevice.ui.views.ResizableWaveformsView>
+    </ca.triangulationdevice.android.ui.views.ResizableWaveformsView>
 
     <LinearLayout
         android:id="@+id/connection_status"
@@ -91,7 +91,7 @@
             map:uiZoomControls="false"
             map:uiZoomGestures="false" />
 
-        <de.vndvl.chrs.triangulationdevice.ui.views.RadarView
+        <ca.triangulationdevice.android.ui.views.RadarView
             android:id="@+id/devices_radar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

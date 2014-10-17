@@ -29,7 +29,7 @@
     <!-- About page -->
     <string name="about">About</string>
     <string name="app_description">Triangulation Device is an interactive sound artwork that generates improvised soundscapes between two people.\n\nVersion: 1.0</string>
-    <string name="website">http://website.com</string>
+    <string name="website">http://triangulationdevice.ca</string>
 	<string name="rate_review">Rate and Review</string>
 	<string name="privacy">Privacy Policy</string>
 	<string name="credits">Credits</string>
