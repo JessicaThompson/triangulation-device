@@ -33,6 +33,7 @@ import de.vndvl.chrs.triangulationdevice.R;
  * devices, and see the current status of the other connected user.
  */
 public class MapActivity extends BluetoothIPCActivity<Location> {
+    private static final String TAG = "MapActivity";
     private static final float DEFAULT_ZOOM = 19;
 
     private Resources resources;
@@ -50,6 +51,7 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     private Button startStopButton;
     private Button findNearbyButton;
 
+    private long lastCompassUpdate = 0;
     private GoogleMap map;
 
     @Override
@@ -75,12 +77,6 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
 
         this.radar = (RadarView) findViewById(R.id.devices_radar);
         this.map = ((MapFragment) getFragmentManager().findFragmentById(R.id.devices_map)).getMap();
-        this.map.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
-            @Override
-            public void onMyLocationChange(Location location) {
-                MapActivity.this.radar.setAzimuth(location.getBearing());
-            }
-        });
 
         this.startStopButton = (Button) findViewById(R.id.start_button);
         this.findNearbyButton = (Button) findViewById(R.id.find_nearby_button);
@@ -102,6 +98,7 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
 
     @Override
     public void onLocationChanged(Location location) {
+        super.onLocationChanged(location);
         this.myWaveform.setLocation(location);
         this.radar.setLocation(location);
 
@@ -110,7 +107,6 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(latLng)
                 .zoom(DEFAULT_ZOOM)
-                .bearing(location.getBearing())
                 .build();
         this.map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
@@ -281,5 +277,18 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     @Override
     protected Creator<Location> getCreator() {
         return Location.CREATOR;
+    }
+
+    @Override
+    protected void onCompassChanged(float azimuth) {
+        if (System.currentTimeMillis() - this.lastCompassUpdate > 200) {
+            this.lastCompassUpdate = System.currentTimeMillis();
+            this.radar.setAzimuth(azimuth);
+
+            Location currentLocation = getLocation();
+            LatLng currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+            CameraPosition newPosition = CameraPosition.builder().target(currentLatLng).bearing((float) Math.toDegrees(azimuth)).zoom(DEFAULT_ZOOM).build();
+            this.map.moveCamera(CameraUpdateFactory.newCameraPosition(newPosition));
+        }
     }
 }

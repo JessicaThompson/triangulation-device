@@ -2,10 +2,12 @@ package ca.triangulationdevice.android.ui.partial;
 
 import android.app.Activity;
 import android.content.Context;
+import android.hardware.GeomagneticField;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Location;
 import android.os.Bundle;
 
 /**
@@ -14,19 +16,21 @@ import android.os.Bundle;
  * {@link #onCompassChanged()} and deal with new direction values as they come
  * in.
  */
-public abstract class CompassActivity extends TriangulationActivity implements SensorEventListener {
+public abstract class CompassActivity extends LocationActivity implements SensorEventListener {
     private SensorManager sensorManager;
     private Sensor accelerometer;
     private Sensor magnetometer;
     private float[] gravity;
     private float[] geomagnetic;
+    private Location location;
 
     /**
      * Called when our orientation is updated.
      * 
      * @param azimuth
      *            The azimuth in radians between our orientation and north,
-     *            positive being in the counter-clockwise direction.
+     *            positive being in the counter-clockwise direction. Corrected
+     *            to true north.
      */
     protected abstract void onCompassChanged(float azimuth);
 
@@ -53,6 +57,12 @@ public abstract class CompassActivity extends TriangulationActivity implements S
      */
     @Override
     public final void onAccuracyChanged(Sensor sensor, int accuracy) {
+        // NOOP.
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        this.location = location;
     }
 
     @Override
@@ -68,10 +78,29 @@ public abstract class CompassActivity extends TriangulationActivity implements S
             float I[] = new float[9];
             boolean success = SensorManager.getRotationMatrix(R, I, this.gravity, this.geomagnetic);
             if (success) {
-                float orientation[] = new float[3];
+                float orientation[] = new float[3]; // orientation contains:
+                                                    // azimut, pitch and roll
                 SensorManager.getOrientation(R, orientation);
-                this.onCompassChanged(orientation[0]); // orientation contains:
-                                                       // azimut, pitch and roll
+
+                // We need a location to send this information, because
+                // magnetic north is different than our north. This will correct
+                // and location-based drift.
+                //
+                // If we don't have a location, we'll ignore the compass for
+                // now, the reading will be inaccurate anyways.
+                if (this.location != null) {
+                    GeomagneticField geoField = new GeomagneticField(
+                            Double.valueOf(this.location.getLatitude()).floatValue(),
+                            Double.valueOf(this.location.getLongitude()).floatValue(),
+                            Double.valueOf(this.location.getAltitude()).floatValue(),
+                            System.currentTimeMillis());
+
+                    float azimuth = orientation[0];
+                    azimuth -= Math.toRadians(geoField.getDeclination());
+
+                    // Call our subclasses.
+                    this.onCompassChanged(azimuth);
+                }
             }
         }
     }

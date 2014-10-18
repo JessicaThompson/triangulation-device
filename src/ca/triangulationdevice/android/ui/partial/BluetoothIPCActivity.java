@@ -39,7 +39,7 @@ import de.vndvl.chrs.triangulationdevice.R;
  *            The type of object you'll be sending over the IPC. Probably a
  *            message or event of some kind.
  */
-public abstract class BluetoothIPCActivity<T extends Parcelable> extends LocationActivity {
+public abstract class BluetoothIPCActivity<T extends Parcelable> extends CompassActivity {
     private final static String TAG = "BluetoothActivity";
 
     private final static int DISCOVERABILITY_DURATION = 5 * 1000;
