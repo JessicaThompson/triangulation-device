@@ -13,10 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import ca.triangulationdevice.android.pd.PDDriver;
+import ca.triangulationdevice.android.pd.PDDriver.Listener;
 import ca.triangulationdevice.android.storage.PathStorage;
 import ca.triangulationdevice.android.ui.partial.BluetoothIPCActivity;
 import ca.triangulationdevice.android.ui.views.RadarView;
 import ca.triangulationdevice.android.ui.views.ResizableWaveformsView;
+import ca.triangulationdevice.android.ui.views.WaveView;
 import ca.triangulationdevice.android.ui.views.WaveformLabelView;
 import ca.triangulationdevice.android.util.Typefaces;
 
@@ -45,6 +47,8 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     private ResizableWaveformsView waveforms;
     private WaveformLabelView myWaveform;
     private WaveformLabelView theirWaveform;
+    private WaveView myWaveView;
+    private WaveView theirWaveView;
     private RadarView radar;
 
     private TextView myConnectionStatus;
@@ -65,7 +69,21 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
 
         this.myWaveform = (WaveformLabelView) findViewById(R.id.my_waveform);
         this.theirWaveform = (WaveformLabelView) findViewById(R.id.their_waveform);
+        this.myWaveView = (WaveView) this.myWaveform.findViewById(R.id.waveform);
+        this.theirWaveView = (WaveView) this.theirWaveform.findViewById(R.id.waveform);
         this.theirWaveform.setDeviceName(this.resources.getString(R.string.paired_device));
+
+        this.pd.setListener(new Listener() {
+            @Override
+            public void myFrequencyChanged(float newFrequency) {
+                MapActivity.this.myWaveView.setFrequency(newFrequency);
+            }
+
+            @Override
+            public void theirFrequencyChanged(float newFrequency) {
+                MapActivity.this.theirWaveView.setFrequency(newFrequency);
+            }
+        });
 
         this.waveforms = (ResizableWaveformsView) findViewById(R.id.double_waveform);
         this.waveforms.setListener(new ResizableWaveformsView.Listener() {

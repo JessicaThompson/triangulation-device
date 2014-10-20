@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-	<View
+	<ca.triangulationdevice.android.ui.views.WaveView
 	    android:id="@+id/waveform"
 	    android:layout_width="match_parent"
 	    android:layout_height="0dp"

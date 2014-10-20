@@ -35,6 +35,8 @@ public class PDDriver {
     private HashMap<String, Float> myHMS;
     private HashMap<String, Float> theirHMS;
 
+    private Listener listener;
+
     private final ServiceConnection pdConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -213,5 +215,15 @@ public class PDDriver {
             // THE LEVEL MUST BE IN THE RANGE (0,1)
             PdBase.sendFloat("xfade", level);
         }
+    }
+
+    public void setListener(Listener listener) {
+        this.listener = listener;
+    }
+
+    public interface Listener {
+        public void myFrequencyChanged(float newFrequency);
+
+        public void theirFrequencyChanged(float newFrequency);
     }
 }

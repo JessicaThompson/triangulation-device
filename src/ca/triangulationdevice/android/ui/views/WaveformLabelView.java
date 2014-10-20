@@ -1,12 +1,12 @@
 package ca.triangulationdevice.android.ui.views;
 
-import ca.triangulationdevice.android.util.Typefaces;
 import android.content.Context;
 import android.location.Location;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import ca.triangulationdevice.android.util.Typefaces;
 import de.vndvl.chrs.triangulationdevice.R;
 
 /**
@@ -41,7 +41,6 @@ public class WaveformLabelView extends FrameLayout {
         Typefaces.loadTypefaces(getContext());
 
         this.label = (LinearLayout) findViewById(R.id.label);
-        // waveform = findViewById(R.id.waveform);
         this.deviceLabel = (TextView) findViewById(R.id.device_label);
         this.longitudeValue = (TextView) findViewById(R.id.device_long_value);
         this.latitudeValue = (TextView) findViewById(R.id.device_lat_value);
