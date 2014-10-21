@@ -35,6 +35,7 @@ import de.vndvl.chrs.triangulationdevice.R;
  * devices, and see the current status of the other connected user.
  */
 public class MapActivity extends BluetoothIPCActivity<Location> {
+    @SuppressWarnings("unused")
     private static final String TAG = "MapActivity";
     private static final float DEFAULT_ZOOM = 19;
 
@@ -56,6 +57,7 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     private Button findNearbyButton;
 
     private long lastCompassUpdate = 0;
+    private float lastCompass = 0;
     private GoogleMap map;
 
     @Override
@@ -124,6 +126,7 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(latLng)
+                .bearing((float) Math.toDegrees(this.lastCompass))
                 .zoom(DEFAULT_ZOOM)
                 .build();
         this.map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
@@ -301,6 +304,7 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     protected void onCompassChanged(float azimuth) {
         if (System.currentTimeMillis() - this.lastCompassUpdate > 200) {
             this.lastCompassUpdate = System.currentTimeMillis();
+            this.lastCompass = azimuth;
             this.radar.setAzimuth(azimuth);
 
             Location currentLocation = getLocation();
