@@ -103,7 +103,7 @@ public class PDDriver {
 
     private void initPd() throws IOException {
         int sampleRate = AudioParameters.suggestSampleRate();
-        int inChannels = 0;
+        int inChannels = 1;
         int outChannels = 2;
         float bufferSize = 10;
         this.pdService.initAudio(sampleRate, inChannels, outChannels, bufferSize);
@@ -122,7 +122,7 @@ public class PDDriver {
     private void loadPatch() throws IOException {
         File dir = this.context.getFilesDir();
         IoUtils.extractZipResource(this.context.getResources().openRawResource(R.raw.triangulationdevice_comp), dir, true);
-        File patchFile = new File(dir, "triangulationdevice_comp.pd");
+        File patchFile = new File(dir, "triangulationdevice_compREV_10_20.pd");
         PdBase.openPatch(patchFile.getAbsolutePath());
     }
 
