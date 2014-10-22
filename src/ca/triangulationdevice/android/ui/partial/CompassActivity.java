@@ -24,6 +24,14 @@ public abstract class CompassActivity extends LocationActivity implements Sensor
     private float[] geomagnetic;
     private Location location;
 
+    /*
+     * time smoothing constant for low-pass filter 0 <= alpha <= 1 ; a smaller
+     * value basically means more smoothing See:
+     * http://en.wikipedia.org/wiki/Low-pass_filter#Discrete-time_realization
+     */
+    static final float ALPHA = 0.05f;
+    private float lastValue = 0f;
+
     /**
      * Called when our orientation is updated.
      * 
@@ -98,8 +106,20 @@ public abstract class CompassActivity extends LocationActivity implements Sensor
                     float azimuth = orientation[0];
                     azimuth -= Math.toRadians(geoField.getDeclination());
 
-                    // Call our subclasses.
-                    this.onCompassChanged(azimuth);
+                    // The edges of the curve are +pi and -pi, so when it
+                    // crosses over the line there'll be a big jump.
+                    float outputAzimuth;
+                    // if (Math.abs(azimuth - this.lastValue) > Math.PI) {
+                    // outputAzimuth = azimuth;
+                    // } else {
+                    // Use a low-pass filter to smooth the compass signal.
+                    // http://en.wikipedia.org/wiki/Low-pass_filter#Algorithmic_implementation
+                    outputAzimuth = this.lastValue + ALPHA * (azimuth - this.lastValue);
+                    // }
+
+                    // Send it to subclasses.
+                    this.onCompassChanged(outputAzimuth);
+                    this.lastValue = outputAzimuth;
                 }
             }
         }
