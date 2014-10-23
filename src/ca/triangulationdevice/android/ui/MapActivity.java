@@ -67,14 +67,16 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
         setContentView(R.layout.map_activity);
         this.resources = getResources();
 
-        this.pd.initServices();
-
         this.myWaveform = (WaveformLabelView) findViewById(R.id.my_waveform);
         this.theirWaveform = (WaveformLabelView) findViewById(R.id.their_waveform);
-        this.myWaveView = (WaveView) this.myWaveform.findViewById(R.id.waveform);
-        this.theirWaveView = (WaveView) this.theirWaveform.findViewById(R.id.waveform);
         this.theirWaveform.setDeviceName(this.resources.getString(R.string.paired_device));
 
+        this.myWaveView = (WaveView) this.myWaveform.findViewById(R.id.waveform);
+        this.myWaveView.setColor(this.resources.getColor(R.color.waveform_mine));
+        this.theirWaveView = (WaveView) this.theirWaveform.findViewById(R.id.waveform);
+        this.theirWaveView.setColor(this.resources.getColor(R.color.waveform_theirs));
+
+        this.pd.initServices();
         this.pd.setListener(new Listener() {
             @Override
             public void myFrequencyChanged(float newFrequency) {
