@@ -109,13 +109,13 @@ public abstract class CompassActivity extends LocationActivity implements Sensor
                     // The edges of the curve are +pi and -pi, so when it
                     // crosses over the line there'll be a big jump.
                     float outputAzimuth;
-                    // if (Math.abs(azimuth - this.lastValue) > Math.PI) {
-                    // outputAzimuth = azimuth;
-                    // } else {
-                    // Use a low-pass filter to smooth the compass signal.
-                    // http://en.wikipedia.org/wiki/Low-pass_filter#Algorithmic_implementation
-                    outputAzimuth = this.lastValue + ALPHA * (azimuth - this.lastValue);
-                    // }
+                    if (Math.abs(azimuth - this.lastValue) > Math.PI) {
+                        outputAzimuth = azimuth;
+                    } else {
+                        // Use a low-pass filter to smooth the compass signal.
+                        // http://en.wikipedia.org/wiki/Low-pass_filter#Algorithmic_implementation
+                        outputAzimuth = this.lastValue + ALPHA * (azimuth - this.lastValue);
+                    }
 
                     // Send it to subclasses.
                     this.onCompassChanged(outputAzimuth);
