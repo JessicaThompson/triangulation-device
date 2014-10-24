@@ -1,6 +1,5 @@
 package ca.triangulationdevice.android.ui.views;
 
-import ca.triangulationdevice.android.ui.partial.CompassActivity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
@@ -18,6 +17,7 @@ import android.location.Location;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
+import ca.triangulationdevice.android.ui.partial.CompassActivity;
 import de.vndvl.chrs.triangulationdevice.R;
 
 /**
@@ -84,6 +84,7 @@ public class RadarView extends ImageView {
      */
     public void setAzimuth(float azimuth) {
         this.azimuth = azimuth;
+        this.invalidate();
     }
 
     /**
@@ -190,8 +191,8 @@ public class RadarView extends ImageView {
             if (distance < 100.0f) {
                 // This is an absolute bearing, relative to perfect north.
                 double bearing = Math.toRadians(this.myLocation.bearingTo(this.otherLocation));
-                double cosine = Math.cos(bearing + this.azimuth);
-                double sine = Math.sin(bearing + this.azimuth);
+                double cosine = Math.cos(bearing - this.azimuth);
+                double sine = Math.sin(bearing - this.azimuth);
                 double drawDistance = centerX * (1 - Math.exp(-(SCALING * distance)));
                 double expx = centerX + drawDistance * cosine - (markerBitmap.getWidth() / 2);
                 double expy = centerY + drawDistance * sine - (markerBitmap.getHeight() / 2);
