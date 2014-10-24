@@ -123,6 +123,7 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
         super.onLocationChanged(location);
         this.myWaveform.setLocation(location);
         this.radar.setLocation(location);
+        this.bluetoothSend(location);
 
         // Zoom the map to our position!
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());

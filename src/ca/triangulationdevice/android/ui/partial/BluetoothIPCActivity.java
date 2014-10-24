@@ -89,6 +89,10 @@ public abstract class BluetoothIPCActivity<T extends Parcelable> extends Compass
      */
     protected abstract T getDefault();
 
+    public void bluetoothSend(T message) {
+        this.bluetoothIPC.write(message);
+    }
+
     /**
      * Called to obtain our type's {@link Parcelable.Creator}, used to
      * instantiate new messages coming in form the other
@@ -239,7 +243,7 @@ public abstract class BluetoothIPCActivity<T extends Parcelable> extends Compass
      */
     protected void successfulConnect() {
         setProgressBarIndeterminateVisibility(false);
-        this.bluetoothIPC.send(getDefault());
+        this.bluetoothIPC.write(getDefault());
     }
 
     /**
