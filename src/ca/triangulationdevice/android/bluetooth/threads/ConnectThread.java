@@ -1,6 +1,7 @@
 package ca.triangulationdevice.android.bluetooth.threads;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -32,7 +33,23 @@ public class ConnectThread<T extends Parcelable> extends BluetoothThread<T> {
                 tmp = device.createInsecureRfcommSocketToServiceRecord(this.IPCservice.getUUID());
             }
         } catch (IOException e) {
-            Log.e(TAG, "Secure create() failed", e);
+            Log.w(TAG, "Secure create() failed", e);
+
+            try {
+                tmp = (BluetoothSocket) device.getClass().getMethod("createRfcommSocket", new Class[] { int.class }).invoke(device, 1);
+            } catch (NoSuchMethodException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            } catch (IllegalAccessException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            } catch (IllegalArgumentException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            } catch (InvocationTargetException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
         }
         this.mmSocket = tmp;
     }
