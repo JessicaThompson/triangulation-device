@@ -57,7 +57,7 @@ public class PDDriver {
 
     /**
      * It's a constructor! Ain't it cute?
-     * 
+     *
      * @param context
      *            A context from which to get access to strings and start
      *            {@link Service}s.
@@ -122,13 +122,13 @@ public class PDDriver {
     private void loadPatch() throws IOException {
         File dir = this.context.getFilesDir();
         IoUtils.extractZipResource(this.context.getResources().openRawResource(R.raw.triangulationdevice_comp), dir, true);
-        File patchFile = new File(dir, "triangulationdevice_compREV_10_20.pd");
+        File patchFile = new File(dir, "triangulationdevice_compREV_10_22.pd");
         PdBase.openPatch(patchFile.getAbsolutePath());
     }
 
     /**
      * Updates the "other" location, sending it to our PD patch.
-     * 
+     *
      * @param location
      *            A new {@link Location} to use for the other person.
      */
@@ -139,20 +139,15 @@ public class PDDriver {
 
     /**
      * Updates "our" location, sending it to our PD patch.
-     * 
+     *
      * @param location
      *            A new {@link Location} to use for us.
      */
     public void myLocationChanged(Location location) {
-        // TODO: Split extractHMS to lat OR long rather than lat AND long?
-        // TODO: Storing HMS as ints could make things more efficient
-
         this.myLocation = location;
         this.myHMS = getHMS(this.myLocation);
 
         for (HashMap.Entry<String, Float> entry : this.myHMS.entrySet()) {
-            System.out.println(entry.getKey());
-            System.out.println(entry.getValue());
             PdBase.sendFloat(entry.getKey(), entry.getValue());
         }
 
@@ -170,17 +165,24 @@ public class PDDriver {
 
         PdBase.sendFloat("proxlat", proxlat);
         PdBase.sendFloat("proxlong", proxlong);
+
+        // TODO: Replace above code with this:
+        float distance = myLocation.distanceTo(theirLocation);
+//        if (distance < 0.25f) {
+//            distance = 0.25f;
+//        } else if (distance > 10.0f) {
+//            distance = 10.0f;
+//        }
+        PdBase.sendFloat("androidProx", distance);
     }
 
     public HashMap<String, Float> getHMS(Location location) {
         /* Same thing as extractHMS but using strings */
-        // TODO: Use regexes (rather than substrings) if they're faster
 
         HashMap<String, Float> result = new HashMap<String, Float>();
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();
 
-        // This int cast will/should always work properly
         int lath = (int) latitude;
         int longh = (int) longitude;
 
@@ -204,7 +206,7 @@ public class PDDriver {
 
     /**
      * Updates our PD patch with the cross-fader value from our UI.
-     * 
+     *
      * @param level
      */
     public void pdChangeXfade(float level) {
