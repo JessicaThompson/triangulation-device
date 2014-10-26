@@ -1,5 +1,8 @@
 package ca.triangulationdevice.android.ui.views;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -15,7 +18,7 @@ public class WaveView extends View {
     @SuppressWarnings("unused")
     private static final String TAG = "WaveView";
 
-    private float frequency = 0;// (float) Math.random() * 5000f;
+    private final List<Float> frequencies = new ArrayList<Float>();
     private Paint linePaint;
     private Path path = new Path();
     private int width;
@@ -44,7 +47,7 @@ public class WaveView extends View {
         this.linePaint.setStyle(Paint.Style.STROKE);
         this.linePaint.setStrokeJoin(Paint.Join.ROUND);
         this.linePaint.setStrokeCap(Cap.SQUARE);
-        this.linePaint.setStrokeWidth(12);
+        this.linePaint.setStrokeWidth(6);
     }
 
     public void setColor(int color) {
@@ -60,8 +63,14 @@ public class WaveView extends View {
         this.redrawPath();
     }
 
-    public void setFrequency(float newFrequency) {
-        this.frequency = newFrequency;
+    public void setFrequency(int which, float newFrequency) {
+        if (this.frequencies.size() <= which) {
+            for (int i = this.frequencies.size(); i <= which; i++) {
+                this.frequencies.add(0f);
+            }
+        }
+
+        this.frequencies.set(which, newFrequency);
         this.redrawPath();
     }
 
@@ -72,12 +81,14 @@ public class WaveView extends View {
         int amplitude = Math.round(yMiddle - 2 * PADDING);
 
         this.offset = 0;// (int) Math.round(Math.random() * 5);
-        for (int x = 0; x < this.width; x += 2) {
-            float y = (float) (yMiddle + amplitude * Math.sin(this.frequency * (x + this.offset) / SAMPLING_RATE));
-            if (x == 0) {
-                this.path.moveTo(x, y);
-            } else {
-                this.path.lineTo(x, y);
+        for (Float frequency : this.frequencies) {
+            for (int x = 0; x < this.width; x += 2) {
+                float y = (float) (yMiddle + amplitude * Math.sin(frequency * (x + this.offset) / SAMPLING_RATE));
+                if (x == 0) {
+                    this.path.moveTo(x, y);
+                } else {
+                    this.path.lineTo(x, y);
+                }
             }
         }
 

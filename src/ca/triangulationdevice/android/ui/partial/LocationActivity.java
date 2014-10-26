@@ -25,8 +25,8 @@ import com.google.android.gms.location.LocationRequest;
  */
 public abstract class LocationActivity extends TriangulationActivity implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener, LocationListener {
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
-    private final static int FASTEST_INTERVAL = 250;
-    private final static int INTERVAL = 500;
+    private final static int FASTEST_INTERVAL = 50;
+    private final static int INTERVAL = 100;
 
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;

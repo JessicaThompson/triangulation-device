@@ -79,13 +79,13 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
         this.pd.initServices();
         this.pd.setListener(new Listener() {
             @Override
-            public void myFrequencyChanged(float newFrequency) {
-                MapActivity.this.myWaveView.setFrequency(newFrequency);
+            public void myFrequencyChanged(int wave_index, float newFrequency) {
+                MapActivity.this.myWaveView.setFrequency(wave_index, newFrequency);
             }
 
             @Override
-            public void theirFrequencyChanged(float newFrequency) {
-                MapActivity.this.theirWaveView.setFrequency(newFrequency);
+            public void theirFrequencyChanged(int wave_index, float newFrequency) {
+                MapActivity.this.theirWaveView.setFrequency(wave_index, newFrequency);
             }
         });
 

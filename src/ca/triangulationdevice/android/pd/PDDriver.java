@@ -8,6 +8,7 @@ import org.puredata.android.io.AudioParameters;
 import org.puredata.android.service.PdService;
 import org.puredata.android.utils.PdUiDispatcher;
 import org.puredata.core.PdBase;
+import org.puredata.core.PdListener;
 import org.puredata.core.utils.IoUtils;
 
 import android.app.Service;
@@ -24,6 +25,8 @@ import de.vndvl.chrs.triangulationdevice.R;
  * An encapsulation of our PD stuff.
  */
 public class PDDriver {
+
+    private static final String TAG = "PDDriver";
 
     private final Context context;
     private PdUiDispatcher dispatcher;
@@ -57,7 +60,7 @@ public class PDDriver {
 
     /**
      * It's a constructor! Ain't it cute?
-     *
+     * 
      * @param context
      *            A context from which to get access to strings and start
      *            {@link Service}s.
@@ -109,6 +112,38 @@ public class PDDriver {
         this.pdService.initAudio(sampleRate, inChannels, outChannels, bufferSize);
         this.dispatcher = new PdUiDispatcher();
         PdBase.setReceiver(this.dispatcher);
+
+        this.dispatcher.addListener("u1latWave", new PdListener.Adapter() {
+            @Override
+            public void receiveFloat(String source, float value) {
+                Log.d(TAG, "u1latWave: " + value);
+                PDDriver.this.listener.myFrequencyChanged(0, value);
+            }
+        });
+
+        this.dispatcher.addListener("u1longWave", new PdListener.Adapter() {
+            @Override
+            public void receiveFloat(String source, float value) {
+                Log.d(TAG, "u1longWave: " + value);
+                PDDriver.this.listener.myFrequencyChanged(1, value);
+            }
+        });
+
+        this.dispatcher.addListener("u2latWave", new PdListener.Adapter() {
+            @Override
+            public void receiveFloat(String source, float value) {
+                Log.d(TAG, "u2latWave: " + value);
+                PDDriver.this.listener.theirFrequencyChanged(0, value);
+            }
+        });
+
+        this.dispatcher.addListener("u2longWave", new PdListener.Adapter() {
+            @Override
+            public void receiveFloat(String source, float value) {
+                Log.d(TAG, "u2longWave: " + value);
+                PDDriver.this.listener.theirFrequencyChanged(1, value);
+            }
+        });
     }
 
     private void startPdAudio() {
@@ -128,7 +163,7 @@ public class PDDriver {
 
     /**
      * Updates the "other" location, sending it to our PD patch.
-     *
+     * 
      * @param location
      *            A new {@link Location} to use for the other person.
      */
@@ -139,7 +174,7 @@ public class PDDriver {
 
     /**
      * Updates "our" location, sending it to our PD patch.
-     *
+     * 
      * @param location
      *            A new {@link Location} to use for us.
      */
@@ -168,11 +203,11 @@ public class PDDriver {
 
         // TODO: Replace above code with this:
         float distance = myLocation.distanceTo(theirLocation);
-//        if (distance < 0.25f) {
-//            distance = 0.25f;
-//        } else if (distance > 10.0f) {
-//            distance = 10.0f;
-//        }
+        // if (distance < 0.25f) {
+        // distance = 0.25f;
+        // } else if (distance > 10.0f) {
+        // distance = 10.0f;
+        // }
         PdBase.sendFloat("androidProx", distance);
     }
 
@@ -206,7 +241,7 @@ public class PDDriver {
 
     /**
      * Updates our PD patch with the cross-fader value from our UI.
-     *
+     * 
      * @param level
      */
     public void pdChangeXfade(float level) {
@@ -224,8 +259,8 @@ public class PDDriver {
     }
 
     public interface Listener {
-        public void myFrequencyChanged(float newFrequency);
+        public void myFrequencyChanged(int wave_index, float newFrequency);
 
-        public void theirFrequencyChanged(float newFrequency);
+        public void theirFrequencyChanged(int wave_index, float newFrequency);
     }
 }
