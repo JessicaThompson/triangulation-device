@@ -30,7 +30,9 @@ public abstract class CompassActivity extends LocationActivity implements Sensor
      * http://en.wikipedia.org/wiki/Low-pass_filter#Discrete-time_realization
      */
     static final float ALPHA = 0.05f;
-    private float lastValue = 0f;
+    private float lastAzimuth = 0f;
+    private float lastPitch = 0f;
+    private float lastRoll = 0f;
 
     /**
      * Called when our orientation is updated.
@@ -40,7 +42,7 @@ public abstract class CompassActivity extends LocationActivity implements Sensor
      *            positive being in the counter-clockwise direction. Corrected
      *            to true north.
      */
-    protected abstract void onCompassChanged(float azimuth);
+    protected abstract void onCompassChanged(float outputX, float outputY, float outputZ);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,22 +106,26 @@ public abstract class CompassActivity extends LocationActivity implements Sensor
                             System.currentTimeMillis());
 
                     float azimuth = orientation[0];
+                    float pitch = orientation[1];
+                    float roll = orientation[2];
+
                     azimuth -= Math.toRadians(geoField.getDeclination());
 
                     // The edges of the curve are +pi and -pi, so when it
                     // crosses over the line there'll be a big jump.
-                    float outputAzimuth;
-                    if (Math.abs(azimuth - this.lastValue) > Math.PI) {
-                        outputAzimuth = azimuth;
-                    } else {
+                    if (Math.abs(azimuth - this.lastAzimuth) >= Math.PI) {
                         // Use a low-pass filter to smooth the compass signal.
                         // http://en.wikipedia.org/wiki/Low-pass_filter#Algorithmic_implementation
-                        outputAzimuth = this.lastValue + ALPHA * (azimuth - this.lastValue);
+                        azimuth = this.lastAzimuth + ALPHA * (azimuth - this.lastAzimuth);
+                        pitch = this.lastPitch + ALPHA * (pitch - this.lastPitch);
+                        roll = this.lastRoll + ALPHA * (roll - this.lastRoll);
                     }
 
                     // Send it to subclasses.
-                    this.onCompassChanged(outputAzimuth);
-                    this.lastValue = outputAzimuth;
+                    this.onCompassChanged(azimuth, pitch, roll);
+                    this.lastAzimuth = azimuth;
+                    this.lastPitch = pitch;
+                    this.lastRoll = roll;
                 }
             }
         }

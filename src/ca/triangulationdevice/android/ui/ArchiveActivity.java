@@ -1,18 +1,18 @@
 package ca.triangulationdevice.android.ui;
 
+import java.io.FileOutputStream;
 import java.text.DateFormat;
 import java.util.List;
 
-import ca.triangulationdevice.android.storage.PathStorage;
-import ca.triangulationdevice.android.storage.PathStorage.Session;
-import ca.triangulationdevice.android.ui.partial.TriangulationListActivity;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.DataSetObserver;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -20,6 +20,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+import ca.triangulationdevice.android.storage.PathStorage;
+import ca.triangulationdevice.android.storage.PathStorage.Path;
+import ca.triangulationdevice.android.storage.PathStorage.Session;
+import ca.triangulationdevice.android.ui.partial.TriangulationListActivity;
+
+import com.google.gson.Gson;
+
 import de.vndvl.chrs.triangulationdevice.R;
 
 /**
@@ -39,6 +47,32 @@ public class ArchiveActivity extends TriangulationListActivity {
         this.sessions = this.storage.loadSessions();
         final SessionAdapter adapter = new SessionAdapter(this, this.sessions);
         setListAdapter(adapter);
+
+        // Write files to disk.
+        Gson gson = new Gson();
+        for (Session session : this.sessions) {
+            Toast.makeText(this, "Writing " + session.title + ".", Toast.LENGTH_LONG).show();
+            String filename = session.title + ".json";
+
+            for (Path path : session.paths)
+                this.storage.loadPoints(path);
+
+            String string = gson.toJson(session);
+            Log.i("ArchiveActivity", string);
+            FileOutputStream outputStream;
+
+            try {
+                outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+                outputStream.write(string.getBytes());
+                outputStream.close();
+
+                Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                intent.setData(Uri.parse(filename));
+                sendBroadcast(intent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         // Update the count view and register an observer.
         adapter.registerDataSetObserver(new DataSetObserver() {

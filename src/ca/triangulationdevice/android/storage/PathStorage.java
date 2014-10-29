@@ -187,6 +187,7 @@ public class PathStorage {
         }
 
         cursor.close();
+        path.points = locations;
         return locations;
     }
 
@@ -268,6 +269,7 @@ public class PathStorage {
     public class Path {
         public final int id;
         public final int type;
+        public List<Location> points;
 
         public Path(Cursor cursor) {
             this.id = cursor.getInt(cursor.getColumnIndex(PathSQLiteHelper.COLUMN_PATH_ID));

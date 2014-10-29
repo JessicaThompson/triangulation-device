@@ -304,7 +304,9 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     }
 
     @Override
-    protected void onCompassChanged(float azimuth) {
+    protected void onCompassChanged(float azimuth, float pitch, float roll) {
+        this.pd.pdChangeGyroscope(azimuth, pitch, roll);
+
         if (System.currentTimeMillis() - this.lastCompassUpdate > 200) {
             this.lastCompassUpdate = System.currentTimeMillis();
             this.lastCompass = azimuth;

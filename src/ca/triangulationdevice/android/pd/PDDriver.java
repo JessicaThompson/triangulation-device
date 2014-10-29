@@ -36,7 +36,6 @@ public class PDDriver {
     private Location theirLocation;
 
     private HashMap<String, Float> myHMS;
-    private HashMap<String, Float> theirHMS;
 
     private Listener listener;
 
@@ -113,35 +112,19 @@ public class PDDriver {
         this.dispatcher = new PdUiDispatcher();
         PdBase.setReceiver(this.dispatcher);
 
-        this.dispatcher.addListener("u1latWave", new PdListener.Adapter() {
+        this.dispatcher.addListener("u1GPSwave", new PdListener.Adapter() {
             @Override
             public void receiveFloat(String source, float value) {
-                Log.d(TAG, "u1latWave: " + value);
+                Log.d(TAG, "u1GPSwave: " + value);
                 PDDriver.this.listener.myFrequencyChanged(0, value);
             }
         });
 
-        this.dispatcher.addListener("u1longWave", new PdListener.Adapter() {
+        this.dispatcher.addListener("u2proxwave", new PdListener.Adapter() {
             @Override
             public void receiveFloat(String source, float value) {
-                Log.d(TAG, "u1longWave: " + value);
-                PDDriver.this.listener.myFrequencyChanged(1, value);
-            }
-        });
-
-        this.dispatcher.addListener("u2latWave", new PdListener.Adapter() {
-            @Override
-            public void receiveFloat(String source, float value) {
-                Log.d(TAG, "u2latWave: " + value);
+                Log.d(TAG, "u2proxwave: " + value);
                 PDDriver.this.listener.theirFrequencyChanged(0, value);
-            }
-        });
-
-        this.dispatcher.addListener("u2longWave", new PdListener.Adapter() {
-            @Override
-            public void receiveFloat(String source, float value) {
-                Log.d(TAG, "u2longWave: " + value);
-                PDDriver.this.listener.theirFrequencyChanged(1, value);
             }
         });
     }
@@ -157,7 +140,7 @@ public class PDDriver {
     private void loadPatch() throws IOException {
         File dir = this.context.getFilesDir();
         IoUtils.extractZipResource(this.context.getResources().openRawResource(R.raw.triangulationdevice_comp), dir, true);
-        File patchFile = new File(dir, "triangulationdevice_compREV_10_22.pd");
+        File patchFile = new File(dir, "triangulationdevice_compREV_10_28.2.pd");
         PdBase.openPatch(patchFile.getAbsolutePath());
     }
 
@@ -191,24 +174,22 @@ public class PDDriver {
         }
     }
 
+    public void pdChangeGyroscope(float azimuth, float pitch, float roll) {
+        PdBase.sendFloat("azimuth", azimuth);
+        PdBase.sendFloat("pitch", pitch);
+        PdBase.sendFloat("roll", roll);
+    }
+
     public void pdChangeProximity(Location myLocation, Location theirLocation) {
         this.myHMS = getHMS(myLocation);
-        this.theirHMS = getHMS(theirLocation);
 
-        float proxlat = Math.abs(this.myHMS.get("lats") - this.theirHMS.get("lats"));
-        float proxlong = Math.abs(this.myHMS.get("longs") - this.theirHMS.get("longs"));
+        // Send over the bearing.
+        float bearing = myLocation.bearingTo(theirLocation);
+        PdBase.sendFloat("androidbearing", bearing);
 
-        PdBase.sendFloat("proxlat", proxlat);
-        PdBase.sendFloat("proxlong", proxlong);
-
-        // TODO: Replace above code with this:
+        // Send over the distance.
         float distance = myLocation.distanceTo(theirLocation);
-        // if (distance < 0.25f) {
-        // distance = 0.25f;
-        // } else if (distance > 10.0f) {
-        // distance = 10.0f;
-        // }
-        PdBase.sendFloat("androidProx", distance);
+        PdBase.sendFloat("androidproximity", distance);
     }
 
     public HashMap<String, Float> getHMS(Location location) {
@@ -230,12 +211,12 @@ public class PDDriver {
         float lats = Float.parseFloat(latStr.substring(latStr.lastIndexOf(':') + 1, latStr.indexOf('.')));
         float longs = Float.parseFloat(longStr.substring(longStr.lastIndexOf(':') + 1, longStr.indexOf('.')));
 
-        result.put("lath", (float) lath);
-        result.put("longh", (float) longh);
-        result.put("latm", latm);
-        result.put("longm", longm);
-        result.put("lats", lats);
-        result.put("longs", longs);
+        result.put("androidlath", (float) lath);
+        result.put("androidlongh", (float) longh);
+        result.put("androidlatm", latm);
+        result.put("androidlongm", longm);
+        result.put("androidlats", lats);
+        result.put("androidlongs", longs);
         return result;
     }
 
@@ -248,10 +229,7 @@ public class PDDriver {
         // Change the xFade between the two users
         // 0 = 100% user1 (me/my)
         // 1 = 100% user2 (them/their)
-        if (0 <= level && level <= 1) {
-            // THE LEVEL MUST BE IN THE RANGE (0,1)
-            PdBase.sendFloat("xfade", level);
-        }
+        PdBase.sendFloat("androidxfade", Math.min(1, Math.max(0, level)));
     }
 
     public void setListener(Listener listener) {

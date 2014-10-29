@@ -13,17 +13,17 @@ import android.util.AttributeSet;
 import android.view.View;
 
 public class WaveView extends View {
-    private static final float SAMPLING_RATE = 44100f;
+    private static final float SAMPLING_RATE = 5000f;
     private static final float PADDING = 10f;
     @SuppressWarnings("unused")
     private static final String TAG = "WaveView";
 
     private final List<Float> frequencies = new ArrayList<Float>();
     private Paint linePaint;
-    private Path path = new Path();
+    private List<Path> paths = new ArrayList<Path>();
     private int width;
     private int height;
-    private int offset;
+    private final List<Double> offsets = new ArrayList<Double>();
 
     public WaveView(Context context) {
         super(context);
@@ -67,6 +67,7 @@ public class WaveView extends View {
         if (this.frequencies.size() <= which) {
             for (int i = this.frequencies.size(); i <= which; i++) {
                 this.frequencies.add(0f);
+                this.offsets.add(0d);
             }
         }
 
@@ -75,19 +76,24 @@ public class WaveView extends View {
     }
 
     public void redrawPath() {
-        this.path = new Path();
+        this.paths = new ArrayList<Path>();
+        for (Float frequency : this.frequencies) {
+            this.paths.add(new Path());
+        }
 
         int yMiddle = this.height / 2;
         int amplitude = Math.round(yMiddle - 2 * PADDING);
 
-        this.offset = 0;// (int) Math.round(Math.random() * 5);
-        for (Float frequency : this.frequencies) {
+        for (int i = 0; i < this.frequencies.size(); i++) {
+            float frequency = this.frequencies.get(i);
+            this.offsets.set(i, (double) (System.currentTimeMillis() % 1000) * frequency / 2000);
+            Path path = this.paths.get(i);
             for (int x = 0; x < this.width; x += 2) {
-                float y = (float) (yMiddle + amplitude * Math.sin(frequency * (x + this.offset) / SAMPLING_RATE));
+                float y = (float) (yMiddle + amplitude * Math.sin(frequency * (x + this.offsets.get(i)) / SAMPLING_RATE));
                 if (x == 0) {
-                    this.path.moveTo(x, y);
+                    path.moveTo(x, y);
                 } else {
-                    this.path.lineTo(x, y);
+                    path.lineTo(x, y);
                 }
             }
         }
@@ -97,7 +103,9 @@ public class WaveView extends View {
 
     @Override
     public void onDraw(Canvas canvas) {
-        canvas.drawPath(this.path, this.linePaint);
+        for (Path path : this.paths) {
+            canvas.drawPath(path, this.linePaint);
+        }
         this.redrawPath();
     }
 }
