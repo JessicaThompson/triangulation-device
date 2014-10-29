@@ -41,6 +41,9 @@ public class WaveView extends View {
     }
 
     private void init() {
+        this.frequencies.add(0f);
+        this.offsets.add(0d);
+
         this.linePaint = new Paint();
         this.linePaint.setColor(Color.BLACK);
         this.linePaint.setAntiAlias(true);
@@ -48,6 +51,14 @@ public class WaveView extends View {
         this.linePaint.setStrokeJoin(Paint.Join.ROUND);
         this.linePaint.setStrokeCap(Cap.SQUARE);
         this.linePaint.setStrokeWidth(6);
+    }
+
+    public void clear() {
+        this.frequencies.clear();
+        this.offsets.clear();
+
+        this.frequencies.add(0f);
+        this.offsets.add(0d);
     }
 
     public void setColor(int color) {

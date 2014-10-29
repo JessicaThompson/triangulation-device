@@ -28,6 +28,8 @@ public class PDDriver {
 
     private static final String TAG = "PDDriver";
 
+    private boolean started = false;
+
     private final Context context;
     private PdUiDispatcher dispatcher;
     private PdService pdService;
@@ -57,6 +59,8 @@ public class PDDriver {
         }
     };
 
+    private float azimuth;
+
     /**
      * It's a constructor! Ain't it cute?
      * 
@@ -81,6 +85,7 @@ public class PDDriver {
      * Start the audio!
      */
     public void start() {
+        this.started = true;
         startPdAudio();
         myLocationChanged(this.myLocation);
         pdChangeXfade(0.5f);
@@ -91,6 +96,7 @@ public class PDDriver {
      * Stop the audio. Awwww.
      */
     public void stop() {
+        this.started = false;
         if (this.pdService != null) {
             this.pdService.stopAudio();
         }
@@ -115,16 +121,20 @@ public class PDDriver {
         this.dispatcher.addListener("u1GPSwave", new PdListener.Adapter() {
             @Override
             public void receiveFloat(String source, float value) {
-                Log.d(TAG, "u1GPSwave: " + value);
-                PDDriver.this.listener.myFrequencyChanged(0, value);
+                // Log.d(TAG, "u1GPSwave: " + value);
+                if (PDDriver.this.started) {
+                    PDDriver.this.listener.myFrequencyChanged(0, value);
+                }
             }
         });
 
         this.dispatcher.addListener("u2proxwave", new PdListener.Adapter() {
             @Override
             public void receiveFloat(String source, float value) {
-                Log.d(TAG, "u2proxwave: " + value);
-                PDDriver.this.listener.theirFrequencyChanged(0, value);
+                // Log.d(TAG, "u2proxwave: " + value);
+                if (PDDriver.this.started) {
+                    PDDriver.this.listener.theirFrequencyChanged(0, value);
+                }
             }
         });
     }
@@ -140,7 +150,7 @@ public class PDDriver {
     private void loadPatch() throws IOException {
         File dir = this.context.getFilesDir();
         IoUtils.extractZipResource(this.context.getResources().openRawResource(R.raw.triangulationdevice_comp), dir, true);
-        File patchFile = new File(dir, "triangulationdevice_compREV_10_28.2.pd");
+        File patchFile = new File(dir, "triangulationdevice_compREV_10_28.4.pd");
         PdBase.openPatch(patchFile.getAbsolutePath());
     }
 
@@ -152,7 +162,7 @@ public class PDDriver {
      */
     public void theirLocationChanged(Location location) {
         this.theirLocation = location;
-        pdChangeProximity(location, this.theirLocation);
+        pdChangeProximity(this.myLocation, this.theirLocation);
     }
 
     /**
@@ -167,6 +177,7 @@ public class PDDriver {
 
         for (HashMap.Entry<String, Float> entry : this.myHMS.entrySet()) {
             PdBase.sendFloat(entry.getKey(), entry.getValue());
+            Log.d(TAG, entry.getKey() + ": " + entry.getValue());
         }
 
         if (this.theirLocation != null) {
@@ -175,6 +186,7 @@ public class PDDriver {
     }
 
     public void pdChangeGyroscope(float azimuth, float pitch, float roll) {
+        this.azimuth = azimuth;
         PdBase.sendFloat("azimuth", azimuth);
         PdBase.sendFloat("pitch", pitch);
         PdBase.sendFloat("roll", roll);
@@ -182,14 +194,17 @@ public class PDDriver {
 
     public void pdChangeProximity(Location myLocation, Location theirLocation) {
         this.myHMS = getHMS(myLocation);
+        Log.d(TAG, String.format("Me: %s, them: %s", myLocation, theirLocation));
 
         // Send over the bearing.
-        float bearing = myLocation.bearingTo(theirLocation);
+        float bearing = (float) Math.toRadians(myLocation.bearingTo(theirLocation)) + this.azimuth;
         PdBase.sendFloat("androidbearing", bearing);
+        Log.d(TAG, "androidbearing: " + bearing);
 
         // Send over the distance.
         float distance = myLocation.distanceTo(theirLocation);
         PdBase.sendFloat("androidproximity", distance);
+        Log.d(TAG, "androidproximity: " + distance);
     }
 
     public HashMap<String, Float> getHMS(Location location) {

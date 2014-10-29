@@ -3,7 +3,6 @@ package ca.triangulationdevice.android.ui.views;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -85,7 +84,6 @@ public class ResizableWaveformsView extends LinearLayout {
             private void updateWeight(float y) {
                 float dy = (y + this.offset - this.lastY);
                 int newHeight = Math.round(Math.min(this.maxHeight, Math.max(this.lastHeight + dy, this.minHeight)));
-                Log.d("ResizableWaveformsView", String.format("Touch event at %.0f, new height: %d (min: %.0f, max: %.0f, density: %.2f)", y, newHeight, this.minHeight, this.maxHeight, ResizableWaveformsView.this.density));
 
                 ResizableWaveformsView.this.listener.onChanged((newHeight - this.minHeight) / (this.maxHeight - this.minHeight));
 

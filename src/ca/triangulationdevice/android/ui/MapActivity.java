@@ -25,8 +25,11 @@ import ca.triangulationdevice.android.util.Typefaces;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import de.vndvl.chrs.triangulationdevice.R;
 
@@ -59,6 +62,7 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     private long lastCompassUpdate = 0;
     private float lastCompass = 0;
     private GoogleMap map;
+    private Marker otherMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,6 +155,14 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     public void theirLocationChanged(Location location) {
         this.theirWaveform.setLocation(location);
         this.radar.setOtherLocation(location);
+
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        if (this.otherMarker != null) {
+            this.otherMarker.setPosition(latLng);
+        } else {
+            this.otherMarker = this.map.addMarker(new MarkerOptions().position(latLng)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.paired_device)));
+        }
 
         if (this.recording) {
             this.path.addTheirs(location);
@@ -252,6 +264,9 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     public void stop(View buttonView) {
         this.recording = false;
         this.pd.stop();
+
+        this.myWaveView.clear();
+        this.theirWaveView.clear();
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Save Session");
