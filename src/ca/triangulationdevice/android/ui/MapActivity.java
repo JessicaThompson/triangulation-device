@@ -6,12 +6,14 @@ import android.bluetooth.BluetoothDevice;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.location.Location;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Parcelable.Creator;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import ca.triangulationdevice.android.VolumeLevelObserver;
 import ca.triangulationdevice.android.pd.PDDriver;
 import ca.triangulationdevice.android.pd.PDDriver.Listener;
 import ca.triangulationdevice.android.storage.PathStorage;
@@ -63,6 +65,7 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     private float lastCompass = 0;
     private GoogleMap map;
     private Marker otherMarker;
+    private VolumeLevelObserver settingsContentObserver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,11 +117,28 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
         this.myConnectionStatus.setTypeface(Typefaces.raleway);
         TextView myDeviceStatusTitle = (TextView) findViewById(R.id.my_device_status_title);
         myDeviceStatusTitle.setTypeface(Typefaces.ralewaySemiBold);
+
+        // Add a listener for volume changes.
+        this.settingsContentObserver = new VolumeLevelObserver(this, new VolumeLevelObserver.Listener() {
+            @Override
+            public void onVolumeChanged(int newVolume) {
+                double ratio = newVolume / 15d;
+                MapActivity.this.myWaveView.setAmplitude(ratio);
+                MapActivity.this.theirWaveView.setAmplitude(ratio);
+            }
+        }, AudioManager.STREAM_MUSIC);
+        int currentVolume = this.settingsContentObserver.getCurrent();
+        double ratio = currentVolume / 15d;
+        MapActivity.this.myWaveView.setAmplitude(ratio);
+        MapActivity.this.theirWaveView.setAmplitude(ratio);
+
+        getApplicationContext().getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, this.settingsContentObserver);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        getApplicationContext().getContentResolver().unregisterContentObserver(this.settingsContentObserver);
         this.pd.close();
     }
 

@@ -23,6 +23,7 @@ public class WaveView extends View {
     private List<Path> paths = new ArrayList<Path>();
     private int width;
     private int height;
+    private double amplitude = 1d;
     private final List<Double> offsets = new ArrayList<Double>();
 
     public WaveView(Context context) {
@@ -61,6 +62,16 @@ public class WaveView extends View {
         this.offsets.add(0d);
     }
 
+    /**
+     * On a ratio from 0 to 1, 1 being max.
+     * 
+     * @param newAmplitude
+     */
+    public void setAmplitude(double newAmplitude) {
+        this.amplitude = newAmplitude;
+        this.redrawPath();
+    }
+
     public void setColor(int color) {
         this.linePaint.setColor(color);
         this.invalidate();
@@ -93,7 +104,7 @@ public class WaveView extends View {
         }
 
         int yMiddle = this.height / 2;
-        int amplitude = Math.round(yMiddle - 2 * PADDING);
+        int amplitude = (int) Math.round(this.amplitude * (yMiddle - 2 * PADDING));
 
         for (int i = 0; i < this.frequencies.size(); i++) {
             float frequency = this.frequencies.get(i);
