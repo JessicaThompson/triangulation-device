@@ -184,8 +184,6 @@ public class PathStorage {
         }
         pathCursor.close();
 
-        System.out.println(pathArray);
-
         // Now load all the sessions, adding the paths we have
         Cursor sessionCursor = this.database.query(PathSQLiteHelper.TABLE_SESSIONS, this.sessionColumns, null, null, null, null, null);
         sessionCursor.moveToFirst();

@@ -113,7 +113,7 @@ public class ArchiveActivity extends TriangulationListActivity {
 
     private void updateTitle(List<Session> sessions) {
         if (sessions.size() > 0) {
-            getActionBar().setTitle(getResources().getQuantityString(R.plurals.n_sessions, sessions.size()));
+            getActionBar().setTitle(String.format(getResources().getQuantityString(R.plurals.n_sessions, sessions.size()), sessions.size()));
         } else {
             getActionBar().setTitle(getResources().getString(R.string.archive));
         }
