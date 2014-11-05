@@ -10,11 +10,13 @@
      <TextView android:id="@+id/title"
          android:layout_width="0dp"
          android:layout_height="wrap_content"
-         android:layout_weight="3"
+         android:layout_weight="4"
          android:textSize="16sp"
          android:paddingLeft="16dp"
          android:paddingRight="16dp"
-         android:text="@string/no_title" />
+         android:text="@string/no_title"
+         android:ellipsize="end"
+         android:singleLine="true" />
 
      <ImageView android:id="@+id/left_divider"
             android:layout_width="1dp"
