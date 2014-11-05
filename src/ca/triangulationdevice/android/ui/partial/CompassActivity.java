@@ -44,6 +44,11 @@ public abstract class CompassActivity extends LocationActivity implements Sensor
      */
     protected abstract void onCompassChanged(float outputX, float outputY, float outputZ);
 
+    protected float[] getLastOrientation() {
+        return new float[] { this.lastAzimuth, this.lastPitch, this.lastRoll };
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

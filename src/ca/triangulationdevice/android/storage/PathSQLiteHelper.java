@@ -13,7 +13,7 @@ import android.util.Log;
  */
 public class PathSQLiteHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "paths.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public static final String TABLE_SESSIONS = "sessions";
     public static final String COLUMN_SESSION_ID = "id";
@@ -32,8 +32,11 @@ public class PathSQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_LOCATION_PATH_ID = "path_id";
     public static final String COLUMN_LOCATION_LATITUDE = "latitude";
     public static final String COLUMN_LOCATION_LONGITUDE = "longitude";
+    public static final String COLUMN_LOCATION_AZIMUTH = "azimuth";
+    public static final String COLUMN_LOCATION_PITCH = "pitch";
+    public static final String COLUMN_LOCATION_ROLL = "roll";
     public static final String COLUMN_LOCATION_TIME = "time";
-    private static final String LOCATIONS_CREATE = "create table " + TABLE_LOCATIONS + "(" + COLUMN_LOCATION_ID + " integer primary key autoincrement, " + COLUMN_LOCATION_PATH_ID + " text not null," + COLUMN_LOCATION_LATITUDE + " real not null," + COLUMN_LOCATION_LONGITUDE + " real not null," + COLUMN_LOCATION_TIME + " text not null" + ");";
+    private static final String LOCATIONS_CREATE = "create table " + TABLE_LOCATIONS + "(" + COLUMN_LOCATION_ID + " integer primary key autoincrement, " + COLUMN_LOCATION_PATH_ID + " text not null," + COLUMN_LOCATION_LATITUDE + " real not null," + COLUMN_LOCATION_LONGITUDE + " real not null," + COLUMN_LOCATION_AZIMUTH + " real not null," + COLUMN_LOCATION_PITCH + " real not null," + COLUMN_LOCATION_ROLL + " real not null," + COLUMN_LOCATION_TIME + " text not null" + ");";
 
     public PathSQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

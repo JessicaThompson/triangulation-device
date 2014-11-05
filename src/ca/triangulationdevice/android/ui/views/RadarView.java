@@ -17,8 +17,8 @@ import android.location.Location;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
+import ca.triangulationdevice.android.R;
 import ca.triangulationdevice.android.ui.partial.CompassActivity;
-import de.vndvl.chrs.triangulationdevice.R;
 
 /**
  * A {@link View} that, when "connected" to another device, shows a

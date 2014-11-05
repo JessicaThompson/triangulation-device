@@ -12,4 +12,7 @@
         <item name="android:icon">@drawable/ab_logo</item>
         <item name="android:background">@color/actionbar_dark_blue</item>
     </style>
+    
+    <style name="TriangulationDeviceSplash"
+        parent="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
 </resources>

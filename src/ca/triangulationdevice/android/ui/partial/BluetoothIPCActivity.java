@@ -20,9 +20,9 @@ import android.view.Window;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import ca.triangulationdevice.android.R;
 import ca.triangulationdevice.android.bluetooth.BluetoothDeviceService;
 import ca.triangulationdevice.android.bluetooth.BluetoothIPCService;
-import de.vndvl.chrs.triangulationdevice.R;
 
 /**
  * BluetoothIPCActivity is a convenience class that has everything setup for you

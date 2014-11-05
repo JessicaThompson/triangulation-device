@@ -2,6 +2,7 @@ package ca.triangulationdevice.android.ui;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.bluetooth.BluetoothDevice;
 import android.content.DialogInterface;
 import android.content.res.Resources;
@@ -13,16 +14,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import ca.triangulationdevice.android.VolumeLevelObserver;
+import ca.triangulationdevice.android.R;
 import ca.triangulationdevice.android.pd.PDDriver;
 import ca.triangulationdevice.android.pd.PDDriver.Listener;
 import ca.triangulationdevice.android.storage.PathStorage;
+import ca.triangulationdevice.android.storage.PathStorage.SaveSessionTask;
 import ca.triangulationdevice.android.ui.partial.BluetoothIPCActivity;
 import ca.triangulationdevice.android.ui.views.RadarView;
 import ca.triangulationdevice.android.ui.views.ResizableWaveformsView;
 import ca.triangulationdevice.android.ui.views.WaveView;
 import ca.triangulationdevice.android.ui.views.WaveformLabelView;
 import ca.triangulationdevice.android.util.Typefaces;
+import ca.triangulationdevice.android.util.VolumeLevelObserver;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -32,8 +35,6 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import de.vndvl.chrs.triangulationdevice.R;
 
 /**
  * An {@link Activity} which lets the user create sessions, connect with other
@@ -67,9 +68,20 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     private Marker otherMarker;
     private VolumeLevelObserver settingsContentObserver;
 
+    private ProgressDialog savingDialog;
+    private SaveSessionTask saveTask;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.saveTask = this.path.new SaveSessionTask() {
+            @Override
+            protected void onPostExecute(Void result) {
+                MapActivity.this.savingDialog.dismiss();
+            }
+        };
+
         Typefaces.loadTypefaces(this);
         setContentView(R.layout.map_activity);
         this.resources = getResources();
@@ -129,8 +141,8 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
         }, AudioManager.STREAM_MUSIC);
         int currentVolume = this.settingsContentObserver.getCurrent();
         double ratio = currentVolume / 15d;
-        MapActivity.this.myWaveView.setAmplitude(ratio);
-        MapActivity.this.theirWaveView.setAmplitude(ratio);
+        this.myWaveView.setAmplitude(ratio);
+        this.theirWaveView.setAmplitude(ratio);
 
         getApplicationContext().getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, this.settingsContentObserver);
     }
@@ -159,7 +171,8 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
         this.map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
         if (this.recording) {
-            this.path.addMine(location);
+            float[] lastOrientation = this.getLastOrientation();
+            this.path.addMine(location, lastOrientation[0], lastOrientation[1], lastOrientation[2]);
         }
 
         this.pd.myLocationChanged(location);
@@ -234,6 +247,12 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
         // Set radar to disconnected state.
         this.radar.connected(false);
 
+        // Remove marker from map.
+        if (this.otherMarker != null) {
+            this.otherMarker.remove();
+            this.otherMarker = null;
+        }
+
         // Reset the "Find Nearby Devices" button.
         this.findNearbyButton.setText(this.resources.getString(R.string.find_nearby_devices));
         this.findNearbyButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_location_found, 0, 0, 0);
@@ -300,7 +319,8 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
             @Override
             public void onClick(DialogInterface dialog, int whichButton) {
                 String title = input.getText().toString();
-                MapActivity.this.path.finish(title);
+                MapActivity.this.savingDialog = ProgressDialog.show(MapActivity.this, "Saving session...", "", true);
+                MapActivity.this.saveTask.execute(title);
             }
         });
 
@@ -308,7 +328,6 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
             @Override
             public void onClick(DialogInterface dialog, int whichButton) {
                 // Do nothing, don't save it.
-                // TODO: But still send it to the server?
             }
         });
         alert.show();
@@ -341,6 +360,7 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
     @Override
     protected void onCompassChanged(float azimuth, float pitch, float roll) {
         this.pd.pdChangeGyroscope(azimuth, pitch, roll);
+        this.path.addMine(getLocation(), azimuth, pitch, roll);
 
         if (System.currentTimeMillis() - this.lastCompassUpdate > 200) {
             this.lastCompassUpdate = System.currentTimeMillis();

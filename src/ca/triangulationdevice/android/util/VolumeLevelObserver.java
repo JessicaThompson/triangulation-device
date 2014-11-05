@@ -1,4 +1,4 @@
-package ca.triangulationdevice.android;
+package ca.triangulationdevice.android.util;
 
 import android.content.Context;
 import android.database.ContentObserver;

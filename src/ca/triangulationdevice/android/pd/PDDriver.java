@@ -19,7 +19,7 @@ import android.content.ServiceConnection;
 import android.location.Location;
 import android.os.IBinder;
 import android.util.Log;
-import de.vndvl.chrs.triangulationdevice.R;
+import ca.triangulationdevice.android.R;
 
 /**
  * An encapsulation of our PD stuff.
@@ -150,7 +150,7 @@ public class PDDriver {
     private void loadPatch() throws IOException {
         File dir = this.context.getFilesDir();
         IoUtils.extractZipResource(this.context.getResources().openRawResource(R.raw.triangulationdevice_comp), dir, true);
-        File patchFile = new File(dir, "triangulationdevice_compREV_10_28.4.pd");
+        File patchFile = new File(dir, "triangulationdevice_compREV_10_29.2.pd");
         PdBase.openPatch(patchFile.getAbsolutePath());
     }
 
@@ -177,7 +177,7 @@ public class PDDriver {
 
         for (HashMap.Entry<String, Float> entry : this.myHMS.entrySet()) {
             PdBase.sendFloat(entry.getKey(), entry.getValue());
-            Log.d(TAG, entry.getKey() + ": " + entry.getValue());
+            // Log.d(TAG, entry.getKey() + ": " + entry.getValue());
         }
 
         if (this.theirLocation != null) {
@@ -187,6 +187,7 @@ public class PDDriver {
 
     public void pdChangeGyroscope(float azimuth, float pitch, float roll) {
         this.azimuth = azimuth;
+
         PdBase.sendFloat("azimuth", azimuth);
         PdBase.sendFloat("pitch", pitch);
         PdBase.sendFloat("roll", roll);
@@ -194,17 +195,18 @@ public class PDDriver {
 
     public void pdChangeProximity(Location myLocation, Location theirLocation) {
         this.myHMS = getHMS(myLocation);
-        Log.d(TAG, String.format("Me: %s, them: %s", myLocation, theirLocation));
+        // Log.d(TAG, String.format("Me: %s, them: %s", myLocation,
+        // theirLocation));
 
         // Send over the bearing.
         float bearing = (float) Math.toRadians(myLocation.bearingTo(theirLocation)) + this.azimuth;
         PdBase.sendFloat("androidbearing", bearing);
-        Log.d(TAG, "androidbearing: " + bearing);
+        // Log.d(TAG, "androidbearing: " + bearing);
 
         // Send over the distance.
         float distance = myLocation.distanceTo(theirLocation);
         PdBase.sendFloat("androidproximity", distance);
-        Log.d(TAG, "androidproximity: " + distance);
+        // Log.d(TAG, "androidproximity: " + distance);
     }
 
     public HashMap<String, Float> getHMS(Location location) {

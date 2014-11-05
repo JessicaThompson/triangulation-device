@@ -25,20 +25,31 @@
     <string name="stop">Stop</string>
     <string name="cancel">Cancel</string>
     <string name="disconnect">Disconnect</string>
+    <string name="delete">Delete</string>
     
     <!-- About page -->
     <string name="about">About</string>
     <string name="app_description">Triangulation Device is an interactive sound artwork that generates improvised soundscapes between two people.\n\nVersion: 1.0</string>
     <string name="website">http://triangulationdevice.ca</string>
 	<string name="rate_review">Rate and Review</string>
-	<string name="privacy">Privacy Policy</string>
+	<string name="how_to_use">How to Use</string>
+	<string name="privacy_policy">Privacy Policy</string>
 	<string name="credits">Credits</string>
     <string-array name="about_sections">
 	    <item>@string/website</item>
 	    <item>@string/rate_review</item>
-	    <item>@string/privacy</item>
+	    <item>@string/how_to_use</item>
 	    <item>@string/credits</item>
     </string-array>
+    
+    <!-- Credits Page -->
+    <string name="credits_text"><a href="http://jessicathompson.ca">Jessica Thompson</a> is an Assistant Professor in Hybrid Practice at the University of Waterloo. Her practice investigates spatial and social conditions within urban environments through interactive art-works situated at the intersection of sound, performance and mobile technologies.\n\n<a href="http://triangulationdevice.ca">Triangulation Device</a> was produced through the generous support of the Lois Claxton Humanities and Social Sciences Endowment Fund, <a href="https://uwaterloo.ca">University of Waterloo</a>\n\nResearch Assistants: Richard Lesco, Ram Sharma, and Chris Vandevelde (Systems Engineering), Jason Cho (Global Business and Digital Art)</string>
+    
+    <!-- How to Use -->
+    <string name="how_to_use_text">Download the Triangulation Device onto your Android phone.\n\nTo create a soundscape with one user, open the project and press \'start\'. The device will begin generating a soundscape based on your location, movement and gesture.\n\nTo create a collaborative soundscape, press \'find other devices\' to link up with other users in your area. The soundscape will be generated between your locations, and can be modified by movement, gesture, or by sliding the scroll bar up and down.\n\nTo save your soundscapes, press \'stop\' and \'save\'.</string>
+    
+    <!-- Privacy Policy -->
+    <string name="privacy_policy_text">You have no privacy.</string>
     
     <!-- Archive items -->
     <plurals name="n_sessions">
@@ -46,11 +57,17 @@
         <item quantity="one" formatted="false">%d Session</item>
         <item quantity="other" formatted="false">%d Sessions</item>
     </plurals>
+    <string name="session">Session</string>
     <string name="no_results">No Sessions</string>
     <string name="no_title">No Title</string>
+    <string name="send_confirm_message">Do you want to send an anonymous copy of your sessions to our server, for research and analysis of how people use Triangulation Device? No identifiable information will be sent.</string>
+    <string-array name="archive_session_menu">
+        <item>@string/delete</item>
+    </string-array>
     
     <!-- ActionBar menu -->
     <string name="archive">Archive</string>
+    <string name="send_sessions">Send Sessions</string>
     <string name="settings">Settings</string>
     <string name="player">Player</string>
     

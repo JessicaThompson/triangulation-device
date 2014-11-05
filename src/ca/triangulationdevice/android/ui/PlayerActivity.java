@@ -1,19 +1,17 @@
 package ca.triangulationdevice.android.ui;
 
-import java.util.List;
-
-import ca.triangulationdevice.android.storage.PathStorage;
 import android.app.Activity;
-import android.location.Location;
 import android.os.Bundle;
-import de.vndvl.chrs.triangulationdevice.R;
+import ca.triangulationdevice.android.R;
+import ca.triangulationdevice.android.storage.PathStorage;
 
 public class PlayerActivity extends Activity {
     public static final String SESSION_EXTRA = "session";
 
-    private PathStorage storage = new PathStorage(this);
-    private List<Location> myPath;
-    private List<Location> theirPath;
+    private final PathStorage storage = new PathStorage(this);
+
+    // private List<Point> myPath;
+    // private List<Point> theirPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,18 +19,25 @@ public class PlayerActivity extends Activity {
         setContentView(R.layout.player);
 
         // Load the session we've been given.
-        storage.open();
-        List<PathStorage.Session> sessions = storage.loadSessions();
-        int sessionId = getIntent().getIntExtra(SESSION_EXTRA, 0);
-        List<PathStorage.Path> sessionPaths = sessions.get(sessionId).paths;
-
-        myPath = storage.loadPoints(sessionPaths.get(PathStorage.MINE));
-        theirPath = storage.loadPoints(sessionPaths.get(PathStorage.THEIRS));
+        // this.storage.open();
+        // List<PathStorage.Session> sessions = this.storage.loadSessions();
+        // int sessionId = getIntent().getIntExtra(SESSION_EXTRA, 0);
+        // List<PathStorage.Path> sessionPaths = sessions.get(sessionId).paths;
+        //
+        // try {
+        // this.myPath =
+        // this.storage.loadPoints(sessionPaths.get(PathStorage.MINE));
+        // this.theirPath =
+        // this.storage.loadPoints(sessionPaths.get(PathStorage.THEIRS));
+        // } catch (ParseException e) {
+        // e.printStackTrace();
+        // this.finish();
+        // }
     }
-    
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        storage.close();
+        this.storage.close();
     }
 }

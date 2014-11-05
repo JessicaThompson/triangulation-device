@@ -6,7 +6,7 @@ import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
-import de.vndvl.chrs.triangulationdevice.R;
+import ca.triangulationdevice.android.R;
 
 public class ResizableWaveformsView extends LinearLayout {
     private WaveformLabelView theirWaveform;

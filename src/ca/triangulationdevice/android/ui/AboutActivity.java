@@ -1,6 +1,5 @@
 package ca.triangulationdevice.android.ui;
 
-import ca.triangulationdevice.android.ui.partial.TriangulationListActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,7 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import de.vndvl.chrs.triangulationdevice.R;
+import ca.triangulationdevice.android.R;
+import ca.triangulationdevice.android.ui.partial.TriangulationListActivity;
 
 /**
  * An activity which shows an "About this App" screen to the user.
@@ -19,7 +19,8 @@ public class AboutActivity extends TriangulationListActivity {
     // Wish I could get this from the app..
     private final static int WEBSITE = 0;
     private final static int RATE_REVIEW = 1;
-    private final static int PRIVACY = 2;
+    private final static int HOW_TO_USE = 2;
+    // private final static int PRIVACY = 3;
     private final static int CREDITS = 3;
 
     @Override
@@ -51,11 +52,21 @@ public class AboutActivity extends TriangulationListActivity {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + appPackageName)));
             }
             break;
-        case PRIVACY:
-            // TODO: Launch privacy policy.
+        case HOW_TO_USE:
+            Intent howIntent = new Intent(this, TextActivity.class);
+            howIntent.putExtra(TextActivity.LAYOUT_EXTRA_KEY, R.layout.how_to_use);
+            startActivity(howIntent);
             break;
+        // case PRIVACY:
+        // Intent privacyIntent = new Intent(this, TextActivity.class);
+        // privacyIntent.putExtra(TextActivity.LAYOUT_EXTRA_KEY,
+        // R.layout.privacy);
+        // startActivity(privacyIntent);
+        // break;
         case CREDITS:
-            // TODO: Launch credits.
+            Intent creditsIntent = new Intent(this, TextActivity.class);
+            creditsIntent.putExtra(TextActivity.LAYOUT_EXTRA_KEY, R.layout.credits);
+            startActivity(creditsIntent);
             break;
         }
     }

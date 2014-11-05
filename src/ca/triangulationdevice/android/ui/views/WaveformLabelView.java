@@ -6,8 +6,8 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import ca.triangulationdevice.android.R;
 import ca.triangulationdevice.android.util.Typefaces;
-import de.vndvl.chrs.triangulationdevice.R;
 
 /**
  * A view which shows a waveform and a label showing which device it is and its

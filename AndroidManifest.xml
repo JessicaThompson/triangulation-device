@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.vndvl.chrs.triangulationdevice"
-    android:versionCode="1"
+    package="ca.triangulationdevice.android"
+    android:versionCode="2"
     android:versionName="1.0" >
 
     <uses-sdk
@@ -33,18 +33,26 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyAbF-QeUmIoQJQm4suHdmQmVS_Gy9euTMk" />
+            android:value="AIzaSyAAdtsQIz4c5tWLOVhDv8N0Mzcxa8EZMoc" />
 
+        <activity
+            android:name="ca.triangulationdevice.android.ui.SplashActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/TriangulationDeviceSplash" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="ca.triangulationdevice.android.ui.MapActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="ca.triangulationdevice.android.ui.AboutActivity"
@@ -57,6 +65,18 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.vndvl.chrs.triangulationdevice.MapActivity" />
+        </activity>
+        <activity
+            android:name="ca.triangulationdevice.android.ui.TextActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/about"
+            android:parentActivityName="ca.triangulationdevice.android.ui.AboutActivity"
+            android:screenOrientation="portrait" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ca.triangulationdevice.android.ui.AboutActivity" />
         </activity>
         <activity
             android:name="ca.triangulationdevice.android.ui.SettingsActivity"
@@ -93,7 +113,7 @@
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.vndvl.chrs.triangulationdevice.ArchiveActivity" />
+                android:value="ca.triangulationdevice.android.ui.ArchiveActivity" />
         </activity>
     </application>
 

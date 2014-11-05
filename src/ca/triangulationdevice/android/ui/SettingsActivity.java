@@ -1,9 +1,9 @@
 package ca.triangulationdevice.android.ui;
 
-import ca.triangulationdevice.android.ui.partial.TriangulationPreferenceActivity;
 import android.os.Bundle;
 import android.view.Menu;
-import de.vndvl.chrs.triangulationdevice.R;
+import ca.triangulationdevice.android.R;
+import ca.triangulationdevice.android.ui.partial.TriangulationPreferenceActivity;
 
 public class SettingsActivity extends TriangulationPreferenceActivity {
     @Override
