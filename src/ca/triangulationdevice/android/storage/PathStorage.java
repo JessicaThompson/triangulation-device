@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -183,6 +184,8 @@ public class PathStorage {
         }
         pathCursor.close();
 
+        System.out.println(pathArray);
+
         // Now load all the sessions, adding the paths we have
         Cursor sessionCursor = this.database.query(PathSQLiteHelper.TABLE_SESSIONS, this.sessionColumns, null, null, null, null, null);
         sessionCursor.moveToFirst();
@@ -191,15 +194,21 @@ public class PathStorage {
         while (!sessionCursor.isAfterLast()) {
             try {
                 Session session = new Session(sessionCursor);
-                session.paths = pathArray.get(session.id);
+                System.out.println(session.id);
+                if (pathArray.indexOfKey(session.id) > 0) {
+                    session.paths = pathArray.get(session.id);
+                } else {
+                    session.paths = Collections.emptyList();
+                    Log.w(TAG, String.format("No paths found for \"\" session.", session.title));
+                }
                 sessions.add(session);
                 sessionCursor.moveToNext();
             } catch (ParseException exception) {
                 Log.e(PathStorage.class.getName(), "Exception parsing the save date from the database on a path.", exception);
             }
         }
-
         sessionCursor.close();
+
         return sessions;
     }
 
@@ -278,23 +287,16 @@ public class PathStorage {
     private void deleteSession(long sessionId) {
         // We need to get all of the paths in the session.
         Cursor pathCursor = this.database.query(PathSQLiteHelper.TABLE_PATHS, this.pathColumns, "session_id=?", new String[] { Long.toString(sessionId) }, null, null, null);
-        System.out.println("Queried database.");
         pathCursor.moveToFirst();
-        System.out.println("moved to first record.");
         while (!pathCursor.isAfterLast()) {
-            System.out.println("new record.");
             long pathId = pathCursor.getLong(pathCursor.getColumnIndex(PathSQLiteHelper.COLUMN_PATH_ID));
-            System.out.println("Got path ID.");
             this.database.delete(PathSQLiteHelper.TABLE_PATHS, PathSQLiteHelper.COLUMN_PATH_ID + "=?", new String[] { Long.toString(pathId) });
-            System.out.println("Deleted path.");
             this.database.delete(PathSQLiteHelper.TABLE_LOCATIONS, PathSQLiteHelper.COLUMN_LOCATION_PATH_ID + "=?", new String[] { Long.toString(pathId) });
-            System.out.println("Deleted location.");
             pathCursor.moveToNext();
         }
 
         // Now that the locations and paths are gone, delete the session.
         this.database.delete(PathSQLiteHelper.TABLE_SESSIONS, PathSQLiteHelper.COLUMN_SESSION_ID + "=?", new String[] { Long.toString(sessionId) });
-        System.out.println("Deleted session.");
     }
 
     /**
