@@ -321,6 +321,12 @@ public class MapActivity extends BluetoothIPCActivity<Location> {
                 String title = input.getText().toString();
                 MapActivity.this.savingDialog = ProgressDialog.show(MapActivity.this, "Saving session...", "", true);
                 MapActivity.this.saveTask.execute(title);
+                MapActivity.this.saveTask = MapActivity.this.path.new SaveSessionTask() {
+                    @Override
+                    protected void onPostExecute(Void result) {
+                        MapActivity.this.savingDialog.dismiss();
+                    }
+                };
             }
         });
 
