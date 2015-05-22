@@ -6,9 +6,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import ca.triangulationdevice.android.R;
-import ca.triangulationdevice.android.ui.AboutActivity;
 import ca.triangulationdevice.android.ui.ArchiveActivity;
-import ca.triangulationdevice.android.ui.SettingsActivity;
 
 /**
  * An {@link Activity} which controls the action bar menu stuff for us.
@@ -28,14 +26,8 @@ public abstract class TriangulationActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
-        case R.id.menu_about:
-            startActivity(new Intent(this, AboutActivity.class));
-            return true;
         case R.id.menu_archive:
             startActivity(new Intent(this, ArchiveActivity.class));
-            return true;
-        case R.id.menu_settings:
-            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         default:
             return super.onOptionsItemSelected(item);
