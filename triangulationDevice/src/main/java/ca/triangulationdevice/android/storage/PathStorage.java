@@ -22,12 +22,12 @@ import android.util.SparseArray;
 import android.widget.Toast;
 import ca.triangulationdevice.android.util.Installation;
 
-//import com.google.gson.Gson;
-//import com.google.gson.GsonBuilder;
-//import com.google.gson.JsonElement;
-//import com.google.gson.JsonObject;
-//import com.google.gson.JsonSerializationContext;
-//import com.google.gson.JsonSerializer;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 
 /**
  * Stores and provides access to two "paths" (mine and theirs), represented by
@@ -57,7 +57,7 @@ public class PathStorage {
 
     private final List<List<Point>> paths = new ArrayList<List<Point>>(PATH_TOTAL);
     private String uid;
-//    private final Gson gson;
+    private final Gson gson;
 
     private Context context;
 
@@ -74,29 +74,29 @@ public class PathStorage {
      *            access to the databases.
      */
     public PathStorage(Context context) {
-//        this.context = context;
-//        this.paths.add(MINE, new ArrayList<Point>());
-//        this.paths.add(THEIRS, new ArrayList<Point>());
-//
+        this.context = context;
+        this.paths.add(MINE, new ArrayList<Point>());
+        this.paths.add(THEIRS, new ArrayList<Point>());
+
         this.pathHelper = new PathSQLiteHelper(context);
-//
-//        // Create the GSON object with the type adapter.
-//        GsonBuilder gsonBuilder = new GsonBuilder();
-//        gsonBuilder.registerTypeAdapter(Point.class, new JsonSerializer<Point>() {
-//            @Override
-//            public JsonElement serialize(Point point, Type type, JsonSerializationContext context) {
-//                JsonObject object = new JsonObject();
-//                object.addProperty("id", point.id);
-//                object.addProperty("latitude", point.location.getLatitude());
-//                object.addProperty("longitude", point.location.getLongitude());
-//                object.addProperty("azimuth", point.azimuth);
-//                object.addProperty("pitch", point.pitch);
-//                object.addProperty("roll", point.roll);
-//                object.addProperty("time", point.location.getTime());
-//                return object;
-//            }
-//        });
-//        this.gson = gsonBuilder.create();
+
+        // Create the GSON object with the type adapter.
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(Point.class, new JsonSerializer<Point>() {
+            @Override
+            public JsonElement serialize(Point point, Type type, JsonSerializationContext context) {
+                JsonObject object = new JsonObject();
+                object.addProperty("id", point.id);
+                object.addProperty("latitude", point.location.getLatitude());
+                object.addProperty("longitude", point.location.getLongitude());
+                object.addProperty("azimuth", point.azimuth);
+                object.addProperty("pitch", point.pitch);
+                object.addProperty("roll", point.roll);
+                object.addProperty("time", point.location.getTime());
+                return object;
+            }
+        });
+        this.gson = gsonBuilder.create();
     }
 
     /**
