@@ -9,8 +9,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.media.AudioManager;
+import android.media.Image;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import ca.triangulationdevice.android.R;
 import ca.triangulationdevice.android.TriangulationApplication;
@@ -49,6 +54,15 @@ public class MapActivity extends AudioActivity {
     private final Map<Marker, User> markerUserMap = new HashMap<>();
 
     private MapView mapView;
+    private ViewGroup miniPlayer;
+    private ViewGroup miniProfile;
+
+    private ImageView miniProfileImage;
+    private TextView miniName;
+    private TextView miniLocation;
+    private TextView miniDescription;
+
+    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +73,24 @@ public class MapActivity extends AudioActivity {
         this.resources = getResources();
 
         mapView = (MapView) this.findViewById(R.id.mapview);
+        miniPlayer = (ViewGroup) findViewById(R.id.mini_playback);
+        miniProfile = (ViewGroup) findViewById(R.id.mini_profile);
+
+        miniProfileImage = (ImageView) miniProfile.findViewById(R.id.mini_profile_image);
+        miniName = (TextView) miniProfile.findViewById(R.id.mini_name);
+        miniLocation = (TextView) miniProfile.findViewById(R.id.mini_location);
+        miniDescription = (TextView) miniProfile.findViewById(R.id.mini_walk_description);
+
+        // Setup the map and user overlay.
         UserLocationOverlay myLocationOverlay = new UserLocationOverlay(new GpsLocationProvider(this), mapView);
         myLocationOverlay.enableMyLocation();
         myLocationOverlay.setDrawAccuracyEnabled(true);
         mapView.getOverlays().add(myLocationOverlay);
 
+        // Add the existing users to the map overlay.
         this.addUsers();
 
+        // Center our map.
         LatLng latLng = new LatLng(43.4587014, -80.5506638);
         mapView.setCenter(latLng);
         mapView.setZoom(DEFAULT_ZOOM);
@@ -83,9 +108,12 @@ public class MapActivity extends AudioActivity {
 
             @Override
             public void onTapMarker(MapView mapView, Marker marker) {
-                Intent intent = new Intent(MapActivity.this, ProfileActivity.class);
-                intent.putExtra(ProfileActivity.EXTRA_USER_ID, markerUserMap.get(marker).id);
-                startActivity(intent);
+                User tappedUser = markerUserMap.get(marker);
+                if (tappedUser == currentUser) {
+                    openProfile(tappedUser);
+                } else {
+                    showMiniProfile(tappedUser);
+                }
             }
 
             @Override
@@ -95,7 +123,7 @@ public class MapActivity extends AudioActivity {
 
             @Override
             public void onTapMap(MapView mapView, ILatLng iLatLng) {
-
+                hideMiniProfile();
             }
 
             @Override
@@ -103,6 +131,48 @@ public class MapActivity extends AudioActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (currentUser != null) {
+            this.hideMiniProfile();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    public void openCurrentProfile(View v) {
+        if (currentUser != null) openProfile(currentUser);
+    }
+
+    private void openProfile(User user) {
+        Intent intent = new Intent(MapActivity.this, ProfileActivity.class);
+        intent.putExtra(ProfileActivity.EXTRA_USER_ID, user.id);
+        startActivity(intent);
+    }
+
+    private void showMiniProfile(User user) {
+        this.currentUser = user;
+
+        if (user.picture != null) {
+            this.miniProfileImage.setImageDrawable(user.picture);
+            this.miniProfileImage.setVisibility(View.VISIBLE);
+        } else {
+            this.miniProfileImage.setVisibility(View.GONE);
+        }
+        this.miniName.setText(user.name);
+        this.miniLocation.setText(user.location);
+        this.miniDescription.setText(user.description);
+
+        miniPlayer.setVisibility(View.VISIBLE);
+        miniProfile.setVisibility(View.VISIBLE);
+    }
+
+    private void hideMiniProfile() {
+        currentUser = null;
+        miniPlayer.setVisibility(View.GONE);
+        miniProfile.setVisibility(View.GONE);
     }
 
     private void addUsers() {

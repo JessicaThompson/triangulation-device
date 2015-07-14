@@ -21,9 +21,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eb5eb80f-5726-4d0d-b736-5384ac837978" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/AudioActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/MapActivity.java" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/MapActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/storage/PathStorage.java" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/storage/PathStorage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/UserMarker.java" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/UserMarker.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/res/layout/map_activity.xml" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/res/layout/map_activity.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="TriangulationDevice.iws" />
@@ -64,21 +64,15 @@
       <file leaf-file-name="MapActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/MapActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.20648968">
-              <caret line="57" column="26" selection-start-line="57" selection-start-column="26" selection-end-line="57" selection-end-column="26" />
+            <state vertical-scroll-proportion="0.4660767">
+              <caret line="141" column="9" selection-start-line="141" selection-start-column="9" selection-end-line="141" selection-end-column="9" />
               <folding>
-                <element signature="e#1756#1783#0" expanded="true" />
+                <element signature="e#1916#1943#0" expanded="true" />
+                <element signature="e#4590#4591#0" expanded="true" />
+                <element signature="e#4639#4640#0" expanded="true" />
+                <element signature="e#5004#5005#0" expanded="true" />
+                <element signature="e#5069#5070#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AudioActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/AudioActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="123" column="0" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -1961,21 +1955,21 @@
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/triangulationDevice/build.gradle" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/res/layout/login.xml" />
-        <option value="$PROJECT_DIR$/triangulationDevice/src/main/res/layout/map_activity.xml" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/LocationActivity.java" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/LoginActivity.java" />
-        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/UserMarker.java" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/model/UserManager.java" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/res/layout/profile.xml" />
-        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/model/User.java" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/ProfileActivity.java" />
-        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/TriangulationApplication.java" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/TriangulationActivity.java" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/AudioActivity.java" />
-        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/MapActivity.java" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/storage/PathStorage.java" />
+        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/model/User.java" />
+        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/TriangulationApplication.java" />
+        <option value="$PROJECT_DIR$/triangulationDevice/src/main/res/layout/map_activity.xml" />
+        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/UserMarker.java" />
+        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/MapActivity.java" />
       </list>
     </option>
   </component>
@@ -2118,38 +2112,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="triangulationDevice" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TriangulationDevice" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="triangulationDevice" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TriangulationDevice" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="triangulationDevice" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -2759,17 +2721,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/res/layout/login.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.6409861">
-          <caret line="71" column="25" selection-start-line="71" selection-start-column="25" selection-end-line="71" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.50691247">
@@ -2831,14 +2782,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/triangulationDevice/build/intermediates/exploded-aar/com.mapbox.mapboxsdk/mapbox-android-sdk/0.7.4/jars/classes.jar!/com/mapbox/mapboxsdk/overlay/Marker.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.13824885">
-          <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2863,58 +2806,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/UserMarker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22123894">
-          <caret line="18" column="64" selection-start-line="18" selection-start-column="64" selection-end-line="18" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/model/UserManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.11061947">
-          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/model/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="42" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/TriangulationActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.24336283">
           <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/res/layout/profile.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2542373">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/TriangulationApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.50884956">
-          <caret line="23" column="125" selection-start-line="23" selection-start-column="125" selection-end-line="23" selection-end-column="125" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2936,22 +2832,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/res/layout/map_activity.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0509554">
-          <caret line="11" column="52" selection-start-line="11" selection-start-column="52" selection-end-line="11" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/util/Installation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.15486726">
           <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/storage/PathStorage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.8362832">
+          <caret line="386" column="32" selection-start-line="386" selection-start-column="32" selection-end-line="386" selection-end-column="32" />
+          <folding>
+            <element signature="e#3304#4021#0" expanded="false" />
+            <element signature="e#4020#4021#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2963,23 +2859,139 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/storage/PathStorage.java">
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/res/layout/login.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.8362832">
-          <caret line="386" column="32" selection-start-line="386" selection-start-column="32" selection-end-line="386" selection-end-column="32" />
+        <state vertical-scroll-proportion="0.4915254">
+          <caret line="48" column="8" selection-start-line="48" selection-start-column="8" selection-end-line="53" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/res/drawable-hdpi/ic_action_location_found.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/res/layout/profile.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.72265023">
+          <caret line="36" column="4" selection-start-line="36" selection-start-column="4" selection-end-line="41" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/model/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.17699115">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
           <folding>
-            <element signature="e#3304#4021#0" expanded="true" />
-            <element signature="e#4020#4021#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/android-sdks/sources/android-22/android/graphics/drawable/Drawable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.6976402">
+          <caret line="151" column="16" selection-start-line="151" selection-start-column="16" selection-end-line="151" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/triangulationDevice/build/intermediates/exploded-aar/com.mapbox.mapboxsdk/mapbox-android-sdk/0.7.4/jars/classes.jar!/com/mapbox/mapboxsdk/overlay/Marker.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="209" column="16" selection-start-line="209" selection-start-column="16" selection-end-line="209" selection-end-column="16" />
+          <folding>
+            <element signature="e#6481#6482#0" expanded="true" />
+            <element signature="e#6526#6527#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/TriangulationApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="53" selection-start-line="18" selection-start-column="53" selection-end-line="18" selection-end-column="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/android-sdks/sources/android-22/android/graphics/drawable/ScaleDrawable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="9.351464">
+          <caret line="358" column="14" selection-start-line="358" selection-start-column="14" selection-end-line="358" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/android-sdks/sources/android-22/android/graphics/BitmapFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="495" column="25" selection-start-line="495" selection-start-column="25" selection-end-line="495" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/android-sdks/sources/android-22/android/graphics/Bitmap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="577" column="25" selection-start-line="577" selection-start-column="25" selection-end-line="577" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/res/layout/map_activity.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.2413793">
+          <caret line="55" column="41" selection-start-line="55" selection-start-column="41" selection-end-line="55" selection-end-column="41" />
+          <folding>
+            <element signature="e#1657#1680#0" expanded="true" />
+            <element signature="e#1708#1734#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/model/UserManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+          <folding>
+            <element signature="e#162#163#0" expanded="true" />
+            <element signature="e#201#202#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/UserMarker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6415929">
+          <caret line="41" column="86" selection-start-line="41" selection-start-column="86" selection-end-line="41" selection-end-column="86" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/MapActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20648968">
-          <caret line="57" column="26" selection-start-line="57" selection-start-column="26" selection-end-line="57" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.4660767">
+          <caret line="141" column="9" selection-start-line="141" selection-start-column="9" selection-end-line="141" selection-end-column="9" />
           <folding>
-            <element signature="e#1756#1783#0" expanded="true" />
+            <element signature="e#1916#1943#0" expanded="true" />
+            <element signature="e#4590#4591#0" expanded="true" />
+            <element signature="e#4639#4640#0" expanded="true" />
+            <element signature="e#5004#5005#0" expanded="true" />
+            <element signature="e#5069#5070#0" expanded="true" />
           </folding>
         </state>
       </provider>

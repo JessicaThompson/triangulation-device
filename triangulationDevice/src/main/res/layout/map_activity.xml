@@ -1,13 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center">
+    <LinearLayout
+        android:id="@+id/mini_playback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_play_arrow_white_24dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="14dp" />
+        <SeekBar
+            android:id="@+id/playback"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:progress="20"
+            android:secondaryProgress="20" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1:30"
+            android:gravity="center"
+            android:layout_marginTop="18dp"
+            android:textColor="#FFFFFF"
+            android:layout_marginRight="16dp" />
+    </LinearLayout>
     <com.mapbox.mapboxsdk.views.MapView
         android:id="@+id/mapview"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         mapbox:mapid="@string/mapbox_map_id"
         mapbox:accessToken="@string/mapbox_map_token"/>
-</FrameLayout>
+    <LinearLayout
+        android:id="@+id/mini_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="16dp"
+        android:visibility="gone">
+        <LinearLayout
+            android:id="@+id/author_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:onClick="openCurrentProfile">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Author"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/mini_profile_image"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/gosling"
+                        android:layout_marginRight="8dp"/>
+                    <TextView
+                        android:id="@+id/mini_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFFFF" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Location"/>
+                <TextView
+                    android:id="@+id/mini_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_small"
+                    android:gravity="center"
+                    android:textColor="#FFFFFFFF"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:drawableStart="@drawable/ic_location_on_white_24dp"
+                    android:drawablePadding="4dp"/>
+            </LinearLayout>
+        </LinearLayout>
+        <View
+            android:id="@+id/left_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#FFFFFF" />
+        <TextView
+            android:id="@+id/walk_description_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp" />
+        <TextView
+            android:id="@+id/mini_walk_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:lineSpacingMultiplier="1.5"
+            android:text="Irony synth skateboard drinking vinegar, shabby chic Shoreditch whatever bespoke ethical Pitchfork pug. Fanny pack typewriter roof party kale chips XOXO." />
+        <Button
+            android:id="@+id/join_button"
+            android:layout_width="115dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:textAllCaps="false"
+            android:layout_marginTop="16dp"
+            android:text="@string/connect" />
+    </LinearLayout>
+</LinearLayout>
