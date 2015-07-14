@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="text">#FFFFFF</color>
+    <color name="dark_text">#AAAAAA</color>
+    
+    <!-- MAIN THEME -->
+    <color name="main_background">#233861</color>
+    <color name="main_primary">#08193B</color>
+    <color name="main_primary_dark">#000000</color>
+    <color name="main_button">#479F4B</color>
+    <color name="main_accent">#479F4B</color>
+    
+    <!-- SPLASH/LOGIN THEME -->
+    <color name="intro_background">#08193B</color>
+    <color name="intro_primary">#08193B</color>
+    <color name="intro_primary_dark">#000000</color>
+    <color name="intro_button">#233861</color>
+    <color name="intro_accent">#233861</color>
+</resources>

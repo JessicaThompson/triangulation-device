@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- General strings -->
+    <string name="app_name">Triangulation Device</string>
+    <string name="app_name_caps">TRIANGULATION DEVICE</string>
+    <string name="divider_description">REALLY, ANDROID?? REALLY?? YOU NEED A DESCRIPTION FOR A FUCKING DIVIDER??</string>
+    
+    <!-- Menu -->
+    <string name="settings">Settings</string>
+
+    <!-- Login screen -->
+    <string name="enter_your_name">Enter your name</string>
+    <string name="join">Join</string>
+    <string name="or">or</string>
+
+    <!-- Profile -->
+    <string name="connect">Connect</string>
+
+    <!-- Developer keys -->
+    <string name="facebook_app_id">103710589966907</string>
+    <string name="google_maps_api_key">AIzaSyAAdtsQIz4c5tWLOVhDv8N0Mzcxa8EZMoc</string>
+    <string name="mapbox_map_id">cnvandev.mm0j24f2</string>
+    <string name="mapbox_map_token">sk.eyJ1IjoiY252YW5kZXYiLCJhIjoiMDVmYzkxOGVjMTVjNjhkZjM3ZTlmYjc4ZTUwZjM0YjcifQ.Ad59q_E9rxk5BGw719jEWw</string>
+</resources>

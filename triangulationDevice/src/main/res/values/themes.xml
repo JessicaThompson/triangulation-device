@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ActionBar styles -->
+    <style name="TriangulationDeviceTheme"
+           parent="@android:style/Theme.Material">
+        <item name="android:colorPrimary">@color/main_primary</item>
+        <item name="android:colorPrimaryDark">@color/main_primary_dark</item>
+        <item name="android:colorAccent">@color/main_accent</item>
+        <item name="android:windowBackground">@color/main_background</item>
+        <item name="android:colorButtonNormal">@color/main_button</item>
+    </style>
+    
+    <style name="TriangulationDeviceIntro"
+        parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:colorPrimary">@color/intro_primary</item>
+        <item name="android:colorPrimaryDark">@color/intro_primary_dark</item>
+        <item name="android:colorAccent">@color/intro_accent</item>
+        <item name="android:windowBackground">@color/intro_background</item>
+        <item name="android:colorButtonNormal">@color/intro_button</item>
+    </style>
+</resources>

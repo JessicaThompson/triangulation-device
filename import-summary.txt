@@ -1,0 +1,1606 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Manifest Merging:
+-----------------
+Your project uses libraries that provide manifests, and your Eclipse
+project did not explicitly turn on manifest merging. In Android Gradle
+projects, manifests are always merged (meaning that contents from your
+libraries' manifests will be merged into the app manifest. If you had
+manually copied contents from library manifests into your app manifest
+you may need to remove these for the app to build correctly.
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+From AndroidMidi:
+* .gitignore
+* LICENSE-2.0.txt
+* build.gradle
+* build.xml
+From PdCore:
+* .gitignore
+* LICENSE.txt
+* Makefile
+* README.txt
+* ant.properties
+* build.gradle
+* build.xml
+* custom_rules.xml
+From TriangulationDevice:
+* .DS_Store
+* .gitignore
+* .gradle/
+* .gradle/2.2.1/
+* .gradle/2.2.1/taskArtifacts/
+* .gradle/2.2.1/taskArtifacts/cache.properties
+* .gradle/2.2.1/taskArtifacts/cache.properties.lock
+* .gradle/2.2.1/taskArtifacts/fileSnapshots.bin
+* .gradle/2.2.1/taskArtifacts/taskArtifacts.bin
+* .idea/
+* .idea/.name
+* .idea/compiler.xml
+* .idea/copyright/
+* .idea/copyright/profiles_settings.xml
+* .idea/misc.xml
+* .idea/modules.xml
+* .idea/vcs.xml
+* .idea/workspace.xml
+* androidMidi/
+* androidMidi/build.gradle
+* androidMidi/src/
+* androidMidi/src/main/
+* androidMidi/src/main/AndroidManifest.xml
+* androidMidi/src/main/java/
+* androidMidi/src/main/java/com/
+* androidMidi/src/main/java/com/noisepages/
+* androidMidi/src/main/java/com/noisepages/nettoyeur/
+* androidMidi/src/main/java/com/noisepages/nettoyeur/bluetooth/
+* androidMidi/src/main/java/com/noisepages/nettoyeur/bluetooth/BluetoothDisabledException.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/bluetooth/BluetoothException.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/bluetooth/BluetoothNotConnectedException.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/bluetooth/BluetoothSppConnection.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/bluetooth/BluetoothSppObserver.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/bluetooth/BluetoothUnavailableException.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/bluetooth/midi/
+* androidMidi/src/main/java/com/noisepages/nettoyeur/bluetooth/midi/BluetoothMidiDevice.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/bluetooth/util/
+* androidMidi/src/main/java/com/noisepages/nettoyeur/bluetooth/util/BluetoothDeviceSelector.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/bluetooth/util/DeviceListActivity.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/common/
+* androidMidi/src/main/java/com/noisepages/nettoyeur/common/RawByteReceiver.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/midi/
+* androidMidi/src/main/java/com/noisepages/nettoyeur/midi/FromWireConverter.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/midi/MidiDevice.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/midi/MidiReceiver.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/midi/ToWireConverter.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/midi/util/
+* androidMidi/src/main/java/com/noisepages/nettoyeur/midi/util/SystemMessageDecoder.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/midi/util/SystemMessageEncoder.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/midi/util/SystemMessageReceiver.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/usb/
+* androidMidi/src/main/java/com/noisepages/nettoyeur/usb/ConnectionFailedException.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/usb/DeviceInfo.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/usb/DeviceNotConnectedException.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/usb/InterfaceNotAvailableException.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/usb/UsbBroadcastHandler.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/usb/UsbDeviceWithInfo.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/usb/UsbException.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/usb/midi/
+* androidMidi/src/main/java/com/noisepages/nettoyeur/usb/midi/UsbMidiDevice.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/usb/midi/util/
+* androidMidi/src/main/java/com/noisepages/nettoyeur/usb/midi/util/UsbMidiInputSelector.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/usb/midi/util/UsbMidiOutputSelector.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/usb/util/
+* androidMidi/src/main/java/com/noisepages/nettoyeur/usb/util/AsyncDeviceInfoLookup.java
+* androidMidi/src/main/java/com/noisepages/nettoyeur/usb/util/UsbDeviceSelector.java
+* androidMidi/src/main/res/
+* androidMidi/src/main/res/drawable/
+* androidMidi/src/main/res/drawable/din5.png
+* androidMidi/src/main/res/layout/
+* androidMidi/src/main/res/layout/device_list.xml
+* androidMidi/src/main/res/layout/device_name.xml
+* androidMidi/src/main/res/values/
+* androidMidi/src/main/res/values/strings.xml
+* build.gradle
+* distribution.keystore
+* facebook/
+* facebook/build.gradle
+* facebook/lint.xml
+* facebook/src/
+* facebook/src/main/
+* facebook/src/main/AndroidManifest.xml
+* facebook/src/main/java/
+* facebook/src/main/java/com/
+* facebook/src/main/java/com/facebook/
+* facebook/src/main/java/com/facebook/AccessToken.java
+* facebook/src/main/java/com/facebook/AccessTokenCache.java
+* facebook/src/main/java/com/facebook/AccessTokenManager.java
+* facebook/src/main/java/com/facebook/AccessTokenSource.java
+* facebook/src/main/java/com/facebook/AccessTokenTracker.java
+* facebook/src/main/java/com/facebook/CallbackManager.java
+* facebook/src/main/java/com/facebook/FacebookActivity.java
+* facebook/src/main/java/com/facebook/FacebookAuthorizationException.java
+* facebook/src/main/java/com/facebook/FacebookBroadcastReceiver.java
+* facebook/src/main/java/com/facebook/FacebookButtonBase.java
+* facebook/src/main/java/com/facebook/FacebookCallback.java
+* facebook/src/main/java/com/facebook/FacebookContentProvider.java
+* facebook/src/main/java/com/facebook/FacebookDialog.java
+* facebook/src/main/java/com/facebook/FacebookDialogException.java
+* facebook/src/main/java/com/facebook/FacebookException.java
+* facebook/src/main/java/com/facebook/FacebookGraphResponseException.java
+* facebook/src/main/java/com/facebook/FacebookOperationCanceledException.java
+* facebook/src/main/java/com/facebook/FacebookRequestError.java
+* facebook/src/main/java/com/facebook/FacebookSdk.java
+* facebook/src/main/java/com/facebook/FacebookSdkNotInitializedException.java
+* facebook/src/main/java/com/facebook/FacebookSdkVersion.java
+* facebook/src/main/java/com/facebook/FacebookServiceException.java
+* facebook/src/main/java/com/facebook/GraphRequest.java
+* facebook/src/main/java/com/facebook/GraphRequestAsyncTask.java
+* facebook/src/main/java/com/facebook/GraphRequestBatch.java
+* facebook/src/main/java/com/facebook/GraphResponse.java
+* facebook/src/main/java/com/facebook/HttpMethod.java
+* facebook/src/main/java/com/facebook/LegacyTokenHelper.java
+* facebook/src/main/java/com/facebook/LoggingBehavior.java
+* facebook/src/main/java/com/facebook/Profile.java
+* facebook/src/main/java/com/facebook/ProfileCache.java
+* facebook/src/main/java/com/facebook/ProfileManager.java
+* facebook/src/main/java/com/facebook/ProfileTracker.java
+* facebook/src/main/java/com/facebook/ProgressNoopOutputStream.java
+* facebook/src/main/java/com/facebook/ProgressOutputStream.java
+* facebook/src/main/java/com/facebook/RequestOutputStream.java
+* facebook/src/main/java/com/facebook/RequestProgress.java
+* facebook/src/main/java/com/facebook/TestUserManager.java
+* facebook/src/main/java/com/facebook/appevents/
+* facebook/src/main/java/com/facebook/appevents/AppEventsConstants.java
+* facebook/src/main/java/com/facebook/appevents/AppEventsLogger.java
+* facebook/src/main/java/com/facebook/appevents/FacebookTimeSpentData.java
+* facebook/src/main/java/com/facebook/applinks/
+* facebook/src/main/java/com/facebook/applinks/AppLinkData.java
+* facebook/src/main/java/com/facebook/applinks/FacebookAppLinkResolver.java
+* facebook/src/main/java/com/facebook/internal/
+* facebook/src/main/java/com/facebook/internal/AnalyticsEvents.java
+* facebook/src/main/java/com/facebook/internal/AppCall.java
+* facebook/src/main/java/com/facebook/internal/AppEventsLoggerUtility.java
+* facebook/src/main/java/com/facebook/internal/AttributionIdentifiers.java
+* facebook/src/main/java/com/facebook/internal/BoltsMeasurementEventListener.java
+* facebook/src/main/java/com/facebook/internal/BundleJSONConverter.java
+* facebook/src/main/java/com/facebook/internal/CallbackManagerImpl.java
+* facebook/src/main/java/com/facebook/internal/CollectionMapper.java
+* facebook/src/main/java/com/facebook/internal/DialogFeature.java
+* facebook/src/main/java/com/facebook/internal/DialogPresenter.java
+* facebook/src/main/java/com/facebook/internal/FacebookDialogBase.java
+* facebook/src/main/java/com/facebook/internal/FacebookDialogFragment.java
+* facebook/src/main/java/com/facebook/internal/FacebookRequestErrorClassification.java
+* facebook/src/main/java/com/facebook/internal/FacebookWebFallbackDialog.java
+* facebook/src/main/java/com/facebook/internal/FileLruCache.java
+* facebook/src/main/java/com/facebook/internal/GraphUtil.java
+* facebook/src/main/java/com/facebook/internal/ImageDownloader.java
+* facebook/src/main/java/com/facebook/internal/ImageRequest.java
+* facebook/src/main/java/com/facebook/internal/ImageResponse.java
+* facebook/src/main/java/com/facebook/internal/ImageResponseCache.java
+* facebook/src/main/java/com/facebook/internal/JsonUtil.java
+* facebook/src/main/java/com/facebook/internal/Logger.java
+* facebook/src/main/java/com/facebook/internal/LoginAuthorizationType.java
+* facebook/src/main/java/com/facebook/internal/Mutable.java
+* facebook/src/main/java/com/facebook/internal/NativeAppCallAttachmentStore.java
+* facebook/src/main/java/com/facebook/internal/NativeProtocol.java
+* facebook/src/main/java/com/facebook/internal/PermissionType.java
+* facebook/src/main/java/com/facebook/internal/PlatformServiceClient.java
+* facebook/src/main/java/com/facebook/internal/ProfileInformationCache.java
+* facebook/src/main/java/com/facebook/internal/ServerProtocol.java
+* facebook/src/main/java/com/facebook/internal/UrlRedirectCache.java
+* facebook/src/main/java/com/facebook/internal/Utility.java
+* facebook/src/main/java/com/facebook/internal/Validate.java
+* facebook/src/main/java/com/facebook/internal/WebDialog.java
+* facebook/src/main/java/com/facebook/internal/WorkQueue.java
+* facebook/src/main/java/com/facebook/internal/package-info.java
+* facebook/src/main/java/com/facebook/login/
+* facebook/src/main/java/com/facebook/login/DefaultAudience.java
+* facebook/src/main/java/com/facebook/login/GetTokenClient.java
+* facebook/src/main/java/com/facebook/login/GetTokenLoginMethodHandler.java
+* facebook/src/main/java/com/facebook/login/KatanaProxyLoginMethodHandler.java
+* facebook/src/main/java/com/facebook/login/LoginBehavior.java
+* facebook/src/main/java/com/facebook/login/LoginClient.java
+* facebook/src/main/java/com/facebook/login/LoginFragment.java
+* facebook/src/main/java/com/facebook/login/LoginLogger.java
+* facebook/src/main/java/com/facebook/login/LoginManager.java
+* facebook/src/main/java/com/facebook/login/LoginMethodHandler.java
+* facebook/src/main/java/com/facebook/login/LoginResult.java
+* facebook/src/main/java/com/facebook/login/StartActivityDelegate.java
+* facebook/src/main/java/com/facebook/login/WebViewLoginMethodHandler.java
+* facebook/src/main/java/com/facebook/login/widget/
+* facebook/src/main/java/com/facebook/login/widget/LoginButton.java
+* facebook/src/main/java/com/facebook/login/widget/ProfilePictureView.java
+* facebook/src/main/java/com/facebook/login/widget/ToolTipPopup.java
+* facebook/src/main/java/com/facebook/messenger/
+* facebook/src/main/java/com/facebook/messenger/MessengerThreadParams.java
+* facebook/src/main/java/com/facebook/messenger/MessengerUtils.java
+* facebook/src/main/java/com/facebook/messenger/ShareToMessengerParams.java
+* facebook/src/main/java/com/facebook/messenger/ShareToMessengerParamsBuilder.java
+* facebook/src/main/java/com/facebook/share/
+* facebook/src/main/java/com/facebook/share/ShareApi.java
+* facebook/src/main/java/com/facebook/share/ShareBuilder.java
+* facebook/src/main/java/com/facebook/share/Sharer.java
+* facebook/src/main/java/com/facebook/share/internal/
+* facebook/src/main/java/com/facebook/share/internal/AppInviteDialogFeature.java
+* facebook/src/main/java/com/facebook/share/internal/GameRequestValidation.java
+* facebook/src/main/java/com/facebook/share/internal/LegacyNativeDialogParameters.java
+* facebook/src/main/java/com/facebook/share/internal/LikeActionController.java
+* facebook/src/main/java/com/facebook/share/internal/LikeBoxCountView.java
+* facebook/src/main/java/com/facebook/share/internal/LikeButton.java
+* facebook/src/main/java/com/facebook/share/internal/LikeContent.java
+* facebook/src/main/java/com/facebook/share/internal/LikeDialog.java
+* facebook/src/main/java/com/facebook/share/internal/LikeDialogFeature.java
+* facebook/src/main/java/com/facebook/share/internal/LikeStatusClient.java
+* facebook/src/main/java/com/facebook/share/internal/MessageDialogFeature.java
+* facebook/src/main/java/com/facebook/share/internal/NativeDialogParameters.java
+* facebook/src/main/java/com/facebook/share/internal/OpenGraphActionDialogFeature.java
+* facebook/src/main/java/com/facebook/share/internal/OpenGraphJSONUtility.java
+* facebook/src/main/java/com/facebook/share/internal/OpenGraphMessageDialogFeature.java
+* facebook/src/main/java/com/facebook/share/internal/ResultProcessor.java
+* facebook/src/main/java/com/facebook/share/internal/ShareConstants.java
+* facebook/src/main/java/com/facebook/share/internal/ShareContentValidation.java
+* facebook/src/main/java/com/facebook/share/internal/ShareDialogFeature.java
+* facebook/src/main/java/com/facebook/share/internal/ShareInternalUtility.java
+* facebook/src/main/java/com/facebook/share/internal/VideoUploader.java
+* facebook/src/main/java/com/facebook/share/internal/WebDialogParameters.java
+* facebook/src/main/java/com/facebook/share/model/
+* facebook/src/main/java/com/facebook/share/model/AppGroupCreationContent.java
+* facebook/src/main/java/com/facebook/share/model/AppInviteContent.java
+* facebook/src/main/java/com/facebook/share/model/GameRequestContent.java
+* facebook/src/main/java/com/facebook/share/model/ShareContent.java
+* facebook/src/main/java/com/facebook/share/model/ShareLinkContent.java
+* facebook/src/main/java/com/facebook/share/model/ShareModel.java
+* facebook/src/main/java/com/facebook/share/model/ShareModelBuilder.java
+* facebook/src/main/java/com/facebook/share/model/ShareOpenGraphAction.java
+* facebook/src/main/java/com/facebook/share/model/ShareOpenGraphContent.java
+* facebook/src/main/java/com/facebook/share/model/ShareOpenGraphObject.java
+* facebook/src/main/java/com/facebook/share/model/ShareOpenGraphValueContainer.java
+* facebook/src/main/java/com/facebook/share/model/SharePhoto.java
+* facebook/src/main/java/com/facebook/share/model/SharePhotoContent.java
+* facebook/src/main/java/com/facebook/share/model/ShareVideo.java
+* facebook/src/main/java/com/facebook/share/model/ShareVideoContent.java
+* facebook/src/main/java/com/facebook/share/widget/
+* facebook/src/main/java/com/facebook/share/widget/AppInviteDialog.java
+* facebook/src/main/java/com/facebook/share/widget/CreateAppGroupDialog.java
+* facebook/src/main/java/com/facebook/share/widget/GameRequestDialog.java
+* facebook/src/main/java/com/facebook/share/widget/JoinAppGroupDialog.java
+* facebook/src/main/java/com/facebook/share/widget/LikeView.java
+* facebook/src/main/java/com/facebook/share/widget/MessageDialog.java
+* facebook/src/main/java/com/facebook/share/widget/SendButton.java
+* facebook/src/main/java/com/facebook/share/widget/ShareButton.java
+* facebook/src/main/java/com/facebook/share/widget/ShareButtonBase.java
+* facebook/src/main/java/com/facebook/share/widget/ShareDialog.java
+* facebook/src/main/res/
+* facebook/src/main/res/drawable-hdpi/
+* facebook/src/main/res/drawable-hdpi/com_facebook_button_icon.png
+* facebook/src/main/res/drawable-hdpi/com_facebook_button_like_icon_selected.png
+* facebook/src/main/res/drawable-hdpi/com_facebook_button_send_icon.png
+* facebook/src/main/res/drawable-hdpi/com_facebook_close.png
+* facebook/src/main/res/drawable-hdpi/com_facebook_tooltip_black_background.9.png
+* facebook/src/main/res/drawable-hdpi/com_facebook_tooltip_black_bottomnub.png
+* facebook/src/main/res/drawable-hdpi/com_facebook_tooltip_black_topnub.png
+* facebook/src/main/res/drawable-hdpi/com_facebook_tooltip_black_xout.png
+* facebook/src/main/res/drawable-hdpi/com_facebook_tooltip_blue_background.9.png
+* facebook/src/main/res/drawable-hdpi/com_facebook_tooltip_blue_bottomnub.png
+* facebook/src/main/res/drawable-hdpi/com_facebook_tooltip_blue_topnub.png
+* facebook/src/main/res/drawable-hdpi/com_facebook_tooltip_blue_xout.png
+* facebook/src/main/res/drawable-hdpi/messenger_bubble_large_blue.png
+* facebook/src/main/res/drawable-hdpi/messenger_bubble_large_white.png
+* facebook/src/main/res/drawable-hdpi/messenger_bubble_small_blue.png
+* facebook/src/main/res/drawable-hdpi/messenger_bubble_small_white.png
+* facebook/src/main/res/drawable-hdpi/messenger_button_send_round_shadow.png
+* facebook/src/main/res/drawable-mdpi/
+* facebook/src/main/res/drawable-mdpi/com_facebook_button_icon.png
+* facebook/src/main/res/drawable-mdpi/com_facebook_button_like_icon_selected.png
+* facebook/src/main/res/drawable-mdpi/com_facebook_button_send_icon.png
+* facebook/src/main/res/drawable-mdpi/com_facebook_close.png
+* facebook/src/main/res/drawable-mdpi/com_facebook_profile_picture_blank_portrait.png
+* facebook/src/main/res/drawable-mdpi/com_facebook_profile_picture_blank_square.png
+* facebook/src/main/res/drawable-mdpi/com_facebook_tooltip_black_background.9.png
+* facebook/src/main/res/drawable-mdpi/com_facebook_tooltip_black_bottomnub.png
+* facebook/src/main/res/drawable-mdpi/com_facebook_tooltip_black_topnub.png
+* facebook/src/main/res/drawable-mdpi/com_facebook_tooltip_black_xout.png
+* facebook/src/main/res/drawable-mdpi/com_facebook_tooltip_blue_background.9.png
+* facebook/src/main/res/drawable-mdpi/com_facebook_tooltip_blue_bottomnub.png
+* facebook/src/main/res/drawable-mdpi/com_facebook_tooltip_blue_topnub.png
+* facebook/src/main/res/drawable-mdpi/com_facebook_tooltip_blue_xout.png
+* facebook/src/main/res/drawable-mdpi/messenger_bubble_large_blue.png
+* facebook/src/main/res/drawable-mdpi/messenger_bubble_large_white.png
+* facebook/src/main/res/drawable-mdpi/messenger_bubble_small_blue.png
+* facebook/src/main/res/drawable-mdpi/messenger_bubble_small_white.png
+* facebook/src/main/res/drawable-mdpi/messenger_button_send_round_shadow.png
+* facebook/src/main/res/drawable-xhdpi/
+* facebook/src/main/res/drawable-xhdpi/com_facebook_button_icon.png
+* facebook/src/main/res/drawable-xhdpi/com_facebook_button_like_icon_selected.png
+* facebook/src/main/res/drawable-xhdpi/com_facebook_button_send_icon.png
+* facebook/src/main/res/drawable-xhdpi/com_facebook_close.png
+* facebook/src/main/res/drawable-xhdpi/com_facebook_tooltip_black_background.9.png
+* facebook/src/main/res/drawable-xhdpi/com_facebook_tooltip_black_bottomnub.png
+* facebook/src/main/res/drawable-xhdpi/com_facebook_tooltip_black_topnub.png
+* facebook/src/main/res/drawable-xhdpi/com_facebook_tooltip_black_xout.png
+* facebook/src/main/res/drawable-xhdpi/com_facebook_tooltip_blue_background.9.png
+* facebook/src/main/res/drawable-xhdpi/com_facebook_tooltip_blue_bottomnub.png
+* facebook/src/main/res/drawable-xhdpi/com_facebook_tooltip_blue_topnub.png
+* facebook/src/main/res/drawable-xhdpi/com_facebook_tooltip_blue_xout.png
+* facebook/src/main/res/drawable-xhdpi/messenger_bubble_large_blue.png
+* facebook/src/main/res/drawable-xhdpi/messenger_bubble_large_white.png
+* facebook/src/main/res/drawable-xhdpi/messenger_bubble_small_blue.png
+* facebook/src/main/res/drawable-xhdpi/messenger_bubble_small_white.png
+* facebook/src/main/res/drawable-xhdpi/messenger_button_send_round_shadow.png
+* facebook/src/main/res/drawable-xxhdpi/
+* facebook/src/main/res/drawable-xxhdpi/com_facebook_button_icon.png
+* facebook/src/main/res/drawable-xxhdpi/com_facebook_button_like_icon_selected.png
+* facebook/src/main/res/drawable-xxhdpi/com_facebook_button_send_icon.png
+* facebook/src/main/res/drawable-xxhdpi/messenger_bubble_large_blue.png
+* facebook/src/main/res/drawable-xxhdpi/messenger_bubble_large_white.png
+* facebook/src/main/res/drawable-xxhdpi/messenger_bubble_small_blue.png
+* facebook/src/main/res/drawable-xxhdpi/messenger_bubble_small_white.png
+* facebook/src/main/res/drawable-xxhdpi/messenger_button_send_round_shadow.png
+* facebook/src/main/res/drawable/
+* facebook/src/main/res/drawable/com_facebook_button_background.xml
+* facebook/src/main/res/drawable/com_facebook_button_like_background.xml
+* facebook/src/main/res/drawable/com_facebook_button_login_silver_background.xml
+* facebook/src/main/res/drawable/com_facebook_button_send_background.xml
+* facebook/src/main/res/drawable/messenger_button_blue_bg_round.xml
+* facebook/src/main/res/drawable/messenger_button_blue_bg_selector.xml
+* facebook/src/main/res/drawable/messenger_button_white_bg_round.xml
+* facebook/src/main/res/drawable/messenger_button_white_bg_selector.xml
+* facebook/src/main/res/layout/
+* facebook/src/main/res/layout/com_facebook_activity_layout.xml
+* facebook/src/main/res/layout/com_facebook_login_fragment.xml
+* facebook/src/main/res/layout/com_facebook_tooltip_bubble.xml
+* facebook/src/main/res/layout/messenger_button_send_blue_large.xml
+* facebook/src/main/res/layout/messenger_button_send_blue_round.xml
+* facebook/src/main/res/layout/messenger_button_send_blue_small.xml
+* facebook/src/main/res/layout/messenger_button_send_white_large.xml
+* facebook/src/main/res/layout/messenger_button_send_white_round.xml
+* facebook/src/main/res/layout/messenger_button_send_white_small.xml
+* facebook/src/main/res/values-af/
+* facebook/src/main/res/values-af/messenger_button_strings.xml
+* facebook/src/main/res/values-ar/
+* facebook/src/main/res/values-ar/messenger_button_strings.xml
+* facebook/src/main/res/values-bn/
+* facebook/src/main/res/values-bn/messenger_button_strings.xml
+* facebook/src/main/res/values-cs/
+* facebook/src/main/res/values-cs/messenger_button_strings.xml
+* facebook/src/main/res/values-da/
+* facebook/src/main/res/values-da/messenger_button_strings.xml
+* facebook/src/main/res/values-de/
+* facebook/src/main/res/values-de/messenger_button_strings.xml
+* facebook/src/main/res/values-el/
+* facebook/src/main/res/values-el/messenger_button_strings.xml
+* facebook/src/main/res/values-es-rES/
+* facebook/src/main/res/values-es-rES/messenger_button_strings.xml
+* facebook/src/main/res/values-es/
+* facebook/src/main/res/values-es/messenger_button_strings.xml
+* facebook/src/main/res/values-es/strings.xml
+* facebook/src/main/res/values-fi/
+* facebook/src/main/res/values-fi/messenger_button_strings.xml
+* facebook/src/main/res/values-fr/
+* facebook/src/main/res/values-fr/messenger_button_strings.xml
+* facebook/src/main/res/values-gu/
+* facebook/src/main/res/values-gu/messenger_button_strings.xml
+* facebook/src/main/res/values-he/
+* facebook/src/main/res/values-he/strings.xml
+* facebook/src/main/res/values-hi/
+* facebook/src/main/res/values-hi/messenger_button_strings.xml
+* facebook/src/main/res/values-in/
+* facebook/src/main/res/values-in/messenger_button_strings.xml
+* facebook/src/main/res/values-it/
+* facebook/src/main/res/values-it/messenger_button_strings.xml
+* facebook/src/main/res/values-iw/
+* facebook/src/main/res/values-iw/strings.xml
+* facebook/src/main/res/values-ja/
+* facebook/src/main/res/values-ja/messenger_button_strings.xml
+* facebook/src/main/res/values-kn/
+* facebook/src/main/res/values-kn/messenger_button_strings.xml
+* facebook/src/main/res/values-ko/
+* facebook/src/main/res/values-ko/messenger_button_strings.xml
+* facebook/src/main/res/values-ml/
+* facebook/src/main/res/values-ml/messenger_button_strings.xml
+* facebook/src/main/res/values-mr/
+* facebook/src/main/res/values-mr/messenger_button_strings.xml
+* facebook/src/main/res/values-ms/
+* facebook/src/main/res/values-ms/messenger_button_strings.xml
+* facebook/src/main/res/values-nb/
+* facebook/src/main/res/values-nb/messenger_button_strings.xml
+* facebook/src/main/res/values-nl/
+* facebook/src/main/res/values-nl/messenger_button_strings.xml
+* facebook/src/main/res/values-pa/
+* facebook/src/main/res/values-pa/messenger_button_strings.xml
+* facebook/src/main/res/values-pl/
+* facebook/src/main/res/values-pl/messenger_button_strings.xml
+* facebook/src/main/res/values-pt-rPT/
+* facebook/src/main/res/values-pt-rPT/messenger_button_strings.xml
+* facebook/src/main/res/values-pt/
+* facebook/src/main/res/values-pt/messenger_button_strings.xml
+* facebook/src/main/res/values-ru/
+* facebook/src/main/res/values-ru/messenger_button_strings.xml
+* facebook/src/main/res/values-sv/
+* facebook/src/main/res/values-sv/messenger_button_strings.xml
+* facebook/src/main/res/values-ta/
+* facebook/src/main/res/values-ta/messenger_button_strings.xml
+* facebook/src/main/res/values-te/
+* facebook/src/main/res/values-te/messenger_button_strings.xml
+* facebook/src/main/res/values-th/
+* facebook/src/main/res/values-th/messenger_button_strings.xml
+* facebook/src/main/res/values-tl/
+* facebook/src/main/res/values-tl/messenger_button_strings.xml
+* facebook/src/main/res/values-tr/
+* facebook/src/main/res/values-tr/messenger_button_strings.xml
+* facebook/src/main/res/values-vi/
+* facebook/src/main/res/values-vi/messenger_button_strings.xml
+* facebook/src/main/res/values-zh-rCN/
+* facebook/src/main/res/values-zh-rCN/messenger_button_strings.xml
+* facebook/src/main/res/values-zh-rHK/
+* facebook/src/main/res/values-zh-rHK/messenger_button_strings.xml
+* facebook/src/main/res/values-zh-rTW/
+* facebook/src/main/res/values-zh-rTW/messenger_button_strings.xml
+* facebook/src/main/res/values/
+* facebook/src/main/res/values/attrs.xml
+* facebook/src/main/res/values/messenger_button_strings.xml
+* facebook/src/main/res/values/messenger_button_styles.xml
+* facebook/src/main/res/values/strings.xml
+* facebook/src/main/res/values/styles.xml
+* gradle/
+* gradle/wrapper/
+* gradle/wrapper/gradle-wrapper.jar
+* gradle/wrapper/gradle-wrapper.properties
+* gradlew
+* gradlew.bat
+* pdCore/
+* pdCore/build.gradle
+* pdCore/src/
+* pdCore/src/main/
+* pdCore/src/main/AndroidManifest.xml
+* pdCore/src/main/java/
+* pdCore/src/main/java/org/
+* pdCore/src/main/java/org/puredata/
+* pdCore/src/main/java/org/puredata/android/
+* pdCore/src/main/java/org/puredata/android/io/
+* pdCore/src/main/java/org/puredata/android/io/AudioParameters.java
+* pdCore/src/main/java/org/puredata/android/io/AudioRecordWrapper.java
+* pdCore/src/main/java/org/puredata/android/io/AudioWrapper.java
+* pdCore/src/main/java/org/puredata/android/io/PdAudio.java
+* pdCore/src/main/java/org/puredata/android/io/VersionedAudioFormat.java
+* pdCore/src/main/java/org/puredata/android/midi/
+* pdCore/src/main/java/org/puredata/android/midi/MidiToPdAdapter.java
+* pdCore/src/main/java/org/puredata/android/midi/PdToMidiAdapter.java
+* pdCore/src/main/java/org/puredata/android/service/
+* pdCore/src/main/java/org/puredata/android/service/PdPreferences.java
+* pdCore/src/main/java/org/puredata/android/service/PdService.java
+* pdCore/src/main/java/org/puredata/android/utils/
+* pdCore/src/main/java/org/puredata/android/utils/PdUiDispatcher.java
+* pdCore/src/main/java/org/puredata/android/utils/Properties.java
+* pdCore/src/main/java/org/puredata/core/
+* pdCore/src/main/java/org/puredata/core/NativeLoader.java
+* pdCore/src/main/java/org/puredata/core/PdBase.java
+* pdCore/src/main/java/org/puredata/core/PdListener.java
+* pdCore/src/main/java/org/puredata/core/PdMidiListener.java
+* pdCore/src/main/java/org/puredata/core/PdMidiReceiver.java
+* pdCore/src/main/java/org/puredata/core/PdReceiver.java
+* pdCore/src/main/java/org/puredata/core/utils/
+* pdCore/src/main/java/org/puredata/core/utils/IoUtils.java
+* pdCore/src/main/java/org/puredata/core/utils/PdDispatcher.java
+* pdCore/src/main/jni/
+* pdCore/src/main/jni/Android.mk
+* pdCore/src/main/jni/Application.mk
+* pdCore/src/main/jni/libpd/
+* pdCore/src/main/jni/libpd/.classpath
+* pdCore/src/main/jni/libpd/.git
+* pdCore/src/main/jni/libpd/.gitignore
+* pdCore/src/main/jni/libpd/.gitmodules
+* pdCore/src/main/jni/libpd/.project
+* pdCore/src/main/jni/libpd/Android.mk
+* pdCore/src/main/jni/libpd/CHANGES.txt
+* pdCore/src/main/jni/libpd/LICENSE.txt
+* pdCore/src/main/jni/libpd/Makefile
+* pdCore/src/main/jni/libpd/README.txt
+* pdCore/src/main/jni/libpd/cpp/
+* pdCore/src/main/jni/libpd/cpp/LICENSE.txt
+* pdCore/src/main/jni/libpd/cpp/PdBase.cpp
+* pdCore/src/main/jni/libpd/cpp/PdBase.hpp
+* pdCore/src/main/jni/libpd/cpp/PdMidiReceiver.hpp
+* pdCore/src/main/jni/libpd/cpp/PdReceiver.hpp
+* pdCore/src/main/jni/libpd/cpp/PdTypes.cpp
+* pdCore/src/main/jni/libpd/cpp/PdTypes.hpp
+* pdCore/src/main/jni/libpd/csharp/
+* pdCore/src/main/jni/libpd/csharp/LibPDBinding.csproj
+* pdCore/src/main/jni/libpd/csharp/Native/
+* pdCore/src/main/jni/libpd/csharp/Native/LibPDNativeMessaging.cs
+* pdCore/src/main/jni/libpd/csharp/Native/LibPDNativeMethods.cs
+* pdCore/src/main/jni/libpd/csharp/Native/LibPDNativeMidi.cs
+* pdCore/src/main/jni/libpd/csharp/Properties/
+* pdCore/src/main/jni/libpd/csharp/Properties/AssemblyInfo.cs
+* pdCore/src/main/jni/libpd/csharptests/
+* pdCore/src/main/jni/libpd/csharptests/LibPDBindingTest.csproj
+* pdCore/src/main/jni/libpd/csharptests/LibPDTests.cs
+* pdCore/src/main/jni/libpd/csharptests/test_csharp.pd
+* pdCore/src/main/jni/libpd/dist/
+* pdCore/src/main/jni/libpd/dist/libpd.jar
+* pdCore/src/main/jni/libpd/java/
+* pdCore/src/main/jni/libpd/java/org/
+* pdCore/src/main/jni/libpd/java/org/puredata/
+* pdCore/src/main/jni/libpd/java/org/puredata/core/
+* pdCore/src/main/jni/libpd/java/org/puredata/core/NativeLoader.java
+* pdCore/src/main/jni/libpd/java/org/puredata/core/PdBase.java
+* pdCore/src/main/jni/libpd/java/org/puredata/core/PdListener.java
+* pdCore/src/main/jni/libpd/java/org/puredata/core/PdMidiListener.java
+* pdCore/src/main/jni/libpd/java/org/puredata/core/PdMidiReceiver.java
+* pdCore/src/main/jni/libpd/java/org/puredata/core/PdReceiver.java
+* pdCore/src/main/jni/libpd/java/org/puredata/core/utils/
+* pdCore/src/main/jni/libpd/java/org/puredata/core/utils/IoUtils.java
+* pdCore/src/main/jni/libpd/java/org/puredata/core/utils/PdDispatcher.java
+* pdCore/src/main/jni/libpd/javatests/
+* pdCore/src/main/jni/libpd/javatests/org/
+* pdCore/src/main/jni/libpd/javatests/org/puredata/
+* pdCore/src/main/jni/libpd/javatests/org/puredata/core/
+* pdCore/src/main/jni/libpd/javatests/org/puredata/core/PdBaseTest.java
+* pdCore/src/main/jni/libpd/javatests/org/puredata/core/test_java.pd
+* pdCore/src/main/jni/libpd/javatests/org/puredata/core/utils/
+* pdCore/src/main/jni/libpd/javatests/org/puredata/core/utils/PdDispatcherTest.java
+* pdCore/src/main/jni/libpd/jni/
+* pdCore/src/main/jni/libpd/jni/z_jni.h
+* pdCore/src/main/jni/libpd/jni/z_jni_native_hooks.h
+* pdCore/src/main/jni/libpd/jni/z_jni_opensl.c
+* pdCore/src/main/jni/libpd/jni/z_jni_plain.c
+* pdCore/src/main/jni/libpd/jni/z_jni_shared.c
+* pdCore/src/main/jni/libpd/libpd.xcodeproj/
+* pdCore/src/main/jni/libpd/libpd.xcodeproj/project.pbxproj
+* pdCore/src/main/jni/libpd/libpd.xcodeproj/xcshareddata/
+* pdCore/src/main/jni/libpd/libpd.xcodeproj/xcshareddata/xcschemes/
+* pdCore/src/main/jni/libpd/libpd.xcodeproj/xcshareddata/xcschemes/libpd-ios.xcscheme
+* pdCore/src/main/jni/libpd/libpd_win.sln
+* pdCore/src/main/jni/libpd/libpd_wrapper/
+* pdCore/src/main/jni/libpd/libpd_wrapper/s_libpdmidi.c
+* pdCore/src/main/jni/libpd/libpd_wrapper/util/
+* pdCore/src/main/jni/libpd/libpd_wrapper/util/ringbuffer.c
+* pdCore/src/main/jni/libpd/libpd_wrapper/util/ringbuffer.h
+* pdCore/src/main/jni/libpd/libpd_wrapper/util/z_print_util.c
+* pdCore/src/main/jni/libpd/libpd_wrapper/util/z_print_util.h
+* pdCore/src/main/jni/libpd/libpd_wrapper/util/z_queued.c
+* pdCore/src/main/jni/libpd/libpd_wrapper/util/z_queued.h
+* pdCore/src/main/jni/libpd/libpd_wrapper/x_libpdreceive.c
+* pdCore/src/main/jni/libpd/libpd_wrapper/x_libpdreceive.h
+* pdCore/src/main/jni/libpd/libpd_wrapper/z_hooks.c
+* pdCore/src/main/jni/libpd/libpd_wrapper/z_hooks.h
+* pdCore/src/main/jni/libpd/libpd_wrapper/z_libpd.c
+* pdCore/src/main/jni/libpd/libpd_wrapper/z_libpd.h
+* pdCore/src/main/jni/libpd/libs/
+* pdCore/src/main/jni/libpd/libs/asm-3.3.jar
+* pdCore/src/main/jni/libpd/libs/cglib-2.2.jar
+* pdCore/src/main/jni/libpd/libs/easymock-3.0.jar
+* pdCore/src/main/jni/libpd/libs/objenesis-1.2.jar
+* pdCore/src/main/jni/libpd/libs/pthreadGC2.dll
+* pdCore/src/main/jni/libpd/mingw_build.bat
+* pdCore/src/main/jni/libpd/objc/
+* pdCore/src/main/jni/libpd/objc/AudioHelpers.h
+* pdCore/src/main/jni/libpd/objc/AudioHelpers.m
+* pdCore/src/main/jni/libpd/objc/PdAudioController.h
+* pdCore/src/main/jni/libpd/objc/PdAudioController.m
+* pdCore/src/main/jni/libpd/objc/PdAudioUnit.h
+* pdCore/src/main/jni/libpd/objc/PdAudioUnit.m
+* pdCore/src/main/jni/libpd/objc/PdBase.h
+* pdCore/src/main/jni/libpd/objc/PdBase.m
+* pdCore/src/main/jni/libpd/objc/PdDispatcher.h
+* pdCore/src/main/jni/libpd/objc/PdDispatcher.m
+* pdCore/src/main/jni/libpd/objc/PdFile.h
+* pdCore/src/main/jni/libpd/objc/PdFile.m
+* pdCore/src/main/jni/libpd/objc/PdMidiDispatcher.h
+* pdCore/src/main/jni/libpd/objc/PdMidiDispatcher.m
+* pdCore/src/main/jni/libpd/pure-data/
+* pdCore/src/main/jni/libpd/pure-data/extra/
+* pdCore/src/main/jni/libpd/pure-data/extra/Makefile.am
+* pdCore/src/main/jni/libpd/pure-data/extra/README.txt
+* pdCore/src/main/jni/libpd/pure-data/extra/choice/
+* pdCore/src/main/jni/libpd/pure-data/extra/choice/GNUmakefile.am
+* pdCore/src/main/jni/libpd/pure-data/extra/choice/choice-help.pd
+* pdCore/src/main/jni/libpd/pure-data/extra/choice/choice.c
+* pdCore/src/main/jni/libpd/pure-data/extra/choice/makefile
+* pdCore/src/main/jni/libpd/pure-data/extra/complex-mod~-help.pd
+* pdCore/src/main/jni/libpd/pure-data/extra/complex-mod~.pd
+* pdCore/src/main/jni/libpd/pure-data/extra/expr-help.pd
+* pdCore/src/main/jni/libpd/pure-data/extra/hilbert~-help.pd
+* pdCore/src/main/jni/libpd/pure-data/extra/hilbert~.pd
+* pdCore/src/main/jni/libpd/pure-data/extra/makefile
+* pdCore/src/main/jni/libpd/pure-data/extra/makefile.subdir
+* pdCore/src/main/jni/libpd/pure-data/extra/pique/
+* pdCore/src/main/jni/libpd/pure-data/extra/pique/GNUmakefile.am
+* pdCore/src/main/jni/libpd/pure-data/extra/pique/makefile
+* pdCore/src/main/jni/libpd/pure-data/extra/pique/pique-help.pd
+* pdCore/src/main/jni/libpd/pure-data/extra/pique/pique.c
+* pdCore/src/main/jni/libpd/pure-data/extra/rev1-final.pd
+* pdCore/src/main/jni/libpd/pure-data/extra/rev1-stage.pd
+* pdCore/src/main/jni/libpd/pure-data/extra/rev1~-help.pd
+* pdCore/src/main/jni/libpd/pure-data/extra/rev1~.pd
+* pdCore/src/main/jni/libpd/pure-data/extra/rev2~-help.pd
+* pdCore/src/main/jni/libpd/pure-data/extra/rev2~.pd
+* pdCore/src/main/jni/libpd/pure-data/extra/rev3~-help.pd
+* pdCore/src/main/jni/libpd/pure-data/extra/rev3~.pd
+* pdCore/src/main/jni/libpd/pure-data/extra/stdout/
+* pdCore/src/main/jni/libpd/pure-data/extra/stdout/GNUmakefile.am
+* pdCore/src/main/jni/libpd/pure-data/extra/stdout/makefile
+* pdCore/src/main/jni/libpd/pure-data/extra/stdout/stdout-help.pd
+* pdCore/src/main/jni/libpd/pure-data/extra/stdout/stdout.c
+* pdCore/src/main/jni/libpd/pure-data/src/
+* pdCore/src/main/jni/libpd/pure-data/src/CHANGELOG.txt
+* pdCore/src/main/jni/libpd/pure-data/src/d_arithmetic.c
+* pdCore/src/main/jni/libpd/pure-data/src/d_array.c
+* pdCore/src/main/jni/libpd/pure-data/src/d_ctl.c
+* pdCore/src/main/jni/libpd/pure-data/src/d_dac.c
+* pdCore/src/main/jni/libpd/pure-data/src/d_delay.c
+* pdCore/src/main/jni/libpd/pure-data/src/d_fft.c
+* pdCore/src/main/jni/libpd/pure-data/src/d_fft_mayer.c
+* pdCore/src/main/jni/libpd/pure-data/src/d_fftroutine.c
+* pdCore/src/main/jni/libpd/pure-data/src/d_fftsg_h.c
+* pdCore/src/main/jni/libpd/pure-data/src/d_filter.c
+* pdCore/src/main/jni/libpd/pure-data/src/d_global.c
+* pdCore/src/main/jni/libpd/pure-data/src/d_math.c
+* pdCore/src/main/jni/libpd/pure-data/src/d_misc.c
+* pdCore/src/main/jni/libpd/pure-data/src/d_osc.c
+* pdCore/src/main/jni/libpd/pure-data/src/d_resample.c
+* pdCore/src/main/jni/libpd/pure-data/src/d_soundfile.c
+* pdCore/src/main/jni/libpd/pure-data/src/d_ugen.c
+* pdCore/src/main/jni/libpd/pure-data/src/g_all_guis.c
+* pdCore/src/main/jni/libpd/pure-data/src/g_all_guis.h
+* pdCore/src/main/jni/libpd/pure-data/src/g_array.c
+* pdCore/src/main/jni/libpd/pure-data/src/g_bang.c
+* pdCore/src/main/jni/libpd/pure-data/src/g_canvas.c
+* pdCore/src/main/jni/libpd/pure-data/src/g_canvas.h
+* pdCore/src/main/jni/libpd/pure-data/src/g_editor.c
+* pdCore/src/main/jni/libpd/pure-data/src/g_graph.c
+* pdCore/src/main/jni/libpd/pure-data/src/g_guiconnect.c
+* pdCore/src/main/jni/libpd/pure-data/src/g_hdial.c
+* pdCore/src/main/jni/libpd/pure-data/src/g_hslider.c
+* pdCore/src/main/jni/libpd/pure-data/src/g_io.c
+* pdCore/src/main/jni/libpd/pure-data/src/g_mycanvas.c
+* pdCore/src/main/jni/libpd/pure-data/src/g_numbox.c
+* pdCore/src/main/jni/libpd/pure-data/src/g_readwrite.c
+* pdCore/src/main/jni/libpd/pure-data/src/g_rtext.c
+* pdCore/src/main/jni/libpd/pure-data/src/g_scalar.c
+* pdCore/src/main/jni/libpd/pure-data/src/g_template.c
+* pdCore/src/main/jni/libpd/pure-data/src/g_text.c
+* pdCore/src/main/jni/libpd/pure-data/src/g_toggle.c
+* pdCore/src/main/jni/libpd/pure-data/src/g_traversal.c
+* pdCore/src/main/jni/libpd/pure-data/src/g_vdial.c
+* pdCore/src/main/jni/libpd/pure-data/src/g_vslider.c
+* pdCore/src/main/jni/libpd/pure-data/src/g_vumeter.c
+* pdCore/src/main/jni/libpd/pure-data/src/m_atom.c
+* pdCore/src/main/jni/libpd/pure-data/src/m_binbuf.c
+* pdCore/src/main/jni/libpd/pure-data/src/m_class.c
+* pdCore/src/main/jni/libpd/pure-data/src/m_conf.c
+* pdCore/src/main/jni/libpd/pure-data/src/m_glob.c
+* pdCore/src/main/jni/libpd/pure-data/src/m_imp.h
+* pdCore/src/main/jni/libpd/pure-data/src/m_memory.c
+* pdCore/src/main/jni/libpd/pure-data/src/m_obj.c
+* pdCore/src/main/jni/libpd/pure-data/src/m_pd.c
+* pdCore/src/main/jni/libpd/pure-data/src/m_pd.h
+* pdCore/src/main/jni/libpd/pure-data/src/m_sched.c
+* pdCore/src/main/jni/libpd/pure-data/src/s_audio.c
+* pdCore/src/main/jni/libpd/pure-data/src/s_audio_dummy.c
+* pdCore/src/main/jni/libpd/pure-data/src/s_file.c
+* pdCore/src/main/jni/libpd/pure-data/src/s_inter.c
+* pdCore/src/main/jni/libpd/pure-data/src/s_loader.c
+* pdCore/src/main/jni/libpd/pure-data/src/s_main.c
+* pdCore/src/main/jni/libpd/pure-data/src/s_path.c
+* pdCore/src/main/jni/libpd/pure-data/src/s_print.c
+* pdCore/src/main/jni/libpd/pure-data/src/s_stuff.h
+* pdCore/src/main/jni/libpd/pure-data/src/s_utf8.c
+* pdCore/src/main/jni/libpd/pure-data/src/s_utf8.h
+* pdCore/src/main/jni/libpd/pure-data/src/x_acoustics.c
+* pdCore/src/main/jni/libpd/pure-data/src/x_arithmetic.c
+* pdCore/src/main/jni/libpd/pure-data/src/x_array.c
+* pdCore/src/main/jni/libpd/pure-data/src/x_connective.c
+* pdCore/src/main/jni/libpd/pure-data/src/x_gui.c
+* pdCore/src/main/jni/libpd/pure-data/src/x_interface.c
+* pdCore/src/main/jni/libpd/pure-data/src/x_list.c
+* pdCore/src/main/jni/libpd/pure-data/src/x_midi.c
+* pdCore/src/main/jni/libpd/pure-data/src/x_misc.c
+* pdCore/src/main/jni/libpd/pure-data/src/x_net.c
+* pdCore/src/main/jni/libpd/pure-data/src/x_scalar.c
+* pdCore/src/main/jni/libpd/pure-data/src/x_text.c
+* pdCore/src/main/jni/libpd/pure-data/src/x_time.c
+* pdCore/src/main/jni/libpd/python/
+* pdCore/src/main/jni/libpd/python/Makefile
+* pdCore/src/main/jni/libpd/python/bloopy.pd
+* pdCore/src/main/jni/libpd/python/echo.pd
+* pdCore/src/main/jni/libpd/python/echo.py
+* pdCore/src/main/jni/libpd/python/filter.py
+* pdCore/src/main/jni/libpd/python/funtest.pd
+* pdCore/src/main/jni/libpd/python/lop.pd
+* pdCore/src/main/jni/libpd/python/pygame_fun_test.py
+* pdCore/src/main/jni/libpd/python/pygame_test.py
+* pdCore/src/main/jni/libpd/python/pylibpd.i
+* pdCore/src/main/jni/libpd/python/setup.py
+* pdCore/src/main/jni/libpd/python/test.pd
+* pdCore/src/main/jni/libpd/python/test.py
+* pdCore/src/main/jni/libpd/samples/
+* pdCore/src/main/jni/libpd/samples/c_samples/
+* pdCore/src/main/jni/libpd/samples/c_samples/c/
+* pdCore/src/main/jni/libpd/samples/c_samples/c/Makefile
+* pdCore/src/main/jni/libpd/samples/c_samples/c/pdtest.c
+* pdCore/src/main/jni/libpd/samples/c_samples/c/test.pd
+* pdCore/src/main/jni/libpd/samples/com/
+* pdCore/src/main/jni/libpd/samples/com/noisepages/
+* pdCore/src/main/jni/libpd/samples/com/noisepages/nettoyeur/
+* pdCore/src/main/jni/libpd/samples/com/noisepages/nettoyeur/libpd/
+* pdCore/src/main/jni/libpd/samples/com/noisepages/nettoyeur/libpd/sample/
+* pdCore/src/main/jni/libpd/samples/com/noisepages/nettoyeur/libpd/sample/JavaSoundSample.java
+* pdCore/src/main/jni/libpd/samples/com/noisepages/nettoyeur/libpd/sample/JavaSoundThread.java
+* pdCore/src/main/jni/libpd/samples/com/noisepages/nettoyeur/libpd/sample/test.pd
+* pdCore/src/main/jni/libpd/samples/cppTest/
+* pdCore/src/main/jni/libpd/samples/cppTest/.gitignore
+* pdCore/src/main/jni/libpd/samples/cppTest/Makefile
+* pdCore/src/main/jni/libpd/samples/cppTest/Project.xcconfig
+* pdCore/src/main/jni/libpd/samples/cppTest/cppTest-Info.plist
+* pdCore/src/main/jni/libpd/samples/cppTest/cppTest.xcodeproj/
+* pdCore/src/main/jni/libpd/samples/cppTest/cppTest.xcodeproj/project.pbxproj
+* pdCore/src/main/jni/libpd/samples/cppTest/cppTest.xcodeproj/project.xcworkspace/
+* pdCore/src/main/jni/libpd/samples/cppTest/cppTest.xcodeproj/project.xcworkspace/contents.xcworkspacedata
+* pdCore/src/main/jni/libpd/samples/cppTest/cppTest.xcodeproj/project.xcworkspace/xcshareddata/
+* pdCore/src/main/jni/libpd/samples/cppTest/cppTest.xcodeproj/project.xcworkspace/xcshareddata/cppTest.xccheckout
+* pdCore/src/main/jni/libpd/samples/cppTest/pd/
+* pdCore/src/main/jni/libpd/samples/cppTest/pd/test_abs.pd
+* pdCore/src/main/jni/libpd/samples/cppTest/src/
+* pdCore/src/main/jni/libpd/samples/cppTest/src/PdObject.cpp
+* pdCore/src/main/jni/libpd/samples/cppTest/src/PdObject.h
+* pdCore/src/main/jni/libpd/samples/cppTest/src/main.cpp
+* pdCore/src/main/jni/libpd/samples/cppTest/test.pd
+* pdCore/src/main/jni/libpd/samples/iosTest/
+* pdCore/src/main/jni/libpd/samples/iosTest/iosTest.xcodeproj/
+* pdCore/src/main/jni/libpd/samples/iosTest/iosTest.xcodeproj/project.pbxproj
+* pdCore/src/main/jni/libpd/samples/iosTest/iosTest/
+* pdCore/src/main/jni/libpd/samples/iosTest/iosTest/AppDelegate.h
+* pdCore/src/main/jni/libpd/samples/iosTest/iosTest/AppDelegate.m
+* pdCore/src/main/jni/libpd/samples/iosTest/iosTest/Default-568h@2x.png
+* pdCore/src/main/jni/libpd/samples/iosTest/iosTest/Default.png
+* pdCore/src/main/jni/libpd/samples/iosTest/iosTest/Default@2x.png
+* pdCore/src/main/jni/libpd/samples/iosTest/iosTest/ViewController.h
+* pdCore/src/main/jni/libpd/samples/iosTest/iosTest/ViewController.m
+* pdCore/src/main/jni/libpd/samples/iosTest/iosTest/en.lproj/
+* pdCore/src/main/jni/libpd/samples/iosTest/iosTest/en.lproj/InfoPlist.strings
+* pdCore/src/main/jni/libpd/samples/iosTest/iosTest/en.lproj/ViewController.xib
+* pdCore/src/main/jni/libpd/samples/iosTest/iosTest/iosTest-Info.plist
+* pdCore/src/main/jni/libpd/samples/iosTest/iosTest/iosTest-Prefix.pch
+* pdCore/src/main/jni/libpd/samples/iosTest/iosTest/main.m
+* pdCore/src/main/jni/libpd/samples/iosTest/pd/
+* pdCore/src/main/jni/libpd/samples/iosTest/pd/abs/
+* pdCore/src/main/jni/libpd/samples/iosTest/pd/abs/test_abs.pd
+* pdCore/src/main/jni/libpd/samples/iosTest/pd/test.pd
+* pdCore/src/main/jni/libpd/scripts/
+* pdCore/src/main/jni/libpd/scripts/update_vanilla.sh
+* pdCore/src/main/jniLibs/
+* pdCore/src/main/jniLibs/armeabi-v7a/
+* pdCore/src/main/jniLibs/armeabi-v7a/libbonk_tilde.so
+* pdCore/src/main/jniLibs/armeabi-v7a/libchoice.so
+* pdCore/src/main/jniLibs/armeabi-v7a/libexpr.so
+* pdCore/src/main/jniLibs/armeabi-v7a/libexpr_tilde.so
+* pdCore/src/main/jniLibs/armeabi-v7a/libfexpr_tilde.so
+* pdCore/src/main/jniLibs/armeabi-v7a/libfiddle_tilde.so
+* pdCore/src/main/jniLibs/armeabi-v7a/libloop_tilde.so
+* pdCore/src/main/jniLibs/armeabi-v7a/liblrshift_tilde.so
+* pdCore/src/main/jniLibs/armeabi-v7a/libpd.so
+* pdCore/src/main/jniLibs/armeabi-v7a/libpdnative.so
+* pdCore/src/main/jniLibs/armeabi-v7a/libpdnativeopensl.so
+* pdCore/src/main/jniLibs/armeabi-v7a/libpique.so
+* pdCore/src/main/jniLibs/armeabi-v7a/libsigmund_tilde.so
+* pdCore/src/main/jniLibs/armeabi/
+* pdCore/src/main/jniLibs/armeabi/libbonk_tilde.so
+* pdCore/src/main/jniLibs/armeabi/libchoice.so
+* pdCore/src/main/jniLibs/armeabi/libexpr.so
+* pdCore/src/main/jniLibs/armeabi/libexpr_tilde.so
+* pdCore/src/main/jniLibs/armeabi/libfexpr_tilde.so
+* pdCore/src/main/jniLibs/armeabi/libfiddle_tilde.so
+* pdCore/src/main/jniLibs/armeabi/libloop_tilde.so
+* pdCore/src/main/jniLibs/armeabi/liblrshift_tilde.so
+* pdCore/src/main/jniLibs/armeabi/libpd.so
+* pdCore/src/main/jniLibs/armeabi/libpdnative.so
+* pdCore/src/main/jniLibs/armeabi/libpdnativeopensl.so
+* pdCore/src/main/jniLibs/armeabi/libpique.so
+* pdCore/src/main/jniLibs/armeabi/libsigmund_tilde.so
+* pdCore/src/main/jniLibs/x86/
+* pdCore/src/main/jniLibs/x86/libbonk_tilde.so
+* pdCore/src/main/jniLibs/x86/libchoice.so
+* pdCore/src/main/jniLibs/x86/libexpr.so
+* pdCore/src/main/jniLibs/x86/libexpr_tilde.so
+* pdCore/src/main/jniLibs/x86/libfexpr_tilde.so
+* pdCore/src/main/jniLibs/x86/libfiddle_tilde.so
+* pdCore/src/main/jniLibs/x86/libloop_tilde.so
+* pdCore/src/main/jniLibs/x86/liblrshift_tilde.so
+* pdCore/src/main/jniLibs/x86/libpd.so
+* pdCore/src/main/jniLibs/x86/libpdnative.so
+* pdCore/src/main/jniLibs/x86/libpdnativeopensl.so
+* pdCore/src/main/jniLibs/x86/libpique.so
+* pdCore/src/main/jniLibs/x86/libsigmund_tilde.so
+* pdCore/src/main/res/
+* pdCore/src/main/res/drawable/
+* pdCore/src/main/res/drawable/icon.png
+* pdCore/src/main/res/raw/
+* pdCore/src/main/res/raw/extra_abs.zip
+* pdCore/src/main/res/raw/silence.wav
+* pdCore/src/main/res/values/
+* pdCore/src/main/res/values/audio.xml
+* pdCore/src/main/res/values/strings.xml
+* pdCore/src/main/res/values/styles.xml
+* pdCore/src/main/res/xml/
+* pdCore/src/main/res/xml/preferences.xml
+* proguard-project.txt
+* settings.gradle
+* triangulationDevice/
+* triangulationDevice/build.gradle
+* triangulationDevice/src/
+* triangulationDevice/src/main/
+* triangulationDevice/src/main/AndroidManifest.xml
+* triangulationDevice/src/main/assets/
+* triangulationDevice/src/main/assets/fonts/
+* triangulationDevice/src/main/assets/fonts/Raleway-Bold.otf
+* triangulationDevice/src/main/assets/fonts/Raleway-ExtraBold.otf
+* triangulationDevice/src/main/assets/fonts/Raleway-ExtraLight.otf
+* triangulationDevice/src/main/assets/fonts/Raleway-Heavy.otf
+* triangulationDevice/src/main/assets/fonts/Raleway-Light.otf
+* triangulationDevice/src/main/assets/fonts/Raleway-Medium.otf
+* triangulationDevice/src/main/assets/fonts/Raleway-Regular.otf
+* triangulationDevice/src/main/assets/fonts/Raleway-SemiBold.otf
+* triangulationDevice/src/main/assets/fonts/Raleway-Thin.otf
+* triangulationDevice/src/main/assets/fonts/SIL Open Font License.txt
+* triangulationDevice/src/main/java/
+* triangulationDevice/src/main/java/ca/
+* triangulationDevice/src/main/java/ca/triangulationdevice/
+* triangulationDevice/src/main/java/ca/triangulationdevice/android/
+* triangulationDevice/src/main/java/ca/triangulationdevice/android/pd/
+* triangulationDevice/src/main/java/ca/triangulationdevice/android/pd/PDDriver.java
+* triangulationDevice/src/main/java/ca/triangulationdevice/android/storage/
+* triangulationDevice/src/main/java/ca/triangulationdevice/android/storage/PathSQLiteHelper.java
+* triangulationDevice/src/main/java/ca/triangulationdevice/android/storage/PathStorage.java
+* triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/
+* triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/LoginActivity.java
+* triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/MapActivity.java
+* triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/SplashActivity.java
+* triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/
+* triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/CompassActivity.java
+* triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/LocationActivity.java
+* triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/TriangulationActivity.java
+* triangulationDevice/src/main/java/ca/triangulationdevice/android/util/
+* triangulationDevice/src/main/java/ca/triangulationdevice/android/util/Installation.java
+* triangulationDevice/src/main/java/ca/triangulationdevice/android/util/Typefaces.java
+* triangulationDevice/src/main/java/ca/triangulationdevice/android/util/VolumeLevelObserver.java
+* triangulationDevice/src/main/java/libs/
+* triangulationDevice/src/main/java/libs/google-play-services.jar
+* triangulationDevice/src/main/java/src/
+* triangulationDevice/src/main/java/src/android/
+* triangulationDevice/src/main/java/src/android/UnusedStub.java
+* triangulationDevice/src/main/res/
+* triangulationDevice/src/main/res/.DS_Store
+* triangulationDevice/src/main/res/drawable-hdpi/
+* triangulationDevice/src/main/res/drawable-hdpi/ab_logo.png
+* triangulationDevice/src/main/res/drawable-hdpi/arrow_black.png
+* triangulationDevice/src/main/res/drawable-hdpi/arrow_green.png
+* triangulationDevice/src/main/res/drawable-hdpi/ic_action_fast_forward.png
+* triangulationDevice/src/main/res/drawable-hdpi/ic_action_headphones.png
+* triangulationDevice/src/main/res/drawable-hdpi/ic_action_location_found.png
+* triangulationDevice/src/main/res/drawable-hdpi/ic_action_next.png
+* triangulationDevice/src/main/res/drawable-hdpi/ic_action_pause.png
+* triangulationDevice/src/main/res/drawable-hdpi/ic_action_place.png
+* triangulationDevice/src/main/res/drawable-hdpi/ic_action_play.png
+* triangulationDevice/src/main/res/drawable-hdpi/ic_action_previous.png
+* triangulationDevice/src/main/res/drawable-hdpi/ic_action_replay.png
+* triangulationDevice/src/main/res/drawable-hdpi/ic_action_rewind.png
+* triangulationDevice/src/main/res/drawable-hdpi/ic_launcher.png
+* triangulationDevice/src/main/res/drawable-hdpi/paired_device.png
+* triangulationDevice/src/main/res/drawable-hdpi/paired_radar.png
+* triangulationDevice/src/main/res/drawable-hdpi/splash_logo.png
+* triangulationDevice/src/main/res/drawable-mdpi/
+* triangulationDevice/src/main/res/drawable-mdpi/ab_logo.png
+* triangulationDevice/src/main/res/drawable-mdpi/arrow_black.png
+* triangulationDevice/src/main/res/drawable-mdpi/arrow_green.png
+* triangulationDevice/src/main/res/drawable-mdpi/ic_action_fast_forward.png
+* triangulationDevice/src/main/res/drawable-mdpi/ic_action_headphones.png
+* triangulationDevice/src/main/res/drawable-mdpi/ic_action_location_found.png
+* triangulationDevice/src/main/res/drawable-mdpi/ic_action_next.png
+* triangulationDevice/src/main/res/drawable-mdpi/ic_action_pause.png
+* triangulationDevice/src/main/res/drawable-mdpi/ic_action_place.png
+* triangulationDevice/src/main/res/drawable-mdpi/ic_action_play.png
+* triangulationDevice/src/main/res/drawable-mdpi/ic_action_previous.png
+* triangulationDevice/src/main/res/drawable-mdpi/ic_action_replay.png
+* triangulationDevice/src/main/res/drawable-mdpi/ic_action_rewind.png
+* triangulationDevice/src/main/res/drawable-mdpi/ic_launcher.png
+* triangulationDevice/src/main/res/drawable-mdpi/paired_device.png
+* triangulationDevice/src/main/res/drawable-mdpi/paired_radar.png
+* triangulationDevice/src/main/res/drawable-mdpi/splash_logo.png
+* triangulationDevice/src/main/res/drawable-xhdpi/
+* triangulationDevice/src/main/res/drawable-xhdpi/ab_logo.png
+* triangulationDevice/src/main/res/drawable-xhdpi/arrow_black.png
+* triangulationDevice/src/main/res/drawable-xhdpi/arrow_green.png
+* triangulationDevice/src/main/res/drawable-xhdpi/ic_action_fast_forward.png
+* triangulationDevice/src/main/res/drawable-xhdpi/ic_action_headphones.png
+* triangulationDevice/src/main/res/drawable-xhdpi/ic_action_location_found.png
+* triangulationDevice/src/main/res/drawable-xhdpi/ic_action_next.png
+* triangulationDevice/src/main/res/drawable-xhdpi/ic_action_pause.png
+* triangulationDevice/src/main/res/drawable-xhdpi/ic_action_place.png
+* triangulationDevice/src/main/res/drawable-xhdpi/ic_action_play.png
+* triangulationDevice/src/main/res/drawable-xhdpi/ic_action_previous.png
+* triangulationDevice/src/main/res/drawable-xhdpi/ic_action_replay.png
+* triangulationDevice/src/main/res/drawable-xhdpi/ic_action_rewind.png
+* triangulationDevice/src/main/res/drawable-xhdpi/ic_launcher.png
+* triangulationDevice/src/main/res/drawable-xhdpi/paired_device.png
+* triangulationDevice/src/main/res/drawable-xhdpi/paired_radar.png
+* triangulationDevice/src/main/res/drawable-xhdpi/splash_logo.png
+* triangulationDevice/src/main/res/drawable-xxhdpi/
+* triangulationDevice/src/main/res/drawable-xxhdpi/ab_logo.png
+* triangulationDevice/src/main/res/drawable-xxhdpi/arrow_black.png
+* triangulationDevice/src/main/res/drawable-xxhdpi/arrow_green.png
+* triangulationDevice/src/main/res/drawable-xxhdpi/ic_action_fast_forward.png
+* triangulationDevice/src/main/res/drawable-xxhdpi/ic_action_headphones.png
+* triangulationDevice/src/main/res/drawable-xxhdpi/ic_action_location_found.png
+* triangulationDevice/src/main/res/drawable-xxhdpi/ic_action_next.png
+* triangulationDevice/src/main/res/drawable-xxhdpi/ic_action_pause.png
+* triangulationDevice/src/main/res/drawable-xxhdpi/ic_action_place.png
+* triangulationDevice/src/main/res/drawable-xxhdpi/ic_action_play.png
+* triangulationDevice/src/main/res/drawable-xxhdpi/ic_action_previous.png
+* triangulationDevice/src/main/res/drawable-xxhdpi/ic_action_replay.png
+* triangulationDevice/src/main/res/drawable-xxhdpi/ic_action_rewind.png
+* triangulationDevice/src/main/res/drawable-xxhdpi/ic_launcher.png
+* triangulationDevice/src/main/res/drawable-xxhdpi/paired_device.png
+* triangulationDevice/src/main/res/drawable-xxhdpi/paired_radar.png
+* triangulationDevice/src/main/res/drawable-xxhdpi/splash_logo.png
+* triangulationDevice/src/main/res/drawable/
+* triangulationDevice/src/main/res/drawable/login_button.xml
+* triangulationDevice/src/main/res/layout/
+* triangulationDevice/src/main/res/layout/login.xml
+* triangulationDevice/src/main/res/layout/map_activity.xml
+* triangulationDevice/src/main/res/layout/splash.xml
+* triangulationDevice/src/main/res/menu/
+* triangulationDevice/src/main/res/menu/nav_menu.xml
+* triangulationDevice/src/main/res/raw/
+* triangulationDevice/src/main/res/raw/triangulationdevice_comp.zip
+* triangulationDevice/src/main/res/values/
+* triangulationDevice/src/main/res/values/colors.xml
+* triangulationDevice/src/main/res/values/dimensions.xml
+* triangulationDevice/src/main/res/values/strings.xml
+* triangulationDevice/src/main/res/values/themes.xml
+* triangulationDevice/src/main/res/xml/
+* triangulationDevice/src/main/res/xml/preferences.xml
+* triangulationDevice/src/main/resources/
+* triangulationDevice/src/main/resources/.classpath
+* triangulationDevice/src/main/resources/AndroidManifest.xml
+* triangulationDevice/src/main/resources/README.txt
+* triangulationDevice/src/main/resources/libs/
+* triangulationDevice/src/main/resources/libs/google-play-services.jar.properties
+* triangulationDevice/src/main/resources/proguard.txt
+* triangulationDevice/src/main/resources/project.properties
+* triangulationDevice/src/main/resources/res/
+* triangulationDevice/src/main/resources/res/color/
+* triangulationDevice/src/main/resources/res/color/common_signin_btn_text_dark.xml
+* triangulationDevice/src/main/resources/res/color/common_signin_btn_text_light.xml
+* triangulationDevice/src/main/resources/res/color/wallet_primary_text_holo_light.xml
+* triangulationDevice/src/main/resources/res/color/wallet_secondary_text_holo_dark.xml
+* triangulationDevice/src/main/resources/res/drawable-hdpi/
+* triangulationDevice/src/main/resources/res/drawable-hdpi/common_full_open_on_phone.png
+* triangulationDevice/src/main/resources/res/drawable-hdpi/common_ic_googleplayservices.png
+* triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_icon_disabled_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_icon_disabled_focus_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_icon_disabled_focus_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_icon_disabled_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_icon_focus_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_icon_focus_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_icon_normal_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_icon_normal_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_icon_pressed_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_icon_pressed_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_text_disabled_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_text_disabled_focus_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_text_disabled_focus_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_text_disabled_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_text_focus_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_text_focus_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_text_normal_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_text_normal_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_text_pressed_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_text_pressed_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-hdpi/ic_plusone_medium_off_client.png
+* triangulationDevice/src/main/resources/res/drawable-hdpi/ic_plusone_small_off_client.png
+* triangulationDevice/src/main/resources/res/drawable-hdpi/ic_plusone_standard_off_client.png
+* triangulationDevice/src/main/resources/res/drawable-hdpi/ic_plusone_tall_off_client.png
+* triangulationDevice/src/main/resources/res/drawable-hdpi/powered_by_google_dark.png
+* triangulationDevice/src/main/resources/res/drawable-hdpi/powered_by_google_light.png
+* triangulationDevice/src/main/resources/res/drawable-mdpi/
+* triangulationDevice/src/main/resources/res/drawable-mdpi/common_full_open_on_phone.png
+* triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_icon_disabled_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_icon_disabled_focus_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_icon_disabled_focus_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_icon_disabled_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_icon_focus_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_icon_focus_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_icon_normal_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_icon_normal_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_icon_pressed_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_icon_pressed_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_text_disabled_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_text_disabled_focus_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_text_disabled_focus_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_text_disabled_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_text_focus_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_text_focus_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_text_normal_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_text_normal_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_text_pressed_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_text_pressed_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-mdpi/ic_plusone_medium_off_client.png
+* triangulationDevice/src/main/resources/res/drawable-mdpi/ic_plusone_small_off_client.png
+* triangulationDevice/src/main/resources/res/drawable-mdpi/ic_plusone_standard_off_client.png
+* triangulationDevice/src/main/resources/res/drawable-mdpi/ic_plusone_tall_off_client.png
+* triangulationDevice/src/main/resources/res/drawable-mdpi/powered_by_google_dark.png
+* triangulationDevice/src/main/resources/res/drawable-mdpi/powered_by_google_light.png
+* triangulationDevice/src/main/resources/res/drawable-tvdpi/
+* triangulationDevice/src/main/resources/res/drawable-tvdpi/common_full_open_on_phone.png
+* triangulationDevice/src/main/resources/res/drawable-tvdpi/ic_plusone_medium_off_client.png
+* triangulationDevice/src/main/resources/res/drawable-tvdpi/ic_plusone_small_off_client.png
+* triangulationDevice/src/main/resources/res/drawable-tvdpi/ic_plusone_standard_off_client.png
+* triangulationDevice/src/main/resources/res/drawable-tvdpi/ic_plusone_tall_off_client.png
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/common_full_open_on_phone.png
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_icon_disabled_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_icon_disabled_focus_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_icon_disabled_focus_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_icon_disabled_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_icon_focus_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_icon_focus_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_icon_normal_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_icon_normal_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_icon_pressed_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_icon_pressed_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_text_disabled_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_text_disabled_focus_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_text_disabled_focus_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_text_disabled_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_text_focus_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_text_focus_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_text_normal_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_text_normal_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_text_pressed_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_text_pressed_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/ic_plusone_medium_off_client.png
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/ic_plusone_small_off_client.png
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/ic_plusone_standard_off_client.png
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/ic_plusone_tall_off_client.png
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/powered_by_google_dark.png
+* triangulationDevice/src/main/resources/res/drawable-xhdpi/powered_by_google_light.png
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_full_open_on_phone.png
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_icon_disabled_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_icon_disabled_focus_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_icon_disabled_focus_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_icon_disabled_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_icon_focus_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_icon_focus_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_icon_normal_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_icon_normal_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_icon_pressed_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_icon_pressed_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_text_disabled_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_text_disabled_focus_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_text_disabled_focus_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_text_disabled_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_text_focus_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_text_focus_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_text_normal_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_text_normal_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_text_pressed_dark.9.png
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_text_pressed_light.9.png
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/ic_plusone_medium_off_client.png
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/ic_plusone_small_off_client.png
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/ic_plusone_standard_off_client.png
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/ic_plusone_tall_off_client.png
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/powered_by_google_dark.png
+* triangulationDevice/src/main/resources/res/drawable-xxhdpi/powered_by_google_light.png
+* triangulationDevice/src/main/resources/res/drawable/
+* triangulationDevice/src/main/resources/res/drawable/common_signin_btn_icon_dark.xml
+* triangulationDevice/src/main/resources/res/drawable/common_signin_btn_icon_light.xml
+* triangulationDevice/src/main/resources/res/drawable/common_signin_btn_text_dark.xml
+* triangulationDevice/src/main/resources/res/drawable/common_signin_btn_text_light.xml
+* triangulationDevice/src/main/resources/res/raw/
+* triangulationDevice/src/main/resources/res/raw/gtm_analytics
+* triangulationDevice/src/main/resources/res/values-af/
+* triangulationDevice/src/main/resources/res/values-af/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-am/
+* triangulationDevice/src/main/resources/res/values-am/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-ar/
+* triangulationDevice/src/main/resources/res/values-ar/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-bg/
+* triangulationDevice/src/main/resources/res/values-bg/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-bn-rBD/
+* triangulationDevice/src/main/resources/res/values-bn-rBD/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-ca/
+* triangulationDevice/src/main/resources/res/values-ca/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-cs/
+* triangulationDevice/src/main/resources/res/values-cs/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-da/
+* triangulationDevice/src/main/resources/res/values-da/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-de/
+* triangulationDevice/src/main/resources/res/values-de/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-el/
+* triangulationDevice/src/main/resources/res/values-el/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-en-rGB/
+* triangulationDevice/src/main/resources/res/values-en-rGB/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-en-rIN/
+* triangulationDevice/src/main/resources/res/values-en-rIN/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-es-rUS/
+* triangulationDevice/src/main/resources/res/values-es-rUS/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-es/
+* triangulationDevice/src/main/resources/res/values-es/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-es/wallet_strings.xml
+* triangulationDevice/src/main/resources/res/values-et-rEE/
+* triangulationDevice/src/main/resources/res/values-et-rEE/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-eu-rES/
+* triangulationDevice/src/main/resources/res/values-eu-rES/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-fa/
+* triangulationDevice/src/main/resources/res/values-fa/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-fi/
+* triangulationDevice/src/main/resources/res/values-fi/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-fr-rCA/
+* triangulationDevice/src/main/resources/res/values-fr-rCA/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-fr/
+* triangulationDevice/src/main/resources/res/values-fr/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-gl-rES/
+* triangulationDevice/src/main/resources/res/values-gl-rES/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-hi/
+* triangulationDevice/src/main/resources/res/values-hi/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-hr/
+* triangulationDevice/src/main/resources/res/values-hr/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-hu/
+* triangulationDevice/src/main/resources/res/values-hu/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-hy-rAM/
+* triangulationDevice/src/main/resources/res/values-hy-rAM/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-in/
+* triangulationDevice/src/main/resources/res/values-in/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-is-rIS/
+* triangulationDevice/src/main/resources/res/values-is-rIS/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-it/
+* triangulationDevice/src/main/resources/res/values-it/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-iw/
+* triangulationDevice/src/main/resources/res/values-iw/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-ja/
+* triangulationDevice/src/main/resources/res/values-ja/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-ka-rGE/
+* triangulationDevice/src/main/resources/res/values-ka-rGE/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-kk-rKZ/
+* triangulationDevice/src/main/resources/res/values-kk-rKZ/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-km-rKH/
+* triangulationDevice/src/main/resources/res/values-km-rKH/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-kn-rIN/
+* triangulationDevice/src/main/resources/res/values-kn-rIN/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-ko/
+* triangulationDevice/src/main/resources/res/values-ko/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-ky-rKG/
+* triangulationDevice/src/main/resources/res/values-ky-rKG/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-lo-rLA/
+* triangulationDevice/src/main/resources/res/values-lo-rLA/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-lt/
+* triangulationDevice/src/main/resources/res/values-lt/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-lv/
+* triangulationDevice/src/main/resources/res/values-lv/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-mk-rMK/
+* triangulationDevice/src/main/resources/res/values-mk-rMK/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-ml-rIN/
+* triangulationDevice/src/main/resources/res/values-ml-rIN/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-mn-rMN/
+* triangulationDevice/src/main/resources/res/values-mn-rMN/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-mr-rIN/
+* triangulationDevice/src/main/resources/res/values-mr-rIN/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-ms-rMY/
+* triangulationDevice/src/main/resources/res/values-ms-rMY/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-my-rMM/
+* triangulationDevice/src/main/resources/res/values-my-rMM/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-nb/
+* triangulationDevice/src/main/resources/res/values-nb/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-ne-rNP/
+* triangulationDevice/src/main/resources/res/values-ne-rNP/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-nl/
+* triangulationDevice/src/main/resources/res/values-nl/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-pl/
+* triangulationDevice/src/main/resources/res/values-pl/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-pt-rBR/
+* triangulationDevice/src/main/resources/res/values-pt-rBR/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-pt-rPT/
+* triangulationDevice/src/main/resources/res/values-pt-rPT/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-pt/
+* triangulationDevice/src/main/resources/res/values-pt/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-ro/
+* triangulationDevice/src/main/resources/res/values-ro/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-ru/
+* triangulationDevice/src/main/resources/res/values-ru/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-si-rLK/
+* triangulationDevice/src/main/resources/res/values-si-rLK/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-sk/
+* triangulationDevice/src/main/resources/res/values-sk/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-sl/
+* triangulationDevice/src/main/resources/res/values-sl/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-sr/
+* triangulationDevice/src/main/resources/res/values-sr/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-sv/
+* triangulationDevice/src/main/resources/res/values-sv/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-sw/
+* triangulationDevice/src/main/resources/res/values-sw/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-ta-rIN/
+* triangulationDevice/src/main/resources/res/values-ta-rIN/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-te-rIN/
+* triangulationDevice/src/main/resources/res/values-te-rIN/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-th/
+* triangulationDevice/src/main/resources/res/values-th/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-tl/
+* triangulationDevice/src/main/resources/res/values-tl/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-tr/
+* triangulationDevice/src/main/resources/res/values-tr/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-uk/
+* triangulationDevice/src/main/resources/res/values-uk/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-ur-rPK/
+* triangulationDevice/src/main/resources/res/values-ur-rPK/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-uz-rUZ/
+* triangulationDevice/src/main/resources/res/values-uz-rUZ/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-vi/
+* triangulationDevice/src/main/resources/res/values-vi/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-zh-rCN/
+* triangulationDevice/src/main/resources/res/values-zh-rCN/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-zh-rHK/
+* triangulationDevice/src/main/resources/res/values-zh-rHK/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-zh-rTW/
+* triangulationDevice/src/main/resources/res/values-zh-rTW/common_strings.xml
+* triangulationDevice/src/main/resources/res/values-zu/
+* triangulationDevice/src/main/resources/res/values-zu/common_strings.xml
+* triangulationDevice/src/main/resources/res/values/
+* triangulationDevice/src/main/resources/res/values/admob_ads_attrs.xml
+* triangulationDevice/src/main/resources/res/values/admob_iap_style.xml
+* triangulationDevice/src/main/resources/res/values/admob_strings.xml
+* triangulationDevice/src/main/resources/res/values/common_attrs.xml
+* triangulationDevice/src/main/resources/res/values/common_colors.xml
+* triangulationDevice/src/main/resources/res/values/common_strings.xml
+* triangulationDevice/src/main/resources/res/values/maps_attrs.xml
+* triangulationDevice/src/main/resources/res/values/version.xml
+* triangulationDevice/src/main/resources/res/values/wallet_attrs.xml
+* triangulationDevice/src/main/resources/res/values/wallet_colors.xml
+* triangulationDevice/src/main/resources/res/values/wallet_strings.xml
+* triangulationDevice/src/main/resources/res/values/wallet_styles.xml
+From facebook:
+* build.gradle
+
+Replaced Jars with Dependencies:
+--------------------------------
+The importer recognized the following .jar files as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the .jar file in your project was of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the jar replacement in the import wizard and try again:
+
+android-support-v4.jar => com.android.support:support-v4:19.1.0
+android-support-v7-appcompat.jar => com.android.support:appcompat-v7:19.1.0
+gson-2.3.jar => com.google.code.gson:gson:2.3
+
+Potentially Missing Dependency:
+-------------------------------
+When we replaced the following .jar files with a Gradle dependency, we
+inferred the dependency version number from the filename. This
+specific version may not actually be available from the repository.
+If you get a build error stating that the dependency is missing, edit
+the version number to for example "+" to pick up the latest version
+instead. (This may require you to update your code if the library APIs
+have changed.)
+
+gson-2.3.jar => version 2.3 in com.google.code.gson:gson:2.3
+
+Replaced Libraries with Dependencies:
+-------------------------------------
+The importer recognized the following library projects as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the source files in your project were of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the library replacement in the import wizard and try
+again:
+
+android-support-v7-appcompat => [com.android.support:appcompat-v7:19.1.0]
+google-play-services_lib => [com.google.android.gms:play-services:+]
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+In AndroidMidi:
+* AndroidManifest.xml => androidMidi/src/main/AndroidManifest.xml
+* res/ => androidMidi/src/main/res/
+* src/ => androidMidi/src/main/java/
+In PdCore:
+* AndroidManifest.xml => pdCore/src/main/AndroidManifest.xml
+* jni/ => pdCore/src/main/jni/
+* jni/libpd/java/ => pdCore/src/main/java/
+* libs/armeabi-v7a/libbonk_tilde.so => pdCore/src/main/jniLibs/armeabi-v7a/libbonk_tilde.so
+* libs/armeabi-v7a/libchoice.so => pdCore/src/main/jniLibs/armeabi-v7a/libchoice.so
+* libs/armeabi-v7a/libexpr.so => pdCore/src/main/jniLibs/armeabi-v7a/libexpr.so
+* libs/armeabi-v7a/libexpr_tilde.so => pdCore/src/main/jniLibs/armeabi-v7a/libexpr_tilde.so
+* libs/armeabi-v7a/libfexpr_tilde.so => pdCore/src/main/jniLibs/armeabi-v7a/libfexpr_tilde.so
+* libs/armeabi-v7a/libfiddle_tilde.so => pdCore/src/main/jniLibs/armeabi-v7a/libfiddle_tilde.so
+* libs/armeabi-v7a/libloop_tilde.so => pdCore/src/main/jniLibs/armeabi-v7a/libloop_tilde.so
+* libs/armeabi-v7a/liblrshift_tilde.so => pdCore/src/main/jniLibs/armeabi-v7a/liblrshift_tilde.so
+* libs/armeabi-v7a/libpd.so => pdCore/src/main/jniLibs/armeabi-v7a/libpd.so
+* libs/armeabi-v7a/libpdnative.so => pdCore/src/main/jniLibs/armeabi-v7a/libpdnative.so
+* libs/armeabi-v7a/libpdnativeopensl.so => pdCore/src/main/jniLibs/armeabi-v7a/libpdnativeopensl.so
+* libs/armeabi-v7a/libpique.so => pdCore/src/main/jniLibs/armeabi-v7a/libpique.so
+* libs/armeabi-v7a/libsigmund_tilde.so => pdCore/src/main/jniLibs/armeabi-v7a/libsigmund_tilde.so
+* libs/armeabi/libbonk_tilde.so => pdCore/src/main/jniLibs/armeabi/libbonk_tilde.so
+* libs/armeabi/libchoice.so => pdCore/src/main/jniLibs/armeabi/libchoice.so
+* libs/armeabi/libexpr.so => pdCore/src/main/jniLibs/armeabi/libexpr.so
+* libs/armeabi/libexpr_tilde.so => pdCore/src/main/jniLibs/armeabi/libexpr_tilde.so
+* libs/armeabi/libfexpr_tilde.so => pdCore/src/main/jniLibs/armeabi/libfexpr_tilde.so
+* libs/armeabi/libfiddle_tilde.so => pdCore/src/main/jniLibs/armeabi/libfiddle_tilde.so
+* libs/armeabi/libloop_tilde.so => pdCore/src/main/jniLibs/armeabi/libloop_tilde.so
+* libs/armeabi/liblrshift_tilde.so => pdCore/src/main/jniLibs/armeabi/liblrshift_tilde.so
+* libs/armeabi/libpd.so => pdCore/src/main/jniLibs/armeabi/libpd.so
+* libs/armeabi/libpdnative.so => pdCore/src/main/jniLibs/armeabi/libpdnative.so
+* libs/armeabi/libpdnativeopensl.so => pdCore/src/main/jniLibs/armeabi/libpdnativeopensl.so
+* libs/armeabi/libpique.so => pdCore/src/main/jniLibs/armeabi/libpique.so
+* libs/armeabi/libsigmund_tilde.so => pdCore/src/main/jniLibs/armeabi/libsigmund_tilde.so
+* libs/x86/libbonk_tilde.so => pdCore/src/main/jniLibs/x86/libbonk_tilde.so
+* libs/x86/libchoice.so => pdCore/src/main/jniLibs/x86/libchoice.so
+* libs/x86/libexpr.so => pdCore/src/main/jniLibs/x86/libexpr.so
+* libs/x86/libexpr_tilde.so => pdCore/src/main/jniLibs/x86/libexpr_tilde.so
+* libs/x86/libfexpr_tilde.so => pdCore/src/main/jniLibs/x86/libfexpr_tilde.so
+* libs/x86/libfiddle_tilde.so => pdCore/src/main/jniLibs/x86/libfiddle_tilde.so
+* libs/x86/libloop_tilde.so => pdCore/src/main/jniLibs/x86/libloop_tilde.so
+* libs/x86/liblrshift_tilde.so => pdCore/src/main/jniLibs/x86/liblrshift_tilde.so
+* libs/x86/libpd.so => pdCore/src/main/jniLibs/x86/libpd.so
+* libs/x86/libpdnative.so => pdCore/src/main/jniLibs/x86/libpdnative.so
+* libs/x86/libpdnativeopensl.so => pdCore/src/main/jniLibs/x86/libpdnativeopensl.so
+* libs/x86/libpique.so => pdCore/src/main/jniLibs/x86/libpique.so
+* libs/x86/libsigmund_tilde.so => pdCore/src/main/jniLibs/x86/libsigmund_tilde.so
+* res/ => pdCore/src/main/res/
+* src/ => pdCore/src/main/java/
+In facebook:
+* AndroidManifest.xml => facebook/src/main/AndroidManifest.xml
+* assets/ => facebook/src/main/assets
+* lint.xml => facebook/lint.xml
+* res/ => facebook/src/main/res/
+* src/ => facebook/src/main/java/
+In TriangulationDevice:
+* AndroidManifest.xml => triangulationDevice/src/main/AndroidManifest.xml
+* assets/ => triangulationDevice/src/main/assets/
+* res/ => triangulationDevice/src/main/res/
+* src/ => triangulationDevice/src/main/java/
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/ => triangulationDevice/src/main/java/
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/.classpath => triangulationDevice/src/main/resources/.classpath
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/AndroidManifest.xml => triangulationDevice/src/main/resources/AndroidManifest.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/README.txt => triangulationDevice/src/main/resources/README.txt
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/libs/google-play-services.jar.properties => triangulationDevice/src/main/resources/libs/google-play-services.jar.properties
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/proguard.txt => triangulationDevice/src/main/resources/proguard.txt
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/project.properties => triangulationDevice/src/main/resources/project.properties
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/color/common_signin_btn_text_dark.xml => triangulationDevice/src/main/resources/res/color/common_signin_btn_text_dark.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/color/common_signin_btn_text_light.xml => triangulationDevice/src/main/resources/res/color/common_signin_btn_text_light.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/color/wallet_primary_text_holo_light.xml => triangulationDevice/src/main/resources/res/color/wallet_primary_text_holo_light.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/color/wallet_secondary_text_holo_dark.xml => triangulationDevice/src/main/resources/res/color/wallet_secondary_text_holo_dark.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/common_full_open_on_phone.png => triangulationDevice/src/main/resources/res/drawable-hdpi/common_full_open_on_phone.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/common_ic_googleplayservices.png => triangulationDevice/src/main/resources/res/drawable-hdpi/common_ic_googleplayservices.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/common_signin_btn_icon_disabled_dark.9.png => triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_icon_disabled_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/common_signin_btn_icon_disabled_focus_dark.9.png => triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_icon_disabled_focus_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/common_signin_btn_icon_disabled_focus_light.9.png => triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_icon_disabled_focus_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/common_signin_btn_icon_disabled_light.9.png => triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_icon_disabled_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/common_signin_btn_icon_focus_dark.9.png => triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_icon_focus_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/common_signin_btn_icon_focus_light.9.png => triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_icon_focus_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/common_signin_btn_icon_normal_dark.9.png => triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_icon_normal_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/common_signin_btn_icon_normal_light.9.png => triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_icon_normal_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/common_signin_btn_icon_pressed_dark.9.png => triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_icon_pressed_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/common_signin_btn_icon_pressed_light.9.png => triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_icon_pressed_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/common_signin_btn_text_disabled_dark.9.png => triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_text_disabled_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/common_signin_btn_text_disabled_focus_dark.9.png => triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_text_disabled_focus_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/common_signin_btn_text_disabled_focus_light.9.png => triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_text_disabled_focus_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/common_signin_btn_text_disabled_light.9.png => triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_text_disabled_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/common_signin_btn_text_focus_dark.9.png => triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_text_focus_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/common_signin_btn_text_focus_light.9.png => triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_text_focus_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/common_signin_btn_text_normal_dark.9.png => triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_text_normal_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/common_signin_btn_text_normal_light.9.png => triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_text_normal_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/common_signin_btn_text_pressed_dark.9.png => triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_text_pressed_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/common_signin_btn_text_pressed_light.9.png => triangulationDevice/src/main/resources/res/drawable-hdpi/common_signin_btn_text_pressed_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/ic_plusone_medium_off_client.png => triangulationDevice/src/main/resources/res/drawable-hdpi/ic_plusone_medium_off_client.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/ic_plusone_small_off_client.png => triangulationDevice/src/main/resources/res/drawable-hdpi/ic_plusone_small_off_client.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/ic_plusone_standard_off_client.png => triangulationDevice/src/main/resources/res/drawable-hdpi/ic_plusone_standard_off_client.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/ic_plusone_tall_off_client.png => triangulationDevice/src/main/resources/res/drawable-hdpi/ic_plusone_tall_off_client.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/powered_by_google_dark.png => triangulationDevice/src/main/resources/res/drawable-hdpi/powered_by_google_dark.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-hdpi/powered_by_google_light.png => triangulationDevice/src/main/resources/res/drawable-hdpi/powered_by_google_light.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-mdpi/common_full_open_on_phone.png => triangulationDevice/src/main/resources/res/drawable-mdpi/common_full_open_on_phone.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-mdpi/common_signin_btn_icon_disabled_dark.9.png => triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_icon_disabled_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-mdpi/common_signin_btn_icon_disabled_focus_dark.9.png => triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_icon_disabled_focus_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-mdpi/common_signin_btn_icon_disabled_focus_light.9.png => triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_icon_disabled_focus_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-mdpi/common_signin_btn_icon_disabled_light.9.png => triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_icon_disabled_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-mdpi/common_signin_btn_icon_focus_dark.9.png => triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_icon_focus_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-mdpi/common_signin_btn_icon_focus_light.9.png => triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_icon_focus_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-mdpi/common_signin_btn_icon_normal_dark.9.png => triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_icon_normal_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-mdpi/common_signin_btn_icon_normal_light.9.png => triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_icon_normal_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-mdpi/common_signin_btn_icon_pressed_dark.9.png => triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_icon_pressed_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-mdpi/common_signin_btn_icon_pressed_light.9.png => triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_icon_pressed_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-mdpi/common_signin_btn_text_disabled_dark.9.png => triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_text_disabled_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-mdpi/common_signin_btn_text_disabled_focus_dark.9.png => triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_text_disabled_focus_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-mdpi/common_signin_btn_text_disabled_focus_light.9.png => triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_text_disabled_focus_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-mdpi/common_signin_btn_text_disabled_light.9.png => triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_text_disabled_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-mdpi/common_signin_btn_text_focus_dark.9.png => triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_text_focus_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-mdpi/common_signin_btn_text_focus_light.9.png => triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_text_focus_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-mdpi/common_signin_btn_text_normal_dark.9.png => triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_text_normal_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-mdpi/common_signin_btn_text_normal_light.9.png => triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_text_normal_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-mdpi/common_signin_btn_text_pressed_dark.9.png => triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_text_pressed_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-mdpi/common_signin_btn_text_pressed_light.9.png => triangulationDevice/src/main/resources/res/drawable-mdpi/common_signin_btn_text_pressed_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-mdpi/ic_plusone_medium_off_client.png => triangulationDevice/src/main/resources/res/drawable-mdpi/ic_plusone_medium_off_client.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-mdpi/ic_plusone_small_off_client.png => triangulationDevice/src/main/resources/res/drawable-mdpi/ic_plusone_small_off_client.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-mdpi/ic_plusone_standard_off_client.png => triangulationDevice/src/main/resources/res/drawable-mdpi/ic_plusone_standard_off_client.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-mdpi/ic_plusone_tall_off_client.png => triangulationDevice/src/main/resources/res/drawable-mdpi/ic_plusone_tall_off_client.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-mdpi/powered_by_google_dark.png => triangulationDevice/src/main/resources/res/drawable-mdpi/powered_by_google_dark.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-mdpi/powered_by_google_light.png => triangulationDevice/src/main/resources/res/drawable-mdpi/powered_by_google_light.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-tvdpi/common_full_open_on_phone.png => triangulationDevice/src/main/resources/res/drawable-tvdpi/common_full_open_on_phone.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-tvdpi/ic_plusone_medium_off_client.png => triangulationDevice/src/main/resources/res/drawable-tvdpi/ic_plusone_medium_off_client.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-tvdpi/ic_plusone_small_off_client.png => triangulationDevice/src/main/resources/res/drawable-tvdpi/ic_plusone_small_off_client.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-tvdpi/ic_plusone_standard_off_client.png => triangulationDevice/src/main/resources/res/drawable-tvdpi/ic_plusone_standard_off_client.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-tvdpi/ic_plusone_tall_off_client.png => triangulationDevice/src/main/resources/res/drawable-tvdpi/ic_plusone_tall_off_client.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xhdpi/common_full_open_on_phone.png => triangulationDevice/src/main/resources/res/drawable-xhdpi/common_full_open_on_phone.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xhdpi/common_signin_btn_icon_disabled_dark.9.png => triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_icon_disabled_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xhdpi/common_signin_btn_icon_disabled_focus_dark.9.png => triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_icon_disabled_focus_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xhdpi/common_signin_btn_icon_disabled_focus_light.9.png => triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_icon_disabled_focus_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xhdpi/common_signin_btn_icon_disabled_light.9.png => triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_icon_disabled_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xhdpi/common_signin_btn_icon_focus_dark.9.png => triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_icon_focus_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xhdpi/common_signin_btn_icon_focus_light.9.png => triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_icon_focus_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xhdpi/common_signin_btn_icon_normal_dark.9.png => triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_icon_normal_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xhdpi/common_signin_btn_icon_normal_light.9.png => triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_icon_normal_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xhdpi/common_signin_btn_icon_pressed_dark.9.png => triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_icon_pressed_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xhdpi/common_signin_btn_icon_pressed_light.9.png => triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_icon_pressed_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xhdpi/common_signin_btn_text_disabled_dark.9.png => triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_text_disabled_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xhdpi/common_signin_btn_text_disabled_focus_dark.9.png => triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_text_disabled_focus_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xhdpi/common_signin_btn_text_disabled_focus_light.9.png => triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_text_disabled_focus_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xhdpi/common_signin_btn_text_disabled_light.9.png => triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_text_disabled_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xhdpi/common_signin_btn_text_focus_dark.9.png => triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_text_focus_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xhdpi/common_signin_btn_text_focus_light.9.png => triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_text_focus_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xhdpi/common_signin_btn_text_normal_dark.9.png => triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_text_normal_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xhdpi/common_signin_btn_text_normal_light.9.png => triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_text_normal_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xhdpi/common_signin_btn_text_pressed_dark.9.png => triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_text_pressed_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xhdpi/common_signin_btn_text_pressed_light.9.png => triangulationDevice/src/main/resources/res/drawable-xhdpi/common_signin_btn_text_pressed_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xhdpi/ic_plusone_medium_off_client.png => triangulationDevice/src/main/resources/res/drawable-xhdpi/ic_plusone_medium_off_client.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xhdpi/ic_plusone_small_off_client.png => triangulationDevice/src/main/resources/res/drawable-xhdpi/ic_plusone_small_off_client.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xhdpi/ic_plusone_standard_off_client.png => triangulationDevice/src/main/resources/res/drawable-xhdpi/ic_plusone_standard_off_client.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xhdpi/ic_plusone_tall_off_client.png => triangulationDevice/src/main/resources/res/drawable-xhdpi/ic_plusone_tall_off_client.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xhdpi/powered_by_google_dark.png => triangulationDevice/src/main/resources/res/drawable-xhdpi/powered_by_google_dark.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xhdpi/powered_by_google_light.png => triangulationDevice/src/main/resources/res/drawable-xhdpi/powered_by_google_light.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xxhdpi/common_full_open_on_phone.png => triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_full_open_on_phone.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xxhdpi/common_signin_btn_icon_disabled_dark.9.png => triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_icon_disabled_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xxhdpi/common_signin_btn_icon_disabled_focus_dark.9.png => triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_icon_disabled_focus_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xxhdpi/common_signin_btn_icon_disabled_focus_light.9.png => triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_icon_disabled_focus_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xxhdpi/common_signin_btn_icon_disabled_light.9.png => triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_icon_disabled_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xxhdpi/common_signin_btn_icon_focus_dark.9.png => triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_icon_focus_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xxhdpi/common_signin_btn_icon_focus_light.9.png => triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_icon_focus_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xxhdpi/common_signin_btn_icon_normal_dark.9.png => triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_icon_normal_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xxhdpi/common_signin_btn_icon_normal_light.9.png => triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_icon_normal_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xxhdpi/common_signin_btn_icon_pressed_dark.9.png => triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_icon_pressed_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xxhdpi/common_signin_btn_icon_pressed_light.9.png => triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_icon_pressed_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xxhdpi/common_signin_btn_text_disabled_dark.9.png => triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_text_disabled_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xxhdpi/common_signin_btn_text_disabled_focus_dark.9.png => triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_text_disabled_focus_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xxhdpi/common_signin_btn_text_disabled_focus_light.9.png => triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_text_disabled_focus_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xxhdpi/common_signin_btn_text_disabled_light.9.png => triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_text_disabled_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xxhdpi/common_signin_btn_text_focus_dark.9.png => triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_text_focus_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xxhdpi/common_signin_btn_text_focus_light.9.png => triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_text_focus_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xxhdpi/common_signin_btn_text_normal_dark.9.png => triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_text_normal_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xxhdpi/common_signin_btn_text_normal_light.9.png => triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_text_normal_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xxhdpi/common_signin_btn_text_pressed_dark.9.png => triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_text_pressed_dark.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xxhdpi/common_signin_btn_text_pressed_light.9.png => triangulationDevice/src/main/resources/res/drawable-xxhdpi/common_signin_btn_text_pressed_light.9.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xxhdpi/ic_plusone_medium_off_client.png => triangulationDevice/src/main/resources/res/drawable-xxhdpi/ic_plusone_medium_off_client.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xxhdpi/ic_plusone_small_off_client.png => triangulationDevice/src/main/resources/res/drawable-xxhdpi/ic_plusone_small_off_client.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xxhdpi/ic_plusone_standard_off_client.png => triangulationDevice/src/main/resources/res/drawable-xxhdpi/ic_plusone_standard_off_client.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xxhdpi/ic_plusone_tall_off_client.png => triangulationDevice/src/main/resources/res/drawable-xxhdpi/ic_plusone_tall_off_client.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xxhdpi/powered_by_google_dark.png => triangulationDevice/src/main/resources/res/drawable-xxhdpi/powered_by_google_dark.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable-xxhdpi/powered_by_google_light.png => triangulationDevice/src/main/resources/res/drawable-xxhdpi/powered_by_google_light.png
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable/common_signin_btn_icon_dark.xml => triangulationDevice/src/main/resources/res/drawable/common_signin_btn_icon_dark.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable/common_signin_btn_icon_light.xml => triangulationDevice/src/main/resources/res/drawable/common_signin_btn_icon_light.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable/common_signin_btn_text_dark.xml => triangulationDevice/src/main/resources/res/drawable/common_signin_btn_text_dark.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/drawable/common_signin_btn_text_light.xml => triangulationDevice/src/main/resources/res/drawable/common_signin_btn_text_light.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/raw/gtm_analytics => triangulationDevice/src/main/resources/res/raw/gtm_analytics
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-af/common_strings.xml => triangulationDevice/src/main/resources/res/values-af/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-am/common_strings.xml => triangulationDevice/src/main/resources/res/values-am/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-ar/common_strings.xml => triangulationDevice/src/main/resources/res/values-ar/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-bg/common_strings.xml => triangulationDevice/src/main/resources/res/values-bg/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-bn-rBD/common_strings.xml => triangulationDevice/src/main/resources/res/values-bn-rBD/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-ca/common_strings.xml => triangulationDevice/src/main/resources/res/values-ca/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-cs/common_strings.xml => triangulationDevice/src/main/resources/res/values-cs/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-da/common_strings.xml => triangulationDevice/src/main/resources/res/values-da/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-de/common_strings.xml => triangulationDevice/src/main/resources/res/values-de/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-el/common_strings.xml => triangulationDevice/src/main/resources/res/values-el/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-en-rGB/common_strings.xml => triangulationDevice/src/main/resources/res/values-en-rGB/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-en-rIN/common_strings.xml => triangulationDevice/src/main/resources/res/values-en-rIN/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-es-rUS/common_strings.xml => triangulationDevice/src/main/resources/res/values-es-rUS/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-es/common_strings.xml => triangulationDevice/src/main/resources/res/values-es/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-es/wallet_strings.xml => triangulationDevice/src/main/resources/res/values-es/wallet_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-et-rEE/common_strings.xml => triangulationDevice/src/main/resources/res/values-et-rEE/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-eu-rES/common_strings.xml => triangulationDevice/src/main/resources/res/values-eu-rES/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-fa/common_strings.xml => triangulationDevice/src/main/resources/res/values-fa/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-fi/common_strings.xml => triangulationDevice/src/main/resources/res/values-fi/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-fr-rCA/common_strings.xml => triangulationDevice/src/main/resources/res/values-fr-rCA/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-fr/common_strings.xml => triangulationDevice/src/main/resources/res/values-fr/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-gl-rES/common_strings.xml => triangulationDevice/src/main/resources/res/values-gl-rES/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-hi/common_strings.xml => triangulationDevice/src/main/resources/res/values-hi/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-hr/common_strings.xml => triangulationDevice/src/main/resources/res/values-hr/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-hu/common_strings.xml => triangulationDevice/src/main/resources/res/values-hu/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-hy-rAM/common_strings.xml => triangulationDevice/src/main/resources/res/values-hy-rAM/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-in/common_strings.xml => triangulationDevice/src/main/resources/res/values-in/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-is-rIS/common_strings.xml => triangulationDevice/src/main/resources/res/values-is-rIS/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-it/common_strings.xml => triangulationDevice/src/main/resources/res/values-it/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-iw/common_strings.xml => triangulationDevice/src/main/resources/res/values-iw/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-ja/common_strings.xml => triangulationDevice/src/main/resources/res/values-ja/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-ka-rGE/common_strings.xml => triangulationDevice/src/main/resources/res/values-ka-rGE/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-kk-rKZ/common_strings.xml => triangulationDevice/src/main/resources/res/values-kk-rKZ/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-km-rKH/common_strings.xml => triangulationDevice/src/main/resources/res/values-km-rKH/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-kn-rIN/common_strings.xml => triangulationDevice/src/main/resources/res/values-kn-rIN/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-ko/common_strings.xml => triangulationDevice/src/main/resources/res/values-ko/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-ky-rKG/common_strings.xml => triangulationDevice/src/main/resources/res/values-ky-rKG/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-lo-rLA/common_strings.xml => triangulationDevice/src/main/resources/res/values-lo-rLA/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-lt/common_strings.xml => triangulationDevice/src/main/resources/res/values-lt/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-lv/common_strings.xml => triangulationDevice/src/main/resources/res/values-lv/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-mk-rMK/common_strings.xml => triangulationDevice/src/main/resources/res/values-mk-rMK/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-ml-rIN/common_strings.xml => triangulationDevice/src/main/resources/res/values-ml-rIN/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-mn-rMN/common_strings.xml => triangulationDevice/src/main/resources/res/values-mn-rMN/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-mr-rIN/common_strings.xml => triangulationDevice/src/main/resources/res/values-mr-rIN/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-ms-rMY/common_strings.xml => triangulationDevice/src/main/resources/res/values-ms-rMY/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-my-rMM/common_strings.xml => triangulationDevice/src/main/resources/res/values-my-rMM/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-nb/common_strings.xml => triangulationDevice/src/main/resources/res/values-nb/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-ne-rNP/common_strings.xml => triangulationDevice/src/main/resources/res/values-ne-rNP/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-nl/common_strings.xml => triangulationDevice/src/main/resources/res/values-nl/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-pl/common_strings.xml => triangulationDevice/src/main/resources/res/values-pl/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-pt-rBR/common_strings.xml => triangulationDevice/src/main/resources/res/values-pt-rBR/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-pt-rPT/common_strings.xml => triangulationDevice/src/main/resources/res/values-pt-rPT/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-pt/common_strings.xml => triangulationDevice/src/main/resources/res/values-pt/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-ro/common_strings.xml => triangulationDevice/src/main/resources/res/values-ro/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-ru/common_strings.xml => triangulationDevice/src/main/resources/res/values-ru/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-si-rLK/common_strings.xml => triangulationDevice/src/main/resources/res/values-si-rLK/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-sk/common_strings.xml => triangulationDevice/src/main/resources/res/values-sk/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-sl/common_strings.xml => triangulationDevice/src/main/resources/res/values-sl/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-sr/common_strings.xml => triangulationDevice/src/main/resources/res/values-sr/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-sv/common_strings.xml => triangulationDevice/src/main/resources/res/values-sv/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-sw/common_strings.xml => triangulationDevice/src/main/resources/res/values-sw/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-ta-rIN/common_strings.xml => triangulationDevice/src/main/resources/res/values-ta-rIN/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-te-rIN/common_strings.xml => triangulationDevice/src/main/resources/res/values-te-rIN/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-th/common_strings.xml => triangulationDevice/src/main/resources/res/values-th/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-tl/common_strings.xml => triangulationDevice/src/main/resources/res/values-tl/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-tr/common_strings.xml => triangulationDevice/src/main/resources/res/values-tr/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-uk/common_strings.xml => triangulationDevice/src/main/resources/res/values-uk/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-ur-rPK/common_strings.xml => triangulationDevice/src/main/resources/res/values-ur-rPK/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-uz-rUZ/common_strings.xml => triangulationDevice/src/main/resources/res/values-uz-rUZ/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-vi/common_strings.xml => triangulationDevice/src/main/resources/res/values-vi/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-zh-rCN/common_strings.xml => triangulationDevice/src/main/resources/res/values-zh-rCN/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-zh-rHK/common_strings.xml => triangulationDevice/src/main/resources/res/values-zh-rHK/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-zh-rTW/common_strings.xml => triangulationDevice/src/main/resources/res/values-zh-rTW/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values-zu/common_strings.xml => triangulationDevice/src/main/resources/res/values-zu/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values/admob_ads_attrs.xml => triangulationDevice/src/main/resources/res/values/admob_ads_attrs.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values/admob_iap_style.xml => triangulationDevice/src/main/resources/res/values/admob_iap_style.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values/admob_strings.xml => triangulationDevice/src/main/resources/res/values/admob_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values/common_attrs.xml => triangulationDevice/src/main/resources/res/values/common_attrs.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values/common_colors.xml => triangulationDevice/src/main/resources/res/values/common_colors.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values/common_strings.xml => triangulationDevice/src/main/resources/res/values/common_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values/maps_attrs.xml => triangulationDevice/src/main/resources/res/values/maps_attrs.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values/version.xml => triangulationDevice/src/main/resources/res/values/version.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values/wallet_attrs.xml => triangulationDevice/src/main/resources/res/values/wallet_attrs.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values/wallet_colors.xml => triangulationDevice/src/main/resources/res/values/wallet_colors.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values/wallet_strings.xml => triangulationDevice/src/main/resources/res/values/wallet_strings.xml
+* /Users/chris/android-sdks/extras/google/google_play_services/libproject/google-play-services_lib/res/values/wallet_styles.xml => triangulationDevice/src/main/resources/res/values/wallet_styles.xml
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)
