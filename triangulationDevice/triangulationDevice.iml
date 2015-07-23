@@ -151,5 +151,7 @@
     <orderEntry type="library" exported="" name="play-services-ads-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="okio-1.4.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-location-7.5.0" level="project" />
+    <orderEntry type="module" module-name="AndroidMidi" exported="" />
+    <orderEntry type="module" module-name="PdCore" exported="" />
   </component>
 </module>

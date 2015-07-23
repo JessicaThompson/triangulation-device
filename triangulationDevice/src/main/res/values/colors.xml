@@ -5,6 +5,7 @@
     
     <!-- MAIN THEME -->
     <color name="main_background">#233861</color>
+    <color name="translucent_background">#99233861</color>
     <color name="main_primary">#08193B</color>
     <color name="main_primary_dark">#000000</color>
     <color name="main_button">#479F4B</color>

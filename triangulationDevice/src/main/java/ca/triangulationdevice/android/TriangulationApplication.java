@@ -5,15 +5,23 @@ import android.graphics.drawable.Drawable;
 
 import com.mapbox.mapboxsdk.geometry.LatLng;
 
+import java.net.UnknownHostException;
+
 import ca.triangulationdevice.android.model.User;
 import ca.triangulationdevice.android.model.UserManager;
 
 public class TriangulationApplication extends Application {
-    public UserManager userManager = new UserManager();
+    public UserManager userManager;
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+        try {
+            userManager = new UserManager();
+        } catch (UnknownHostException ex) {
+            // TODO someting.
+        }
 
         LatLng ryanPos = new LatLng(43.454748, -80.549960);
         Drawable ryanDrawable = getResources().getDrawable(R.drawable.gosling);

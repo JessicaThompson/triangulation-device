@@ -2,6 +2,7 @@ package ca.triangulationdevice.android.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,5 +32,9 @@ public class ProfileActivity extends TriangulationActivity {
         descriptionView.setText(user.description);
         locationView.setText(user.location);
         profileImage.setImageDrawable(user.picture);
+    }
+
+    public void connect(View v) {
+        startActivity(new Intent(this, RecordWalkActivity.class));
     }
 }

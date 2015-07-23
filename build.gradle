@@ -12,5 +12,8 @@ allprojects {
     repositories {
         jcenter()
         mavenCentral()
+        maven {
+            url 'http://repo.hive2hive.org'
+        }
     }
 }

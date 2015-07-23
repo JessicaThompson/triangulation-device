@@ -131,6 +131,7 @@
             android:layout_gravity="center"
             android:textAllCaps="false"
             android:layout_marginTop="16dp"
-            android:text="@string/connect" />
+            android:text="@string/connect"
+            android:onClick="connect" />
     </LinearLayout>
 </LinearLayout>

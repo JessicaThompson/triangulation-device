@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+    <com.mapbox.mapboxsdk.views.MapView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        mapbox:mapid="@string/mapbox_map_id"
+        mapbox:accessToken="@string/mapbox_map_token" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/translucent_background"/>
+    <ca.triangulationdevice.android.ui.views.OvalsView
+        android:id="@+id/circles"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <TextView
+        android:id="@+id/control"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="12dp"
+        android:drawableTop="@drawable/record"
+        android:drawablePadding="4dp"
+        android:textColor="#FFFFFF"
+        android:text="REC"
+        android:onClick="toggleRec"/>
+</FrameLayout>

@@ -39,5 +39,6 @@
         android:layout_width="115dp"
         android:layout_height="48dp"
         android:textAllCaps="false"
-        android:text="@string/connect" />
+        android:text="@string/connect"
+        android:onClick="connect"/>
 </LinearLayout>
