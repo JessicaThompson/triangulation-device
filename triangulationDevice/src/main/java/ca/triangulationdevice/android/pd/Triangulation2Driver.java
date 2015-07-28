@@ -15,7 +15,7 @@ public class Triangulation2Driver extends PDDriver {
     private Location myLocation;
     private Location theirLocation;
 
-    private static final String FILENAME = "triangulationdevice_interfacetest_Jul20.pd";
+    private static final String FILENAME = "triangulationdevice_interfacetest_Jul27_v3.pd";
 
     public Triangulation2Driver(Context context) throws IOException {
         super(context, FILENAME);
@@ -50,11 +50,12 @@ public class Triangulation2Driver extends PDDriver {
      */
     public void myLocationChanged(Location location) {
         this.myLocation = location;
-        this.myHMS = getHMS(this.myLocation);
 
-        for (HashMap.Entry<String, Float> entry : this.myHMS.entrySet()) {
-            this.sendFloat(entry.getKey(), entry.getValue());
-//             Log.d(TAG, entry.getKey() + ": " + entry.getValue());
-        }
+        this.sendFloat("androidlongs", getSeconds(this.myLocation.getLongitude()));
+        this.sendFloat("androidlats", getSeconds(this.myLocation.getLatitude()));
+    }
+
+    private float getSeconds(double tude) {
+        return (float) (((tude % 1) * 60) % 1) * 60;
     }
 }

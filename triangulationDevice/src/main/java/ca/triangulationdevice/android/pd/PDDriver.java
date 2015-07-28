@@ -30,7 +30,7 @@ public abstract class PDDriver {
     private static final String TAG = "PDDriver";
     private final String filename;
 
-    private static final int IN_CHANNELS = 1;
+    private static final int IN_CHANNELS = 0;
     private static final int OUT_CHANNELS = 2;
     private static final float BUFFER_SIZE = 10;
 

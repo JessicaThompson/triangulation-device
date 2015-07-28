@@ -1,17 +1,19 @@
 package ca.triangulationdevice.android.ui.partial;
 
 import android.app.Activity;
+import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
 import ca.triangulationdevice.android.R;
 import ca.triangulationdevice.android.TriangulationApplication;
 
 /**
  * An {@link Activity} which controls the action bar menu stuff for us.
  */
-public abstract class TriangulationActivity extends Activity {
+public abstract class TriangulationListActivity extends ListActivity {
 
     protected TriangulationApplication application;
 

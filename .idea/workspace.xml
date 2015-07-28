@@ -17,685 +17,42 @@
     </layouts>
   </component>
   <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="Recording" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eb5eb80f-5726-4d0d-b736-5384ac837978" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/RecordWalkActivity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/res/layout/save_dialog.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/views/BezierCirclesView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AndroidMidi/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AndroidMidi/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AndroidMidi/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AndroidMidi/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AndroidMidi/.idea/runConfigurations.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/res/layout/circles.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AndroidMidi/AndroidMidi.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/views/OvalsView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/dialog/SaveRecordingDialogFragment.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AndroidMidi/.idea/compiler.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/res/drawable/stop.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AndroidMidi/.idea/gradle.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdCore/PdCore.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AndroidMidi/.idea/copyright/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/res/drawable/record.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/iosTest/iosTest/iosTest-Info.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/CHANGELOG.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/pique/GNUmakefile.am" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/rev1-stage.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/m_class.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/s_utf8.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/x86/libpdnativeopensl.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/x_net.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/com/noisepages/nettoyeur/libpd/sample/JavaSoundThread.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/midi/util/SystemMessageDecoder.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/g_array.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/python/bloopy.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/objc/PdAudioUnit.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/g_numbox.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/s_stuff.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/midi/MidiReceiver.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/choice/GNUmakefile.am" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/d_arithmetic.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/x86/libloop_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/g_template.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/d_arithmetic.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/g_graph.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/csharptests/LibPDBindingTest.csproj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/cpp/PdMidiReceiver.hpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/g_canvas.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/x_arithmetic.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/bluetooth/BluetoothDisabledException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/python/funtest.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/python/setup.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/stdout/stdout.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/csharp/Native/LibPDNativeMessaging.cs" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/usb/UsbBroadcastHandler.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/s_utf8.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/.project" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/res/xml/preferences.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/g_template.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/cppTest/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/.gitmodules" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/s_inter.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/java/org/puredata/core/PdListener.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/x86/libpique.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/g_canvas.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/libpd.xcodeproj/xcshareddata/xcschemes/libpd-ios.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/java/org/puredata/core/PdBase.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/objc/PdMidiDispatcher.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/choice/choice-help.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/jni/z_jni_opensl.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/libpd_wrapper/z_libpd.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/m_memory.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/armeabi-v7a/libpdnative.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/objc/AudioHelpers.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/cppTest/src/PdObject.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/c_samples/c/test.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/python/funtest.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/libpd_wrapper/z_hooks.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/x86/libbonk_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/iosTest/iosTest/AppDelegate.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/csharptests/LibPDTests.cs" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/AndroidManifest.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/armeabi/libpdnativeopensl.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/src/org/puredata/android/io/VersionedAudioFormat.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/bluetooth/BluetoothSppObserver.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/g_vdial.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/d_ugen.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/x86/libexpr_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/midi/util/SystemMessageReceiver.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/d_fftsg_h.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/x86/libsigmund_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/jni/z_jni.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/iosTest/iosTest/iosTest-Prefix.pch" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/m_binbuf.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/Application.mk" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/libpd_wrapper/z_libpd.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/midi/ToWireConverter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/libpd.xcodeproj/project.pbxproj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/jni/z_jni_plain.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/d_fftsg_h.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/s_audio.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/csharp/Native/LibPDNativeMidi.cs" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/csharptests/LibPDBindingTest.csproj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/objc/AudioHelpers.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/libs/asm-3.3.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/expr-help.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/scripts/update_vanilla.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/armeabi/libpique.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/armeabi-v7a/libbonk_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/armeabi-v7a/libexpr_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/iosTest/iosTest/Default.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/libpd_wrapper/util/ringbuffer.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/cppTest/src/PdObject.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/java/org/puredata/core/PdReceiver.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/README.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/armeabi/libexpr_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/libs/cglib-2.2.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/armeabi-v7a/libfexpr_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/src/org/puredata/android/midi/MidiToPdAdapter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/m_obj.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/x_misc.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/cppTest/pd/test_abs.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/iosTest/iosTest/ViewController.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/libs/asm-3.3.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/cpp/PdBase.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/java/org/puredata/android/io/VersionedAudioFormat.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/x86/libfexpr_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/dist/libpd.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/d_osc.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/s_main.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/cppTest/pd/test_abs.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/src/org/puredata/android/io/PdAudio.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/javatests/org/puredata/core/PdBaseTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/cpp/PdMidiReceiver.hpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/cppTest/src/PdObject.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/libpd_wrapper/util/z_print_util.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/java/org/puredata/core/PdMidiReceiver.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/csharp/Properties/AssemblyInfo.cs" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/armeabi/liblrshift_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/jni/z_jni_opensl.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/java/org/puredata/android/midi/PdToMidiAdapter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/java/org/puredata/core/PdMidiListener.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/iosTest/iosTest/en.lproj/InfoPlist.strings" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/cppTest/src/main.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/java/org/puredata/core/utils/IoUtils.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/armeabi-v7a/libchoice.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/CHANGELOG.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/g_mycanvas.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/x_list.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/armeabi-v7a/liblrshift_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/armeabi/libsigmund_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/x86/libpdnative.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/choice/GNUmakefile.am" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/d_fft_mayer.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/cppTest/src/main.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/usb/ConnectionFailedException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/d_resample.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/jni/z_jni_plain.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/g_text.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/g_hslider.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/x_time.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/complex-mod~.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/x_text.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/d_misc.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/d_delay.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/csharp/Native/LibPDNativeMethods.cs" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/choice/choice.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/src/org/puredata/android/service/PdPreferences.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/objc/PdAudioUnit.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/java/org/puredata/android/service/PdPreferences.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/m_pd.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/g_editor.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/jni/z_jni.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/m_glob.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/x_scalar.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/iosTest/iosTest/main.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/objc/PdBase.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/mingw_build.bat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/iosTest/iosTest/Default-568h@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/bluetooth/BluetoothSppConnection.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/s_file.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/com/noisepages/nettoyeur/libpd/sample/JavaSoundThread.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/hilbert~-help.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/rev3~.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/midi/util/SystemMessageEncoder.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/iosTest/iosTest/Default@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/pique/pique.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/java/org/puredata/core/PdListener.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/objc/PdAudioController.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/python/Makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/x_list.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/d_array.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/cppTest/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/Makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/c_samples/c/Makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/README.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/cppTest/cppTest.xcodeproj/project.xcworkspace/xcshareddata/cppTest.xccheckout" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/Android.mk" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/x_acoustics.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/complex-mod~-help.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/java/org/puredata/core/utils/PdDispatcher.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/javatests/org/puredata/core/utils/PdDispatcherTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/s_print.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/cppTest/src/PdObject.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/objc/PdDispatcher.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/g_mycanvas.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/libs/objenesis-1.2.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/armeabi/libexpr_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/d_fft_mayer.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/objc/PdMidiDispatcher.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/res/raw/extra_abs.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/armeabi/libsigmund_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/res/raw/silence.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/java/org/puredata/android/service/PdService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/d_soundfile.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/x_scalar.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/libs/pthreadGC2.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/csharptests/test_csharp.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/res/values/audio.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/x86/libpique.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/armeabi-v7a/libsigmund_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/stdout/stdout.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/java/org/puredata/core/NativeLoader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/cpp/PdReceiver.hpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/rev3~-help.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/libpd_win.sln" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/usb/util/AsyncDeviceInfoLookup.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/LICENSE.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/stdout/makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/armeabi-v7a/libchoice.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/rev1~.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/g_vslider.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/rev1-final.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/iosTest/iosTest/main.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/s_loader.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/.classpath" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/bluetooth/BluetoothNotConnectedException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/cpp/LICENSE.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/d_fft.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/iosTest/iosTest/en.lproj/InfoPlist.strings" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/x_interface.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/choice/choice-help.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/s_inter.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/hilbert~.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/java/org/puredata/android/io/AudioRecordWrapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/armeabi-v7a/libpd.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/iosTest/pd/abs/test_abs.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/csharp/LibPDBinding.csproj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/g_hdial.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/objc/PdAudioUnit.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/java/org/puredata/core/utils/PdDispatcher.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/python/setup.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/cppTest/cppTest.xcodeproj/project.pbxproj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/makefile.subdir" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/iosTest/iosTest/AppDelegate.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/cppTest/test.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/usb/midi/UsbMidiDevice.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/README.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/Application.mk" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/cppTest/Makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/armeabi/libpique.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/com/noisepages/nettoyeur/libpd/sample/test.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/x86/libpdnativeopensl.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/c_samples/c/Makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/libs/objenesis-1.2.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/x_text.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/csharp/Native/LibPDNativeMessaging.cs" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/cppTest/cppTest.xcodeproj/project.xcworkspace/contents.xcworkspacedata" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/java/org/puredata/core/PdMidiListener.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/g_text.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/armeabi/libexpr.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/d_dac.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/iosTest/pd/test.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/x86/libfiddle_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/csharptests/LibPDTests.cs" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/java/org/puredata/core/PdReceiver.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/d_ugen.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/objc/AudioHelpers.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/stdout/stdout-help.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/.gitmodules" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/rev1-stage.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/python/pylibpd.i" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/stdout/stdout-help.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/armeabi/libfexpr_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/python/filter.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/m_sched.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/.project" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/armeabi-v7a/libfexpr_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/res/drawable/din5.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/iosTest/iosTest/AppDelegate.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/libpd_wrapper/util/z_queued.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/res/layout/device_list.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/x86/libpd.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/cppTest/Project.xcconfig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/stdout/GNUmakefile.am" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/libpd_wrapper/z_hooks.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/pdCore.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/javatests/org/puredata/core/test_java.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/README.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/python/pygame_fun_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/armeabi-v7a/libexpr.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/x_midi.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/g_editor.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/src/org/puredata/android/io/AudioWrapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/g_canvas.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/m_binbuf.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/d_global.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/c_samples/c/pdtest.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/cppTest/cppTest-Info.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/makefile.subdir" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/pique/makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/Makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/s_utf8.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/armeabi/libchoice.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/x_gui.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/androidMidi.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/iosTest/iosTest/en.lproj/ViewController.xib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/d_array.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/cpp/PdBase.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/g_numbox.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/java/org/puredata/core/PdMidiReceiver.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/libpd_wrapper/s_libpdmidi.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/java/org/puredata/android/io/AudioParameters.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/armeabi/libfiddle_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/armeabi-v7a/libloop_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/iosTest/pd/abs/test_abs.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/custom_rules.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/objc/PdAudioController.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/g_guiconnect.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/usb/util/UsbDeviceSelector.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/libpd_wrapper/util/z_print_util.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/res/values/audio.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/g_vslider.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/res/xml/preferences.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/armeabi/libpdnativeopensl.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/.project" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/jni/z_jni_shared.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/armeabi/libexpr.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/m_pd.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/AndroidManifest.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/d_misc.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/rev1-final.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/bluetooth/BluetoothUnavailableException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/objc/AudioHelpers.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/cpp/PdTypes.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/armeabi-v7a/libfiddle_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/iosTest/iosTest/en.lproj/ViewController.xib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/g_all_guis.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/csharp/LibPDBinding.csproj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/iosTest/iosTest/iosTest-Info.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/g_rtext.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/res/drawable/icon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/g_scalar.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/s_loader.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/x86/libpd.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/x86/libsigmund_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/java/org/puredata/android/utils/Properties.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/Makefile.am" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/s_audio.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/g_hslider.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/python/test.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/libpd_wrapper/z_libpd.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/g_toggle.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/objc/PdBase.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/common/RawByteReceiver.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/complex-mod~.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/d_fft.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/python/lop.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/src/org/puredata/android/midi/PdToMidiAdapter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/armeabi/liblrshift_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/bluetooth/util/DeviceListActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/armeabi-v7a/libpd.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/g_all_guis.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/src/org/puredata/android/utils/Properties.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/bluetooth/util/BluetoothDeviceSelector.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/m_atom.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/Android.mk" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/d_ctl.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/m_sched.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/iosTest/iosTest/ViewController.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/libs/easymock-3.0.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/usb/UsbException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/objc/PdDispatcher.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/python/pylibpd.i" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/armeabi/libchoice.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/libs/easymock-3.0.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/com/noisepages/nettoyeur/libpd/sample/test.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/cpp/LICENSE.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/m_imp.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/libpd_wrapper/z_hooks.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/x_misc.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/x_connective.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/CHANGES.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/iosTest/iosTest/Default-568h@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/cpp/PdReceiver.hpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/d_osc.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/choice/makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/g_io.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/Makefile.am" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/d_math.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/usb/DeviceNotConnectedException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/java/org/puredata/core/utils/IoUtils.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/rev2~.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/res/values/strings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/hilbert~.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/g_traversal.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/armeabi-v7a/libfiddle_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/objc/PdFile.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/java/org/puredata/core/PdMidiReceiver.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/java/org/puredata/android/io/PdAudio.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/armeabi/libpd.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/hilbert~-help.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/libs/cglib-2.2.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/m_pd.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/s_utf8.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/cpp/PdBase.hpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/g_rtext.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/pique/pique.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/res/layout/device_name.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/src/org/puredata/android/io/AudioRecordWrapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/x86/libfiddle_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/libpd_wrapper/util/z_print_util.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/s_file.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/python/echo.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/armeabi/libpdnative.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/cppTest/test.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/x_array.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/python/echo.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/s_path.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/src/org/puredata/android/service/PdService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/iosTest/iosTest.xcodeproj/project.pbxproj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/python/echo.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/objc/PdMidiDispatcher.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/objc/PdBase.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/d_math.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/python/echo.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/libpd_wrapper/util/ringbuffer.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/res/values/styles.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/expr-help.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/rev3~.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/d_fftroutine.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/bluetooth/midi/BluetoothMidiDevice.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/pique/makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/jni/z_jni_shared.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/g_all_guis.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/cpp/PdBase.hpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/objc/PdFile.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/csharp/Native/LibPDNativeMidi.cs" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/LICENSE.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/midi/FromWireConverter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/g_readwrite.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/x86/libexpr.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/csharp/Native/LibPDNativeMethods.cs" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/x86/libchoice.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/armeabi/libloop_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/usb/midi/util/UsbMidiOutputSelector.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/d_ctl.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/res/values/strings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/LICENSE.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/g_bang.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/x_connective.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/g_guiconnect.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/m_memory.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/x86/libbonk_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/project.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/x_net.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/iosTest/iosTest/AppDelegate.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/d_dac.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/ant.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/cppTest/cppTest.xcodeproj/project.pbxproj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/cpp/PdTypes.hpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/d_filter.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/java/org/puredata/core/PdBase.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/java/org/puredata/core/PdReceiver.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/python/bloopy.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/src/org/puredata/android/utils/PdUiDispatcher.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/m_imp.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/g_hdial.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/x_time.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/m_glob.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/objc/PdAudioController.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/g_vdial.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/Makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/g_bang.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/cpp/PdTypes.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/x86/libexpr_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/com/noisepages/nettoyeur/libpd/sample/JavaSoundSample.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/m_class.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/armeabi-v7a/libpdnativeopensl.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/csharptests/test_csharp.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/s_audio_dummy.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/iosTest/iosTest/Default.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/libpd_wrapper/x_libpdreceive.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/java/org/puredata/core/NativeLoader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/choice/makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/d_delay.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/x86/libchoice.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/iosTest/iosTest.xcodeproj/project.pbxproj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/Android.mk" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/res/raw/silence.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/python/test.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/m_atom.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/java/org/puredata/core/utils/PdDispatcher.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/iosTest/pd/test.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/usb/midi/util/UsbMidiInputSelector.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/g_readwrite.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/armeabi/libbonk_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/scripts/update_vanilla.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/iosTest/iosTest/ViewController.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/libs/pthreadGC2.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/usb/DeviceInfo.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/cppTest/cppTest.xcodeproj/project.xcworkspace/contents.xcworkspacedata" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/armeabi/libpdnative.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/libpd_wrapper/util/ringbuffer.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/libpd_wrapper/util/z_print_util.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/iosTest/iosTest/Default@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/res/values/styles.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/mingw_build.bat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/armeabi/libfiddle_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/javatests/org/puredata/core/utils/PdDispatcherTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/g_vumeter.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/g_scalar.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/libpd_wrapper/x_libpdreceive.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/cppTest/cppTest-Info.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/rev1~.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/x_arithmetic.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/objc/PdDispatcher.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/armeabi-v7a/libbonk_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/s_stuff.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/python/pygame_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/java/org/puredata/core/PdMidiListener.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/libpd_wrapper/s_libpdmidi.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/armeabi-v7a/liblrshift_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/res/drawable/icon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/rev2~.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/libpd.xcodeproj/project.pbxproj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/stdout/GNUmakefile.am" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/armeabi-v7a/libpique.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/m_conf.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/java/org/puredata/core/NativeLoader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/javatests/org/puredata/core/PdBaseTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/libpd_wrapper/util/z_queued.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/x_array.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/c_samples/c/test.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/objc/PdMidiDispatcher.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/x86/libpdnative.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/g_canvas.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/m_pd.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/java/org/puredata/core/PdListener.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/x86/liblrshift_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/x_midi.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/objc/PdDispatcher.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/jni/z_jni_native_hooks.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/g_array.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/build.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/libpd_wrapper/z_libpd.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/Android.mk" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/java/org/puredata/core/utils/IoUtils.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/java/org/puredata/core/PdBase.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/x86/liblrshift_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/s_main.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/s_audio_dummy.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/libpd_wrapper/x_libpdreceive.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/libpd_wrapper/util/ringbuffer.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/README.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/stdout/makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/com/noisepages/nettoyeur/libpd/sample/JavaSoundSample.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/g_toggle.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/cppTest/Project.xcconfig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/armeabi-v7a/libpdnative.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/python/filter.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/g_vumeter.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/m_obj.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/iosTest/iosTest/iosTest-Prefix.pch" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/choice/choice.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/g_traversal.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/x_gui.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/s_path.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/objc/PdAudioController.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/java/org/puredata/android/io/AudioWrapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/pique/pique-help.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/m_conf.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/libpd.xcodeproj/xcshareddata/xcschemes/libpd-ios.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/armeabi-v7a/libsigmund_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/python/pygame_fun_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/python/lop.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/javatests/org/puredata/core/test_java.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/usb/InterfaceNotAvailableException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/armeabi/libloop_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/armeabi-v7a/libexpr.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/armeabi-v7a/libpique.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/CHANGES.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/libpd_wrapper/util/z_queued.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/csharp/Properties/AssemblyInfo.cs" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/.classpath" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/d_resample.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/libpd_wrapper/z_hooks.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/g_all_guis.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/src/org/puredata/android/io/AudioParameters.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/objc/PdFile.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/s_print.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/build.gradle" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/armeabi/libpd.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/rev1~-help.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/rev2~-help.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/objc/PdAudioUnit.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/usb/UsbDeviceWithInfo.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/python/pygame_test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/rev2~-help.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/d_fftroutine.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/armeabi/libbonk_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/midi/MidiDevice.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/x86/libloop_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/rev3~-help.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/c_samples/c/pdtest.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/python/test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/pique/pique-help.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/armeabi/libfexpr_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/libpd_wrapper/util/z_queued.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/armeabi-v7a/libexpr_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/res/values/strings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/x86/libfexpr_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/libpd_wrapper/x_libpdreceive.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/res/raw/extra_abs.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/x_interface.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/.classpath" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/dist/libpd.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/d_filter.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/g_io.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jniLibs/armeabi-v7a/libloop_tilde.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/samples/cppTest/Makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/iosTest/iosTest/ViewController.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/libpd_win.sln" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/jni/z_jni_native_hooks.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/extra/rev1~-help.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/x_acoustics.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/java/org/puredata/android/utils/PdUiDispatcher.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/python/Makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/cpp/PdTypes.hpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/armeabi-v7a/libpdnativeopensl.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/d_global.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/pique/GNUmakefile.am" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/extra/complex-mod~-help.pd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/objc/PdBase.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/objc/PdFile.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/python/test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/libs/x86/libexpr.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/jni/libpd/pure-data/src/g_graph.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/PdCore1/AndroidManifest.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/androidMidi/src/main/java/com/noisepages/nettoyeur/bluetooth/BluetoothException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/samples/cppTest/cppTest.xcodeproj/project.xcworkspace/xcshareddata/cppTest.xccheckout" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/jni/libpd/pure-data/src/d_soundfile.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/pdCore/src/main/java/org/puredata/android/midi/MidiToPdAdapter.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/settings.gradle" afterPath="$PROJECT_DIR$/settings.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/model/UserManager.java" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/model/UserManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/ProfileActivity.java" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/ProfileActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/res/values/colors.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/mediarouter_v7_22_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/mediarouter_v7_22_0_0.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/AudioActivity.java" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/RecordingActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/UserMarker.java" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/marker/UserMarker.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/circleimageview_1_3_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/circleimageview_1_3_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_22_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_22_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/LoginActivity.java" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/LoginActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/build.gradle" afterPath="$PROJECT_DIR$/triangulationDevice/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/TriangulationApplication.java" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/TriangulationApplication.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/res/layout/profile.xml" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/res/layout/profile.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TriangulationDevice.iml" afterPath="$PROJECT_DIR$/TriangulationDevice.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/pd/PDDriver.java" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/pd/PDDriver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_22_2_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_22_2_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/res/layout/map_activity.xml" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/res/layout/map_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/model/MemoryUserManager.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/storage/SessionAdapter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/TriangulationListActivity.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/res/layout/path_list_item.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/assets/triangulationdevice_interfacetest_Jul20.pd" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/AndroidManifest.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/MapActivity.java" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/BrowseUserActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/BrowseUserActivity.java" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/BrowseUserActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/CompassActivity.java" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/CompassActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/LocationActivity.java" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/LocationActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/pd/PDDriver.java" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/pd/PDDriver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/storage/PathStorage.java" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/storage/PathStorage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/ProfileActivity.java" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/ProfileActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/RecordWalkActivity.java" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/RecordWalkActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/RecordingActivity.java" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/RecordingActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/pd/Triangulation2Driver.java" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/pd/Triangulation2Driver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/TriangulationActivity.java" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/TriangulationActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/TriangulationApplication.java" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/TriangulationApplication.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/model/UserManager.java" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/model/UserManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/bolts_android_1_2_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/bolts_android_1_2_0.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/build.gradle" afterPath="$PROJECT_DIR$/triangulationDevice/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/disklrucache_2_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/disklrucache_2_0_2.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/gson_2_3_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/gson_2_3_1.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/jts_1_13.xml" afterPath="$PROJECT_DIR$/.idea/libraries/jts_1_13.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/library_2_4_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/library_2_4_0.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/okhttp_2_4_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/okhttp_2_4_0.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/okhttp_urlconnection_2_4_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/okhttp_urlconnection_2_4_0.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/okio_1_4_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/okio_1_4_0.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/triangulationDevice/src/main/res/layout/profile.xml" afterPath="$PROJECT_DIR$/triangulationDevice/src/main/res/layout/profile.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_annotations_22_2_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_annotations_22_2_0.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_22_2_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_22_2_0.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="TriangulationDevice.iws" />
@@ -737,17 +94,17 @@
         <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/RecordWalkActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="25" column="29" selection-start-line="25" selection-start-column="29" selection-end-line="25" selection-end-column="29" />
+              <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RecordingActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/RecordingActivity.java">
+      <file leaf-file-name="BrowseUserActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/BrowseUserActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="64" column="23" selection-start-line="64" selection-start-column="23" selection-end-line="64" selection-end-column="23" />
+              <caret line="33" column="7" selection-start-line="33" selection-start-column="7" selection-end-line="33" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -756,25 +113,20 @@
       <file leaf-file-name="Triangulation2Driver.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/pd/Triangulation2Driver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.28761062">
-              <caret line="29" column="55" selection-start-line="29" selection-start-column="55" selection-end-line="29" selection-end-column="55" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1118#1119#0" expanded="true" />
-                <element signature="e#1163#1164#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.64171124">
+              <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PDDriver.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/pd/PDDriver.java">
+      <file leaf-file-name="MemoryUserManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/model/MemoryUserManager.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="135" column="79" selection-start-line="135" selection-start-column="79" selection-end-line="135" selection-end-column="79" />
+              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
               <folding>
-                <element signature="e#2939#2940#0" expanded="true" />
-                <element signature="e#3000#3001#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -787,6 +139,7 @@
       <list>
         <option value="layoutResourceFile" />
         <option value="resourceFile" />
+        <option value="Interface" />
         <option value="layoutResourceFile_vertical" />
         <option value="Class" />
       </list>
@@ -3183,7 +2536,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="8622692484000" />
+        <entry key="$PROJECT_DIR$" value="8623813150000" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -3952,43 +3305,53 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/res/drawable/circle_mask.xml" />
-        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/CompassActivity.java" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/res/layout/login.xml" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/LocationActivity.java" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/LoginActivity.java" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/TriangulationActivity.java" />
-        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/storage/PathStorage.java" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/model/User.java" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/UserMarker.java" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/MapActivity.java" />
-        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/TriangulationApplication.java" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/AudioActivity.java" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/RecordActivity.java" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/res/drawable/record.xml" />
-        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/ProfileActivity.java" />
-        <option value="$PROJECT_DIR$/triangulationDevice/src/main/res/layout/profile.xml" />
-        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/model/UserManager.java" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/res/layout/map_activity.xml" />
-        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/BrowseUserActivity.java" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/res/drawable/stop.xml" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/res/layout/save_dialog.xml" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/dialog/FireMissilesDialogFragment.java" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/dialog/SaveRecordingDialogFragment.java" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/views/CirclesView.java" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/res/layout/circles.xml" />
-        <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/settings.gradle" />
-        <option value="$PROJECT_DIR$/triangulationDevice/build.gradle" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/views/OvalsView.java" />
         <option value="$PROJECT_DIR$/PdCore/build.gradle" />
-        <option value="$PROJECT_DIR$/triangulationDevice/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/pd/Triangulation2PDWrapper.java" />
+        <option value="$PROJECT_DIR$/PdCore/build/intermediates/manifests/tmp/manifestMerger7584849880049423880.xml" />
+        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/model/UserManagerI.java" />
+        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/TriangulationListActivity.java" />
+        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/BrowseUserActivity.java" />
+        <option value="$PROJECT_DIR$/triangulationDevice/src/main/res/layout/profile.xml" />
+        <option value="$PROJECT_DIR$/triangulationDevice/src/main/res/layout/path_list_item.xml" />
+        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/storage/PathsAdapter.java" />
+        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/storage/SessionAdapter.java" />
+        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/storage/PathStorage.java" />
+        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/ProfileActivity.java" />
+        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/model/UserManager.java" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/RecordWalkActivity.java" />
-        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/RecordingActivity.java" />
+        <option value="$PROJECT_DIR$/triangulationDevice/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/pd/PDDriver.java" />
+        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/CompassActivity.java" />
+        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/LocationActivity.java" />
+        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/RecordingActivity.java" />
+        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/TriangulationApplication.java" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/model/AndroidContext.java" />
+        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/com/couchbase/lite/android/AndroidNetworkReachabilityManager.java" />
+        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/com/couchbase/lite/android/AndroidSQLiteStorageEngine.java" />
         <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/pd/Triangulation2Driver.java" />
+        <option value="$PROJECT_DIR$/triangulationDevice/build.gradle" />
+        <option value="$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/model/MemoryUserManager.java" />
       </list>
     </option>
   </component>
@@ -4029,6 +3392,21 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TriangulationDevice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="triangulationDevice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -4101,54 +3479,6 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="ui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TriangulationDevice" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="triangulationDevice" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="partial" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TriangulationDevice" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="triangulationDevice" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="pd" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -4158,39 +3488,19 @@
               <option name="myItemId" value="TriangulationDevice" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="triangulationDevice" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="manifests" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidManifestsGroupNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="TriangulationDevice" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scratches" />
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="TriangulationDevice" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="triangulationDevice" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+              <option name="myItemId" value="AndroidMidi" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -4261,12 +3571,13 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="recentsLimit" value="5" />
     <property name="FullScreen" value="true" />
-    <property name="android.project.structure.last.selected" value="AndroidMidi" />
+    <property name="android.project.structure.last.selected" value="triangulationDevice" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="settings.editor.selected.configurable" value="preferences.updates" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
@@ -4275,15 +3586,22 @@
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="N5" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/chris/Development/TriangulationDevice/triangulationDevice/src/main/java/ca/triangulationdevice/android/storage/PathStorage.java" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="ca.triangulationdevice.android.ui.views" />
       <recent name="ca.triangulationdevice.android.ui.partial" />
+      <recent name="ca.triangulationdevice.android.ui.views" />
       <recent name="ca.triangulationdevice.android.ui" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/triangulationDevice/src/main/res/drawable" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="ca.triangulationdevice.android.model" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.couchbase.lite.android" />
     </key>
   </component>
   <component name="RunManager" selected="Android Application.triangulationDevice">
@@ -4514,6 +3832,7 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286119" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.69688386" sideWeight="0.503231" order="7" side_tool="true" content_ui="tabs" />
@@ -4522,7 +3841,7 @@
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28328612" sideWeight="0.51615506" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28328612" sideWeight="0.47092083" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4305949" sideWeight="0.49676898" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4305949" sideWeight="0.49676898" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24959612" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -4535,7 +3854,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286119" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -4587,253 +3905,20 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="3" />
+      <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hive2hive/org.hive2hive.core/1.1.0/d79fa0da492f9614c612eb634332555a26395a91/org.hive2hive.core-1.1.0-sources.jar!/org/hive2hive/core/api/configs/NetworkConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5132743">
-          <caret line="52" column="40" selection-start-line="52" selection-start-column="40" selection-end-line="52" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hive2hive/org.hive2hive.core/1.1.0/d79fa0da492f9614c612eb634332555a26395a91/org.hive2hive.core-1.1.0-sources.jar!/org/hive2hive/core/api/interfaces/IManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17699115">
-          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hive2hive/org.hive2hive.core/1.1.0/d79fa0da492f9614c612eb634332555a26395a91/org.hive2hive.core-1.1.0-sources.jar!/org/hive2hive/core/api/interfaces/IH2HNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7300885">
-          <caret line="33" column="17" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/local.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hive2hive/org.hive2hive.core/1.1.0/d79fa0da492f9614c612eb634332555a26395a91/org.hive2hive.core-1.1.0-sources.jar!/org/hive2hive/core/api/managers/H2HUserManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hive2hive/org.hive2hive.core/1.1.0/d79fa0da492f9614c612eb634332555a26395a91/org.hive2hive.core-1.1.0-sources.jar!/org/hive2hive/core/api/interfaces/IUserManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7079646">
-          <caret line="37" column="60" selection-start-line="37" selection-start-column="60" selection-end-line="37" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/TriangulationApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.26548672">
-          <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/triangulationDevice/build/intermediates/exploded-aar/com.mapbox.mapboxsdk/mapbox-android-sdk/0.7.4/jars/classes.jar!/com/mapbox/mapboxsdk/views/util/constants/MapViewConstants.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.13824885">
-          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/triangulationDevice/build/intermediates/exploded-aar/com.mapbox.mapboxsdk/mapbox-android-sdk/0.7.4/jars/classes.jar!/com/mapbox/mapboxsdk/overlay/Marker.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.13824885">
-          <caret line="28" column="42" selection-start-line="28" selection-start-column="42" selection-end-line="28" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/marker/UserMarker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.088495575">
-          <caret line="16" column="34" selection-start-line="16" selection-start-column="34" selection-end-line="16" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/android-sdks/sources/android-22/android/view/View.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="17776" column="18" selection-start-line="17776" selection-start-column="18" selection-end-line="17776" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/android-sdks/sources/android-22/android/graphics/Path.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="369" column="16" selection-start-line="369" selection-start-column="16" selection-end-line="369" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/res/layout/profile.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6764253">
-          <caret line="34" column="47" selection-start-line="34" selection-start-column="47" selection-end-line="34" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15486726">
-          <caret line="7" column="44" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/res/layout/map_activity.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.241379">
-          <caret line="134" column="38" selection-start-line="134" selection-start-column="38" selection-end-line="134" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/ProfileActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="36" column="4" selection-start-line="36" selection-start-column="4" selection-end-line="38" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/BrowseUserActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.91150445">
-          <caret line="191" column="5" selection-start-line="191" selection-start-column="5" selection-end-line="191" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/res/drawable/record.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/res/drawable/stop.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="33" selection-start-line="6" selection-start-column="33" selection-end-line="6" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/res/values/themes.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19911504">
-          <caret line="9" column="72" selection-start-line="9" selection-start-column="72" selection-end-line="9" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/android-sdks/sources/android-22/android/app/AlertDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="355" column="0" selection-start-line="355" selection-start-column="0" selection-end-line="355" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/android-sdks/sources/android-22/android/app/Dialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="273" column="0" selection-start-line="273" selection-start-column="0" selection-end-line="273" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/res/layout/save_dialog.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.931034">
-          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/dialog/SaveRecordingDialogFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7345133">
-          <caret line="66" column="5" selection-start-line="66" selection-start-column="5" selection-end-line="66" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/model/UserManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.28761062">
-          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/android-sdks/sources/android-22/android/graphics/Canvas.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1154" column="16" selection-start-line="1154" selection-start-column="16" selection-end-line="1154" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/views/BezierCirclesView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6238938">
-          <caret line="91" column="67" selection-start-line="91" selection-start-column="67" selection-end-line="91" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/android-sdks/sources/android-22/android/view/GestureDetector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="159" column="9" selection-start-line="157" selection-start-column="8" selection-end-line="159" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/android-sdks/sources/android-22/android/graphics/RectF.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37967914">
-          <caret line="197" column="19" selection-start-line="197" selection-start-column="19" selection-end-line="197" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/android-sdks/sources/android-22/android/view/ScaleGestureDetector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4660767">
-          <caret line="121" column="8" selection-start-line="121" selection-start-column="8" selection-end-line="121" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/res/layout/circles.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="33" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/CompassActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="32" selection-start-line="13" selection-start-column="30" selection-end-line="13" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/TriangulationActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-        </state>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties">
@@ -4864,24 +3949,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.50209206">
-          <caret line="16" column="9" selection-start-line="16" selection-start-column="9" selection-end-line="16" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/PdCore/src/org/puredata/android/midi/MidiToPdAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.13274336">
           <caret line="11" column="36" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19911504">
-          <caret line="9" column="27" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
         </state>
       </provider>
     </entry>
@@ -4903,15 +3974,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.80088496">
           <caret line="171" column="15" selection-start-line="171" selection-start-column="15" selection-end-line="171" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="39" column="73" selection-start-line="39" selection-start-column="73" selection-end-line="39" selection-end-column="73" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4919,7 +3981,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.28761062">
           <caret line="27" column="17" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4927,23 +3988,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.53097343">
           <caret line="32" column="11" selection-start-line="32" selection-start-column="11" selection-end-line="32" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/RecordWalkActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="29" selection-start-line="25" selection-start-column="29" selection-end-line="25" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/RecordingActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="64" column="23" selection-start-line="64" selection-start-column="23" selection-end-line="64" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4951,33 +3995,280 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.10962567">
           <caret line="149" column="29" selection-start-line="149" selection-start-column="29" selection-end-line="149" selection-end-column="29" />
-          <folding>
-            <element signature="e#4277#4278#0" expanded="true" />
-            <element signature="e#4308#4309#0" expanded="true" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PdCore/build/intermediates/manifests/tmp/manifestMerger7584849880049423880.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0921659">
+          <caret line="4" column="38" selection-start-line="4" selection-start-column="38" selection-end-line="4" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/TriangulationListActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15486726">
+          <caret line="15" column="60" selection-start-line="15" selection-start-column="60" selection-end-line="15" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/res/layout/profile.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6637681">
+          <caret line="44" column="36" selection-start-line="44" selection-start-column="36" selection-end-line="44" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/res/drawable-hdpi/ic_action_location_found.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/res/drawable-hdpi/ic_explore_white_18dp.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/res/drawable-hdpi/ic_location_on_white_24dp.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/res/drawable-hdpi/ic_action_headphones.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/android-sdks/sources/android-22/android/widget/ListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.24336283">
+          <caret line="25" column="17" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/storage/PathStorage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="420" column="30" selection-start-line="420" selection-start-column="30" selection-end-line="420" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/storage/SessionAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9778761">
+          <caret line="48" column="23" selection-start-line="48" selection-start-column="23" selection-end-line="48" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/model/UserManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.19911504">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/res/layout/path_list_item.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.71648693">
+          <caret line="31" column="32" selection-start-line="31" selection-start-column="32" selection-end-line="31" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/ProfileActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.61946905">
+          <caret line="41" column="82" selection-start-line="41" selection-start-column="82" selection-end-line="41" selection-end-column="82" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/pd/PDDriver.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.64438504">
+          <caret line="140" column="40" selection-start-line="140" selection-start-column="40" selection-end-line="140" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.39823008">
+          <caret line="18" column="66" selection-start-line="18" selection-start-column="66" selection-end-line="18" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/TriangulationActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15486726">
+          <caret line="13" column="22" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/android-sdks/sources/android-22/android/location/Location.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8128342">
+          <caret line="60" column="28" selection-start-line="60" selection-start-column="28" selection-end-line="60" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/LocationActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.1631016">
+          <caret line="39" column="34" selection-start-line="39" selection-start-column="34" selection-end-line="39" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/CompassActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.40106952">
+          <caret line="18" column="32" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/partial/RecordingActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.2433155">
+          <caret line="83" column="48" selection-start-line="83" selection-start-column="48" selection-end-line="83" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PdCore/build/intermediates/manifests/tmp/manifestMerger4943958335316072928.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0921659">
+          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PdCore/build/intermediates/manifests/tmp/manifestMerger1039297123076116286.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0921659">
+          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PdCore/build/intermediates/manifests/tmp/manifestMerger6771273508898491848.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0921659">
+          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/TriangulationApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.37656903">
+          <caret line="21" column="52" selection-start-line="21" selection-start-column="52" selection-end-line="21" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PdCore/build/intermediates/manifests/tmp/manifestMerger2351771795967628375.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1330377">
+          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.couchbase.lite/couchbase-lite-java-core/1.1.0/dfa011e29d70ff4779aabda1b82e5774a2aec8f0/couchbase-lite-java-core-1.1.0-sources.jar!/com/couchbase/lite/Context.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="135" column="79" selection-start-line="135" selection-start-column="79" selection-end-line="135" selection-end-column="79" />
+          <caret line="28" column="28" selection-start-line="28" selection-start-column="28" selection-end-line="28" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PdCore/build/intermediates/manifests/tmp/manifestMerger5860815247204744911.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1330377">
+          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PdCore/build/intermediates/manifests/tmp/manifestMerger5058021649104292615.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1330377">
+          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PdCore/build/intermediates/manifests/tmp/manifestMerger7389974923387385374.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0921659">
+          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.couchbase.lite/couchbase-lite-java-core/1.1.0/dfa011e29d70ff4779aabda1b82e5774a2aec8f0/couchbase-lite-java-core-1.1.0-sources.jar!/com/couchbase/lite/Manager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="121" column="11" selection-start-line="121" selection-start-column="11" selection-end-line="121" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.28761062">
+          <caret line="13" column="22" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/BrowseUserActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="33" column="7" selection-start-line="33" selection-start-column="7" selection-end-line="33" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.0828876">
+          <caret line="27" column="30" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/ui/RecordWalkActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/model/MemoryUserManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding>
-            <element signature="e#2939#2940#0" expanded="true" />
-            <element signature="e#3000#3001#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/triangulationDevice/src/main/java/ca/triangulationdevice/android/pd/Triangulation2Driver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.28761062">
-          <caret line="29" column="55" selection-start-line="29" selection-start-column="55" selection-end-line="29" selection-end-column="55" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1118#1119#0" expanded="true" />
-            <element signature="e#1163#1164#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.64171124">
+          <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -413,12 +413,14 @@ public class PathStorage {
         public final int id;
         public final String title;
         public final Date saved;
+        public final String locationString;
         public List<Path> paths;
 
         public Session(Cursor cursor) throws ParseException {
             this.id = cursor.getInt(cursor.getColumnIndex(PathSQLiteHelper.COLUMN_PATH_ID));
             this.title = cursor.getString(cursor.getColumnIndex(PathSQLiteHelper.COLUMN_SESSION_TITLE));
             this.saved = df.parse(cursor.getString(cursor.getColumnIndex(PathSQLiteHelper.COLUMN_SESSION_TIME_SAVED)));
+            this.locationString = "";
         }
     }
 

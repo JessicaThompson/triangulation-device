@@ -26,7 +26,7 @@ public abstract class RecordingActivity extends CompassActivity {
     @SuppressWarnings("unused")
     private static final String TAG = "RecordingActivity";
 
-    private final boolean recording = false;
+    protected boolean recording = false;
     private final PathStorage path = new PathStorage(this);
     protected Triangulation2Driver pd;
 
@@ -80,26 +80,9 @@ public abstract class RecordingActivity extends CompassActivity {
         if (this.recording) {
             float[] lastOrientation = this.getLastOrientation();
             this.path.addMine(location, lastOrientation[0], lastOrientation[1], lastOrientation[2]);
+            Log.i(TAG, String.format("Sending a location change: %.6f, %.6f", location.getLatitude(), location.getLongitude()));
+            this.pd.myLocationChanged(location);
         }
-
-        this.pd.myLocationChanged(location);
-    }
-
-    /**
-     * Called when the connected {@link BluetoothDevice} sends us a new Location
-     * value.
-     * 
-     * @param location
-     *            The new value for the connected other device's location.
-     */
-    public void theirLocationChanged(Location location) {
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-
-        if (this.recording) {
-            this.path.addTheirs(location);
-        }
-
-        this.pd.theirLocationChanged(location);
     }
 
     @Override

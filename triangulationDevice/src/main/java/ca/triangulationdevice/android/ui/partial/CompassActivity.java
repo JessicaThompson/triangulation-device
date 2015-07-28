@@ -13,7 +13,7 @@ import android.os.Bundle;
 /**
  * An {@link Activity} which updates subclasses with the compass direction that
  * the current user is pointed to (the "azimuth"). Subclasses must implement
- * {@link #onCompassChanged()} and deal with new direction values as they come
+ * {@link #onCompassChanged(float, float, float)} and deal with new direction values as they come
  * in.
  */
 public abstract class CompassActivity extends LocationActivity implements SensorEventListener {
@@ -22,7 +22,6 @@ public abstract class CompassActivity extends LocationActivity implements Sensor
     private Sensor magnetometer;
     private float[] gravity;
     private float[] geomagnetic;
-    private Location location;
 
     /*
      * time smoothing constant for low-pass filter 0 <= alpha <= 1 ; a smaller
@@ -37,7 +36,7 @@ public abstract class CompassActivity extends LocationActivity implements Sensor
     /**
      * Called when our orientation is updated.
      * 
-     * @param azimuth
+     * @param outputX
      *            The azimuth in radians between our orientation and north,
      *            positive being in the counter-clockwise direction. Corrected
      *            to true north.
@@ -75,11 +74,6 @@ public abstract class CompassActivity extends LocationActivity implements Sensor
         // NOOP.
     }
 
-//    @Override
-    public void onLocationChanged(Location location) {
-        this.location = location;
-    }
-
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
@@ -103,11 +97,11 @@ public abstract class CompassActivity extends LocationActivity implements Sensor
                 //
                 // If we don't have a location, we'll ignore the compass for
                 // now, the reading will be inaccurate anyways.
-                if (this.location != null) {
+                if (this.lastLocation != null) {
                     GeomagneticField geoField = new GeomagneticField(
-                            Double.valueOf(this.location.getLatitude()).floatValue(),
-                            Double.valueOf(this.location.getLongitude()).floatValue(),
-                            Double.valueOf(this.location.getAltitude()).floatValue(),
+                            Double.valueOf(this.lastLocation.getLatitude()).floatValue(),
+                            Double.valueOf(this.lastLocation.getLongitude()).floatValue(),
+                            Double.valueOf(this.lastLocation.getAltitude()).floatValue(),
                             System.currentTimeMillis());
 
                     float azimuth = orientation[0];

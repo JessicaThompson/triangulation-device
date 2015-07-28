@@ -8,6 +8,7 @@ import com.mapbox.mapboxsdk.geometry.LatLng;
 import java.net.UnknownHostException;
 
 import ca.triangulationdevice.android.model.User;
+import ca.triangulationdevice.android.model.MemoryUserManager;
 import ca.triangulationdevice.android.model.UserManager;
 
 public class TriangulationApplication extends Application {
@@ -18,7 +19,7 @@ public class TriangulationApplication extends Application {
         super.onCreate();
 
         try {
-            userManager = new UserManager();
+            userManager = new MemoryUserManager(this);
         } catch (UnknownHostException ex) {
             // TODO someting.
         }

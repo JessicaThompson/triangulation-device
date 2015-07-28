@@ -176,12 +176,12 @@ public class BrowseUserActivity extends CompassActivity {
     }
 
     private void addUsers() {
-        for (User user : application.userManager.values()) {
-            this.addUser(user);
+        for (User user : application.userManager.getUsers()) {
+            this.addUserMarker(user);
         }
     }
 
-    private void addUser(User user) {
+    private void addUserMarker(User user) {
         Marker marker = new UserMarker(mapView, user, resources);
         this.markerUserMap.put(marker, user);
         mapView.addMarker(marker);

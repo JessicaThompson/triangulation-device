@@ -1,18 +1,16 @@
 package ca.triangulationdevice.android.ui.partial;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.content.IntentSender;
-import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 
 /**
  * An abstract convenience {@link Activity} which updates subclasses with new
@@ -21,82 +19,72 @@ import com.google.android.gms.location.LocationListener;
  * come in.
  */
 public abstract class LocationActivity extends TriangulationActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
-    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private final static int FASTEST_INTERVAL = 50;
     private final static int INTERVAL = 100;
+    private static final String REQUESTING_LOCATION_UPDATES_KEY = "req_updates";
+    private static final String LOCATION_KEY = "location";
+    private static final int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
-    private SharedPreferences prefs;
-    private SharedPreferences.Editor editor;
-    private boolean updatesRequested;
+    private GoogleApiClient googleAPIClient;
+    protected Location lastLocation;
+    private LocationRequest locationRequest;
+    private boolean requestingLocationUpdates;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Open the shared preferences to save the fact that we want updates.
-        this.prefs = getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE);
-        this.editor = this.prefs.edit();
+        updateValuesFromBundle(savedInstanceState);
+        this.buildGoogleApiClient();
+        this.createLocationRequest();
+        googleAPIClient.connect();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        // Connect the location client.
+    protected synchronized void buildGoogleApiClient() {
+        googleAPIClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        // Disconnect the location client.
+    protected void createLocationRequest() {
+        locationRequest = new LocationRequest();
+        locationRequest.setInterval(INTERVAL);
+        locationRequest.setFastestInterval(FASTEST_INTERVAL);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    }
+
+    private void updateValuesFromBundle(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            // Update the value of requestingLocationUpdates from the Bundle, and
+            // make sure that the Start Updates and Stop Updates buttons are
+            // correctly enabled or disabled.
+            if (savedInstanceState.keySet().contains(REQUESTING_LOCATION_UPDATES_KEY)) {
+                requestingLocationUpdates = savedInstanceState.getBoolean(REQUESTING_LOCATION_UPDATES_KEY);
+            }
+
+            // Update the value of mCurrentLocation from the Bundle and update the
+            // UI to show the correct latitude and longitude.
+            if (savedInstanceState.keySet().contains(LOCATION_KEY)) {
+                // Since LOCATION_KEY was found in the Bundle, we can be sure that
+                // mCurrentLocationis not null.
+                lastLocation = savedInstanceState.getParcelable(LOCATION_KEY);
+            }
+        }
     }
 
     @Override
     protected void onPause() {
-        this.editor.putBoolean("KEY_UPDATES_ON", this.updatesRequested);
-        this.editor.commit();
-
         super.onPause();
+        stopLocationUpdates();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        if (this.prefs.contains("KEY_UPDATES_ON")) {
-            this.updatesRequested = this.prefs.getBoolean("KEY_UPDATES_ON", false);
-        } else {
-            this.editor.putBoolean("KEY_UPDATES_ON", false);
-            this.editor.commit();
-        }
-
-        if (!servicesConnected()) {
-            Toast.makeText(this, "Location services aren't connected - is your location visible?", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private boolean servicesConnected() {
-        // Check that Google Play services is available
-        int errorCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
-        if (errorCode != ConnectionResult.SUCCESS) {
-            GooglePlayServicesUtil.getErrorDialog(errorCode, this, 0).show();
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // We'll hit here if
-        switch (requestCode) {
-        case CONNECTION_FAILURE_RESOLUTION_REQUEST:
-            // If the result code is Activity.RESULT_OK, try to connect again
-            switch (resultCode) {
-            case Activity.RESULT_OK:
-                break;
-            // No default because the onConnectionFailed displayed an error
-            // message for us.
-            }
+        if (googleAPIClient.isConnected() && requestingLocationUpdates) {
+            startLocationUpdates();
         }
     }
 
@@ -110,36 +98,48 @@ public abstract class LocationActivity extends TriangulationActivity implements 
             try {
                 connectionResult.startResolutionForResult(this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
             } catch (IntentSender.SendIntentException e) {
-                // Thrown if Google Play services canceled the original
-                // PendingIntent.
+                // Thrown if Google Play services canceled the original PendingIntent.
                 e.printStackTrace();
             }
         } else {
-            // If no resolution is available, display a dialog to the user with
-            // the error.
+            // If no resolution is available, display a dialog to the user with the error.
             GooglePlayServicesUtil.getErrorDialog(connectionResult.getErrorCode(), this, 0).show();
         }
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
-        // TODO Auto-generated method stub
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putBoolean(REQUESTING_LOCATION_UPDATES_KEY, requestingLocationUpdates);
+        savedInstanceState.putParcelable(LOCATION_KEY, lastLocation);
+        super.onSaveInstanceState(savedInstanceState);
+    }
 
+    private void startLocationUpdates() {
+        requestingLocationUpdates = true;
+        LocationServices.FusedLocationApi.requestLocationUpdates(googleAPIClient, locationRequest, this);
+    }
+
+    private void stopLocationUpdates() {
+        if (requestingLocationUpdates) {
+            LocationServices.FusedLocationApi.removeLocationUpdates(googleAPIClient, this);
+        }
     }
 
     @Override
     public void onConnected(Bundle connectionHint) {
-        // TODO Auto-generated method stub
+        lastLocation = LocationServices.FusedLocationApi.getLastLocation(googleAPIClient);
+        startLocationUpdates();
+    }
 
+    @Override
+    public void onLocationChanged(Location location) {
+        this.lastLocation = location;
     }
 
     @Override
     public void onConnectionSuspended(int cause) {
-        // TODO Auto-generated method stub
-
     }
 
     public Location getLocation() {
-        return null;
+        return lastLocation;
     }
 }
