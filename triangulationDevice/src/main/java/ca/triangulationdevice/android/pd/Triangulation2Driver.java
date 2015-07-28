@@ -25,11 +25,15 @@ public class Triangulation2Driver extends PDDriver {
     public void start() {
         super.start();
         this.sendBang("trigger");
+        this.sendFloat("control_octave_(24_-_60)", 30);
+        Log.i(TAG, String.format("Sent control_octave_(24_-60) = %.2f", 30f));
     }
 
     public void testCircle(float width, float height) {
-        this.sendFloat("testcircleh", width);
-        this.sendFloat("testcirclev", height);
+        this.sendFloat("modulator_freq1", width / 30);
+        this.sendFloat("modulator_freq2", height / 30);
+        Log.i(TAG, String.format("Sent modulator_freq1 = %.2f modulator_freq2 = %.2f", width / 30, height / 30));
+
     }
 
     /**

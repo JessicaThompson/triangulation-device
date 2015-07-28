@@ -22,6 +22,9 @@ import org.puredata.android.service.PdService;
 import org.puredata.android.utils.PdUiDispatcher;
 import org.puredata.core.PdBase;
 
+import ca.triangulationdevice.android.R;
+import ca.triangulationdevice.android.ui.RecordWalkActivity;
+
 /**
  * An encapsulation of our PD stuff.
  */
@@ -115,7 +118,8 @@ public abstract class PDDriver {
     private void copyAssetToFilesDir(Context context, String assetName) throws IOException {
         InputStream myInput = context.getAssets().open(assetName);
 
-        OutputStream myOutput = new FileOutputStream(context.getFilesDir() + assetName);
+        OutputStream myOutput = new FileOutputStream(context.getFilesDir() + "/" + assetName);
+        Log.i(TAG, String.format("Copying to %s", context.getFilesDir() + "/" + assetName));
         byte[] buffer = new byte[1024];
         int length;
 
@@ -131,7 +135,7 @@ public abstract class PDDriver {
         if (!this.pdService.isRunning()) {
             // Starts audio and creates a notification pointing to this activity
             // To start audio with no notification, give startAudio() 0 args
-            this.pdService.startAudio();
+            pdService.startAudio(new Intent(context, RecordWalkActivity.class), R.drawable.icon, "Pure Data", "Return to Pure Data.");
         } else {
             Log.e(TAG, "Tried to start PD audio, but service wasn't running.");
         }
