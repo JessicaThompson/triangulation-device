@@ -8,7 +8,7 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Title" />
+        android:hint="@string/title" />
     <EditText
         android:id="@+id/description"
         android:layout_width="match_parent"
@@ -16,14 +16,14 @@
         android:inputType="textMultiLine"
         android:singleLine="false"
         android:maxLength="120"
-        android:hint="Description" />
+        android:hint="@string/description" />
     <TextView
         android:id="@+id/counter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:layout_marginBottom="16dp"
-        android:text="0/120" />
+        android:text="@string/character_count_zero" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Visible to others"/>
+            android:text="@string/visible_to_others"/>
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

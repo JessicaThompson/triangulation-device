@@ -35,7 +35,7 @@
         android:drawableStart="@drawable/ic_explore_white_18dp"
         android:drawablePadding="4dp"/>
     <Button
-        android:id="@+id/join_button"
+        android:id="@+id/connect"
         android:layout_width="115dp"
         android:layout_height="48dp"
         android:textAllCaps="false"

@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -22,6 +25,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ca.triangulationdevice.android.R;
+import ca.triangulationdevice.android.TriangulationApplication;
+import ca.triangulationdevice.android.model.MemoryUserManager;
 import ca.triangulationdevice.android.model.User;
 import ca.triangulationdevice.android.ui.marker.UserMarker;
 import ca.triangulationdevice.android.ui.partial.CompassActivity;
@@ -48,11 +53,16 @@ public class BrowseUserActivity extends CompassActivity {
     private TextView miniLocation;
     private TextView miniDescription;
 
+    private MemoryUserManager userManager;
     private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActionBar().setDisplayShowHomeEnabled(true);
+        getActionBar().setDisplayUseLogoEnabled(true);
+
+        userManager = application.userManager;
 
         Typefaces.loadTypefaces(this);
         setContentView(R.layout.map_activity);
@@ -120,6 +130,25 @@ public class BrowseUserActivity extends CompassActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.home_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.menu_profile:
+                openProfile(this.userManager.getCurrentUser());
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         if (currentUser != null) {
             this.hideMiniProfile();
@@ -135,6 +164,7 @@ public class BrowseUserActivity extends CompassActivity {
         // Zoom the map to our position!
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         mapView.setCenter(latLng);
+        this.userManager.getCurrentUser().myLocation = location;
     }
 
     @Override
@@ -177,7 +207,9 @@ public class BrowseUserActivity extends CompassActivity {
 
     private void addUsers() {
         for (User user : application.userManager.getUsers()) {
-            this.addUserMarker(user);
+            if (user != application.userManager.getCurrentUser() && user.myLocation != null) {
+                this.addUserMarker(user);
+            }
         }
     }
 

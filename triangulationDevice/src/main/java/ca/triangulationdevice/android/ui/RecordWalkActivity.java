@@ -1,7 +1,7 @@
 package ca.triangulationdevice.android.ui;
 
-import android.app.DialogFragment;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -13,11 +13,13 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import ca.triangulationdevice.android.R;
+import ca.triangulationdevice.android.ui.dialog.ConfirmSaveRecordingDialogFragment;
+import ca.triangulationdevice.android.ui.dialog.DialogListener;
 import ca.triangulationdevice.android.ui.dialog.SaveRecordingDialogFragment;
 import ca.triangulationdevice.android.ui.partial.RecordingActivity;
 import ca.triangulationdevice.android.ui.views.OvalsView;
 
-public class RecordWalkActivity extends RecordingActivity implements SaveRecordingDialogFragment.SaveRecordingDialogListener {
+public class RecordWalkActivity extends RecordingActivity {
     private final static int DELAY = 1000;
 
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("mm:ss", Locale.getDefault());
@@ -37,6 +39,7 @@ public class RecordWalkActivity extends RecordingActivity implements SaveRecordi
             handler.postDelayed(updateTime, DELAY);
         }
     };
+    private OvalsView ovalsView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +47,20 @@ public class RecordWalkActivity extends RecordingActivity implements SaveRecordi
         setContentView(R.layout.circles);
 
         control = (TextView) findViewById(R.id.control);
-        OvalsView ovalsView = (OvalsView) findViewById(R.id.circles);
-        ovalsView.setSizeChangedListener(new OvalsView.SizeChangedListener() {
-            @Override
-            public void onSizeChanged(float width, float height) {
-                RecordWalkActivity.this.pd.testCircle(width, height);
-            }
-        });
+        ovalsView = (OvalsView) findViewById(R.id.circles);
+        ovalsView.setSizeChangedListener(this.pd);
 
         handler = new Handler();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        super.onLocationChanged(location);
+        this.application.userManager.getCurrentUser().myLocation = location;
+    }
+
+    public void reset(View v) {
+        ovalsView.reset();
     }
 
     public void toggleRec(View view) {
@@ -87,17 +95,32 @@ public class RecordWalkActivity extends RecordingActivity implements SaveRecordi
     }
 
     private void save() {
-        DialogFragment fragment = new SaveRecordingDialogFragment();
-        fragment.show(getFragmentManager(), "savewalk");
-    }
+        ConfirmSaveRecordingDialogFragment confirmFragment = new ConfirmSaveRecordingDialogFragment();
+        final SaveRecordingDialogFragment fragment = new SaveRecordingDialogFragment();
 
-    @Override
-    public void onDialogPositiveClick(DialogFragment dialog) {
-        // Save the walk.
-    }
+        confirmFragment.setListener(new DialogListener() {
+            @Override
+            public void onDialogPositiveClick() {
+                fragment.show(getFragmentManager(), "savewalk");
+            }
 
-    @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
-        // Discard the walk.
+            @Override
+            public void onDialogNegativeClick() {
+                // Discard the walk.
+            }
+        });
+        fragment.setListener(new DialogListener() {
+            @Override
+            public void onDialogPositiveClick() {
+                // Save the walk.
+            }
+
+            @Override
+            public void onDialogNegativeClick() {
+                // Discard the walk.
+            }
+        });
+
+        confirmFragment.show(getFragmentManager(), "confirmsavewalk");
     }
 }

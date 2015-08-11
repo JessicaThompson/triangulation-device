@@ -22,7 +22,7 @@ import ca.triangulationdevice.android.util.VolumeLevelObserver;
  * An {@link Activity} which lets the user create sessions, connect with other
  * devices, and see the current status of the other connected user.
  */
-public abstract class RecordingActivity extends CompassActivity {
+public abstract class RecordingActivity extends StepCounterActivity {
     @SuppressWarnings("unused")
     private static final String TAG = "RecordingActivity";
 
@@ -49,14 +49,14 @@ public abstract class RecordingActivity extends CompassActivity {
         };
 
         // Add a listener for volume changes.
-        this.settingsContentObserver = new VolumeLevelObserver(this, new VolumeLevelObserver.Listener() {
-            @Override
-            public void onVolumeChanged(int newVolume) {
-                double ratio = newVolume / 15d;
-            }
-        }, AudioManager.STREAM_MUSIC);
-        int currentVolume = this.settingsContentObserver.getCurrent();
-        double ratio = currentVolume / 15d;
+//        this.settingsContentObserver = new VolumeLevelObserver(this, new VolumeLevelObserver.Listener() {
+//            @Override
+//            public void onVolumeChanged(int newVolume) {
+//                double ratio = newVolume / 15d;
+//            }
+//        }, AudioManager.STREAM_MUSIC);
+//        int currentVolume = this.settingsContentObserver.getCurrent();
+//        double ratio = currentVolume / 15d;
 
         try {
             this.pd = new Triangulation2Driver(this);
@@ -69,7 +69,7 @@ public abstract class RecordingActivity extends CompassActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        getApplicationContext().getContentResolver().unregisterContentObserver(this.settingsContentObserver);
+//        getApplicationContext().getContentResolver().unregisterContentObserver(this.settingsContentObserver);
         this.pd.close();
     }
 
@@ -99,14 +99,23 @@ public abstract class RecordingActivity extends CompassActivity {
 
     @Override
     protected void onCompassChanged(float azimuth, float pitch, float roll) {
-        this.path.addMine(getLocation(), azimuth, pitch, roll);
+        if (this.recording) {
+            this.path.addMine(getLocation(), azimuth, pitch, roll);
 
-        if (System.currentTimeMillis() - this.lastCompassUpdate > 200) {
-            this.lastCompassUpdate = System.currentTimeMillis();
-            this.lastCompass = azimuth;
+            if (System.currentTimeMillis() - this.lastCompassUpdate > 200) {
+                this.lastCompassUpdate = System.currentTimeMillis();
+                this.lastCompass = azimuth;
 
-            Location currentLocation = getLocation();
-            LatLng currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                Location currentLocation = getLocation();
+                LatLng currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+            }
+        }
+    }
+
+    @Override
+    protected void onStepCountChanged(float freq) {
+        if (this.recording) {
+            this.pd.myStepCountChanged(freq);
         }
     }
 }

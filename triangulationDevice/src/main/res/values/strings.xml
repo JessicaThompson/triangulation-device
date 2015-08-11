@@ -7,6 +7,7 @@
     
     <!-- Menu -->
     <string name="settings">Settings</string>
+    <string name="profile">Profile</string>
 
     <!-- Login screen -->
     <string name="enter_your_name">Enter your name</string>
@@ -15,10 +16,42 @@
 
     <!-- Profile -->
     <string name="connect">Connect</string>
+    <string name="offline">Offline</string>
+    <string name="edit">Edit</string>
+    <string name="edit_profile_picture">Edit Profile Picture</string>
+    <string name="log_out">Log Out</string>
+    <string name="email">E-mail</string>
+    <string name="bio">Bio</string>
+    <string name="location">Location</string>
+    <string name="name">Name</string>
+    <string name="save">Save</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <string name="no_name">Anonymous Triangulator</string>
+    <string name="no_description">No description provided...</string>
+    <string name="no_location">No location provided.</string>
+
+    <string name="unsaved_title">Unsaved Changes</string>
+    <string name="unsaved_description">You have unsaved changes. Are you sure you want to discard your changes?</string>
+
+    <!-- Record -->
+    <string name="save_dialog_title">Save Recording</string>
+    <string name="save_dialog_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 
     <!-- Developer keys -->
     <string name="facebook_app_id">103710589966907</string>
     <string name="google_maps_api_key">AIzaSyAAdtsQIz4c5tWLOVhDv8N0Mzcxa8EZMoc</string>
     <string name="mapbox_map_id">cnvandev.mm0j24f2</string>
     <string name="mapbox_map_token">sk.eyJ1IjoiY252YW5kZXYiLCJhIjoiMDVmYzkxOGVjMTVjNjhkZjM3ZTlmYjc4ZTUwZjM0YjcifQ.Ad59q_E9rxk5BGw719jEWw</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="character_count_zero">0/120</string>
+    <string name="visible_to_others">Visible to others</string>
+    <string name="author">Author</string>
+    <string name="path_name">Path Name</string>
+    <string name="path_length_zero">0:00</string>
+    <string name="default_location">Location, CA</string>
 </resources>

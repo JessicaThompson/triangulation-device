@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+    <LinearLayout
+        android:id="@+id/author_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:onClick="openCurrentProfile">
+        <TextView
+            android:id="@+id/mini_location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="@dimen/text_small"
+            android:gravity="center_vertical"
+            android:textColor="#FFFFFFFF"
+            android:text="@string/default_location"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:drawableStart="@drawable/ic_location_on_white_24dp"
+            android:drawablePadding="4dp"/>
+        <TextView
+            android:id="@+id/mini_length"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="@dimen/text_small"
+            android:gravity="center_vertical"
+            android:textColor="#FFFFFFFF"
+            android:text="@string/path_length_zero"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:drawableStart="@drawable/ic_headset_white_24dp"
+            android:drawablePadding="4dp"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginBottom="16dp"
+        android:text="@string/save_dialog_description" />
+</LinearLayout>

@@ -1,21 +1,26 @@
 package ca.triangulationdevice.android.pd;
 
 import android.content.Context;
+import android.graphics.RectF;
 import android.location.Location;
 import android.util.Log;
 
 import java.io.IOException;
 import java.util.HashMap;
 
-public class Triangulation2Driver extends PDDriver {
+import ca.triangulationdevice.android.ui.views.OvalsView;
+
+public class Triangulation2Driver extends PDDriver implements OvalsView.CircleChangedListener {
 
     private static final String TAG = "Triangulation2Driver";
+
+    private static final int SCALE = 30;
 
     private HashMap<String, Float> myHMS;
     private Location myLocation;
     private Location theirLocation;
 
-    private static final String FILENAME = "triangulationdevice_interfacetest_Jul27_v3.pd";
+    private static final String FILENAME = "triangulationdevice_interfacetest_Aug9.pd";
 
     public Triangulation2Driver(Context context) throws IOException {
         super(context, FILENAME);
@@ -25,15 +30,28 @@ public class Triangulation2Driver extends PDDriver {
     public void start() {
         super.start();
         this.sendBang("trigger");
-        this.sendFloat("control_octave_(24_-_60)", 30);
-        Log.i(TAG, String.format("Sent control_octave_(24_-60) = %.2f", 30f));
     }
 
-    public void testCircle(float width, float height) {
-        this.sendFloat("modulator_freq1", width / 30);
-        this.sendFloat("modulator_freq2", height / 30);
-        Log.i(TAG, String.format("Sent modulator_freq1 = %.2f modulator_freq2 = %.2f", width / 30, height / 30));
+    /**
+     * Triggered when circle bounds change, updates PD patch with new values.
+     *
+     * @param index The index of the circle to be updated.
+     * @param bounds A {@link RectF} which holds the circle's bounds.
+     */
+    public void onCircleChanged(int index, RectF bounds, int size) {
+        float radius = size / 2;
 
+        float top = SCALE * Math.max(0f, Math.min(1f, Math.abs(bounds.centerY() - bounds.top) / radius));
+        float right = SCALE * Math.max(0f, Math.min(1f, Math.abs(bounds.right - bounds.centerX()) / radius));
+        float bottom = SCALE * Math.max(0f, Math.min(1f, Math.abs(bounds.bottom - bounds.centerY()) / radius));
+        float left = SCALE * Math.max(0f, Math.min(1f, Math.abs(bounds.centerX() - bounds.left) / radius));
+
+        // From PD patch, indices are ordered clockwise from the top.
+        // 1 is top, 2 is right, 3 is bottom, 4 is left, etc.
+        this.sendFloat(String.format("android1c%d.%d", index, 1), top);
+        this.sendFloat(String.format("android1c%d.%d", index, 2), right);
+        this.sendFloat(String.format("android1c%d.%d", index, 3), bottom);
+        this.sendFloat(String.format("android1c%d.%d", index, 4), left);
     }
 
     /**
@@ -57,6 +75,11 @@ public class Triangulation2Driver extends PDDriver {
 
         this.sendFloat("androidlongs", getSeconds(this.myLocation.getLongitude()));
         this.sendFloat("androidlats", getSeconds(this.myLocation.getLatitude()));
+    }
+
+    public void myStepCountChanged(float freq) {
+        this.sendFloat("android1stepcounter", freq);
+        Log.i(TAG, String.format("Step count: %.2f", freq));
     }
 
     private float getSeconds(double tude) {

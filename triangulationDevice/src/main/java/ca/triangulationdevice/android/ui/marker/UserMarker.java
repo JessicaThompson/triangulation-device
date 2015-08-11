@@ -2,7 +2,6 @@ package ca.triangulationdevice.android.ui.marker;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -16,12 +15,12 @@ import ca.triangulationdevice.android.model.User;
 
 public class UserMarker extends Marker {
     public UserMarker(User user, Resources resources) {
-        super(user.name, user.description, user.latLng);
+        super(user.name, user.description, new LatLng(user.myLocation));
         this.setPicture(user, resources);
     }
 
     public UserMarker(MapView mv, User user, Resources resources) {
-        super(mv, user.name, user.description, user.latLng);
+        super(mv, user.name, user.description, new LatLng(user.myLocation));
         setPicture(user, resources);
     }
 

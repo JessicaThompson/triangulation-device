@@ -1,6 +1,5 @@
 package ca.triangulationdevice.android.ui.dialog;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -17,13 +16,13 @@ import ca.triangulationdevice.android.R;
 public class SaveRecordingDialogFragment extends DialogFragment {
 
     private TextView counter;
-    SaveRecordingDialogListener mListener;
+    DialogListener mListener;
 
     private final TextWatcher counterWatcher = new TextWatcher() {
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            counter.setText(String.format("%d/120", s.length()));
+            counter.setText(getString(R.string.character_count_zero, s.length()));
         }
 
         public void afterTextChanged(Editable s) {}
@@ -32,15 +31,15 @@ public class SaveRecordingDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Save Recording");
-        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+        builder.setTitle(R.string.save_dialog_title);
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // User clicked OK button
+                mListener.onDialogPositiveClick();
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // User cancelled the dialog
+                mListener.onDialogNegativeClick();
             }
         });
 
@@ -55,19 +54,7 @@ public class SaveRecordingDialogFragment extends DialogFragment {
         return builder.create();
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (SaveRecordingDialogListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement SaveRecordingDialogListener");
-        }
-    }
-
-    public interface SaveRecordingDialogListener {
-        public void onDialogPositiveClick(DialogFragment dialog);
-        public void onDialogNegativeClick(DialogFragment dialog);
+    public void setListener(DialogListener listener) {
+        this.mListener = listener;
     }
 }

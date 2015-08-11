@@ -17,7 +17,7 @@ import android.os.Bundle;
  * in.
  */
 public abstract class CompassActivity extends LocationActivity implements SensorEventListener {
-    private SensorManager sensorManager;
+    protected SensorManager sensorManager;
     private Sensor accelerometer;
     private Sensor magnetometer;
     private float[] gravity;
