@@ -80,7 +80,6 @@ public abstract class RecordingActivity extends StepCounterActivity {
         if (this.recording) {
             float[] lastOrientation = this.getLastOrientation();
             this.path.addMine(location, lastOrientation[0], lastOrientation[1], lastOrientation[2]);
-            Log.i(TAG, String.format("Sending a location change: %.6f, %.6f", location.getLatitude(), location.getLongitude()));
             this.pd.myLocationChanged(location);
         }
     }
