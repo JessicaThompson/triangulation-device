@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 
 import com.mapbox.mapboxsdk.geometry.LatLng;
@@ -11,6 +12,7 @@ import com.mapbox.mapboxsdk.geometry.LatLng;
 import java.io.IOException;
 import java.util.Date;
 
+import ca.triangulationdevice.android.ipc.NetworkIPCService;
 import ca.triangulationdevice.android.model.Path;
 import ca.triangulationdevice.android.model.Session;
 import ca.triangulationdevice.android.model.User;
@@ -34,6 +36,9 @@ public abstract class RecordingActivity extends StepCounterActivity {
     private float lastCompass = 0;
     private VolumeLevelObserver settingsContentObserver;
 
+    private NetworkIPCService<Location> transferService;
+    private Handler transferHandler;
+
     private ProgressDialog savingDialog;
 
     @Override
@@ -49,6 +54,9 @@ public abstract class RecordingActivity extends StepCounterActivity {
 //        }, AudioManager.STREAM_MUSIC);
 //        int currentVolume = this.settingsContentObserver.getCurrent();
 //        double ratio = currentVolume / 15d;
+
+        transferHandler = new Handler();
+        transferService = new NetworkIPCService<>(transferHandler, Location.CREATOR);
 
         try {
             this.pd = new Triangulation2Driver(this);
