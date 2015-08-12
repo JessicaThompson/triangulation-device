@@ -2,20 +2,19 @@ package ca.triangulationdevice.android.ui.partial;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.bluetooth.BluetoothDevice;
 import android.location.Location;
-import android.media.AudioManager;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.mapbox.mapboxsdk.geometry.LatLng;
 
 import java.io.IOException;
+import java.util.Date;
 
-import ca.triangulationdevice.android.pd.PDDriver;
+import ca.triangulationdevice.android.model.Path;
+import ca.triangulationdevice.android.model.Session;
+import ca.triangulationdevice.android.model.User;
 import ca.triangulationdevice.android.pd.Triangulation2Driver;
-import ca.triangulationdevice.android.storage.PathStorage;
-import ca.triangulationdevice.android.storage.PathStorage.SaveSessionTask;
 import ca.triangulationdevice.android.util.VolumeLevelObserver;
 
 /**
@@ -27,26 +26,19 @@ public abstract class RecordingActivity extends StepCounterActivity {
     private static final String TAG = "RecordingActivity";
 
     protected boolean recording = false;
-    private final PathStorage path = new PathStorage(this);
     protected Triangulation2Driver pd;
+
+    private Session session;
 
     private long lastCompassUpdate = 0;
     private float lastCompass = 0;
     private VolumeLevelObserver settingsContentObserver;
 
     private ProgressDialog savingDialog;
-    private SaveSessionTask saveTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        this.saveTask = this.path.new SaveSessionTask() {
-            @Override
-            protected void onPostExecute(Void result) {
-                RecordingActivity.this.savingDialog.dismiss();
-            }
-        };
 
         // Add a listener for volume changes.
 //        this.settingsContentObserver = new VolumeLevelObserver(this, new VolumeLevelObserver.Listener() {
@@ -79,27 +71,15 @@ public abstract class RecordingActivity extends StepCounterActivity {
 
         if (this.recording) {
             float[] lastOrientation = this.getLastOrientation();
-            this.path.addMine(location, lastOrientation[0], lastOrientation[1], lastOrientation[2]);
+            this.session.paths.get(Path.MINE).addPoint(location, lastOrientation[0], lastOrientation[1], lastOrientation[2]);
             this.pd.myLocationChanged(location);
         }
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        this.path.open();
-    }
-
-    @Override
-    protected void onStop() {
-        this.path.close();
-        super.onStop();
-    }
-
-    @Override
     protected void onCompassChanged(float azimuth, float pitch, float roll) {
         if (this.recording) {
-            this.path.addMine(getLocation(), azimuth, pitch, roll);
+            this.session.paths.get(Path.MINE).addPoint(getLocation(), azimuth, pitch, roll);
 
             if (System.currentTimeMillis() - this.lastCompassUpdate > 200) {
                 this.lastCompassUpdate = System.currentTimeMillis();
@@ -116,5 +96,18 @@ public abstract class RecordingActivity extends StepCounterActivity {
         if (this.recording) {
             this.pd.myStepCountChanged(freq);
         }
+    }
+
+    protected void startRecording(User user) {
+        this.recording = true;
+        this.session = new Session();
+        this.session.ownerId = user.id;
+        this.session.paths.set(Path.MINE, new Path());
+        this.session.paths.set(Path.THEIRS, new Path());
+    }
+
+    protected void stopRecording() {
+        this.recording = false;
+        this.session.saved = new Date();
     }
 }

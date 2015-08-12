@@ -46,6 +46,8 @@
     <string name="google_maps_api_key">AIzaSyAAdtsQIz4c5tWLOVhDv8N0Mzcxa8EZMoc</string>
     <string name="mapbox_map_id">cnvandev.mm0j24f2</string>
     <string name="mapbox_map_token">sk.eyJ1IjoiY252YW5kZXYiLCJhIjoiMDVmYzkxOGVjMTVjNjhkZjM3ZTlmYjc4ZTUwZjM0YjcifQ.Ad59q_E9rxk5BGw719jEWw</string>
+    <string name="google_games_app_id">491657128605-bkqo81urg68gsf3lbfmp2e57b0gp5mio.apps.googleusercontent.com</string>
+
     <string name="title">Title</string>
     <string name="description">Description</string>
     <string name="character_count_zero">0/120</string>

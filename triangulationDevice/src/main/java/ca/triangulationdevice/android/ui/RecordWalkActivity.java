@@ -72,7 +72,7 @@ public class RecordWalkActivity extends RecordingActivity {
             control.setCompoundDrawablesWithIntrinsicBounds(null, stopButton, null, null);
 
             // Start PD.
-            this.recording = true;
+            this.startRecording(application.userManager.getCurrentUser());
             this.pd.start();
 
             updateTime.run();
@@ -85,7 +85,7 @@ public class RecordWalkActivity extends RecordingActivity {
             control.setText("REC");
 
             // Stop PD.
-            this.recording = false;
+            this.stopRecording();
             this.pd.stop();
 
             handler.removeCallbacks(updateTime);

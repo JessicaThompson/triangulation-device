@@ -2,6 +2,7 @@ package ca.triangulationdevice.android.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,15 +13,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.couchbase.lite.CouchbaseLiteException;
+
+import java.util.Collections;
 import java.util.List;
 
 import ca.triangulationdevice.android.R;
 import ca.triangulationdevice.android.model.User;
-import ca.triangulationdevice.android.storage.PathStorage;
-import ca.triangulationdevice.android.storage.SessionAdapter;
+import ca.triangulationdevice.android.model.Session;
+import ca.triangulationdevice.android.model.SessionAdapter;
 import ca.triangulationdevice.android.ui.partial.TriangulationListActivity;
 
 public class ProfileActivity extends TriangulationListActivity {
+
+    private final static String TAG = "ProfileActivity";
 
     public final static String EXTRA_USER_ID = "userid";
     private User user;
@@ -51,7 +57,13 @@ public class ProfileActivity extends TriangulationListActivity {
 
         Intent callingIntent = getIntent();
         String userId = callingIntent.getStringExtra(ProfileActivity.EXTRA_USER_ID);
-        user = application.userManager.getUser(userId);
+        try {
+            user = application.userManager.getUser(userId);
+        } catch (CouchbaseLiteException ex) {
+            Log.e(TAG, "Error loading user from database.");
+            Toast.makeText(this, "Error loading user!", Toast.LENGTH_SHORT).show();
+            this.finish();
+        }
 
         if (!user.name.isEmpty()) {
             nameView.setText(user.name);
@@ -78,7 +90,12 @@ public class ProfileActivity extends TriangulationListActivity {
             connect.setEnabled(false);
         }
 
-        List<PathStorage.Session> sessions = application.userManager.getSessionsForUser(user);
+        List<Session> sessions;
+        try {
+            sessions = application.userManager.getSessionsForUser(user);
+        } catch (CouchbaseLiteException ex) {
+            sessions = Collections.emptyList();
+        }
         getListView().setAdapter(new SessionAdapter(this, sessions));
     }
 

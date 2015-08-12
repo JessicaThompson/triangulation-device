@@ -4,18 +4,24 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.couchbase.lite.CouchbaseLiteException;
 
 import ca.triangulationdevice.android.R;
 import ca.triangulationdevice.android.model.User;
 import ca.triangulationdevice.android.ui.partial.TriangulationActivity;
 
 public class EditProfileActivity extends TriangulationActivity {
+
+    public final static String TAG = "EditProfileActivity";
 
     public final static String EXTRA_USER_ID = "userid";
     private User user;
@@ -35,7 +41,12 @@ public class EditProfileActivity extends TriangulationActivity {
 
         Intent callingIntent = getIntent();
         String userId = callingIntent.getStringExtra(ProfileActivity.EXTRA_USER_ID);
-        user = application.userManager.getUser(userId);
+        try {
+            user = application.userManager.getUser(userId);
+        } catch (CouchbaseLiteException ex) {
+            Log.e(TAG, "Couldn't load user from database, can't edit profile: " + ex.getMessage());
+            this.finish();
+        }
 
         profileImage = (ImageView) findViewById(R.id.profile_image);
         nameView = (EditText) findViewById(R.id.edit_name);
@@ -71,7 +82,12 @@ public class EditProfileActivity extends TriangulationActivity {
         user.email = emailView.getText().toString();
         user.location = locationView.getText().toString();
 
-        application.userManager.add(user);
+        try {
+            application.userManager.add(user);
+        } catch (CouchbaseLiteException ex) {
+            Log.e(TAG, "Couldn't save user to database: " + ex.getMessage());
+            Toast.makeText(this, "Couldn't save to database :(", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void logout(View v) {

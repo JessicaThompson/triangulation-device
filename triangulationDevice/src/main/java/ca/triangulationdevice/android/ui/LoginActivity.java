@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.couchbase.lite.CouchbaseLiteException;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -26,9 +27,13 @@ import java.security.NoSuchAlgorithmException;
 
 import ca.triangulationdevice.android.R;
 import ca.triangulationdevice.android.model.User;
+import ca.triangulationdevice.android.ui.partial.LocationActivity;
 import ca.triangulationdevice.android.ui.partial.TriangulationActivity;
+import ca.triangulationdevice.android.util.Installation;
 
-public class LoginActivity extends TriangulationActivity {
+public class LoginActivity extends LocationActivity {
+
+    private static final String TAG = "LoginActivity";
 
     private TextView loginName;
 
@@ -36,6 +41,7 @@ public class LoginActivity extends TriangulationActivity {
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.login);
 
@@ -51,8 +57,10 @@ public class LoginActivity extends TriangulationActivity {
             public void onSuccess(LoginResult loginResult) {
                 Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_LONG).show();
                 Profile profile = Profile.getCurrentProfile();
-                User current = new User(profile.getName(), "", "", LoginActivity.this.getDrawable(R.drawable.gosling));
-                LoginActivity.this.application.userManager.logIn(current);
+                User current = new User(application.installation);
+                current.name = profile.getName();
+                current.myLocation = getLocation();
+                current.picture = LoginActivity.this.getDrawable(R.drawable.gosling);
                 startActivity(new Intent(LoginActivity.this, BrowseUserActivity.class));
                 LoginActivity.this.finish();
             }
@@ -69,11 +77,39 @@ public class LoginActivity extends TriangulationActivity {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        try {
+            // If we can log in, redirect.
+            if (this.application.userManager.logIn(application.installation)) {
+                startActivity(new Intent(this, BrowseUserActivity.class));
+                this.finish();
+            }
+        } catch (CouchbaseLiteException ex) {
+            // No user found.
+        }
+    }
+
     public void login(View v) {
         String name = loginName.getText().toString().trim();
-        User current = new User(name, "", "", this.getDrawable(R.drawable.gosling));
-        this.application.userManager.logIn(current);
-        startActivity(new Intent(this, BrowseUserActivity.class));
-        this.finish();
+        User current = new User(application.installation);
+        current.name = name;
+        current.online = true;
+        current.picture = this.getDrawable(R.drawable.gosling);
+        current.myLocation = getLocation();
+        try {
+            this.application.userManager.add(current);
+            if (this.application.userManager.logIn(application.installation)) {
+                startActivity(new Intent(this, BrowseUserActivity.class));
+                this.finish();
+            } else {
+                Toast.makeText(this, "Could not log in current user!", Toast.LENGTH_SHORT).show();
+            }
+        } catch (CouchbaseLiteException ex) {
+            Toast.makeText(this, "Could not log in current user!", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, ex.getMessage());
+        }
     }
 }

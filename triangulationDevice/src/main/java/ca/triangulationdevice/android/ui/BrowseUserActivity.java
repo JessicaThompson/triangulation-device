@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.couchbase.lite.CouchbaseLiteException;
 import com.mapbox.mapboxsdk.api.ILatLng;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.overlay.GpsLocationProvider;
@@ -25,8 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ca.triangulationdevice.android.R;
-import ca.triangulationdevice.android.TriangulationApplication;
-import ca.triangulationdevice.android.model.MemoryUserManager;
+import ca.triangulationdevice.android.storage.CouchDBUserManager;
 import ca.triangulationdevice.android.model.User;
 import ca.triangulationdevice.android.ui.marker.UserMarker;
 import ca.triangulationdevice.android.ui.partial.CompassActivity;
@@ -53,7 +54,7 @@ public class BrowseUserActivity extends CompassActivity {
     private TextView miniLocation;
     private TextView miniDescription;
 
-    private MemoryUserManager userManager;
+    private CouchDBUserManager userManager;
     private User currentUser;
 
     @Override
@@ -206,10 +207,14 @@ public class BrowseUserActivity extends CompassActivity {
     }
 
     private void addUsers() {
-        for (User user : application.userManager.getUsers()) {
-            if (user != application.userManager.getCurrentUser() && user.myLocation != null) {
-                this.addUserMarker(user);
+        try {
+            for (User user : application.userManager.getUsers()) {
+                if (user != application.userManager.getCurrentUser() && user.myLocation != null) {
+                    this.addUserMarker(user);
+                }
             }
+        } catch (CouchbaseLiteException ex) {
+            Log.e(TAG, "Unable to hit database: " + ex.getMessage());
         }
     }
 

@@ -1,4 +1,4 @@
-package ca.triangulationdevice.android.storage;
+package ca.triangulationdevice.android.model;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,13 +10,14 @@ import android.widget.TextView;
 import java.util.List;
 
 import ca.triangulationdevice.android.R;
+import ca.triangulationdevice.android.model.Session;
 
 public class SessionAdapter extends BaseAdapter {
 
-    private final List<PathStorage.Session> paths;
+    private final List<Session> paths;
     private final LayoutInflater inflater;
 
-    public SessionAdapter(Context context, List<PathStorage.Session> paths) {
+    public SessionAdapter(Context context, List<Session> paths) {
         this.paths = paths;
         inflater = LayoutInflater.from(context);
     }
@@ -33,7 +34,7 @@ public class SessionAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return paths.get(position).id;
+        return 0l;
     }
 
     @Override
@@ -46,7 +47,7 @@ public class SessionAdapter extends BaseAdapter {
         TextView lengthView = (TextView) convertView.findViewById(R.id.path_length);
         TextView locationView = (TextView) convertView.findViewById(R.id.path_location);
 
-        PathStorage.Session session = paths.get(position);
+        Session session = paths.get(position);
         pathNameView.setText(session.title);
 
         return convertView;
