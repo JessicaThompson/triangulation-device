@@ -14,10 +14,85 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/translucent_background"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/dark_text" />
+        <LinearLayout
+            android:id="@+id/connected_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/author"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/connected_profile_image"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/gosling"
+                        android:layout_marginRight="8dp"/>
+                    <TextView
+                        android:id="@+id/connected_name"
+                        android:text="Ryan Gosling"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFFFF" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/location"/>
+                <TextView
+                    android:id="@+id/connected_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_small"
+                    android:gravity="center"
+                    android:text="Some Location, CA"
+                    android:textColor="#FFFFFFFF"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:drawableStart="@drawable/ic_location_on_white_24dp"
+                    android:drawablePadding="4dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
     <ca.triangulationdevice.android.ui.views.OvalsView
         android:id="@+id/circles"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="32dp"/>
     <ImageView
         android:id="@+id/reset"
         android:layout_width="wrap_content"
@@ -35,6 +110,7 @@
         android:drawableTop="@drawable/record"
         android:drawablePadding="4dp"
         android:textColor="#FFFFFF"
+        android:layout_marginBottom="16dp"
         android:text="REC"
         android:onClick="toggleRec"/>
 </FrameLayout>

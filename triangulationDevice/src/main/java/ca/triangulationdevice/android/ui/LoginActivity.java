@@ -1,18 +1,13 @@
 package ca.triangulationdevice.android.ui;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.couchbase.lite.CouchbaseLiteException;
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -20,16 +15,11 @@ import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.mapbox.mapboxsdk.geometry.LatLng;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import ca.triangulationdevice.android.R;
 import ca.triangulationdevice.android.model.User;
 import ca.triangulationdevice.android.ui.partial.LocationActivity;
-import ca.triangulationdevice.android.ui.partial.TriangulationActivity;
-import ca.triangulationdevice.android.util.Installation;
+import ca.triangulationdevice.android.util.NetworkUtils;
 
 public class LoginActivity extends LocationActivity {
 
@@ -57,7 +47,8 @@ public class LoginActivity extends LocationActivity {
             public void onSuccess(LoginResult loginResult) {
                 Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_LONG).show();
                 Profile profile = Profile.getCurrentProfile();
-                User current = new User(application.installation);
+                User current = new User();
+                current.id = application.installation;
                 current.name = profile.getName();
                 current.myLocation = getLocation();
                 current.picture = LoginActivity.this.getDrawable(R.drawable.gosling);
@@ -94,11 +85,13 @@ public class LoginActivity extends LocationActivity {
 
     public void login(View v) {
         String name = loginName.getText().toString().trim();
-        User current = new User(application.installation);
+        User current = new User();
+        current.id = application.installation;
         current.name = name;
         current.online = true;
         current.picture = this.getDrawable(R.drawable.gosling);
         current.myLocation = getLocation();
+        current.ip = NetworkUtils.getIPAddress(true);
         try {
             this.application.userManager.add(current);
             if (this.application.userManager.logIn(application.installation)) {
@@ -109,7 +102,7 @@ public class LoginActivity extends LocationActivity {
             }
         } catch (CouchbaseLiteException ex) {
             Toast.makeText(this, "Could not log in current user!", Toast.LENGTH_SHORT).show();
-            Log.e(TAG, ex.getMessage());
+            ex.printStackTrace();
         }
     }
 }

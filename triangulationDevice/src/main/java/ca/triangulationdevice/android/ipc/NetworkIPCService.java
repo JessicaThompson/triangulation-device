@@ -14,6 +14,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
+import ca.triangulationdevice.android.model.User;
+
 /**
  * This class does all the work for setting up and managing Network
  * connections with other devices. It has a thread that listens for incoming
@@ -34,6 +36,7 @@ public class NetworkIPCService<T extends Parcelable> {
 
     // Member fields
     private final Handler handler;
+    private final User user;
     private AcceptThread secureAcceptThread;
     private ConnectThread connectThread;
     private TransferThread transferThread;
@@ -64,7 +67,8 @@ public class NetworkIPCService<T extends Parcelable> {
      * @param creator
      *            A Creator to make parcelable objects for your object to transfer.
      */
-    public NetworkIPCService(Handler handler, Parcelable.Creator<T> creator) {
+    public NetworkIPCService(User user, Handler handler, Parcelable.Creator<T> creator) {
+        this.user = user;
         this.state = STATE_NONE;
         this.handler = handler;
         this.creator = creator;
@@ -77,7 +81,7 @@ public class NetworkIPCService<T extends Parcelable> {
      *            An integer defining the current connection state
      */
     private synchronized void setState(int state) {
-        Log.d(TAG, "setState() " + state + " -> " + state);
+        Log.d(TAG, "setState() " + this.state + " -> " + state);
         this.state = state;
 
         // Give the new state to the Handler so the UI Activity can update
@@ -95,9 +99,7 @@ public class NetworkIPCService<T extends Parcelable> {
      * Start the chat service. Specifically start AcceptThread to begin a
      * session in listening (server) mode. Called by the Activity onResume()
      */
-    public synchronized void start() {
-        Log.d(TAG, "start");
-
+    public synchronized void listen() {
         // Cancel any thread attempting to make a connection
         if (this.connectThread != null) {
             this.connectThread.cancel();
@@ -110,6 +112,7 @@ public class NetworkIPCService<T extends Parcelable> {
             this.transferThread = null;
         }
 
+        Log.d(TAG, "Listening for new connections.");
         setState(STATE_LISTEN);
 
         // Start the thread to listen on a BluetoothServerSocket
@@ -126,7 +129,7 @@ public class NetworkIPCService<T extends Parcelable> {
      *            The InetAddress to connect to.
      */
     public synchronized void connect(InetAddress address) {
-        Log.d(TAG, "connect to: " + address);
+        Log.d(TAG, "Connecting to: " + address);
 
         // Cancel any thread attempting to make a connection
         if (this.state == STATE_CONNECTING) {
@@ -155,7 +158,7 @@ public class NetworkIPCService<T extends Parcelable> {
      *            The Socket on which the connection was made
      */
     public synchronized void connected(Socket socket) {
-        Log.d(TAG, "connected");
+        Log.d(TAG, "Connected");
 
         // Cancel the thread that completed the connection
         if (this.connectThread != null) {
@@ -182,6 +185,7 @@ public class NetworkIPCService<T extends Parcelable> {
 
         // Send the name of the connected device back to the UI Activity
         Message msg = this.handler.obtainMessage(NetworkIPCService.NEW_DEVICE);
+        msg.obj = user.id;
         this.handler.sendMessage(msg);
 
         setState(STATE_CONNECTED);
@@ -191,9 +195,9 @@ public class NetworkIPCService<T extends Parcelable> {
      * Disconnect from another device, reset to listening.
      */
     public synchronized void disconnect() {
-        Log.d(TAG, "disconnect()");
+        Log.d(TAG, "Disconnecting from remote socket.");
         setState(STATE_DISCONNECTING);
-        this.start();
+        this.listen();
         setState(STATE_LISTEN);
     }
 
@@ -201,7 +205,7 @@ public class NetworkIPCService<T extends Parcelable> {
      * Stop all threads
      */
     public synchronized void stop() {
-        Log.d(TAG, "stop()");
+        Log.d(TAG, "Stopping transfer service.");
 
         if (this.connectThread != null) {
             this.connectThread.cancel();
@@ -252,7 +256,7 @@ public class NetworkIPCService<T extends Parcelable> {
         this.handler.sendMessage(msg);
 
         // Start the service over to restart listening mode
-        NetworkIPCService.this.start();
+        NetworkIPCService.this.listen();
     }
 
     /**
@@ -267,7 +271,7 @@ public class NetworkIPCService<T extends Parcelable> {
         this.handler.sendMessage(msg);
 
         // Start the service over to restart listening mode
-        NetworkIPCService.this.start();
+        NetworkIPCService.this.listen();
     }
 
     /**
@@ -284,7 +288,7 @@ public class NetworkIPCService<T extends Parcelable> {
 
             // Create a new listening server socket
             try {
-                tmp = new ServerSocket();
+                tmp = new ServerSocket(PORT);
             } catch (IOException e) {
                 Log.e(TAG, "Secure listen() failed", e);
             }
@@ -293,32 +297,38 @@ public class NetworkIPCService<T extends Parcelable> {
 
         @Override
         public void run() {
-            Log.d(TAG, "BEGIN AcceptThread" + this);
+            Log.d(TAG, "BEGIN AcceptThread");
             setName("AcceptThread");
 
             Socket socket = null;
 
             // Listen to the server socket if we're not connected
             while (NetworkIPCService.this.state != STATE_CONNECTED) {
+                Log.d(TAG, "Not connected.");
                 try {
+                    Log.d(TAG, "Waiting for connections...");
                     // This is a blocking call and will only return on a
                     // successful connection or an exception
                     socket = this.serverSocket.accept();
                 } catch (IOException e) {
+                    Log.d(TAG, "Connection finished.", e);
                     break;
                 }
 
                 // If a connection was accepted
                 if (socket != null) {
+                    Log.d(TAG, "Socket successfully opened, changing state.");
                     synchronized (NetworkIPCService.this) {
                         switch (NetworkIPCService.this.state) {
                             case STATE_LISTEN:
                             case STATE_CONNECTING:
+                                Log.d(TAG, "Connecting to remote device.");
                                 // Situation normal. Start the connected thread.
                                 connected(socket);
                                 break;
                             case STATE_NONE:
                             case STATE_CONNECTED:
+                                Log.d(TAG, "Either not ready or already connected.");
                                 // Either not ready or already connected. Terminate
                                 // new socket.
                                 try {
@@ -329,6 +339,8 @@ public class NetworkIPCService<T extends Parcelable> {
                                 break;
                         }
                     }
+                } else {
+                    Log.i(TAG, "Socket was null, everything is ruined");
                 }
             }
             Log.i(TAG, "END mAcceptThread");
@@ -390,7 +402,8 @@ public class NetworkIPCService<T extends Parcelable> {
 
         public void cancel() {
             try {
-                this.socket.close();
+                if (this.socket != null)
+                    this.socket.close();
             } catch (IOException e) {
                 Log.e(TAG, "close() of connect socket failed", e);
             }
@@ -446,7 +459,7 @@ public class NetworkIPCService<T extends Parcelable> {
                         connectionLost();
                     }
                     // Start the service over to restart listening mode
-                    NetworkIPCService.this.start();
+                    NetworkIPCService.this.listen();
                     break;
                 }
             }

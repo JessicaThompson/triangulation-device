@@ -6,14 +6,15 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.mapbox.mapboxsdk.geometry.LatLng;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.Date;
 
 import ca.triangulationdevice.android.ipc.NetworkIPCService;
-import ca.triangulationdevice.android.model.Path;
 import ca.triangulationdevice.android.model.Session;
 import ca.triangulationdevice.android.model.User;
 import ca.triangulationdevice.android.pd.Triangulation2Driver;
@@ -36,9 +37,6 @@ public abstract class RecordingActivity extends StepCounterActivity {
     private float lastCompass = 0;
     private VolumeLevelObserver settingsContentObserver;
 
-    private NetworkIPCService<Location> transferService;
-    private Handler transferHandler;
-
     private ProgressDialog savingDialog;
 
     @Override
@@ -54,9 +52,6 @@ public abstract class RecordingActivity extends StepCounterActivity {
 //        }, AudioManager.STREAM_MUSIC);
 //        int currentVolume = this.settingsContentObserver.getCurrent();
 //        double ratio = currentVolume / 15d;
-
-        transferHandler = new Handler();
-        transferService = new NetworkIPCService<>(transferHandler, Location.CREATOR);
 
         try {
             this.pd = new Triangulation2Driver(this);
@@ -79,7 +74,7 @@ public abstract class RecordingActivity extends StepCounterActivity {
 
         if (this.recording) {
             float[] lastOrientation = this.getLastOrientation();
-            this.session.paths.get(Path.MINE).addPoint(location, lastOrientation[0], lastOrientation[1], lastOrientation[2]);
+            this.session.paths.get(Session.Path.MINE).addPoint(location, lastOrientation[0], lastOrientation[1], lastOrientation[2]);
             this.pd.myLocationChanged(location);
         }
     }
@@ -87,7 +82,7 @@ public abstract class RecordingActivity extends StepCounterActivity {
     @Override
     protected void onCompassChanged(float azimuth, float pitch, float roll) {
         if (this.recording) {
-            this.session.paths.get(Path.MINE).addPoint(getLocation(), azimuth, pitch, roll);
+            this.session.paths.get(Session.Path.MINE).addPoint(getLocation(), azimuth, pitch, roll);
 
             if (System.currentTimeMillis() - this.lastCompassUpdate > 200) {
                 this.lastCompassUpdate = System.currentTimeMillis();
@@ -110,8 +105,6 @@ public abstract class RecordingActivity extends StepCounterActivity {
         this.recording = true;
         this.session = new Session();
         this.session.ownerId = user.id;
-        this.session.paths.set(Path.MINE, new Path());
-        this.session.paths.set(Path.THEIRS, new Path());
     }
 
     protected void stopRecording() {

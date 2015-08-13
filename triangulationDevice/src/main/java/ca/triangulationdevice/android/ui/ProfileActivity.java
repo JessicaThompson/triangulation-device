@@ -125,8 +125,12 @@ public class ProfileActivity extends TriangulationListActivity {
     }
 
     public void connect(View v) {
-        if (user.online)
-            startActivity(new Intent(this, RecordWalkActivity.class));
+        if (user.online) {
+            Intent intent = new Intent(this, RecordWalkActivity.class);
+            intent.putExtra(RecordWalkActivity.ID_EXTRA, user.id);
+            startActivity(intent);
+            this.finish();
+        }
     }
 
     @Override
