@@ -18,6 +18,7 @@ import com.couchbase.lite.CouchbaseLiteException;
 import ca.triangulationdevice.android.R;
 import ca.triangulationdevice.android.model.User;
 import ca.triangulationdevice.android.ui.partial.TriangulationActivity;
+import ca.triangulationdevice.android.util.Installation;
 
 public class EditProfileActivity extends TriangulationActivity {
 
@@ -92,7 +93,10 @@ public class EditProfileActivity extends TriangulationActivity {
 
     public void logout(View v) {
         application.userManager.logOut();
+        Installation.delete(this);
+        application.installation = "";
         startActivity(new Intent(this, LoginActivity.class));
+        this.finish();
     }
 
     @Override

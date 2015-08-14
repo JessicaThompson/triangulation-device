@@ -25,16 +25,17 @@ import com.mapbox.mapboxsdk.overlay.UserLocationOverlay;
 import com.mapbox.mapboxsdk.views.MapView;
 import com.mapbox.mapboxsdk.views.MapViewListener;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import ca.triangulationdevice.android.R;
-import ca.triangulationdevice.android.ipc.NetworkIPCService;
+import ca.triangulationdevice.android.ipc.StringZeroMQClient;
+import ca.triangulationdevice.android.ipc.StringZeroMQServer;
 import ca.triangulationdevice.android.storage.CouchDBUserManager;
 import ca.triangulationdevice.android.model.User;
 import ca.triangulationdevice.android.ui.marker.UserMarker;
 import ca.triangulationdevice.android.ui.partial.LocationActivity;
+import ca.triangulationdevice.android.ui.partial.NetworkRecordingActivity;
 import ca.triangulationdevice.android.util.NetworkUtils;
 import ca.triangulationdevice.android.util.Typefaces;
 
@@ -59,22 +60,28 @@ public class BrowseUserActivity extends LocationActivity {
     private TextView miniLocation;
     private TextView miniDescription;
 
-    private NetworkIPCService<Location> transferService;
     private CouchDBUserManager userManager;
-    private User currentUser;
+    private User focusOtherUser;
+
+    Handler transferHandler = new Handler(new BrowseUserHandler());
+    StringZeroMQServer zeroServer = new StringZeroMQServer(transferHandler);
+    Thread stringThread = new Thread(zeroServer);
 
     private static final int DELAY = 5 * 60 * 1000;
 
     Runnable updateTime = new Runnable() {
         @Override
         public void run() {
-            currentUser.ip = NetworkUtils.getIPAddress(true);
-            try {
-                userManager.add(currentUser);
-            } catch (CouchbaseLiteException e) {
-                e.printStackTrace();
+            User me = userManager.getCurrentUser();
+            if (me != null) {
+                me.ip = NetworkUtils.getIPAddress(true);
+                try {
+                    userManager.add(me);
+                } catch (CouchbaseLiteException e) {
+                    e.printStackTrace();
+                }
+                handler.postDelayed(updateTime, DELAY);
             }
-            handler.postDelayed(updateTime, DELAY);
         }
     };
     private Handler handler;
@@ -90,10 +97,6 @@ public class BrowseUserActivity extends LocationActivity {
         Typefaces.loadTypefaces(this);
         setContentView(R.layout.map_activity);
         this.resources = getResources();
-
-        currentUser = userManager.getCurrentUser();
-        Handler transferHandler = new Handler(new NetworkBrowserHandler());
-        transferService = new NetworkIPCService<>(currentUser, transferHandler, Location.CREATOR);
 
         mapView = (MapView) this.findViewById(R.id.mapview);
         miniPlayer = (ViewGroup) findViewById(R.id.mini_playback);
@@ -134,7 +137,7 @@ public class BrowseUserActivity extends LocationActivity {
             @Override
             public void onTapMarker(MapView mapView, Marker marker) {
                 User tappedUser = markerUserMap.get(marker);
-                if (tappedUser == currentUser) {
+                if (tappedUser == focusOtherUser) {
                     openProfile(tappedUser);
                 } else {
                     showMiniProfile(tappedUser);
@@ -161,14 +164,19 @@ public class BrowseUserActivity extends LocationActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        this.transferService.listen();
         updateTime.run();
+        if (!this.stringThread.isAlive())
+            this.stringThread.start();
     }
 
     @Override
     protected void onPause() {
-        this.transferService.stop();
         handler.removeCallbacks(updateTime);
+        try {
+            this.stringThread.join(500);
+        } catch (InterruptedException e) {
+            // Don't care.
+        }
         super.onPause();
     }
 
@@ -193,7 +201,7 @@ public class BrowseUserActivity extends LocationActivity {
 
     @Override
     public void onBackPressed() {
-        if (currentUser != null) {
+        if (focusOtherUser != null) {
             this.hideMiniProfile();
         } else {
             super.onBackPressed();
@@ -216,7 +224,7 @@ public class BrowseUserActivity extends LocationActivity {
     }
 
     public void openCurrentProfile(View v) {
-        if (currentUser != null) openProfile(currentUser);
+        if (focusOtherUser != null) openProfile(focusOtherUser);
     }
 
     private void openProfile(User user) {
@@ -226,7 +234,7 @@ public class BrowseUserActivity extends LocationActivity {
     }
 
     private void showMiniProfile(User user) {
-        this.currentUser = user;
+        this.focusOtherUser = user;
 
         if (user.picture != null) {
             this.miniProfileImage.setImageDrawable(user.picture);
@@ -243,7 +251,7 @@ public class BrowseUserActivity extends LocationActivity {
     }
 
     private void hideMiniProfile() {
-        currentUser = null;
+        focusOtherUser = null;
         miniPlayer.setVisibility(View.GONE);
         miniProfile.setVisibility(View.GONE);
     }
@@ -267,29 +275,24 @@ public class BrowseUserActivity extends LocationActivity {
     }
 
     private void openCircles(String id) {
+        Log.i(TAG, "Opening circles for " + id);
         Intent intent = new Intent(this, RecordWalkActivity.class);
-        intent.putExtra(RecordWalkActivity.ID_EXTRA, id);
+        intent.putExtra(NetworkRecordingActivity.ID_EXTRA, id);
         startActivity(intent);
-        this.transferService.disconnect();
     }
 
     public void connect(View v) {
-        openCircles(currentUser.id);
+        new StringZeroMQClient(focusOtherUser.ip).execute(userManager.getCurrentUser().id);
+        openCircles(focusOtherUser.id);
     }
 
     // A Handler to receive messages from another BluetoothIPCActivity.
-    private class NetworkBrowserHandler implements Handler.Callback {
+    private class BrowseUserHandler implements Handler.Callback {
         @Override
         public boolean handleMessage(Message msg) {
-            switch (msg.what) {
-                case NetworkIPCService.NEW_DEVICE:
-                    BrowseUserActivity.this.transferService.disconnect();
-                    BrowseUserActivity.this.transferService.stop();
-                    openCircles((String) msg.obj);
-                case NetworkIPCService.MESSAGE_INFO:
-                    Log.i(TAG, "" + msg.getData().getString(NetworkIPCService.INFO));
-                    break;
-            }
+            Log.i(TAG, "Got a message" + msg.toString());
+            @SuppressWarnings("unchecked") String userID = (String) msg.obj;
+            openCircles(userID);
             return true;
         }
     }

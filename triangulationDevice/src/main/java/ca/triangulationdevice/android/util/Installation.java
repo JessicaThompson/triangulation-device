@@ -26,6 +26,11 @@ public class Installation {
         return sID;
     }
 
+    public static boolean delete(Context context) {
+        File installation = new File(context.getFilesDir(), INSTALLATION);
+        return installation.delete();
+    }
+
     private static String readInstallationFile(File installation) throws IOException {
         RandomAccessFile f = new RandomAccessFile(installation, "r");
         byte[] bytes = new byte[(int) f.length()];

@@ -135,15 +135,16 @@ public class CouchDBUserManager {
 
         List<User> users = new ArrayList<>(usersView.getTotalRows());
         for (QueryRow row : userQuery.run()) {
-            users.add(load(row, User.class));
+            User user = load(row, User.class);
+            if (user.online && user != null && this.user != null && !user.id.equals(this.user.id))
+                users.add(user);
         }
 
         return users;
     }
 
     public User getUser(String id) throws CouchbaseLiteException {
-        Log.i(TAG, "Trying to get user " + id);
-        Log.i(TAG, "All users: " + getUsers().toString());
+        Log.d(TAG, "Trying to get user " + id);
         return load(getRowById(usersView, id), User.class);
     }
 

@@ -4,21 +4,16 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.mapbox.mapboxsdk.geometry.LatLng;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.util.Date;
 
-import ca.triangulationdevice.android.ipc.NetworkIPCService;
 import ca.triangulationdevice.android.model.Session;
 import ca.triangulationdevice.android.model.User;
 import ca.triangulationdevice.android.pd.Triangulation2Driver;
-import ca.triangulationdevice.android.util.VolumeLevelObserver;
 
 /**
  * An {@link Activity} which lets the user create sessions, connect with other
@@ -35,23 +30,12 @@ public abstract class RecordingActivity extends StepCounterActivity {
 
     private long lastCompassUpdate = 0;
     private float lastCompass = 0;
-    private VolumeLevelObserver settingsContentObserver;
 
     private ProgressDialog savingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Add a listener for volume changes.
-//        this.settingsContentObserver = new VolumeLevelObserver(this, new VolumeLevelObserver.Listener() {
-//            @Override
-//            public void onVolumeChanged(int newVolume) {
-//                double ratio = newVolume / 15d;
-//            }
-//        }, AudioManager.STREAM_MUSIC);
-//        int currentVolume = this.settingsContentObserver.getCurrent();
-//        double ratio = currentVolume / 15d;
 
         try {
             this.pd = new Triangulation2Driver(this);
@@ -64,7 +48,6 @@ public abstract class RecordingActivity extends StepCounterActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        getApplicationContext().getContentResolver().unregisterContentObserver(this.settingsContentObserver);
         this.pd.close();
     }
 

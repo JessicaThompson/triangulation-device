@@ -20,7 +20,7 @@ public class Triangulation2Driver extends PDDriver implements OvalsView.CircleCh
     private Location myLocation;
     private Location theirLocation;
 
-    private static final String FILENAME = "triangulationdevice_interfacetest_Aug9.pd";
+    private static final String FILENAME = "triangulationdevice_interfacetest_Aug11.pd";
 
     public Triangulation2Driver(Context context) throws IOException {
         super(context, FILENAME);
@@ -29,7 +29,13 @@ public class Triangulation2Driver extends PDDriver implements OvalsView.CircleCh
     @Override
     public void start() {
         super.start();
-        this.sendBang("trigger");
+        this.sendBang("start");
+    }
+
+    @Override
+    public void stop() {
+        super.stop();
+        this.sendBang("stop");
     }
 
     /**
@@ -62,6 +68,11 @@ public class Triangulation2Driver extends PDDriver implements OvalsView.CircleCh
      */
     public void theirLocationChanged(Location location) {
         this.theirLocation = location;
+
+        this.sendFloat("android2long", getSeconds(this.theirLocation.getLongitude()));
+        this.sendFloat("android2lat", getSeconds(this.theirLocation.getLatitude()));
+
+        this.updateDiff();
     }
 
     /**
@@ -73,13 +84,25 @@ public class Triangulation2Driver extends PDDriver implements OvalsView.CircleCh
     public void myLocationChanged(Location location) {
         this.myLocation = location;
 
-        this.sendFloat("androidlongs", getSeconds(this.myLocation.getLongitude()));
-        this.sendFloat("androidlats", getSeconds(this.myLocation.getLatitude()));
+        this.sendFloat("android1long", getSeconds(this.myLocation.getLongitude()));
+        this.sendFloat("android1lat", getSeconds(this.myLocation.getLatitude()));
+
+        this.updateDiff();
+    }
+
+    private void updateDiff() {
+        if (this.myLocation != null && this.theirLocation != null) {
+            this.sendFloat("androidbearing", this.myLocation.bearingTo(theirLocation));
+            this.sendFloat("androidproximity", this.myLocation.distanceTo(theirLocation));
+        }
+    }
+
+    public void theirStepCountChanged(float freq) {
+        this.sendFloat("android2stepcounter", freq);
     }
 
     public void myStepCountChanged(float freq) {
         this.sendFloat("android1stepcounter", freq);
-        Log.i(TAG, String.format("Step count: %.2f", freq));
     }
 
     private float getSeconds(double tude) {
