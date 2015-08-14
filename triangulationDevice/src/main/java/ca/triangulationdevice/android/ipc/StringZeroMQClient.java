@@ -18,13 +18,13 @@ public class StringZeroMQClient extends AsyncTask<String, Void, Void> {
 
     @Override
     protected final Void doInBackground(String... objects) {
-        Log.i(TAG, "Doing some shit 2.");
+        Log.d(TAG, "Doing some shit 2.");
         ZMQ.Context context = ZMQ.context(1);
         ZMQ.Socket socket = context.socket(ZMQ.REQ);
         socket.connect("tcp://" + ip + ":5557");
 
         socket.send(objects[0].getBytes());
-        Log.i(TAG, "sent: " + objects[0]);
+        Log.d(TAG, "sent: " + objects[0]);
 
         socket.close();
         context.term();

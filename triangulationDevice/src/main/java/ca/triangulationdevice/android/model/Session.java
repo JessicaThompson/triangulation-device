@@ -10,10 +10,12 @@ import java.util.List;
 
 @JsonIgnoreProperties
 public class Session extends CouchObject {
+    public String audioFilename;
     public String ownerId;
     public String title;
+    public String description;
     public Date saved;
-    public String locationString;
+    public Location startLocation;
     public List<Path> paths = new ArrayList<>(2);
 
     {

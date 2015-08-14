@@ -164,12 +164,12 @@ public class CouchDBUserManager {
 
     private <T extends CouchObject> void add(final T object, View view) throws CouchbaseLiteException {
         Log.d(TAG, "Adding " + object);
-
         Document document = getDocumentForId(view, object.id);
+
         if (document == null) {
-            Log.e(TAG, "Couldn't get a document for ID " + object.id);
+            Log.e(TAG, "Couldn't get (or create) a document for ID \"" + object.id + "\"");
         } else {
-            Log.d(TAG, "Got document " + object.id);
+            Log.d(TAG, "Got document for ID \"" + object.id + "\"");
             final Map<String, Object> properties = mapper.convertValue(object, Map.class);
             properties.put("type", object.getClass().getSimpleName());
             document.update(new Document.DocumentUpdater() {

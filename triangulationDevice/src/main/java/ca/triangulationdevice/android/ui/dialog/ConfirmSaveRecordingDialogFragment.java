@@ -20,7 +20,7 @@ public class ConfirmSaveRecordingDialogFragment extends DialogFragment {
         builder.setTitle(R.string.save_dialog_title);
         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                mListener.onDialogPositiveClick();
+                mListener.onDialogPositiveClick("", "");
             }
         });
         builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {

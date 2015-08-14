@@ -5,14 +5,20 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.couchbase.lite.CouchbaseLiteException;
+
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.UUID;
 
 import ca.triangulationdevice.android.R;
 import ca.triangulationdevice.android.ui.dialog.ConfirmSaveRecordingDialogFragment;
@@ -73,6 +79,17 @@ public class RecordWalkActivity extends NetworkRecordingActivity {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        this.stop();
+        super.onPause();
+    }
+
+    @Override
     public void onLocationChanged(Location location) {
         super.onLocationChanged(location);
         this.application.userManager.getCurrentUser().myLocation = location;
@@ -104,7 +121,6 @@ public class RecordWalkActivity extends NetworkRecordingActivity {
             control.setText("REC");
 
             // Stop PD.
-            this.stopRecording();
             this.pd.stop();
 
             handler.removeCallbacks(updateTime);
@@ -119,7 +135,7 @@ public class RecordWalkActivity extends NetworkRecordingActivity {
 
         confirmFragment.setListener(new DialogListener() {
             @Override
-            public void onDialogPositiveClick() {
+            public void onDialogPositiveClick(String title, String description) {
                 fragment.show(getFragmentManager(), "savewalk");
             }
 
@@ -130,8 +146,16 @@ public class RecordWalkActivity extends NetworkRecordingActivity {
         });
         fragment.setListener(new DialogListener() {
             @Override
-            public void onDialogPositiveClick() {
-                // Save the walk.
+            public void onDialogPositiveClick(String title, String description) {
+                try {
+                    RecordWalkActivity.this.save(UUID.randomUUID().toString(), title, description);
+                } catch (IOException e) {
+                    Log.e(TAG, "Error while saving recording: " + e.getMessage());
+                    Toast.makeText(RecordWalkActivity.this, "Error saving walk audio.", Toast.LENGTH_SHORT).show();
+                } catch (CouchbaseLiteException e) {
+                    Log.e(TAG, "Error while saving path: " + e.getMessage());
+                    Toast.makeText(RecordWalkActivity.this, "Error saving walk path.", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override

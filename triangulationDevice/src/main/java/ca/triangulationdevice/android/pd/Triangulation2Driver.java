@@ -5,7 +5,13 @@ import android.graphics.RectF;
 import android.location.Location;
 import android.util.Log;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URI;
 import java.util.HashMap;
 
 import ca.triangulationdevice.android.ui.views.OvalsView;
@@ -21,6 +27,8 @@ public class Triangulation2Driver extends PDDriver implements OvalsView.CircleCh
     private Location theirLocation;
 
     private static final String FILENAME = "triangulationdevice_interfacetest_Aug11.pd";
+    private static final String AUDIO_FILENAME = "~bytes";
+    public static final String AUDIO_SUFFIX = "wav";
 
     public Triangulation2Driver(Context context) throws IOException {
         super(context, FILENAME);
@@ -36,6 +44,30 @@ public class Triangulation2Driver extends PDDriver implements OvalsView.CircleCh
     public void stop() {
         super.stop();
         this.sendBang("stop");
+    }
+
+    public void record() {
+        this.sendBang("android1startrecording");
+    }
+
+    public void save(String filename) throws IOException {
+        File audio = new File(context.getFilesDir() + "/" + AUDIO_FILENAME + "." + AUDIO_SUFFIX);
+        File output = new File(context.getFilesDir() + "/" + filename + "." + AUDIO_SUFFIX);
+        this.copy(audio, output);
+    }
+
+    protected void copy(File src, File dst) throws IOException {
+        InputStream in = new FileInputStream(src);
+        OutputStream out = new FileOutputStream(dst);
+
+        // Transfer bytes from in to out
+        byte[] buf = new byte[1024];
+        int len;
+        while ((len = in.read(buf)) > 0) {
+            out.write(buf, 0, len);
+        }
+        in.close();
+        out.close();
     }
 
     /**

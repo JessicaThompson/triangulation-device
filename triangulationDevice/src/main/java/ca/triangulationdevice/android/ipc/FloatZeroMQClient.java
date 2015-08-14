@@ -20,13 +20,13 @@ public class FloatZeroMQClient extends AsyncTask<Float, Void, Void> {
 
     @Override
     protected final Void doInBackground(Float... objects) {
-        Log.i(TAG, "Doing some shit.");
+        Log.d(TAG, "Doing some shit.");
         ZMQ.Context context = ZMQ.context(1);
         ZMQ.Socket socket = context.socket(ZMQ.REQ);
         socket.connect("tcp://" + ip + ":5556");
 
         socket.send(Float.toString(objects[0]));
-        Log.i(TAG, "sent: " + objects[0]);
+        Log.d(TAG, "sent: " + objects[0]);
 
         socket.close();
         context.term();

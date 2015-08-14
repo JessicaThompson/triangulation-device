@@ -1,5 +1,5 @@
 package ca.triangulationdevice.android.model;
 
 public class CouchObject {
-    public String id = "";
+    public String id = null;
 }

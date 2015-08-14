@@ -15,22 +15,20 @@ public class ParcelableZeroMQClient<T extends Parcelable> extends AsyncTask<T, V
     private final String ip;
 
     public ParcelableZeroMQClient(String ip) {
-        Log.i(TAG, "Creating a new ZMQ client to " + ip);
+        Log.d(TAG, "Creating a new ZMQ client to " + ip);
         this.ip = ip;
     }
 
     @SafeVarargs
     @Override
     protected final Void doInBackground(T... objects) {
-        Log.i(TAG, "Trying to do shit in the background");
         ZMQ.Context context = ZMQ.context(1);
         ZMQ.Socket socket = context.socket(ZMQ.REQ);
-        Log.i(TAG, "Connecting to tcp://" + ip + ":5555");
+        Log.d(TAG, "Connecting to tcp://" + ip + ":5555");
         socket.connect("tcp://" + ip + ":5555");
-        Log.i(TAG, "Connected.");
 
         socket.send(pack(objects[0]));
-        Log.i(TAG, "sent: " + objects[0].toString());
+        Log.d(TAG, "sent: " + objects[0].toString());
 
         socket.close();
         context.term();

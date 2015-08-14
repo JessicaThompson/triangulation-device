@@ -9,6 +9,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import ca.triangulationdevice.android.R;
@@ -28,13 +29,17 @@ public class SaveRecordingDialogFragment extends DialogFragment {
         public void afterTextChanged(Editable s) {}
     };
 
+    private EditText description;
+    private EditText title;
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.save_dialog_title);
         builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                mListener.onDialogPositiveClick();
+                mListener.onDialogPositiveClick(title.getText().toString(),
+                        description.getText().toString());
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -48,7 +53,8 @@ public class SaveRecordingDialogFragment extends DialogFragment {
         builder.setView(view);
 
         counter = (TextView) view.findViewById(R.id.counter);
-        TextView description = (TextView) view.findViewById(R.id.description);
+        description = (EditText) view.findViewById(R.id.description);
+        title = (EditText) view.findViewById(R.id.title);
         description.addTextChangedListener(counterWatcher);
 
         return builder.create();

@@ -19,12 +19,12 @@ import ca.triangulationdevice.android.model.User;
 public abstract class NetworkRecordingActivity extends RecordingActivity {
 
     public static final String ID_EXTRA = "userid";
-    public static final String ACTIVE_EXTRA = "active";
     public static final int PARCELABLE = 0;
     public static final int FLOAT = 1;
 
     private static final String TAG = "NetworkRecording";
 
+    private boolean solo = true;
     private Thread parcelableThread;
     private Thread floatThread;
     private String ip;
@@ -43,8 +43,11 @@ public abstract class NetworkRecordingActivity extends RecordingActivity {
         Intent intent = getIntent();
         try {
             String id = intent.getStringExtra(ID_EXTRA);
-            otherUser = this.application.userManager.getUser(id);
-            ip = otherUser.ip;
+            if (id != null) {
+                solo = false;
+                otherUser = this.application.userManager.getUser(id);
+                ip = otherUser.ip;
+            }
         } catch (CouchbaseLiteException e) {
             this.finish();
             Toast.makeText(this, "Could not load user - uh oh?", Toast.LENGTH_LONG).show();
@@ -55,19 +58,23 @@ public abstract class NetworkRecordingActivity extends RecordingActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (!this.parcelableThread.isAlive())
-            this.parcelableThread.start();
-        if (!this.floatThread.isAlive())
-            this.floatThread.start();
+        if (!solo) {
+            if (!this.parcelableThread.isAlive())
+                this.parcelableThread.start();
+            if (!this.floatThread.isAlive())
+                this.floatThread.start();
+        }
     }
 
     @Override
     protected void onPause() {
-        try {
-            this.parcelableThread.join(500);
-            this.floatThread.join(500);
-        } catch (InterruptedException e) {
-            // Don't care.
+        if (!solo) {
+            try {
+                this.parcelableThread.join(500);
+                this.floatThread.join(500);
+            } catch (InterruptedException e) {
+                // Don't care.
+            }
         }
         super.onPause();
     }
@@ -75,12 +82,14 @@ public abstract class NetworkRecordingActivity extends RecordingActivity {
     @Override
     public void onLocationChanged(Location location) {
         super.onLocationChanged(location);
-        this.sendLocation(location);
+        if (!solo)
+            this.sendLocation(location);
     }
 
     @Override
     protected void onStepCountChanged(float newCount) {
-        this.sendStepCount(newCount);
+        if (!solo)
+            this.sendStepCount(newCount);
     }
 
     protected void sendLocation(Location location) {

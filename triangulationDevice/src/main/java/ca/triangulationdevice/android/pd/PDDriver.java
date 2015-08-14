@@ -1,6 +1,7 @@
 package ca.triangulationdevice.android.pd;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,7 +40,7 @@ public abstract class PDDriver {
 
     private boolean started = false;
 
-    private final Context context;
+    protected final Context context;
     private PdUiDispatcher dispatcher;
     private PdService pdService;
 
@@ -50,6 +51,10 @@ public abstract class PDDriver {
             try {
                 PDDriver.this.initPd();
                 PDDriver.this.loadPatch();
+
+                if (PDDriver.this.started) {
+                    PDDriver.this.start();
+                }
             } catch (IOException e) {
                 Log.e(getClass().toString(), e.toString());
             }
@@ -88,7 +93,9 @@ public abstract class PDDriver {
      */
     public void start() {
         this.started = true;
-        this.startPdAudio();
+        if (this.pdService != null) {
+            this.startPdAudio();
+        }
     }
 
     /**
@@ -132,7 +139,7 @@ public abstract class PDDriver {
     }
 
     private void startPdAudio() {
-        if (!this.pdService.isRunning()) {
+        if (this.pdService != null && !this.pdService.isRunning()) {
             // Starts audio and creates a notification pointing to this activity
             // To start audio with no notification, give startAudio() 0 args
             pdService.startAudio(new Intent(context, RecordWalkActivity.class), R.drawable.icon, "Pure Data", "Return to Pure Data.");

@@ -15,6 +15,7 @@
         android:layout_height="match_parent"
         android:background="@color/translucent_background"/>
     <LinearLayout
+        android:id="@+id/connected_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -29,7 +30,6 @@
             android:layout_marginBottom="16dp"
             android:background="@color/dark_text" />
         <LinearLayout
-            android:id="@+id/connected_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

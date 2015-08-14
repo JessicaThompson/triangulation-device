@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.location.Location;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,12 +27,15 @@ import com.mapbox.mapboxsdk.overlay.UserLocationOverlay;
 import com.mapbox.mapboxsdk.views.MapView;
 import com.mapbox.mapboxsdk.views.MapViewListener;
 
+import java.io.File;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
 import ca.triangulationdevice.android.R;
 import ca.triangulationdevice.android.ipc.StringZeroMQClient;
 import ca.triangulationdevice.android.ipc.StringZeroMQServer;
+import ca.triangulationdevice.android.pd.Triangulation2Driver;
 import ca.triangulationdevice.android.storage.CouchDBUserManager;
 import ca.triangulationdevice.android.model.User;
 import ca.triangulationdevice.android.ui.marker.UserMarker;
@@ -85,12 +90,13 @@ public class BrowseUserActivity extends LocationActivity {
         }
     };
     private Handler handler;
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActionBar().setDisplayShowHomeEnabled(true);
-        getActionBar().setDisplayUseLogoEnabled(true);
+        getActionBar().setDisplayUseLogoEnabled(false);
 
         userManager = application.userManager;
 
@@ -109,6 +115,7 @@ public class BrowseUserActivity extends LocationActivity {
 
         // Setup the map and user overlay.
         UserLocationOverlay myLocationOverlay = new UserLocationOverlay(new GpsLocationProvider(this), mapView);
+        myLocationOverlay.enableFollowLocation();
         myLocationOverlay.enableMyLocation();
         myLocationOverlay.setDrawAccuracyEnabled(true);
         mapView.getOverlays().add(myLocationOverlay);
@@ -159,6 +166,9 @@ public class BrowseUserActivity extends LocationActivity {
 
             }
         });
+
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
     }
 
     @Override
@@ -221,6 +231,15 @@ public class BrowseUserActivity extends LocationActivity {
         } catch (CouchbaseLiteException e) {
             e.printStackTrace();
         }
+    }
+
+    public URI load(String filename) {
+        return new File(this.getFilesDir() + "/" + filename + "." + Triangulation2Driver.AUDIO_SUFFIX).toURI();
+    }
+
+    public void playCurrent() {
+        // TODO: Be able to select sessions, load their audio files for playback.
+//        this.mediaPlayer.setDataSource(load());
     }
 
     public void openCurrentProfile(View v) {

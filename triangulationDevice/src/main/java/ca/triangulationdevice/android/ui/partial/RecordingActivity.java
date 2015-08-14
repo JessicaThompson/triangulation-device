@@ -6,6 +6,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.couchbase.lite.CouchbaseLiteException;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 
 import java.io.IOException;
@@ -65,14 +66,11 @@ public abstract class RecordingActivity extends StepCounterActivity {
     @Override
     protected void onCompassChanged(float azimuth, float pitch, float roll) {
         if (this.recording) {
-            this.session.paths.get(Session.Path.MINE).addPoint(getLocation(), azimuth, pitch, roll);
+//            this.session.paths.get(Session.Path.MINE).addPoint(getLocation(), azimuth, pitch, roll);
 
             if (System.currentTimeMillis() - this.lastCompassUpdate > 200) {
                 this.lastCompassUpdate = System.currentTimeMillis();
                 this.lastCompass = azimuth;
-
-                Location currentLocation = getLocation();
-                LatLng currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
             }
         }
     }
@@ -84,14 +82,29 @@ public abstract class RecordingActivity extends StepCounterActivity {
         }
     }
 
+    protected void startAudio() {
+        this.pd.start();
+    }
+
     protected void startRecording(User user) {
         this.recording = true;
         this.session = new Session();
         this.session.ownerId = user.id;
+        this.pd.record();
     }
 
-    protected void stopRecording() {
+    protected void stop() {
         this.recording = false;
         this.session.saved = new Date();
+        this.pd.stop();
+    }
+
+    protected void save(String filename, String title, String description) throws IOException, CouchbaseLiteException {
+        this.pd.save(filename);
+        this.session.audioFilename = filename;
+        this.session.title = title;
+        this.session.description = description;
+        this.session.startLocation = this.session.paths.get(Session.Path.MINE).points.get(0).location;
+        this.application.userManager.add(this.session);
     }
 }
