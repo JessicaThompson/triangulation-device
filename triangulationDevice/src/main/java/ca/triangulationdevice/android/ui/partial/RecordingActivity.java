@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.couchbase.lite.CouchbaseLiteException;
-import com.mapbox.mapboxsdk.geometry.LatLng;
 
 import java.io.IOException;
 import java.util.Date;
@@ -25,13 +24,15 @@ public abstract class RecordingActivity extends StepCounterActivity {
     @SuppressWarnings("unused")
     private static final String TAG = "RecordingActivity";
 
+    protected boolean started = false;
     protected boolean recording = false;
     protected Triangulation2Driver pd;
 
-    private Session session;
+    protected Session session;
 
     private long lastCompassUpdate = 0;
     private float lastCompass = 0;
+    private float lastStepCount = 0;
 
     private ProgressDialog savingDialog;
 
@@ -57,16 +58,18 @@ public abstract class RecordingActivity extends StepCounterActivity {
     public void onLocationChanged(Location location) {
         super.onLocationChanged(location);
 
-        if (this.recording) {
-            float[] lastOrientation = this.getLastOrientation();
-            this.session.paths.get(Session.Path.MINE).addPoint(location, lastOrientation[0], lastOrientation[1], lastOrientation[2]);
+        if (this.started) {
+            if (this.recording) {
+                float[] lastOrientation = this.getLastOrientation();
+                this.session.paths.get(Session.Path.MINE).addPoint(location, lastOrientation[0], lastOrientation[1], lastOrientation[2], lastStepCount);
+            }
             this.pd.myLocationChanged(location);
         }
     }
 
     @Override
     protected void onCompassChanged(float azimuth, float pitch, float roll) {
-        if (this.recording) {
+        if (this.started) {
 //            this.session.paths.get(Session.Path.MINE).addPoint(getLocation(), azimuth, pitch, roll);
 
             if (System.currentTimeMillis() - this.lastCompassUpdate > 200) {
@@ -78,12 +81,14 @@ public abstract class RecordingActivity extends StepCounterActivity {
 
     @Override
     protected void onStepCountChanged(float freq) {
-        if (this.recording) {
+        this.lastStepCount = freq;
+        if (this.started) {
             this.pd.myStepCountChanged(freq);
         }
     }
 
     protected void startAudio() {
+        this.started = true;
         this.pd.start();
     }
 
@@ -95,10 +100,10 @@ public abstract class RecordingActivity extends StepCounterActivity {
     }
 
     protected void stop() {
-        if (this.recording) {
+        if (this.started) {
             this.session.saved = new Date();
         }
-        this.recording = false;
+        this.started = false;
         this.pd.stop();
     }
 

@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.couchbase.lite.CouchbaseLiteException;
+import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.mapboxsdk.views.MapView;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -60,6 +62,7 @@ public class RecordWalkActivity extends NetworkRecordingActivity {
     private TextView connectedLocation;
     private LinearLayout connectedInfo;
     private long lastUserLocationUpdateTime = System.currentTimeMillis();
+    private MapView mapView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,13 +86,24 @@ public class RecordWalkActivity extends NetworkRecordingActivity {
             connectedLocation.setText(otherUser.location);
         }
 
+        mapView = (MapView) findViewById(R.id.map);
+
         handler = new Handler();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        this.pd.start();
+        this.startAudio();
+    }
+
+    @Override
+    public void onConnected(Bundle connectionHunt) {
+        super.onConnected(connectionHunt);
+
+        // Zoom the map to our position!
+        LatLng latLng = new LatLng(getLocation());
+        mapView.setCenter(latLng);
     }
 
     @Override
@@ -163,6 +177,12 @@ public class RecordWalkActivity extends NetworkRecordingActivity {
 
     private void save() {
         ConfirmSaveRecordingDialogFragment confirmFragment = new ConfirmSaveRecordingDialogFragment();
+        Bundle args = new Bundle();
+        args.putString("location", application.userManager.getCurrentUser().location);
+
+        args.putString("duration", session.duration());
+        confirmFragment.setArguments(args);
+
         final SaveRecordingDialogFragment fragment = new SaveRecordingDialogFragment();
 
         confirmFragment.setListener(new DialogListener() {

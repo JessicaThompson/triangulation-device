@@ -91,7 +91,8 @@ public class BrowseUserActivity extends LocationActivity {
     private Handler handler;
     private MediaPlayer mediaPlayer;
     private ProgressBar progressBar;
-    private Timer timer;
+    private Handler timer;
+    private Runnable updateTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,14 +137,15 @@ public class BrowseUserActivity extends LocationActivity {
                 if (markerUserMap.containsKey(marker)) {
                     User tappedUser = markerUserMap.get(marker);
 
-                    if (tappedUser == focusOtherUser) {
+//                    if (tappedUser == focusOtherUser) {
                         openProfile(tappedUser);
-                    } else {
-                        showMiniProfile(tappedUser);
-                    }
+//                    } else {
+//                        showMiniProfile(tappedUser);
+//                    }
                 } else {
                     Session tappedSession = markerSessionMap.get(marker);
-                    showMiniSession(tappedSession);
+                    openArchived(tappedSession.ownerId);
+//                    showMiniSession(tappedSession);
                 }
 
             }
@@ -167,21 +169,17 @@ public class BrowseUserActivity extends LocationActivity {
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            synchronized public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.i(TAG, "Removing markers.");
-                        mapView.removeMarkers(new ArrayList<>(markerUserMap.keySet()));
-                        mapView.removeMarkers(new ArrayList<>(markerSessionMap.keySet()));
-                        Log.i(TAG, "Adding markers.");
-                        updateMarkers();
-                    }
-                });
+        timer = new Handler();
+        updateTask = new Runnable() {
+            public void run() {
+                Log.i(TAG, "Removing markers.");
+                mapView.removeMarkers(new ArrayList<>(markerUserMap.keySet()));
+                mapView.removeMarkers(new ArrayList<>(markerSessionMap.keySet()));
+                Log.i(TAG, "Adding markers.");
+                updateMarkers();
+                timer.postDelayed(updateTask, 60 * 1000);
             }
-        }, 60 * 1000, 60 * 1000);
+        };
     }
 
     @Override
@@ -189,6 +187,17 @@ public class BrowseUserActivity extends LocationActivity {
         super.onResume();
         if (!this.stringThread.isAlive())
             this.stringThread.start();
+
+        timer.postDelayed(updateTask, 60 * 1000);
+    }
+
+    @Override
+    public void onConnected(Bundle connectionHunt) {
+        super.onConnected(connectionHunt);
+
+        // Zoom the map to our position!
+        LatLng latLng = new LatLng(getLocation());
+        mapView.setCenter(latLng);
     }
 
     @Override
@@ -198,6 +207,7 @@ public class BrowseUserActivity extends LocationActivity {
         } catch (InterruptedException e) {
             // Don't care.
         }
+        timer.removeCallbacks(updateTask);
         super.onPause();
     }
 
@@ -236,10 +246,6 @@ public class BrowseUserActivity extends LocationActivity {
     @Override
     public void onLocationChanged(Location location) {
         super.onLocationChanged(location);
-
-        // Zoom the map to our position!
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        mapView.setCenter(latLng);
 
         // Only update the user if it's been a minute.
         long current = System.currentTimeMillis();

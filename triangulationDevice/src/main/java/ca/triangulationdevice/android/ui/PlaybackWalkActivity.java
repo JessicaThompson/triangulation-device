@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.couchbase.lite.CouchbaseLiteException;
+import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.mapboxsdk.views.MapView;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -60,6 +62,7 @@ public class PlaybackWalkActivity extends PlaybackRecordingActivity {
     private TextView connectedLocation;
     private LinearLayout connectedInfo;
     private long lastUserLocationUpdateTime = System.currentTimeMillis();
+    private MapView mapView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,12 +83,24 @@ public class PlaybackWalkActivity extends PlaybackRecordingActivity {
         connectedName.setText(otherSession.title);
         connectedLocation.setText("");
 
+        mapView = (MapView) findViewById(R.id.map);
+
         handler = new Handler();
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        this.pd.start();
+    }
+
+    @Override
+    public void onConnected(Bundle connectionHunt) {
+        super.onConnected(connectionHunt);
+
+        // Zoom the map to our position!
+        LatLng latLng = new LatLng(getLocation());
+        mapView.setCenter(latLng);
     }
 
     @Override

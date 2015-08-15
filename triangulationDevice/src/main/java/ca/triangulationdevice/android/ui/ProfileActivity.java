@@ -98,7 +98,7 @@ public class ProfileActivity extends TriangulationListActivity {
         }
 
         if (user.id.equals(application.userManager.getCurrentUser().id)) {
-//            connect.setVisibility(View.GONE);
+            connect.setText("Start");
         } else if (!user.online) {
             connect.setEnabled(false);
         }

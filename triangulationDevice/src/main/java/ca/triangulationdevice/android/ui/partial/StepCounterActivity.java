@@ -10,7 +10,7 @@ import android.util.Log;
 public abstract class StepCounterActivity extends CompassActivity implements SensorEventListener {
 
     private static final String TAG = "StepCounterActivity";
-    private static final float ALPHA = 0.05f;
+    private static final float ALPHA = 0.25f;
 
     float lastSteps = 0;
     long lastUpdated = 0;
@@ -53,7 +53,6 @@ public abstract class StepCounterActivity extends CompassActivity implements Sen
             float freq = (steps - lastSteps) / (elapsed / 60f);
             float smoothed = this.lastFreq + ALPHA * (freq - this.lastFreq);
             onStepCountChanged(smoothed);
-            Log.d(TAG, String.format("Step count: %.2f", smoothed));
 
             lastFreq = smoothed;
             lastSteps = steps;

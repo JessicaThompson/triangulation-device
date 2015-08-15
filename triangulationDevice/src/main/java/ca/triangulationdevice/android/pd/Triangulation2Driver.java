@@ -135,6 +135,7 @@ public class Triangulation2Driver extends PDDriver implements OvalsView.CircleCh
     }
 
     public void myStepCountChanged(float freq) {
+        Log.i(TAG, "android1stepcounter: " + freq);
         this.sendFloat("android1stepcounter", freq);
     }
 

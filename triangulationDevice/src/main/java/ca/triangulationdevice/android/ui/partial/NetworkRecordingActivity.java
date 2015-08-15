@@ -14,6 +14,7 @@ import ca.triangulationdevice.android.ipc.FloatZeroMQClient;
 import ca.triangulationdevice.android.ipc.FloatZeroMQServer;
 import ca.triangulationdevice.android.ipc.ParcelableZeroMQClient;
 import ca.triangulationdevice.android.ipc.ParcelableZeroMQServer;
+import ca.triangulationdevice.android.model.Session;
 import ca.triangulationdevice.android.model.User;
 
 public abstract class NetworkRecordingActivity extends RecordingActivity {
@@ -29,6 +30,7 @@ public abstract class NetworkRecordingActivity extends RecordingActivity {
     private Thread floatThread;
     private String ip;
     protected User otherUser;
+    private float theirStepCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,13 +84,14 @@ public abstract class NetworkRecordingActivity extends RecordingActivity {
     @Override
     public void onLocationChanged(Location location) {
         super.onLocationChanged(location);
-        if (!solo)
+        if (!solo && started)
             this.sendLocation(location);
     }
 
     @Override
     protected void onStepCountChanged(float newCount) {
-        if (!solo)
+        super.onStepCountChanged(newCount);
+        if (!solo && started)
             this.sendStepCount(newCount);
     }
 
@@ -104,12 +107,20 @@ public abstract class NetworkRecordingActivity extends RecordingActivity {
 
     protected void onLocationReceived(Location location) {
         Log.d(TAG, "Remote location: " + location.getLongitude() + ", " + location.getLatitude());
-        this.pd.theirLocationChanged(location);
+        if (started) {
+            this.pd.theirLocationChanged(location);
+            if (recording) {
+                this.session.paths.get(Session.Path.THEIRS).addPoint(location, 0, 0, 0, 0);
+            }
+        }
     }
 
     protected void onStepCountReceived(float stepCount) {
         Log.d(TAG, "Remote step count: " + stepCount);
-        this.pd.theirStepCountChanged(stepCount);
+        if (started) {
+            this.pd.theirStepCountChanged(stepCount);
+            theirStepCount = stepCount;
+        }
     }
 
     // A Handler to receive messages from another BluetoothIPCActivity.

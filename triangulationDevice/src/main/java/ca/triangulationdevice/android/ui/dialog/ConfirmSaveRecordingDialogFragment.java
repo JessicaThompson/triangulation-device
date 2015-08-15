@@ -7,12 +7,16 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import ca.triangulationdevice.android.R;
 
 public class ConfirmSaveRecordingDialogFragment extends DialogFragment {
 
     DialogListener mListener;
+    private ViewGroup view;
+    private String location;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -29,8 +33,16 @@ public class ConfirmSaveRecordingDialogFragment extends DialogFragment {
             }
         });
 
+        String location = getArguments().getString("location");
+        String duration = getArguments().getString("duration");
+
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.confirm_save_dialog, null);
+        view = (ViewGroup) inflater.inflate(R.layout.confirm_save_dialog, null);
+        TextView locationView = (TextView) view.findViewById(R.id.mini_location);
+        locationView.setText(location);
+        TextView durationView = (TextView) view.findViewById(R.id.mini_length);
+        durationView.setText(duration);
+
         builder.setView(view);
 
         return builder.create();

@@ -1,6 +1,7 @@
 package ca.triangulationdevice.android.model;
 
 import android.location.Location;
+import android.text.format.DateUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -28,6 +29,13 @@ public class Session extends CouchObject {
         this.paths.add(Path.THEIRS, new Path());
     }
 
+    public String duration() {
+        List<Path.Point> points = this.paths.get(Path.MINE).points;
+        long start = points.get(0).location.getTime();
+        long end = points.get(points.size() - 1).location.getTime();
+        return DateUtils.formatElapsedTime((end - start) / 1000);
+    }
+
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Path extends CouchObject {
         public final static int MINE = 0;
@@ -41,14 +49,16 @@ public class Session extends CouchObject {
             public float azimuth;
             public float pitch;
             public float roll;
+            public float stepCount;
         }
 
-        public void addPoint(Location location, float azimuth, float pitch, float roll) {
+        public void addPoint(Location location, float azimuth, float pitch, float roll, float stepCount) {
             Point point = new Point();
             point.location = location;
             point.azimuth = azimuth;
             point.pitch = pitch;
             point.roll = roll;
+            point.stepCount = stepCount;
             this.points.add(point);
         }
     }

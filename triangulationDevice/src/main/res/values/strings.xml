@@ -6,7 +6,7 @@
     <string name="divider_description">REALLY, ANDROID?? REALLY?? YOU NEED A DESCRIPTION FOR A FUCKING DIVIDER??</string>
     
     <!-- Menu -->
-    <string name="instructions">Instructions</string>
+    <string name="instructions">How To Use</string>
     <string name="profile">Profile</string>
 
     <!-- Login screen -->
@@ -37,7 +37,7 @@
 
     <!-- Record -->
     <string name="save_dialog_title">Save Recording</string>
-    <string name="save_dialog_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
+    <string name="save_dialog_description">Press yes to save your walk.</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
 
