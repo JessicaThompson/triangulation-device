@@ -28,7 +28,7 @@ public abstract class CompassActivity extends LocationActivity implements Sensor
      * value basically means more smoothing See:
      * http://en.wikipedia.org/wiki/Low-pass_filter#Discrete-time_realization
      */
-    static final float ALPHA = 0.05f;
+    private static final float ALPHA = 0.05f;
     private float lastAzimuth = 0f;
     private float lastPitch = 0f;
     private float lastRoll = 0f;

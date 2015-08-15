@@ -1,5 +1,6 @@
 package ca.triangulationdevice.android.model;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 
@@ -18,6 +19,6 @@ public class User extends CouchObject {
     public String ip = "";
     @JsonDeserialize(using = LocationDeserializer.class)
     public Location myLocation;
-    @JsonIgnore public Drawable picture;
+    @JsonIgnore public Bitmap picture;
     public boolean online = false;
 }

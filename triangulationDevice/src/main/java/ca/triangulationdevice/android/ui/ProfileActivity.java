@@ -2,7 +2,9 @@ package ca.triangulationdevice.android.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -35,28 +37,35 @@ public class ProfileActivity extends TriangulationListActivity {
     private TextView descriptionView;
     private TextView locationView;
     private Button connect;
+    private String userId;
 
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        setContentView(R.layout.profile);
+
+        ListView listView = getListView();
+        LayoutInflater inflater = getLayoutInflater();
+        View header = inflater.inflate(R.layout.profile, listView, false);
+        listView.addHeaderView(header);
+
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        profileImage = (ImageView) findViewById(R.id.profile_image);
-        nameView = (TextView) findViewById(R.id.name);
-        descriptionView = (TextView) findViewById(R.id.description);
-        locationView = (TextView) findViewById(R.id.location);
+        Intent callingIntent = getIntent();
+        userId = callingIntent.getStringExtra(ProfileActivity.EXTRA_USER_ID);
 
-        // If we're looking at our own profile, hide the
-        connect = (Button) findViewById(R.id.connect);
+        profileImage = (ImageView) header.findViewById(R.id.profile_image);
+        nameView = (TextView) header.findViewById(R.id.name);
+        descriptionView = (TextView) header.findViewById(R.id.description);
+        locationView = (TextView) header.findViewById(R.id.location);
+
+        // If we're looking at our own profile, hide the connect button.
+        connect = (Button) header.findViewById(R.id.connect);
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        Intent callingIntent = getIntent();
-        String userId = callingIntent.getStringExtra(ProfileActivity.EXTRA_USER_ID);
         try {
             user = application.userManager.getUser(userId);
         } catch (CouchbaseLiteException ex) {
@@ -82,9 +91,12 @@ public class ProfileActivity extends TriangulationListActivity {
         } else {
             locationView.setText(R.string.no_location);
         }
-        profileImage.setImageDrawable(user.picture);
 
-        if (user == application.userManager.getCurrentUser()) {
+        if (user.picture != null) {
+            profileImage.setImageBitmap(user.picture);
+        }
+
+        if (user.id.equals(application.userManager.getCurrentUser().id)) {
             connect.setVisibility(View.GONE);
         } else if (!user.online) {
             connect.setEnabled(false);
@@ -117,7 +129,7 @@ public class ProfileActivity extends TriangulationListActivity {
                 startActivity(intent);
                 return true;
             case android.R.id.home:
-                this.finish();
+                NavUtils.navigateUpFromSameTask(this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

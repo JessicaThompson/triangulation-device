@@ -5,13 +5,18 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 
 public abstract class StepCounterActivity extends CompassActivity implements SensorEventListener {
+
+    private static final String TAG = "StepCounterActivity";
+    private static final float ALPHA = 0.05f;
 
     float lastSteps = 0;
     long lastUpdated = 0;
 
     private Sensor stepSensor;
+    private float lastFreq = 0;
 
     @Override
     protected void onCreate(Bundle savedState) {
@@ -46,8 +51,11 @@ public abstract class StepCounterActivity extends CompassActivity implements Sen
 
             // Steps per minute = total steps / elapsed time in minutes.
             float freq = (steps - lastSteps) / (elapsed / 60f);
-            onStepCountChanged(freq);
+            float smoothed = this.lastFreq + ALPHA * (freq - this.lastFreq);
+            onStepCountChanged(smoothed);
+            Log.d(TAG, String.format("Step count: %.2f", smoothed));
 
+            lastFreq = smoothed;
             lastSteps = steps;
             lastUpdated = event.timestamp;
         }

@@ -28,17 +28,7 @@ public class UserMarker extends Marker {
         if (user.picture == null) {
             this.setMarker(resources.getDrawable(R.drawable.map_archive_icon));
         } else {
-            int width = user.picture.getIntrinsicWidth();
-            width = width > 0 ? width : 1;
-            int height = user.picture.getIntrinsicHeight();
-            height = height > 0 ? height : 1;
-
-            Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(bitmap);
-            user.picture.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-            user.picture.draw(canvas);
-
-            Drawable scaled = new BitmapDrawable(Bitmap.createScaledBitmap(bitmap, 320, 320, true));
+            Drawable scaled = new BitmapDrawable(Bitmap.createScaledBitmap(user.picture, 320, 320, true));
             this.setMarker(scaled);
         }
     }

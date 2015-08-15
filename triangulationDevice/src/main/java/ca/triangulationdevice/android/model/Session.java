@@ -20,6 +20,7 @@ public class Session extends CouchObject {
     public Date saved;
     @JsonDeserialize(using = LocationDeserializer.class)
     public Location startLocation;
+    public String location;
     public List<Path> paths = new ArrayList<>(2);
 
     {

@@ -15,6 +15,7 @@ import java.util.Date;
 import ca.triangulationdevice.android.model.Session;
 import ca.triangulationdevice.android.model.User;
 import ca.triangulationdevice.android.pd.Triangulation2Driver;
+import ca.triangulationdevice.android.util.GetCityTask;
 
 /**
  * An {@link Activity} which lets the user create sessions, connect with other
@@ -107,6 +108,17 @@ public abstract class RecordingActivity extends StepCounterActivity {
         this.session.title = title;
         this.session.description = description;
         this.session.startLocation = this.session.paths.get(Session.Path.MINE).points.get(0).location;
-        this.application.userManager.add(this.session);
+        GetCityTask task = new GetCityTask(this, this.session.startLocation) {
+            @Override
+            protected void onPostExecute(String result) {
+                session.location = result;
+                try {
+                    application.userManager.add(session);
+                } catch (CouchbaseLiteException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        task.execute();
     }
 }

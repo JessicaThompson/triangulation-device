@@ -2,10 +2,12 @@ package ca.triangulationdevice.android.storage;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
+import com.couchbase.lite.Attachment;
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
 import com.couchbase.lite.Document;
@@ -14,6 +16,7 @@ import com.couchbase.lite.Manager;
 import com.couchbase.lite.Mapper;
 import com.couchbase.lite.Query;
 import com.couchbase.lite.QueryRow;
+import com.couchbase.lite.Revision;
 import com.couchbase.lite.UnsavedRevision;
 import com.couchbase.lite.View;
 import com.couchbase.lite.android.AndroidContext;
@@ -23,6 +26,7 @@ import com.couchbase.lite.replicator.Replication;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.ByteBuffer;
@@ -39,6 +43,7 @@ import ca.triangulationdevice.android.model.User;
 public class CouchDBUserManager {
     private static final String TAG = "CouchDBUserManager";
     private static final String DB_NAME = "triangulation_device";
+    private static final String PROFILE_KEY = "profile.jpg";
 
     ObjectMapper mapper;
 
@@ -150,7 +155,20 @@ public class CouchDBUserManager {
 
     public User getUser(String id) throws CouchbaseLiteException {
         Log.d(TAG, "Trying to get user " + id);
-        return load(getRowById(usersView, id), User.class);
+        QueryRow row = getRowById(usersView, id);
+        User user = load(row, User.class);
+
+        // Get the profile picture
+        if (row != null) {
+            Document doc = row.getDocument();
+            Revision rev = doc.getCurrentRevision();
+            Attachment att = rev.getAttachment(PROFILE_KEY);
+            if (att != null) {
+                InputStream is = att.getContent();
+                user.picture = BitmapFactory.decodeStream(is);
+            }
+        }
+        return user;
     }
 
     public List<Session> getSessions() throws CouchbaseLiteException {
@@ -192,6 +210,7 @@ public class CouchDBUserManager {
                 @Override
                 public boolean update(UnsavedRevision newRevision) {
                     newRevision.setUserProperties(properties);
+                    Log.d(TAG, properties.toString());
                     Log.d(TAG, "Finished updating properties for " + newRevision.getDocument().getId());
                     return true;
                 }
@@ -242,20 +261,20 @@ public class CouchDBUserManager {
         return object;
     }
 
-    private void attachDrawable(Drawable drawable, Document doc) {
-        try {
-            Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(bitmap);
-            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-            drawable.draw(canvas);
-            int size = bitmap.getHeight() * bitmap.getRowBytes();
-            ByteBuffer buffer = ByteBuffer.allocate(size);
-            bitmap.copyPixelsToBuffer(buffer);
-            InputStream stream = new ByteArrayInputStream(buffer.array());
+    public void addProfilePicture(Bitmap bitmap, User user) throws CouchbaseLiteException {
+        Document doc = getDocumentForId(usersView, user.id);
+        attachDrawable(bitmap, doc);
+        user.picture = bitmap;
+    }
 
-            UnsavedRevision newRev = doc.getCurrentRevision().createRevision();
-            newRev.setAttachment("photo.jpg", "image/jpeg", stream);
-            newRev.save();
+    private void attachDrawable(Bitmap bitmap, Document doc) {
+        try {
+            UnsavedRevision revision = doc.getCurrentRevision().createRevision();
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, out);
+            ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
+            revision.setAttachment(PROFILE_KEY, "image/jpeg", in);
+            revision.save();
         } catch (CouchbaseLiteException e) {
             e.printStackTrace();
         }

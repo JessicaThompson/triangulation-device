@@ -51,7 +51,7 @@ public class LoginActivity extends LocationActivity {
                 current.id = application.installation;
                 current.name = profile.getName();
                 current.myLocation = getLocation();
-                current.picture = LoginActivity.this.getDrawable(R.drawable.gosling);
+                current.picture = null;
                 startActivity(new Intent(LoginActivity.this, BrowseUserActivity.class));
                 LoginActivity.this.finish();
             }
@@ -89,7 +89,6 @@ public class LoginActivity extends LocationActivity {
         current.id = application.installation;
         current.name = name;
         current.online = true;
-        current.picture = this.getDrawable(R.drawable.gosling);
         current.myLocation = getLocation();
         current.ip = NetworkUtils.getIPAddress(true);
         try {

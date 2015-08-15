@@ -85,6 +85,11 @@
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="ca.triangulationdevice.android.ui.InstructionsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
 
         <!-- Facebook login screen activity. -->
         <activity android:name="com.facebook.FacebookActivity"

@@ -86,10 +86,10 @@ public class Triangulation2Driver extends PDDriver implements OvalsView.CircleCh
 
         // From PD patch, indices are ordered clockwise from the top.
         // 1 is top, 2 is right, 3 is bottom, 4 is left, etc.
-        this.sendFloat(String.format("android1c%d.%d", index, 1), top);
-        this.sendFloat(String.format("android1c%d.%d", index, 2), right);
-        this.sendFloat(String.format("android1c%d.%d", index, 3), bottom);
-        this.sendFloat(String.format("android1c%d.%d", index, 4), left);
+        this.sendFloat(String.format("android1c%d.%d", index + 1, 1), top);
+        this.sendFloat(String.format("android1c%d.%d", index + 1, 2), right);
+        this.sendFloat(String.format("android1c%d.%d", index + 1, 3), bottom);
+        this.sendFloat(String.format("android1c%d.%d", index + 1, 4), left);
     }
 
     /**

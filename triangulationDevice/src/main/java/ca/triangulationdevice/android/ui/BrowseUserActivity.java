@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.location.Location;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -53,6 +54,7 @@ import ca.triangulationdevice.android.ui.marker.UserMarker;
 import ca.triangulationdevice.android.ui.partial.LocationActivity;
 import ca.triangulationdevice.android.ui.partial.NetworkRecordingActivity;
 import ca.triangulationdevice.android.ui.partial.PlaybackRecordingActivity;
+import ca.triangulationdevice.android.util.GetCityTask;
 import ca.triangulationdevice.android.util.NetworkUtils;
 import ca.triangulationdevice.android.util.Typefaces;
 
@@ -84,27 +86,12 @@ public class BrowseUserActivity extends LocationActivity {
     private User focusOtherUser;
     private Session focusOtherSession;
 
+    private long lastUserLocationUpdateTime = System.currentTimeMillis();
+
     Handler transferHandler = new Handler(new BrowseUserHandler());
     StringZeroMQServer zeroServer = new StringZeroMQServer(transferHandler);
     Thread stringThread = new Thread(zeroServer);
 
-    private static final int DELAY = 5 * 60 * 1000;
-
-    Runnable updateTime = new Runnable() {
-        @Override
-        public void run() {
-            User me = userManager.getCurrentUser();
-            if (me != null) {
-                me.ip = NetworkUtils.getIPAddress(true);
-                try {
-                    userManager.add(me);
-                } catch (CouchbaseLiteException e) {
-                    e.printStackTrace();
-                }
-                handler.postDelayed(updateTime, DELAY);
-            }
-        }
-    };
     private Handler handler;
     private MediaPlayer mediaPlayer;
     private ProgressBar progressBar;
@@ -112,8 +99,6 @@ public class BrowseUserActivity extends LocationActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActionBar().setDisplayShowHomeEnabled(true);
-        getActionBar().setDisplayUseLogoEnabled(false);
 
         userManager = application.userManager;
 
@@ -196,14 +181,12 @@ public class BrowseUserActivity extends LocationActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        updateTime.run();
         if (!this.stringThread.isAlive())
             this.stringThread.start();
     }
 
     @Override
     protected void onPause() {
-        handler.removeCallbacks(updateTime);
         try {
             this.stringThread.join(500);
         } catch (InterruptedException e) {
@@ -247,9 +230,36 @@ public class BrowseUserActivity extends LocationActivity {
         // Zoom the map to our position!
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         mapView.setCenter(latLng);
-        this.userManager.getCurrentUser().myLocation = location;
+
+        // Only update the user if it's been a minute.
+        long current = System.currentTimeMillis();
+        if (current - lastUserLocationUpdateTime > 1000 * 60) {
+            Log.d(TAG, String.format("Updating location (%dms since last).", current - lastUserLocationUpdateTime));
+            updateUserLocation(location);
+            lastUserLocationUpdateTime = current;
+        }
+    }
+
+    private void updateUserLocation(Location location) {
+        final String currentId = application.userManager.getCurrentUser().id;
         try {
-            this.userManager.add(this.userManager.getCurrentUser());
+            final User current = application.userManager.getUser(currentId);
+
+            // Update the location string, only if we've moved 100m.
+            current.myLocation = location;
+            current.ip = NetworkUtils.getIPAddress(true);
+            GetCityTask task = new GetCityTask(this, location) {
+                @Override
+                protected void onPostExecute(String result) {
+                    current.location = result;
+                    try {
+                        application.userManager.add(current);
+                    } catch (CouchbaseLiteException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            task.execute();
         } catch (CouchbaseLiteException e) {
             e.printStackTrace();
         }
@@ -299,7 +309,7 @@ public class BrowseUserActivity extends LocationActivity {
             this.focusOtherUser = this.userManager.getUser(session.ownerId);
 
             if (this.focusOtherUser.picture != null) {
-                this.miniProfileImage.setImageDrawable(this.focusOtherUser.picture);
+                this.miniProfileImage.setImageBitmap(this.focusOtherUser.picture);
                 this.miniProfileImage.setVisibility(View.VISIBLE);
             } else {
                 this.miniProfileImage.setVisibility(View.GONE);
@@ -327,7 +337,7 @@ public class BrowseUserActivity extends LocationActivity {
         this.focusOtherUser = user;
 
         if (user.picture != null) {
-            this.miniProfileImage.setImageDrawable(user.picture);
+            this.miniProfileImage.setImageBitmap(user.picture);
             this.miniProfileImage.setVisibility(View.VISIBLE);
         } else {
             this.miniProfileImage.setVisibility(View.GONE);

@@ -3,7 +3,9 @@ package ca.triangulationdevice.android.ui;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.couchbase.lite.CouchbaseLiteException;
@@ -24,14 +27,17 @@ public class EditProfileActivity extends TriangulationActivity {
 
     public final static String TAG = "EditProfileActivity";
 
+    static final int REQUEST_IMAGE_CAPTURE = 1;
     public final static String EXTRA_USER_ID = "userid";
+
     private User user;
     private EditText nameView;
     private EditText descriptionView;
-    private EditText locationView;
+    private TextView locationView;
     private EditText emailView;
     private ImageView profileImage;
     private AlertDialog dialog;
+    private Bitmap newProfileImage = null;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -52,10 +58,11 @@ public class EditProfileActivity extends TriangulationActivity {
         profileImage = (ImageView) findViewById(R.id.profile_image);
         nameView = (EditText) findViewById(R.id.edit_name);
         descriptionView = (EditText) findViewById(R.id.edit_bio);
-        locationView = (EditText) findViewById(R.id.edit_location);
+        locationView = (TextView) findViewById(R.id.edit_location);
         emailView = (EditText) findViewById(R.id.edit_email);
 
-        profileImage.setImageDrawable(user.picture);
+        if (user.picture != null)
+            profileImage.setImageBitmap(user.picture);
 
         nameView.setText(user.name);
         descriptionView.setText(user.description);
@@ -81,9 +88,14 @@ public class EditProfileActivity extends TriangulationActivity {
         user.name = nameView.getText().toString().trim();
         user.description = descriptionView.getText().toString();
         user.email = emailView.getText().toString();
-        user.location = locationView.getText().toString();
 
         try {
+            if (newProfileImage != null) {
+                user.picture = newProfileImage;
+                application.userManager.addProfilePicture(newProfileImage, user);
+            }
+
+            Log.d(TAG, "Setting name: " + user.name + ", description: " + user.description);
             application.userManager.add(user);
         } catch (CouchbaseLiteException ex) {
             Log.e(TAG, "Couldn't save user to database: " + ex.getMessage());
@@ -97,6 +109,23 @@ public class EditProfileActivity extends TriangulationActivity {
         application.installation = "";
         startActivity(new Intent(this, LoginActivity.class));
         this.finish();
+    }
+
+    public void changePicture(View view) {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            profileImage.setImageBitmap(imageBitmap);
+            newProfileImage = imageBitmap;
+        }
     }
 
     @Override

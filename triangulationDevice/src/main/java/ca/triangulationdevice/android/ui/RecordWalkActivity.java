@@ -5,7 +5,9 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,11 +23,13 @@ import java.util.TimeZone;
 import java.util.UUID;
 
 import ca.triangulationdevice.android.R;
+import ca.triangulationdevice.android.model.User;
 import ca.triangulationdevice.android.ui.dialog.ConfirmSaveRecordingDialogFragment;
 import ca.triangulationdevice.android.ui.dialog.DialogListener;
 import ca.triangulationdevice.android.ui.dialog.SaveRecordingDialogFragment;
 import ca.triangulationdevice.android.ui.partial.NetworkRecordingActivity;
 import ca.triangulationdevice.android.ui.views.OvalsView;
+import ca.triangulationdevice.android.util.GetCityTask;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RecordWalkActivity extends NetworkRecordingActivity {
@@ -55,11 +59,13 @@ public class RecordWalkActivity extends NetworkRecordingActivity {
     private TextView connectedName;
     private TextView connectedLocation;
     private LinearLayout connectedInfo;
+    private long lastUserLocationUpdateTime = System.currentTimeMillis();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.circles);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         control = (TextView) findViewById(R.id.control);
         ovalsView = (OvalsView) findViewById(R.id.circles);
@@ -71,7 +77,7 @@ public class RecordWalkActivity extends NetworkRecordingActivity {
         connectedLocation = (TextView) findViewById(R.id.connected_location);
 
         connectedInfo.setVisibility(View.VISIBLE);
-        circleImageView.setImageDrawable(otherUser.picture);
+        circleImageView.setImageBitmap(otherUser.picture);
         connectedName.setText(otherUser.name);
         connectedLocation.setText(otherUser.location);
 
@@ -92,7 +98,31 @@ public class RecordWalkActivity extends NetworkRecordingActivity {
     @Override
     public void onLocationChanged(Location location) {
         super.onLocationChanged(location);
-        this.application.userManager.getCurrentUser().myLocation = location;
+
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastUserLocationUpdateTime > 1000 * 60) {
+            final String currentId = application.userManager.getCurrentUser().id;
+            try {
+                final User current = application.userManager.getUser(currentId);
+
+                // Update the location string, only if we've moved 100m.
+                current.myLocation = location;
+                GetCityTask task = new GetCityTask(this, location) {
+                    @Override
+                    protected void onPostExecute(String result) {
+                        current.location = result;
+                        try {
+                            application.userManager.add(current);
+                        } catch (CouchbaseLiteException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                task.execute();
+            } catch (CouchbaseLiteException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void reset(View v) {
@@ -165,5 +195,16 @@ public class RecordWalkActivity extends NetworkRecordingActivity {
         });
 
         confirmFragment.show(getFragmentManager(), "confirmsavewalk");
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

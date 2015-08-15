@@ -56,4 +56,10 @@
     <string name="path_name">Path Name</string>
     <string name="path_length_zero">0:00</string>
     <string name="default_location">Location, CA</string>
+
+    <!-- Instructions -->
+    <string name="download">Download the Triangulation Device onto your Android phone.</string>
+    <string name="sign_up">Sign in, or log in through Facebook. Complete your profile by tapping the icon in the top right corner.</string>
+    <string name="soundscape">To create a soundscape, find your location on the map and press ‘connect’ to start the synthesizer. The device will begin generating a base set of starting tones based on your geographic location. Use the circles to adjust your the frequency modulation. When you are happy with your sound, press ‘REC’ begin walking. The sound will change with your geographic location and the rhythm will change depending on how fast you are moving. When you are finished, press ‘stop’ and save your recording.</string>
+    <string name="collaborative">To create a collaborative soundscape, use the map to locate an archived walk. Select ‘connect’ to start the soundtrack. Adjust your own sound by following the steps above, and hit ‘REC’ to begin your own recording.</string>
 </resources>
