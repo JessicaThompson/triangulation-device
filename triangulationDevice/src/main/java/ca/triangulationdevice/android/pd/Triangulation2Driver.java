@@ -26,7 +26,7 @@ public class Triangulation2Driver extends PDDriver implements OvalsView.CircleCh
     private Location myLocation;
     private Location theirLocation;
 
-    private static final String FILENAME = "triangulationdevice_interfacetest_Aug11.pd";
+    private static final String FILENAME = "triangulationdevice_interfacetest_Aug14.1.pd";
     private static final String AUDIO_FILENAME = "~bytes";
     public static final String AUDIO_SUFFIX = "wav";
 
@@ -100,6 +100,7 @@ public class Triangulation2Driver extends PDDriver implements OvalsView.CircleCh
      */
     public void theirLocationChanged(Location location) {
         this.theirLocation = location;
+        Log.d(TAG, "their location changed");
 
         this.sendFloat("android2long", getSeconds(this.theirLocation.getLongitude()));
         this.sendFloat("android2lat", getSeconds(this.theirLocation.getLatitude()));

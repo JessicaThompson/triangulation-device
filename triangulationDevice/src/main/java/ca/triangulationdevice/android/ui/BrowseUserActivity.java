@@ -7,6 +7,7 @@ import android.location.Location;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -16,7 +17,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.couchbase.lite.CouchbaseLiteException;
 import com.mapbox.mapboxsdk.api.ILatLng;
@@ -28,19 +32,27 @@ import com.mapbox.mapboxsdk.views.MapView;
 import com.mapbox.mapboxsdk.views.MapViewListener;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import ca.triangulationdevice.android.R;
 import ca.triangulationdevice.android.ipc.StringZeroMQClient;
 import ca.triangulationdevice.android.ipc.StringZeroMQServer;
+import ca.triangulationdevice.android.model.Session;
 import ca.triangulationdevice.android.pd.Triangulation2Driver;
 import ca.triangulationdevice.android.storage.CouchDBUserManager;
 import ca.triangulationdevice.android.model.User;
+import ca.triangulationdevice.android.ui.marker.SessionMarker;
 import ca.triangulationdevice.android.ui.marker.UserMarker;
 import ca.triangulationdevice.android.ui.partial.LocationActivity;
 import ca.triangulationdevice.android.ui.partial.NetworkRecordingActivity;
+import ca.triangulationdevice.android.ui.partial.PlaybackRecordingActivity;
 import ca.triangulationdevice.android.util.NetworkUtils;
 import ca.triangulationdevice.android.util.Typefaces;
 
@@ -55,10 +67,13 @@ public class BrowseUserActivity extends LocationActivity {
 
     private Resources resources;
     private final Map<Marker, User> markerUserMap = new HashMap<>();
+    private final Map<Marker, Session> markerSessionMap = new HashMap<>();
 
     private MapView mapView;
     private ViewGroup miniPlayer;
     private ViewGroup miniProfile;
+
+    private ImageView playerControl;
 
     private ImageView miniProfileImage;
     private TextView miniName;
@@ -67,6 +82,7 @@ public class BrowseUserActivity extends LocationActivity {
 
     private CouchDBUserManager userManager;
     private User focusOtherUser;
+    private Session focusOtherSession;
 
     Handler transferHandler = new Handler(new BrowseUserHandler());
     StringZeroMQServer zeroServer = new StringZeroMQServer(transferHandler);
@@ -91,6 +107,7 @@ public class BrowseUserActivity extends LocationActivity {
     };
     private Handler handler;
     private MediaPlayer mediaPlayer;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +124,9 @@ public class BrowseUserActivity extends LocationActivity {
         mapView = (MapView) this.findViewById(R.id.mapview);
         miniPlayer = (ViewGroup) findViewById(R.id.mini_playback);
         miniProfile = (ViewGroup) findViewById(R.id.mini_profile);
+
+        playerControl = (ImageView) miniPlayer.findViewById(R.id.player_control);
+        progressBar = (SeekBar) miniPlayer.findViewById(R.id.playback);
 
         miniProfileImage = (ImageView) miniProfile.findViewById(R.id.mini_profile_image);
         miniName = (TextView) miniProfile.findViewById(R.id.mini_name);
@@ -125,11 +145,6 @@ public class BrowseUserActivity extends LocationActivity {
 
         handler = new Handler();
 
-        // Center our map.
-        LatLng latLng = new LatLng(43.4587014, -80.5506638);
-        mapView.setCenter(latLng);
-        mapView.setZoom(DEFAULT_ZOOM);
-
         mapView.setMapViewListener(new MapViewListener() {
             @Override
             public void onShowMarker(MapView mapView, Marker marker) {
@@ -143,12 +158,19 @@ public class BrowseUserActivity extends LocationActivity {
 
             @Override
             public void onTapMarker(MapView mapView, Marker marker) {
-                User tappedUser = markerUserMap.get(marker);
-                if (tappedUser == focusOtherUser) {
-                    openProfile(tappedUser);
+                if (markerUserMap.containsKey(marker)) {
+                    User tappedUser = markerUserMap.get(marker);
+
+                    if (tappedUser == focusOtherUser) {
+                        openProfile(tappedUser);
+                    } else {
+                        showMiniProfile(tappedUser);
+                    }
                 } else {
-                    showMiniProfile(tappedUser);
+                    Session tappedSession = markerSessionMap.get(marker);
+                    showMiniSession(tappedSession);
                 }
+
             }
 
             @Override
@@ -233,13 +255,32 @@ public class BrowseUserActivity extends LocationActivity {
         }
     }
 
-    public URI load(String filename) {
-        return new File(this.getFilesDir() + "/" + filename + "." + Triangulation2Driver.AUDIO_SUFFIX).toURI();
+    public File load(String filename) {
+        return new File(this.getFilesDir() + "/" + filename + "." + Triangulation2Driver.AUDIO_SUFFIX);
     }
 
-    public void playCurrent() {
-        // TODO: Be able to select sessions, load their audio files for playback.
-//        this.mediaPlayer.setDataSource(load());
+    public void loadCurrent() throws IOException {
+        playerControl.setEnabled(false);
+        progressBar.setIndeterminate(true);
+
+        File file = load(this.focusOtherSession.audioFilename);
+        FileInputStream fisAudio = new FileInputStream(file);
+        this.mediaPlayer.setDataSource(fisAudio.getFD());
+        this.mediaPlayer.prepareAsync();
+        this.mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                playerControl.setEnabled(true);
+                progressBar.setIndeterminate(false);
+            }
+        });
+        this.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                progressBar.setProgress(0);
+                playerControl.setImageResource(R.drawable.ic_play_arrow_white_24dp);
+            }
+        });
     }
 
     public void openCurrentProfile(View v) {
@@ -250,6 +291,36 @@ public class BrowseUserActivity extends LocationActivity {
         Intent intent = new Intent(BrowseUserActivity.this, ProfileActivity.class);
         intent.putExtra(ProfileActivity.EXTRA_USER_ID, user.id);
         startActivity(intent);
+    }
+
+    private void showMiniSession(Session session) {
+        this.focusOtherSession = session;
+        try {
+            this.focusOtherUser = this.userManager.getUser(session.ownerId);
+
+            if (this.focusOtherUser.picture != null) {
+                this.miniProfileImage.setImageDrawable(this.focusOtherUser.picture);
+                this.miniProfileImage.setVisibility(View.VISIBLE);
+            } else {
+                this.miniProfileImage.setVisibility(View.GONE);
+            }
+        } catch (CouchbaseLiteException ex) {
+            // Dunno the user, fuck it.
+        }
+
+        this.miniName.setText(session.title);
+        this.miniLocation.setText("");
+        this.miniDescription.setText(session.description);
+
+        miniProfile.setVisibility(View.VISIBLE);
+        if (this.focusOtherSession.ownerId.equals(userManager.getCurrentUser().id)) {
+            try {
+                loadCurrent();
+                miniPlayer.setVisibility(View.VISIBLE);
+            } catch (IOException ex) {
+                Log.e(TAG, "Couldn't load audio file " + session.audioFilename + ".wav");
+            }
+        }
     }
 
     private void showMiniProfile(User user) {
@@ -271,6 +342,7 @@ public class BrowseUserActivity extends LocationActivity {
 
     private void hideMiniProfile() {
         focusOtherUser = null;
+        focusOtherSession = null;
         miniPlayer.setVisibility(View.GONE);
         miniProfile.setVisibility(View.GONE);
     }
@@ -282,9 +354,19 @@ public class BrowseUserActivity extends LocationActivity {
                     this.addUserMarker(user);
                 }
             }
+
+            for (Session session : application.userManager.getSessions()) {
+                this.addSessionMarker(session);
+            }
         } catch (CouchbaseLiteException ex) {
             Log.e(TAG, "Unable to hit database: " + ex.getMessage());
         }
+    }
+
+    private void addSessionMarker(Session session) {
+        Marker marker = new SessionMarker(mapView, session, resources);
+        this.markerSessionMap.put(marker, session);
+        mapView.addMarker(marker);
     }
 
     private void addUserMarker(User user) {
@@ -293,16 +375,37 @@ public class BrowseUserActivity extends LocationActivity {
         mapView.addMarker(marker);
     }
 
-    private void openCircles(String id) {
+    private void openNetworked(String id) {
         Log.i(TAG, "Opening circles for " + id);
         Intent intent = new Intent(this, RecordWalkActivity.class);
         intent.putExtra(NetworkRecordingActivity.ID_EXTRA, id);
         startActivity(intent);
     }
 
+    private void openArchived(String id) {
+        Log.i(TAG, "Opening circles for " + id);
+        Intent intent = new Intent(this, PlaybackWalkActivity.class);
+        intent.putExtra(PlaybackRecordingActivity.ID_EXTRA, id);
+        startActivity(intent);
+    }
+
     public void connect(View v) {
-        new StringZeroMQClient(focusOtherUser.ip).execute(userManager.getCurrentUser().id);
-        openCircles(focusOtherUser.id);
+        if (focusOtherSession == null) {
+            new StringZeroMQClient(focusOtherUser.ip).execute(userManager.getCurrentUser().id);
+            openNetworked(focusOtherUser.id);
+        } else {
+            openArchived(focusOtherSession.id);
+        }
+    }
+
+    public void playerControl(View v) {
+        if (this.mediaPlayer.isPlaying()) {
+            this.mediaPlayer.pause();
+            this.playerControl.setImageResource(R.drawable.ic_play_arrow_white_24dp);
+        } else {
+            this.mediaPlayer.start();
+            this.playerControl.setImageResource(R.drawable.ic_pause_white_24dp);
+        }
     }
 
     // A Handler to receive messages from another BluetoothIPCActivity.
@@ -311,7 +414,7 @@ public class BrowseUserActivity extends LocationActivity {
         public boolean handleMessage(Message msg) {
             Log.i(TAG, "Got a message" + msg.toString());
             @SuppressWarnings("unchecked") String userID = (String) msg.obj;
-            openCircles(userID);
+            openNetworked(userID);
             return true;
         }
     }

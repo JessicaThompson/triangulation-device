@@ -143,15 +143,31 @@ public class CouchDBUserManager {
         return users;
     }
 
+    public Session getSession(String id) throws CouchbaseLiteException {
+        Log.d(TAG, "Trying to get session " + id);
+        return load(getRowById(sessionsView, id), Session.class);
+    }
+
     public User getUser(String id) throws CouchbaseLiteException {
         Log.d(TAG, "Trying to get user " + id);
         return load(getRowById(usersView, id), User.class);
     }
 
+    public List<Session> getSessions() throws CouchbaseLiteException {
+        Query sessionsQuery = sessionsView.createQuery();
+
+        List<Session> sessions = new ArrayList<>(sessionsView.getTotalRows());
+        for (QueryRow row : sessionsQuery.run()) {
+            sessions.add(load(row, Session.class));
+        }
+
+        return sessions;
+    }
+
     public List<Session> getSessionsForUser(User user) throws CouchbaseLiteException {
         Query sessionsQuery = sessionsView.createQuery();
 
-        List<Session> sessions = new ArrayList<>(usersView.getTotalRows());
+        List<Session> sessions = new ArrayList<>(sessionsView.getTotalRows());
         for (QueryRow row : sessionsQuery.run()) {
             Session session = load(row, Session.class);
             if (session.ownerId.equals(user.id)) {
