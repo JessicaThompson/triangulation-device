@@ -6,9 +6,7 @@ import android.content.res.Resources;
 import android.location.Location;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -21,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.couchbase.lite.CouchbaseLiteException;
 import com.mapbox.mapboxsdk.api.ILatLng;
@@ -34,9 +31,8 @@ import com.mapbox.mapboxsdk.views.MapViewListener;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
@@ -95,6 +91,7 @@ public class BrowseUserActivity extends LocationActivity {
     private Handler handler;
     private MediaPlayer mediaPlayer;
     private ProgressBar progressBar;
+    private Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,15 +115,8 @@ public class BrowseUserActivity extends LocationActivity {
         miniLocation = (TextView) miniProfile.findViewById(R.id.mini_location);
         miniDescription = (TextView) miniProfile.findViewById(R.id.mini_walk_description);
 
-        // Setup the map and user overlay.
-        UserLocationOverlay myLocationOverlay = new UserLocationOverlay(new GpsLocationProvider(this), mapView);
-        myLocationOverlay.enableFollowLocation();
-        myLocationOverlay.enableMyLocation();
-        myLocationOverlay.setDrawAccuracyEnabled(true);
-        mapView.getOverlays().add(myLocationOverlay);
-
         // Add the existing users to the map overlay.
-        this.addUsers();
+        this.updateMarkers();
 
         handler = new Handler();
 
@@ -176,6 +166,22 @@ public class BrowseUserActivity extends LocationActivity {
 
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            synchronized public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.i(TAG, "Removing markers.");
+                        mapView.removeMarkers(new ArrayList<>(markerUserMap.keySet()));
+                        mapView.removeMarkers(new ArrayList<>(markerSessionMap.keySet()));
+                        Log.i(TAG, "Adding markers.");
+                        updateMarkers();
+                    }
+                });
+            }
+        }, 60 * 1000, 60 * 1000);
     }
 
     @Override
@@ -209,6 +215,10 @@ public class BrowseUserActivity extends LocationActivity {
         switch (item.getItemId()) {
             case R.id.menu_profile:
                 openProfile(this.userManager.getCurrentUser());
+                return true;
+            case R.id.menu_instructions:
+                startActivity(new Intent(this, InstructionsActivity.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -323,14 +333,14 @@ public class BrowseUserActivity extends LocationActivity {
         this.miniDescription.setText(session.description);
 
         miniProfile.setVisibility(View.VISIBLE);
-        if (this.focusOtherSession.ownerId.equals(userManager.getCurrentUser().id)) {
-            try {
-                loadCurrent();
-                miniPlayer.setVisibility(View.VISIBLE);
-            } catch (IOException ex) {
-                Log.e(TAG, "Couldn't load audio file " + session.audioFilename + ".wav");
-            }
-        }
+//        if (this.focusOtherSession.ownerId.equals(userManager.getCurrentUser().id)) {
+//            try {
+//                loadCurrent();
+//                miniPlayer.setVisibility(View.VISIBLE);
+//            } catch (IOException ex) {
+//                Log.e(TAG, "Couldn't load audio file " + session.audioFilename + ".wav");
+//            }
+//        }
     }
 
     private void showMiniProfile(User user) {
@@ -346,7 +356,7 @@ public class BrowseUserActivity extends LocationActivity {
         this.miniLocation.setText(user.location);
         this.miniDescription.setText(user.description);
 
-        miniPlayer.setVisibility(View.VISIBLE);
+//        miniPlayer.setVisibility(View.VISIBLE);
         miniProfile.setVisibility(View.VISIBLE);
     }
 
@@ -357,10 +367,10 @@ public class BrowseUserActivity extends LocationActivity {
         miniProfile.setVisibility(View.GONE);
     }
 
-    private void addUsers() {
+    private void updateMarkers() {
         try {
             for (User user : application.userManager.getUsers()) {
-                if (user != application.userManager.getCurrentUser() && user.myLocation != null) {
+                if (user.myLocation != null) {
                     this.addUserMarker(user);
                 }
             }

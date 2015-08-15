@@ -3,8 +3,8 @@
         android:icon="@drawable/ic_person_white_24dp"
         android:title="@string/profile"
         android:showAsAction="always" />
-    <item android:id="@+id/menu_settings"
-        android:title="@string/settings"
+    <item android:id="@+id/menu_instructions"
+        android:title="@string/instructions"
         android:visible="true"
         android:showAsAction="never" />
 </menu>

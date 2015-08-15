@@ -76,10 +76,12 @@ public class RecordWalkActivity extends NetworkRecordingActivity {
         connectedName = (TextView) findViewById(R.id.connected_name);
         connectedLocation = (TextView) findViewById(R.id.connected_location);
 
-        connectedInfo.setVisibility(View.VISIBLE);
-        circleImageView.setImageBitmap(otherUser.picture);
-        connectedName.setText(otherUser.name);
-        connectedLocation.setText(otherUser.location);
+        if (otherUser != null) {
+            connectedInfo.setVisibility(View.VISIBLE);
+            circleImageView.setImageBitmap(otherUser.picture);
+            connectedName.setText(otherUser.name);
+            connectedLocation.setText(otherUser.location);
+        }
 
         handler = new Handler();
     }
@@ -87,6 +89,7 @@ public class RecordWalkActivity extends NetworkRecordingActivity {
     @Override
     public void onResume() {
         super.onResume();
+        this.pd.start();
     }
 
     @Override
@@ -139,7 +142,6 @@ public class RecordWalkActivity extends NetworkRecordingActivity {
 
             // Start PD.
             this.startRecording(application.userManager.getCurrentUser());
-            this.pd.start();
 
             updateTime.run();
         } else {

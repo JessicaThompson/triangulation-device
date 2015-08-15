@@ -24,6 +24,7 @@ import ca.triangulationdevice.android.R;
 import ca.triangulationdevice.android.model.User;
 import ca.triangulationdevice.android.model.Session;
 import ca.triangulationdevice.android.model.SessionAdapter;
+import ca.triangulationdevice.android.ui.partial.PlaybackRecordingActivity;
 import ca.triangulationdevice.android.ui.partial.TriangulationListActivity;
 
 public class ProfileActivity extends TriangulationListActivity {
@@ -97,7 +98,7 @@ public class ProfileActivity extends TriangulationListActivity {
         }
 
         if (user.id.equals(application.userManager.getCurrentUser().id)) {
-            connect.setVisibility(View.GONE);
+//            connect.setVisibility(View.GONE);
         } else if (!user.online) {
             connect.setEnabled(false);
         }
@@ -147,6 +148,10 @@ public class ProfileActivity extends TriangulationListActivity {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        // Do something when a list item is clicked
+        Session session = (Session) l.getAdapter().getItem(position);
+        Intent intent = new Intent(this, PlaybackWalkActivity.class);
+        intent.putExtra(PlaybackRecordingActivity.ID_EXTRA, session.id);
+        startActivity(intent);
+        this.finish();
     }
 }

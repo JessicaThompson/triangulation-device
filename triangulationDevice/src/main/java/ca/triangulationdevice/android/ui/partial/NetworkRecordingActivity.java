@@ -43,7 +43,7 @@ public abstract class NetworkRecordingActivity extends RecordingActivity {
         Intent intent = getIntent();
         try {
             String id = intent.getStringExtra(ID_EXTRA);
-            if (id != null) {
+            if (id != null && !id.equals(this.application.userManager.getCurrentUser().id)) {
                 solo = false;
                 otherUser = this.application.userManager.getUser(id);
                 ip = otherUser.ip;
@@ -94,7 +94,7 @@ public abstract class NetworkRecordingActivity extends RecordingActivity {
 
     protected void sendLocation(Location location) {
         Log.d(TAG, "Sending location: " + location.getLongitude() + ", " + location.getLatitude());
-        new ParcelableZeroMQClient<>(ip).execute(location);
+            new ParcelableZeroMQClient<>(ip).execute(location);
     }
 
     protected void sendStepCount(float stepCount) {

@@ -19,6 +19,7 @@ import com.facebook.login.widget.LoginButton;
 import ca.triangulationdevice.android.R;
 import ca.triangulationdevice.android.model.User;
 import ca.triangulationdevice.android.ui.partial.LocationActivity;
+import ca.triangulationdevice.android.util.GetCityTask;
 import ca.triangulationdevice.android.util.NetworkUtils;
 
 public class LoginActivity extends LocationActivity {
@@ -26,6 +27,7 @@ public class LoginActivity extends LocationActivity {
     private static final String TAG = "LoginActivity";
 
     private TextView loginName;
+    private CallbackManager callbackManager;
 
     /** Called when the activity is first created. */
     @Override
@@ -37,7 +39,7 @@ public class LoginActivity extends LocationActivity {
 
         loginName = (TextView) findViewById(R.id.name_field);
 
-        final CallbackManager callbackManager = CallbackManager.Factory.create();
+        callbackManager = CallbackManager.Factory.create();
         LoginButton loginButton = (LoginButton) findViewById(R.id.facebook_login);
         loginButton.setReadPermissions("public_profile");
 
@@ -45,25 +47,44 @@ public class LoginActivity extends LocationActivity {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_LONG).show();
+                Log.i(TAG, "Successful login.");
                 Profile profile = Profile.getCurrentProfile();
-                User current = new User();
+                final User current = new User();
                 current.id = application.installation;
                 current.name = profile.getName();
                 current.myLocation = getLocation();
                 current.picture = null;
-                startActivity(new Intent(LoginActivity.this, BrowseUserActivity.class));
-                LoginActivity.this.finish();
+                current.ip = NetworkUtils.getIPAddress(true);
+                GetCityTask task = new GetCityTask(LoginActivity.this, current.myLocation) {
+                    @Override
+                    protected void onPostExecute(String result) {
+                        current.location = result;
+                        try {
+                            application.userManager.add(current);
+
+                            if (application.userManager.logIn(application.installation)) {
+                                startActivity(new Intent(LoginActivity.this, BrowseUserActivity.class));
+                                LoginActivity.this.finish();
+                            } else {
+                                Toast.makeText(LoginActivity.this, "Could not log in current user!", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (CouchbaseLiteException e) {
+                            Toast.makeText(LoginActivity.this, "Could not log in current user!", Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                task.execute();
             }
 
             @Override
             public void onCancel() {
-                Toast.makeText(LoginActivity.this, "Cancelled", Toast.LENGTH_LONG).show();
+                Log.i(TAG, "Cancelled login.");
             }
 
             @Override
             public void onError(FacebookException exception) {
-                Toast.makeText(LoginActivity.this, "An exception occurred - please try again.", Toast.LENGTH_LONG).show();
+                Log.i(TAG, "Error in login." + exception.getMessage());
             }
         });
     }
@@ -77,31 +98,47 @@ public class LoginActivity extends LocationActivity {
             if (this.application.userManager.logIn(application.installation)) {
                 startActivity(new Intent(this, BrowseUserActivity.class));
                 this.finish();
+            } else {
+                Log.i(TAG, "Tried to log in but couldn't.");
             }
         } catch (CouchbaseLiteException ex) {
             // No user found.
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
     public void login(View v) {
         String name = loginName.getText().toString().trim();
-        User current = new User();
+        final User current = new User();
         current.id = application.installation;
         current.name = name;
         current.online = true;
         current.myLocation = getLocation();
         current.ip = NetworkUtils.getIPAddress(true);
-        try {
-            this.application.userManager.add(current);
-            if (this.application.userManager.logIn(application.installation)) {
-                startActivity(new Intent(this, BrowseUserActivity.class));
-                this.finish();
-            } else {
-                Toast.makeText(this, "Could not log in current user!", Toast.LENGTH_SHORT).show();
+        GetCityTask task = new GetCityTask(this, current.myLocation) {
+            @Override
+            protected void onPostExecute(String result) {
+                current.location = result;
+                try {
+                    application.userManager.add(current);
+
+                    if (application.userManager.logIn(application.installation)) {
+                        startActivity(new Intent(LoginActivity.this, BrowseUserActivity.class));
+                        LoginActivity.this.finish();
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Could not log in current user!", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (CouchbaseLiteException e) {
+                    Toast.makeText(LoginActivity.this, "Could not log in current user!", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
             }
-        } catch (CouchbaseLiteException ex) {
-            Toast.makeText(this, "Could not log in current user!", Toast.LENGTH_SHORT).show();
-            ex.printStackTrace();
-        }
+        };
+        task.execute();
     }
 }

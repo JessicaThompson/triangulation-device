@@ -6,7 +6,7 @@
     <string name="divider_description">REALLY, ANDROID?? REALLY?? YOU NEED A DESCRIPTION FOR A FUCKING DIVIDER??</string>
     
     <!-- Menu -->
-    <string name="settings">Settings</string>
+    <string name="instructions">Instructions</string>
     <string name="profile">Profile</string>
 
     <!-- Login screen -->

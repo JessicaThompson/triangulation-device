@@ -95,7 +95,6 @@ public class EditProfileActivity extends TriangulationActivity {
                 application.userManager.addProfilePicture(newProfileImage, user);
             }
 
-            Log.d(TAG, "Setting name: " + user.name + ", description: " + user.description);
             application.userManager.add(user);
         } catch (CouchbaseLiteException ex) {
             Log.e(TAG, "Couldn't save user to database: " + ex.getMessage());

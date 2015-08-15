@@ -26,7 +26,7 @@ public class Triangulation2Driver extends PDDriver implements OvalsView.CircleCh
     private Location myLocation;
     private Location theirLocation;
 
-    private static final String FILENAME = "triangulationdevice_interfacetest_Aug14.1.pd";
+    private static final String FILENAME = "triangulationdevice_interfacetest_Aug14.3.pd";
     private static final String AUDIO_FILENAME = "~bytes";
     public static final String AUDIO_SUFFIX = "wav";
 

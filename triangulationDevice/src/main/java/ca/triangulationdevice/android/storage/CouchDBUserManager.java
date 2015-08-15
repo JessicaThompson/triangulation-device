@@ -141,7 +141,8 @@ public class CouchDBUserManager {
         List<User> users = new ArrayList<>(usersView.getTotalRows());
         for (QueryRow row : userQuery.run()) {
             User user = load(row, User.class);
-            if (user.online && user != null && this.user != null && !user.id.equals(this.user.id))
+            loadProfilePicture(row, user);
+            if (user.online && this.user != null)// && !user.id.equals(this.user.id))
                 users.add(user);
         }
 
@@ -157,7 +158,11 @@ public class CouchDBUserManager {
         Log.d(TAG, "Trying to get user " + id);
         QueryRow row = getRowById(usersView, id);
         User user = load(row, User.class);
+        loadProfilePicture(row, user);
+        return user;
+    }
 
+    private void loadProfilePicture(QueryRow row, User user) throws CouchbaseLiteException {
         // Get the profile picture
         if (row != null) {
             Document doc = row.getDocument();
@@ -168,7 +173,6 @@ public class CouchDBUserManager {
                 user.picture = BitmapFactory.decodeStream(is);
             }
         }
-        return user;
     }
 
     public List<Session> getSessions() throws CouchbaseLiteException {
