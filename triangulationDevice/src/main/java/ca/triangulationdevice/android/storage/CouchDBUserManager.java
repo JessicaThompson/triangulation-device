@@ -224,7 +224,7 @@ public class CouchDBUserManager {
         Iterator<QueryRow> iterator = userQuery.run().iterator();
         if (iterator.hasNext()) {
             QueryRow next = iterator.next();
-            Log.d(TAG, "Has a row: " + next);
+            Log.d(TAG, "Has a row: " + id);
             return next;
         } else {
             Log.d(TAG, "No row found for ID: " + id);
@@ -235,7 +235,6 @@ public class CouchDBUserManager {
     private <T extends CouchObject> T load(QueryRow row, Class<T> clazz) {
         if (row == null) return null;
 
-        Log.d(TAG, row.getDocumentId() + " " + row.getDocument().getUserProperties().toString());
         Document doc = row.getDocument();
         T object = mapper.convertValue(doc.getProperties(), clazz);
         object.id = doc.getId();
