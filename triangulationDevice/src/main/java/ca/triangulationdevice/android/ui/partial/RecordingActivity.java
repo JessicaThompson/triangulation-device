@@ -100,8 +100,9 @@ public abstract class RecordingActivity extends StepCounterActivity {
     }
 
     protected void stop() {
-        if (this.started) {
+        if (this.recording) {
             this.session.saved = new Date();
+            this.recording = false;
         }
         this.started = false;
         this.pd.stop();
