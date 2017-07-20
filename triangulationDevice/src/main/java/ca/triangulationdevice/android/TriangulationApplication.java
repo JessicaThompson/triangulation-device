@@ -16,6 +16,7 @@ public class TriangulationApplication extends Application {
     public void onCreate() {
         super.onCreate();
         installation = Installation.id(this);
+        Log.d("BLAH",installation);
         userManager = new CouchDBUserManager(getApplicationContext());
     }
 

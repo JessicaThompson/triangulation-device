@@ -5,8 +5,10 @@ import org.apache.http.conn.util.InetAddressUtils;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.util.Collections;
 import java.util.List;
 
@@ -33,7 +35,7 @@ public class NetworkUtils {
      * @return  array of NULL if error was found
      */
     public static byte[] getUTF8Bytes(String str) {
-        try { return str.getBytes("UTF-8"); } catch (Exception ex) { return null; }
+        try{ return str.getBytes("UTF-8"); } catch (UnsupportedEncodingException ex) { return null;}
     }
 
     /**
@@ -61,7 +63,7 @@ public class NetworkUtils {
             }
             return isUTF8 ? new String(baos.toByteArray(), "UTF-8") : new String(baos.toByteArray());
         } finally {
-            try{ is.close(); } catch(Exception ex){}
+            is.close();
         }
     }
 
@@ -85,7 +87,7 @@ public class NetworkUtils {
                 if (buf.length()>0) buf.deleteCharAt(buf.length()-1);
                 return buf.toString();
             }
-        } catch (Exception ex) { } // for now eat exceptions
+        } catch (SocketException ex) { } // for now eat exceptions
         return "";
         /*try {
             // this is so Linux hack
@@ -121,7 +123,7 @@ public class NetworkUtils {
                     }
                 }
             }
-        } catch (Exception ex) { } // for now eat exceptions
+        } catch (SocketException ex) { } // for now eat exceptions
         return "";
     }
 

@@ -27,6 +27,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.ByteBuffer;
@@ -57,7 +58,9 @@ public class CouchDBUserManager {
 
         try {
             // Connect to the database.
+            Log.d(TAG,"test1");
             Manager manager = new Manager(new AndroidContext(context), Manager.DEFAULT_OPTIONS);
+            Log.d(TAG,"test2");
             database = manager.getDatabase(DB_NAME);
 
             if (false) {
@@ -109,7 +112,7 @@ public class CouchDBUserManager {
             });
             push.start();
             pull.start();
-        } catch (Exception e) {
+        } catch (IOException | CouchbaseLiteException e) {
             Log.e(TAG, "Error getting database", e);
         }
     }
