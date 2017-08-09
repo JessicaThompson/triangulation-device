@@ -14,8 +14,10 @@ public class Installation {
 
     public synchronized static String id(Context context) {
         if (sID == null) {
+            //creating new file "installation" within android structure
             File installation = new File(context.getFilesDir(), INSTALLATION);
             try {
+                //if file does not exist create it
                 if (!installation.exists())
                     writeInstallationFile(installation);
                 sID = readInstallationFile(installation);

@@ -58,8 +58,9 @@ public class CouchDBUserManager {
 
         try {
             // Connect to the database.
-            Log.d(TAG,"test1");
-            Manager manager = new Manager(new AndroidContext(context), Manager.DEFAULT_OPTIONS);
+            //Log.d(TAG,"test1");
+            AndroidContext managerContext = new AndroidContext(context);
+            Manager manager = new Manager(managerContext, Manager.DEFAULT_OPTIONS);
             Log.d(TAG,"test2");
             database = manager.getDatabase(DB_NAME);
 
