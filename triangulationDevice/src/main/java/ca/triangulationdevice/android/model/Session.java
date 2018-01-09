@@ -2,6 +2,7 @@ package ca.triangulationdevice.android.model;
 
 import android.location.Location;
 import android.text.format.DateUtils;
+import android.util.Log;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -43,7 +44,7 @@ public class Session extends CouchObject {
         public List<Point> points = new ArrayList<>();
 
         @JsonIgnoreProperties(ignoreUnknown = true)
-        public static class Point {
+        public static class Point extends CouchObject {
             @JsonDeserialize(using = LocationDeserializer.class)
             public Location location;
             public float azimuth;
@@ -59,6 +60,7 @@ public class Session extends CouchObject {
             point.pitch = pitch;
             point.roll = roll;
             point.stepCount = stepCount;
+            Log.d("POINT","Adding Point: " + Double.toString(location.getLatitude()) + ", " + Double.toString(location.getLongitude()));
             this.points.add(point);
         }
     }

@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 22
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         minSdkVersion 21
@@ -29,7 +29,9 @@ android {
         exclude 'META-INF/license.txt'
         exclude 'META-INF/dependencies.txt'
         exclude 'META-INF/LGPL2.1'
+        pickFirst 'lib/armeabi-v7a/liblrshift_tilde.so'
     }
+
 
 }
 
@@ -41,9 +43,11 @@ dependencies {
     compile 'com.couchbase.lite:couchbase-lite-android:1.4.0'
     //compile 'com.android.support:multidex:1.0.0'
     compile 'org.zeromq:jeromq:0.3.5'
-    compile 'org.puredata.android:pd-core:1.0.2'
+    //compile 'org.puredata.android:pd-core:1.0.2'
+    //implementation project(':PdCore')
     //compile project(':PdCore')
     //compile project(':AndroidMidi')
     compile 'com.google.android.gms:play-services-base:7.5.0'
     compile 'com.google.android.gms:play-services-location:7.5.0'
+    implementation project(':PdCore')
 }

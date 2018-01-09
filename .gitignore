@@ -15,8 +15,8 @@ bin/
 gen/
 
 # Gradle files
-.gradle/
 build/
+.gradle/
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -26,7 +26,6 @@ proguard/
 
 *.pydevproject
 .metadata
-.gradle
 bin/
 tmp/
 *.tmp
@@ -49,5 +48,3 @@ local.properties
 # TeXlipse plugin
 .texlipse
 
-PDCore
-AndroidMidi

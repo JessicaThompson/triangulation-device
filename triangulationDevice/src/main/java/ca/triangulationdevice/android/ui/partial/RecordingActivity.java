@@ -60,8 +60,7 @@ public abstract class RecordingActivity extends StepCounterActivity {
 
         if (this.started) {
             if (this.recording) {
-                float[] lastOrientation = this.getLastOrientation();
-                this.session.paths.get(Session.Path.MINE).addPoint(location, lastOrientation[0], lastOrientation[1], lastOrientation[2], lastStepCount);
+                addLocationToSession(location);
             }
             this.pd.myLocationChanged(location);
         }
@@ -90,6 +89,11 @@ public abstract class RecordingActivity extends StepCounterActivity {
     protected void startAudio() {
         this.started = true;
         this.pd.start();
+    }
+
+    protected void addLocationToSession(Location loc){
+        float[] lastOrientation = this.getLastOrientation();
+        this.session.paths.get(Session.Path.MINE).addPoint(loc, lastOrientation[0], lastOrientation[1], lastOrientation[2], lastStepCount);
     }
 
     protected void startRecording(User user) {

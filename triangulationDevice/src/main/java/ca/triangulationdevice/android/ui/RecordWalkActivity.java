@@ -64,6 +64,8 @@ public class RecordWalkActivity extends NetworkRecordingActivity {
     private long lastUserLocationUpdateTime = System.currentTimeMillis();
     private MapView mapView;
 
+    private Date endTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -156,15 +158,20 @@ public class RecordWalkActivity extends NetworkRecordingActivity {
 
             // Start PD.
             this.startRecording(application.userManager.getCurrentUser());
+            //record an initial location
+            addLocationToSession(this.getLocation());
 
             updateTime.run();
         } else {
-            startTime = null;
+            endTime = new Date();
 
             // Change the record button back.
             Drawable recordButton = getResources().getDrawable(R.drawable.record);
             control.setCompoundDrawablesWithIntrinsicBounds(null, recordButton, null, null);
             control.setText("REC");
+
+            //record a final location
+            addLocationToSession(this.getLocation());
 
             // Stop PD.
             this.pd.stop();
@@ -172,6 +179,8 @@ public class RecordWalkActivity extends NetworkRecordingActivity {
             handler.removeCallbacks(updateTime);
 
             this.save();
+            startTime = null;
+            endTime = null;
         }
     }
 
@@ -180,7 +189,7 @@ public class RecordWalkActivity extends NetworkRecordingActivity {
         Bundle args = new Bundle();
         args.putString("location", application.userManager.getCurrentUser().location);
 
-        args.putString("duration", session.duration());
+        args.putString("duration", Long.toString((endTime.getTime() - startTime.getTime()) /1000));
         confirmFragment.setArguments(args);
 
         final SaveRecordingDialogFragment fragment = new SaveRecordingDialogFragment();

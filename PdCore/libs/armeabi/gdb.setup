@@ -1,0 +1,2 @@
+set solib-search-path B:/Programming/Projects/triangulation-device/PdCore/obj/local/armeabi
+directory A:/Programs/AndroidSDK/ndk-bundle/build//../sysroot B:/Programming/Projects/triangulation-device/PdCore/jni/libpd/pure-data/src B:/Programming/Projects/triangulation-device/PdCore/jni/libpd/libpd_wrapper B:/Programming/Projects/triangulation-device/PdCore/jni/libpd/libpd_wrapper/util B:/Programming/Projects/triangulation-device/PdCore/jni/libpd/jni A:/Programs/AndroidSDK/ndk-bundle/build//../sources/cxx-stl/system
