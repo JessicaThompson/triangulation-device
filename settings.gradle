@@ -1,1 +1,1 @@
-include ':triangulationDevice', ':AndroidMidi', ':PdCore'
+include ':triangulationDevice', ':AndroidMidi', ':PdCore', ':ScenePlayer', ':Voice-O-Rama', ':PdTest', ':CircleOfFifths'
