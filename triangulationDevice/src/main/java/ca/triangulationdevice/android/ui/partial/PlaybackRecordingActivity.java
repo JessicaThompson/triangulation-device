@@ -90,7 +90,9 @@ public abstract class PlaybackRecordingActivity extends RecordingActivity {
         @Override
         public void run() {
             Session.Path myPath = playbackSession.paths.get(Session.Path.MINE);
+
             while (!Thread.currentThread().isInterrupted()) {
+                System.out.print(startTime);
                 if (startTime > -1) {
                     if (myIndex < myPath.points.size()) {
                         long elapsed = System.currentTimeMillis() - startTime;

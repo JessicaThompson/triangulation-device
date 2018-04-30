@@ -35,7 +35,6 @@ public class ConfirmSaveRecordingDialogFragment extends DialogFragment {
 
         String location = getArguments().getString("location");
         String duration = getArguments().getString("duration");
-
         LayoutInflater inflater = getActivity().getLayoutInflater();
         view = (ViewGroup) inflater.inflate(R.layout.confirm_save_dialog, null);
         TextView locationView = (TextView) view.findViewById(R.id.mini_location);

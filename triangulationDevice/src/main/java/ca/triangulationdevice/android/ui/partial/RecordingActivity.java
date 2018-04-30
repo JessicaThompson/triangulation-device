@@ -118,6 +118,9 @@ public abstract class RecordingActivity extends StepCounterActivity {
         this.session.title = title;
         this.session.description = description;
         this.session.startLocation = this.session.paths.get(Session.Path.MINE).points.get(0).location;
+        if (this.session.saved == null){
+            this.session.saved = new Date();
+        }
         GetCityTask task = new GetCityTask(this, this.session.startLocation) {
             @Override
             protected void onPostExecute(String result) {

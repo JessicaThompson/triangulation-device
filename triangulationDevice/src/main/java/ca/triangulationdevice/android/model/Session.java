@@ -19,7 +19,7 @@ public class Session extends CouchObject {
     public String ownerId;
     public String title;
     public String description;
-    public Date saved;
+    public Date saved = null;
     @JsonDeserialize(using = LocationDeserializer.class)
     public Location startLocation;
     public String location;
